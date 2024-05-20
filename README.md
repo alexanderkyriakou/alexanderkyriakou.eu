@@ -1,2 +1,2 @@
 # alexanderkyriakou.github.io
-GH personal website - under constraction
+Personal website, notes, experiments and a digital playground
