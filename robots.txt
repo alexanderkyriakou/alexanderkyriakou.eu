@@ -1,0 +1,4 @@
+# There's never enough time to do all the nothing you want. • Bill Watterson
+
+User-agent: *
+Allow: / 
