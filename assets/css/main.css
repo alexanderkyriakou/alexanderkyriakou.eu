@@ -458,6 +458,9 @@ nav {
     width: 100%;
   }
 
+  .footer-bg-one {
+    animation: myfirst 10s linear infinite;
+  }
 
   .f-group-2 {
     margin-top: 20px;
@@ -484,6 +487,10 @@ nav {
     margin: auto;
     left: -50%;
     right: 50%;
+  }
+
+  .footer-bg-two {
+    display: none;
   }
 
   .footer-bg-three {
