@@ -1,9 +1,5 @@
 # Alexander Kyriakou Resume
 
-[alexanderkyriakou@gmail.com](mailto:alexanderkyriakou@gmail.com) ✉
-[(+30) 6949449677](tel:+306949449677) 🖁
-[Athens 17676](https://maps.app.goo.gl/dbFL59a8o9cYiQaCA) ⌕
-
 *SEO and Organic Growth Product Manager with expertise in technical SEO, web development, analytics, and cross-functional product delivery. A strong advocate for digital literacy and societal transformation through digital means.*
 
 ---
