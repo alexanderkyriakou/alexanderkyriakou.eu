@@ -118,8 +118,8 @@
 
 /*honey comb*/
 .honeycomb {
-  --s: 200px; /* size */
-  --g: 10px;  /* gap */
+  --s: 200px; /*size*/
+  --g: 10px;  /*gap*/
   display: grid;
   margin: calc(var(--s) + var(--g));
 }
@@ -135,7 +135,7 @@
   cursor: pointer;
   filter: grayscale(90%);
   transition: .3s linear;
-  display: grid;               /* center the text */
+  display: grid;
   place-items: center;
   color: white;
   text-align: center;
