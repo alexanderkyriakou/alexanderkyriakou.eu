@@ -1,9 +1,5 @@
 # Alexander Kyriakou Resume
 
-[[REDACTED]](mailto:[REDACTED]) ✉
-[(+30) [REDACTED]](tel:+30[REDACTED]) 🖁
-[Athens 17676](https://maps.app.goo.gl/dbFL59a8o9cYiQaCA) ⌕
-
 *SEO and Organic Growth Product Manager with expertise in technical SEO, web development, analytics, and cross-functional product delivery. A strong advocate for digital literacy and societal transformation through digital means.*
 
 ---
