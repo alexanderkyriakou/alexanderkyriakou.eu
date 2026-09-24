@@ -453,7 +453,7 @@ nav {
   }
     
   .hp-hero-photo-container {
-    width: min(80%, 350px);
+    width: min(75%, 350px);
     max-height: 40vh;
     margin-top: 10px;
   }
