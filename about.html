@@ -8,8 +8,6 @@
   <meta name="author" content="Alexander Kyriakou">
   <link rel="canonical" href="https://alexanderkyriakou.eu/about">
   <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="assets/css/about.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
   <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
@@ -34,7 +32,144 @@
   <meta property="og:url" content="https://alexanderkyriakou.eu/about"/>
   <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/opengraph/hp-temp-og.jpg"/>
   <!--og tags end-->
+<style>
+.nav-list > li:nth-child(2) a {
+  color: #1e90ff;
+}
 
+.post :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: 10px;
+}
+
+.post > p {
+  margin-top: 10px;
+}
+
+.post li {
+  font-size: 1.2rem;
+}
+
+/*about hero section start*/
+.about-hero {
+  width: 100%;
+  height: 75vh;
+  max-height: 1920px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  margin-bottom: 30px;
+}
+
+.about-hero-text,
+.about-hero svg {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.about-hero-image {
+  min-width: 40%;
+  height: 80%;
+}
+
+.about-hero-text h1,
+.about-hero-text h4 {
+  margin: 0.2rem;
+  text-align: center;
+  color: #FAF9F6;
+}
+/*end of about hero section*/
+
+/*platforms grid start*/
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.grid-auto-fit > a {
+  display: block;
+  min-width: 0;
+}
+
+.item {
+  border: 1px solid #858da8;
+  border-radius: 8px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: border 0.5s ease;
+}
+
+.item:hover {
+  border: 1px solid #000;
+}
+
+.item img {
+  max-width: 100%;
+  max-height: calc(100% - 20px);
+  object-fit: contain;
+  padding-bottom: 10px;
+}
+
+.item span {
+  position: absolute;
+  bottom: 0;
+  color: #858da8;
+  font-size: 0.8rem;
+  padding: 5px;
+}
+/*platforms grid end*/
+
+.about-speck {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: -30px;
+}
+
+/*mobile devices*/
+@media (max-width: 768px) {
+  .about-hero {
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .about-hero-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    order: -1;
+}
+
+  .about-hero-text {
+    text-align: center;
+    margin: -10px auto 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .about-hero-text h1,
+  .about-hero-text h4 {
+    margin: 0.4rem;
+    padding: 0 10px;
+  }
+
+  .about-speck {
+    margin-bottom: -10px;
+  }
+}
+/*end mobile devices*/
+</style>
 </head>
   
 <body>
@@ -113,11 +248,11 @@
 <p>I'm a big fan of technology and its potential to improve our world. In my free time, I enjoy tinkering with the digital spaces, learning new skills, and staying up-to-date with technological news. Overall, I strive to live a balanced life, and maintain ways of being that will make my future self proud of its past. </p>
 
   <figure>
-  <img class="about-photo" draggable="false" src="assets/images/alexander-kyriakou-malta-2020.gif" loading="lazy" alt="A gif of Alexander Kyriakou, Valletta in Malta, 2020 "/>
-  <figcaption class="about-photo-caption">Me in Malta, Summer of 2020</figcaption>
+    <img draggable="false" src="assets/images/alexander-kyriakou-malta-2020.gif" loading="lazy" alt="A gif of Alexander Kyriakou, Valletta in Malta, 2020 "/>
+    <figcaption class="about-photo-caption">Me in Malta, Summer of 2020</figcaption>
   </figure>
 
-<h3>Professional work-life</h3>
+<h3 style="margin-top: 10px;">Professional work-life</h3>
 <p>My first experience in a work environment was interning in the HR department of my University, followed by a gig as a Production Assistant for an event company. In parallel I was working as Technical Support to local pharmacies and doctors' offices. Around late 2017, I joined a language center in Piraeus as a Moodle developer, where I had the opportunity to create the <a href="https://fastschool.eu/elearning/" target="_blank">fastschool English elearning platform</a>. After a year or so, I started teaching computer skills to adults in order to obtain the ECDL certificate.</p>
 
 <p>In 2019 served in the Greek army, and was stationed in the beautiful Nisyros island as part of the 2nd and 3rd office. Perhaps uncommonly, I had a positive experience in the military, wherein I was grateful to meet a lot of interesting people and some fun parts of myself.</p>
@@ -176,7 +311,7 @@
 
 <p><i>But, but - Alex you can spew countless pages with so many tools, why you're not doing that? We're not in the 90s anymore.</i> Sure. But where's the fun in that?</p>
 
-<p>My goal is to develop this website to a mix of blog and portfolio, simple as possible without any unnecessary clutter, while providing a calming (or retro) digital experience. Everything is handcrafted, from the code to the content. Maybe it's naive, but I want to keep it this way (parts that are generated, will be disclaimed).</p>
+<p>My goal is to develop this website to a mix of blog and portfolio, simple as possible without any unnecessary clutter, while providing a calming (or retro) digital experience. Everything is handcrafted, the content and to a high extent the code. Maybe it's naive, but I want to keep it this way (parts that are generated, will be disclaimed).</p>
 
 <p>The .eu domain was chosen to reflect my support for life in the European Union.</p>
 
@@ -200,7 +335,7 @@
 <p>There are no analytics or ad services on this website, thus no cookies (sorry).</p>
 
 <!-- TODO JS date auto-update on commit -->
-<p class="updated-date"><i>Updated: September 23, 2026</i></p>
+<p class="updated-date"><i>Updated on September 25, 2026</i></p>
     </div>
 </div>
 

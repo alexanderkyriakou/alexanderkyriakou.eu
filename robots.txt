@@ -4,7 +4,7 @@ User-agent: Googlebot
 User-agent: Google-Extended
 User-agent: Bingbot
 User-agent: YandexBot
-User-agent: FacebookExternalHi
+User-agent: FacebookExternalHit
 User-agent: OAI-SearchBot
 User-agent: GPTBot
 User-agent: anthropic-ai

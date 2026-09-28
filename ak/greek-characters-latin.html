@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greek Characters to Latin per ELOT-743 Standard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Transliterate Greek letters to Latin ones per official conventions.">
+  <meta name="author" content="Alexander Kyriakou">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/greek-characters-latin">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/thoughts.css">
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+
+  <meta name="twitter:dnt" content="on">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="Greek Characters to Latin per ELOT-743 Standard"/>
+  <meta property="og:description" content="Transliterate Greek letters to Latin ones per official conventions."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/greek-characters-latin"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/greek-characters-latin/og/athens-acropolis-caryatides-2021.jpg"/>
+  <!--og tags end-->
+</head>
+  
+<body>
+  <header>
+    <div class="nav-border">
+     <nav role="navigation">
+<!--mobile menu start-->
+        <div class="mobile-menu">
+            <ul class="nav-list">
+                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+            </ul>
+            </div>
+<!--mobile menu end-->
+
+<!--desktop menu start-->
+        <div class="desktop-menu">
+            <ul class="nav-list">
+                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+            </ul>
+        </div>
+<!--desktop menu end-->
+    </nav>
+    </div>
+
+<style>
+.converter {
+  width: min(calc(100% - 2rem), 1100px);
+  margin: 20px auto;
+}
+
+.converter-header {
+  margin-bottom: 1.5rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+.intro {
+  margin: 10px 0;
+}
+
+.converter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.field {
+  min-width: 0;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 260px;
+  padding: 1rem;
+  border: 1px solid #d9d9d9;
+  outline: none;
+  background: #fff;
+  font: inherit;
+  line-height: 1.6rem;
+  letter-spacing: 0.6px;
+  resize: vertical;
+  transition: border-color 150ms ease;
+  box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
+}
+
+textarea:focus {
+  border-color: #aaa;
+}
+
+textarea[readonly] {
+  background: #fafafa;
+
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-top: 5px;
+}
+
+button {
+  appearance: none;
+  border: 0;
+  padding: 5px;
+  margin-left: -5px;
+  background: none;
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
+  cursor: pointer;
+  color: #555;
+}
+
+.copy-area {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  min-height: 1.5em;
+  gap: 1rem;
+}
+
+.copy-status {
+  display: inline-block;
+  color: #555;
+  margin-left: -15px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.copy-status.visible {
+  opacity: 1;
+}
+
+.clear-button {
+  opacity: 0;
+  visibility: hidden;
+  margin: -5px -5px -5px auto;
+  transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+}
+
+.clear-button.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.container {
+  margin-top: 20vh;
+}
+
+.reveal {
+  opacity: 0;
+  transition: opacity 0.6s ease-in;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .converter {
+    width: min(calc(100% - 2rem), 700px);
+    padding-bottom: 2.5rem;
+  }
+
+  .converter-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  textarea {
+    min-height: 220px;
+  }
+
+  .container {
+    margin-top: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+  <main class="converter">
+    <header class="converter-header">
+      <h1>Greek to Latin characters converter</h1>
+      <p class="intro">Transliterate Greek text to Latin per official conventions, ELOT 743 / ISO 843.</p>
+    </header>
+
+    <div class="converter-grid">
+      <section class="field">
+        <label class="field-label" for="input">Greek</label>
+        <textarea id="input" placeholder="Type or paste Greek text here..."></textarea>
+
+        <div class="controls">
+          <button class="text-control" type="button" id="uppercase">
+            Uppercase
+          </button>
+
+          <button class="text-control" type="button" id="lowercase">
+            Lowercase
+          </button>
+        </div>
+      </section>
+
+
+      <section class="field">
+        <label class="field-label" for="output">Latin/Greeklish</label>
+
+        <textarea id="output" readonly spellcheck="false"></textarea>
+
+        <div class="copy-area">
+          <button class="text-control" type="button" id="hyphenate">
+            Add hyphens
+          </button>
+
+          <button class="copy-button" type="button" id="copy-text">
+            Copy text
+          </button>
+
+          <span class="copy-status" id="copy-status" role="status">
+            Done!
+          </span>
+
+          <button class="clear-button" type="button" id="clear-text">
+          Clear
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+<div class="container" role="main">
+<h2>Greek language is <em>not</em> that web friendly</h2>
+
+<p>This mini tool is mainly for personal use, as I've caught myself multiple times visiting an equivalent tool simply to solve the issue of Greek to Latin letter standardization. I still haven't met 2 people who will transliterate the Greek language in the same way, or at least with 95% similarity.</p>
+
+<p>I, for example, will never write the multiple <em>i</em>'s (η, ι, υ, οι, ει) in different ways, but even then, the word <em>είναι</em> (is) will always be <em>einai</em> for me, rather than <em>ine</em>, as the latter just looks ugly. Same for the <em>o</em>: we have ο (omicron) and ω (omega). The simple word <em>εγώ</em> (I), I've never written as <em>ego</em>, but always as <em>egw</em>. It feels better, what can I say.</p>
+
+<p>Thus this little tool, because I kept needing something like it whenever I wanted to use Greek copy in public-facing files. And this time, without the extra actions like Click/Select → Ctrl + A → Copy → Use, or the headache of copying a sentence-case blog title, then having to transform it to lowercase beforehand or manually because, "eh, it's just a few letters". Or the headache of adding hyphens, so things published can be more bot-friendly (the world we live in).</p>
+
+<p>Now, once the page is open: Write/Paste → Click → Use.</p>
+
+<p>PS: Double spaces won't become double hyphens, cough cough, but simply one hyphen.</p>
+
+<p>Main use cases, where it really unties my hands, are naming things originating from Greek copy: URL slugs (in case standardization isn't implemented from the backend already), filenames (usually images), and, more rarely, something else. A slug is basically just a filename for an HTML file anyway.</p>
+
+<p>Interesting factoid: Greek written with Latin letters is commonly known as <em>Greeklish</em>, but the practice probably originates way before the creation of the Internet, in a form known as <em>Φραγκοχιώτικα</em> (Fragkochiotika). There's an interesting <a href="https://www.blod.gr/lectures/ti-greeklish-ti-fragkohiotika/" target="_blank">10-minute lecture from the Bodossaki Foundation</a> (in Greek) on the subject.</p>
+
+<p>In case the 10-minute lecture is too long for now, <a href="#fragkochiotika-example">here's an old document where the Greek language is written with Latin letters.</a></p>
+
+<div id="fragkochiotika-example" class="reveal" hidden="until-found">
+	<figure>
+		<img src="..\assets\images\thoughts\greek-characters-latin\fragkochiotika-prosevchi-engrafo.avif" loading="lazy" width="2172" height="1449" alt="An old document in Greek lamguage written using Latin letters, Fragkochiotika">
+		<figcaption>
+			An example of Greek language written with Latin letters, in Fragkochiotika
+		</figcaption>
+	</figure>
+</div>
+
+<!-- 
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="https://alexanderkyriakou.eu">ak</a>
+  <span aria-hidden="true">›</span>
+
+  <a href="https://alexanderkyriakou.eu/thoughts">thoughts</a>
+  <span aria-hidden="true">›</span>
+
+  <div class="breadcrumb-dropdown">
+    <a href="https://alexanderkyriakou.eu/thoughts/tools/" class="breadcrumb-tools">tools</a>
+    <ul>
+      <li><a href="https://alexanderkyriakou.eu/thoughts/#">future</a></li>
+      <li><a href="https://alexanderkyriakou.eu/thoughts/#">future</a></li>
+    </ul>
+  </div>
+</nav>-->
+</div>
+
+<footer role="contentinfo">
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <h4>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</h4>
+                  </div>
+
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg></a></li>
+                        <li><a href="https://bsky.app/profile/alexanderkyriakou.eu" title="Alexander Kyriakou on Bluesky" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+        <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" alt="Illustration of a city outline, transparent">
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+      </div>
+  </div>
+    <div class="copyright" aria-label="Copyright info">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+    </div>
+</footer>
+
+<script type="text/javascript">
+    window.onload = function() {
+    var inputElement = document.getElementById('input')
+    inputElement.focus()
+    inputElement.onkeyup = transform
+    inputElement.onmouseup = transform
+    inputElement = null
+    var prevText = null
+    transform()
+
+    function transform() {
+        var text = document.getElementById('input').value
+        if (prevText != text) {
+        prevText = text
+        document.getElementById('output').value = toGreeklish(text)
+        }
+    }
+    }
+
+    function toGreeklish(text) {
+    var grCaps = stringToSet('ΑΆΒΓΔΕΈΖΗΉΘΙΊΪΚΛΜΝΞΟΌΠΡΣΤΥΎΫΦΧΨΩΏ ')
+    var replacements = [
+        {greek:'αι', greeklish:'ai'},
+        {greek:'αί', greeklish:'ai'},
+        {greek:'οι', greeklish:'oi'},
+        {greek:'οί', greeklish:'oi'},
+        {greek:'ου', greeklish:'ou'},
+        {greek:'ού', greeklish:'ou'},
+        {greek:'ει', greeklish:'ei'},
+        {greek:'εί', greeklish:'ei'},
+        {greek:'αυ', fivi:1},
+        {greek:'αύ', fivi:1},
+        {greek:'ευ', fivi:1},
+        {greek:'εύ', fivi:1},
+        {greek:'ηυ', fivi:1},
+        {greek:'ηύ', fivi:1},
+        {greek:'ντ', greeklish:'nt'},
+        {greek:'μπ', bi:1},
+        {greek:'τσ', greeklish:'ts'},
+        {greek:'τς', greeklish:'ts'},
+        {greek:'ΤΣ', greeklish:'ts'},
+        {greek:'τζ', greeklish:'tz'},
+        {greek:'γγ', greeklish:'ng'},
+        {greek:'γκ', greeklish:'gk'},
+        {greek:'θ' , greeklish:'th'},
+        {greek:'χ' , greeklish:'ch'},
+        {greek:'ψ' , greeklish:'ps'},
+        {greek:'γχ' , greeklish:'nch'},
+        {greek:'γξ' , greeklish:'nx'},
+    ]
+
+    // Remove extraneus array element
+    if (!replacements[replacements.length - 1]) replacements.pop()
+
+    // Enchance replacements
+    for (var i = 0, replacement; replacement = replacements[i]; i++) {
+        replacements[replacement.greek] = replacement
+    }
+
+    // Append single letter replacements
+    var grLetters  = 'αάβγδεέζηήθιίϊΐκλμνξοόπρσςτυύϋΰφχψωώ'
+    var engLetters = 'aavgdeezii.iiiiklmnxooprsstyyyyf..oo'
+
+    for (var i = 0; i < grLetters.length; i++) {
+        if (!replacements[grLetters.charAt(i)]) {
+        replacements.push({
+            greek:grLetters.charAt(i),
+            greeklish:engLetters.charAt(i)
+        })
+        }
+    }
+
+    // Enchance replacements, build expression
+    var expression = []
+
+    for (var i = 0, replacement; replacement = replacements[i]; i++) {
+        replacements[replacement.greek] = replacement
+        expression[i] = replacement.greek
+    }
+
+    expression = new RegExp(expression.join('|'), 'gi')
+
+    // Replace greek with latin characters
+    var greekSet = stringToSet(grLetters)
+    var viSet = stringToSet('αάβγδεέζηήλιίϊΐμνοόρυύωώ')
+
+    text = text.replace(expression, function($0, index) {
+        var replacement = replacements[$0.toLowerCase()]
+
+        if (replacement.bi) {
+        var bi = (
+            greekSet[text.charAt(index - 1).toLowerCase()] &&
+            greekSet[text.charAt(index + 2).toLowerCase()]
+        ) ? 'mp' : 'b'
+
+        return fixCase(bi, $0)
+
+        } else if (replacement.fivi) {
+        var c1 = replacements[
+            $0.charAt(0).toLowerCase()
+        ].greeklish
+
+        var c2 = viSet[
+            text.charAt(index + 2).toLowerCase()
+        ] ? 'v' : 'f'
+
+        return fixCase(c1 + c2, $0)
+
+        } else {
+        return fixCase(
+            replacement.greeklish,
+            $0 + text.charAt(index + $0.length)
+        )
+        }
+    })
+
+    return text
+
+    function fixCase(text, mirror) {
+        if (grCaps[mirror.charAt(0)]) {
+        if (mirror.length == 1 || grCaps[mirror.charAt(1)]) {
+            return text.toUpperCase()
+        } else {
+            return text.charAt(0).toUpperCase() + text.substr(1)
+        }
+        } else {
+        return text
+        }
+    }
+
+    function stringToSet(s) {
+        var o = {}
+
+        for (var i = 0; i < s.length; i++) {
+        o[s.charAt(i)] = 1
+        }
+
+        return o
+    }
+    }
+
+  var input = document.getElementById('input');
+  var output = document.getElementById('output');
+
+  var uppercaseButton = document.getElementById('uppercase');
+  var lowercaseButton = document.getElementById('lowercase');
+
+  var copyButton = document.getElementById('copy-text');
+  var copyStatus = document.getElementById('copy-status');
+
+  var hyphenateButton = document.getElementById('hyphenate');
+
+  var clearButton = document.getElementById('clear-text');
+
+
+  function addHyphens(text) {
+    return text.replace(/ +/g, '-');
+  }
+
+
+  function updateOutput() {
+    output.value = toGreeklish(input.value);
+    updateClearButton();
+  }
+
+
+  function showCopied() {
+    copyStatus.classList.add('visible');
+
+    window.setTimeout(function() {
+      copyStatus.classList.remove('visible');
+    }, 1400);
+  }
+
+
+  function updateClearButton() {
+    if (input.value) {
+      clearButton.classList.add('visible');
+    } else {
+      clearButton.classList.remove('visible');
+    }
+  }
+
+
+  hyphenateButton.addEventListener('click', function() {
+
+    if (!input.value) {
+      return;
+    }
+
+    output.value = addHyphens(toGreeklish(input.value));
+
+    input.focus();
+
+  });
+
+
+  uppercaseButton.addEventListener('click', function() {
+
+    input.value = input.value.toUpperCase();
+
+    if (output.value) {
+      output.value = output.value.toUpperCase();
+    }
+
+    input.focus();
+
+  });
+
+
+  lowercaseButton.addEventListener('click', function() {
+
+    input.value = input.value.toLowerCase();
+
+    if (output.value) {
+      output.value = output.value.toLowerCase();
+    }
+
+    input.focus();
+
+  });
+
+
+  clearButton.addEventListener('click', function() {
+
+    if (!input.value) {
+      return;
+    }
+
+    input.value = '';
+    output.value = '';
+
+    updateClearButton();
+
+    input.focus();
+
+  });
+
+
+  input.addEventListener('input', function() {
+    updateClearButton();
+  });
+
+
+  copyButton.addEventListener('click', function() {
+
+    if (!output.value) {
+      return;
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+
+      navigator.clipboard
+        .writeText(output.value)
+        .then(showCopied);
+
+    } else {
+
+      output.focus();
+      output.select();
+      document.execCommand('copy');
+
+      window.getSelection().removeAllRanges();
+
+      showCopied();
+    }
+
+});
+
+  var element = document.querySelector('.reveal');
+
+  element.addEventListener('beforematch', function() {
+    element.classList.add('is-visible');
+  });
+</script>
+
+</body>
+</html>
