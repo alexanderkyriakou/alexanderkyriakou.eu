@@ -34,7 +34,7 @@
 <style>
 .flex {
   display: flex;
-  margin: 20px 0;
+  margin: 20px 0 10px 0;
   gap: 0 20px;
 }
 
@@ -156,6 +156,7 @@ tr, td {
 
 tr > td:first-of-type {
   font-size: 1.1rem;
+  text-align: right;
   padding-right: 15px;
   color: #555;
   text-wrap: nowrap;
@@ -296,8 +297,8 @@ tr > td:first-of-type {
   /* toc mobile */
   .page-index {
     position: fixed;
-    right: 15px;
-    bottom: 15px;
+    right: 20px;
+    bottom: 20px;
     top: auto;
     width: auto;
     height: auto;
@@ -324,10 +325,19 @@ tr > td:first-of-type {
     list-style: none;
     cursor: pointer;
     color: #555;
-    background: rgba(235, 238, 245, 0.88);
+    background: rgba(235, 238, 245, 0.9);
     border-radius: 15px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    opacity: 0.8;
+    opacity: 0.9;
+  }
+
+  .page-index-mobile::details-content {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .page-index-mobile[open]::details-content {
+  opacity: 1;
   }
 
   .page-index-mobile summary::-webkit-details-marker {
@@ -494,7 +504,7 @@ tr > td:first-of-type {
   <ul>
     <li>Increased organic revenue by 113% after eight months and 88% YoY in Q1 2026, with revenue and GMV growing at similar rates across channels.</li>
     <li>Led end-to-end delivery of the Homepage redesign in 25 languages, coordinating Front-End, design, content, and localization partners; increased conversion rate across channels.</li>
-    <li>Led agile rollout of pSEO templates for ~6,000 Ferry Route and ~140 Ferry Company pages, combining internal data, UX feedback, and LLM-assisted content. Coordinated requirements for MarTech, FE, Product (CEO), Content and localization partners; the initiative drove ~100% GMV growth and 10× gains in search metrics across most markets, and better B2B collaborations. Initiated a similar template for ~700 Ferry Vessel pages; implementation was underway at departure.</li>
+    <li>Led agile rollout of pSEO templates for ~6,000 Ferry Route and ~140 Ferry Company pages, combining internal data, UX feedback, and LLM-assisted content. Coordinated requirements for MarTech, FE, Product (CEO), Content and localization partners; the initiative drove ~100% GMV growth and substantial gains in search metrics across most markets, and better B2B collaborations. Initiated a similar template for ~700 Ferry Vessel pages; implementation was underway at departure.</li>
     <li>Owned the publishing of Play Store & App Store listings in all supported languages, addressing ASO fundamentals and leading the initial organic growth of the mobile app, and the publication of its Landing Page in 25 languages.</li>
     <li>Built Looker Studio dashboards using blended BigQuery, GA4, and GSC data to monitor organic performance on product changes for page categories, markets, and technical issues.</li>
     <li>Used SQL in BigQuery and internal databases to manage content at scale and cross-reference it with performance metrics.</li>
@@ -947,8 +957,7 @@ tr > td:first-of-type {
   </tbody>
 </table>
 <!-- TODO JS date auto-update on commit -->
-  <p class="updated-date"><i>Updated: September 24, 2026</i></p>
-  <!-- update .md version of the page -->
+  <p class="updated-date"><i>Updated on September 24, 2026</i></p>
   <p id="no-print" style="color: #555; font-size: 0.9rem; text-align: center;"><a href="resume.md" target="_blank"><em>Markdown version</em></a></p>
 </div>
 

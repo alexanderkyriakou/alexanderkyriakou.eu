@@ -63,7 +63,7 @@ p {
   font-family: 'STIX Two Text';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/stix-two-text-v12-greek_latin-regular.woff2') format('woff2');
+  src: url('https://alexanderkyriakou.eu/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -71,7 +71,7 @@ p {
   font-family: 'STIX Two Text';
   font-style: italic;
   font-weight: 400;
-  src: url('../fonts/stix-two-text-v12-greek_latin-italic.woff2') format('woff2');
+  src: url('https://alexanderkyriakou.eu/assets/fonts/stix-two-text-v12-greek_latin-italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -79,7 +79,7 @@ p {
   font-family: 'STIX Two Text';
   font-style: normal;
   font-weight: 500;
-  src: url('../fonts/stix-two-text-v12-greek_latin-500.woff2') format('woff2');
+  src: url('https://alexanderkyriakou.eu/assets/fonts/stix-two-text-v12-greek_latin-500.woff2') format('woff2');
 }
 
 @font-face {
@@ -87,7 +87,7 @@ p {
   font-family: 'STIX Two Text';
   font-style: italic;
   font-weight: 500;
-  src: url('../fonts/stix-two-text-v12-greek_latin-500italic.woff2') format('woff2');
+  src: url('https://alexanderkyriakou.eu/assets/fonts/stix-two-text-v12-greek_latin-500italic.woff2') format('woff2');
 }
 
 /*header*/
@@ -243,10 +243,34 @@ nav {
   }
 }
 
+/*standard updated date at the bottom of selected pages display values*/
 .updated-date {
    text-align: right;
    font-size: 0.9rem;
 }
+
+/*standard figure | img | caption display values*/
+figure {
+  position: relative;
+  margin: 0;
+}
+
+figure > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+figcaption {
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+  padding: 5px 15px;
+  width: fit-content;
+  margin: auto;
+}
+/*end of standard figure | img | caption display values*/
 /*main content end*/
 /*homepage end*/
 
