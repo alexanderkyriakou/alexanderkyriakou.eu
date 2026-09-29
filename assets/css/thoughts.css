@@ -1,5 +1,105 @@
-/*hero section*/
-/*animated background*/
+/* standarizations */
+.container p {
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.container :is(h1, h2, h3, h4) {
+  margin: 0 0 10px 0;
+  line-height: 1.5;
+}
+
+.category-description {
+  font-size: 1rem;
+  font-style: italic;
+}
+/* end of standarizations */
+
+/* footnotes/endnotes at the end of each thought page */
+.footnotes {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 40px;
+  margin-top: 10px;
+  padding-top: 20px;
+}
+
+.footnotes::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right,#858da8 0%, transparent 70%);
+}
+
+.footnotes-info {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+  list-style: none;
+  text-wrap: nowrap;
+}
+
+.footnotes-info li:nth-last-child(-n + 2) {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.footnotes-share {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  gap: 8px;
+  white-space: nowrap;
+  position: relative;
+  
+}
+
+.footnotes-share button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-size: 1rem;
+  gap: 4px;
+  padding: 4px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: #555;
+}
+
+.footnotes-share svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  transform: translateY(-2px);
+}
+
+.link-copied {
+  position: absolute;
+  color: #555;
+  font-size: 0.9rem;
+  bottom: calc(100% + 6px);
+  right: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.link-copied.visible {
+  opacity: 1;
+  visibility: visible;
+}
+/* end of footnotes/endnotes at the end of each thought page */
+
+/* hero section */
+/* animated background */
 @keyframes animate {
     0%{
         transform: translateY(0) rotate(0deg);
@@ -140,6 +240,7 @@
   padding: 0.5rem;
   box-sizing: border-box;
   user-select: none;
+
 }
 
 .honeycomb > a.item {
@@ -153,6 +254,15 @@
   filter: grayscale(0);
   z-index: 1;
   --_t: 1.12;
+}
+
+.honeycomb > a.transoff:hover {
+  --_t: 1;
+}
+
+.honeycomb > a.transoff {
+  filter: grayscale(60%);
+  font-style: normal;
 }
 
 .honeycomb > a.on {
@@ -169,7 +279,7 @@
 }
 
 .honeycomb > .item:nth-child(2) h1 { 
-  font-size: clamp(.9rem, calc(var(--s) * .07), 1.4rem); 
+  font-size: clamp(.9rem, calc(var(--s) * .07), 1.4rem);
 }
 
 .honeycomb > .item h1,
@@ -192,7 +302,7 @@
 }
 
 .honeycomb > .item:nth-child(1) { --_y: calc(-100% - var(--g)); background-image: url("../images/thoughts-honeycomb/hc-notions.jpg"); }
-.honeycomb > .item:nth-child(2) { background-image: url("../images/thoughts-honeycomb/hc-thoughts.jpg"); filter: grayscale(30%) }
+.honeycomb > .item:nth-child(2) { background-image: url("../images/thoughts-honeycomb/hc-thoughts.jpg"); filter: grayscale(45%) }
 .honeycomb > .item:nth-child(3) { --_x: calc(-75% - .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("../images/thoughts-honeycomb/hc-seo.jpg"); }
 .honeycomb > .item:nth-child(4) { --_x: calc( 75% + .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("../images/thoughts-honeycomb/hc-books.jpg"); }
 .honeycomb > .item:nth-child(5) { --_x: calc(-75% - .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("../images/thoughts-honeycomb/hc-movies.jpg"); }
@@ -301,18 +411,20 @@
 
 .flow-post-timestamp {
   color: #555;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .hp-flow-text > h2 {
   margin: 10px 0;
   color: #000;
+  line-height: 1.2;
 }
 
 .hp-flow-text > p {
   margin: -5px 0 0 0;
   font-size: 1.1rem;
   color: #555;
+  line-height: 1.2;
 }
 
 .hp-flow-image {
@@ -332,107 +444,6 @@
   clip-path: polygon(0 0, 100% 0, 100% 100%, var(--dx) 100%);
 }
 /* end of post flow block */
-
-/* breadcrumbs
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-}
-
-.breadcrumb > a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.breadcrumb > a:hover {
-  color: #1e90ff;
-}
-
-.breadcrumb > span {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.7rem;
-  line-height: 1;
-  opacity: 0.55;
-}
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-size: 0.9rem;
-}
-
-.breadcrumb a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.breadcrumb > span {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.7rem;
-  line-height: 1;
-  opacity: 0.55;
-}
-
-.breadcrumb-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.breadcrumb-tools {
-  display: inline-flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.breadcrumb-tools span {
-  margin-left: 0.3rem;
-  font-size: 0.65rem;
-  line-height: 1;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-}
-
-.breadcrumb-dropdown:hover .breadcrumb-tools span,
-.breadcrumb-dropdown:focus-within .breadcrumb-tools span {
-  opacity: 0.65;
-}
-
-.breadcrumb-dropdown ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 10;
-
-  display: none;
-  min-width: 10rem;
-  margin: 0;
-  padding: 0.4rem 0;
-
-  list-style: none;
-  background: var(--background, #fff);
-  border: 1px solid currentColor;
-}
-
-.breadcrumb-dropdown:hover ul,
-.breadcrumb-dropdown:focus-within ul {
-  display: block;
-}
-
-.breadcrumb-dropdown li a {
-  display: block;
-  padding: 0.35rem 0.7rem;
-  white-space: nowrap;
-}
-
-.breadcrumb-dropdown li a:hover {
-  text-decoration: underline;
-}
-end of breadcrumbs */
 
 /* mobile devices */
 @media (max-width: 768px) {
@@ -523,9 +534,11 @@ end of breadcrumbs */
   }
 
   .honeycomb { 
-    --s: clamp(90px, min(35vw, 35vh), 180px); /*size*/
-    --g: calc(var(--s) * .05);  /*gap*/
-    margin: calc(var(--s) + var(--g)); }
+    --s: clamp(90px, min(35vw, 35vh), 180px);
+    --g: calc(var(--s) * .05);
+    margin: calc(var(--s) + var(--g));
+  }
+
   .honeycomb > .item:nth-child(2) h1 { 
     font-size: 1.2rem; 
   }
@@ -539,17 +552,18 @@ end of breadcrumbs */
   .honeycomb > .item:nth-child(7) { --_y: calc(100% + var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-tools.jpg"); }
   .honeycomb > .item:nth-child(8) { --_x: calc(75% + .87*var(--g)); --_y: calc(150% + 1.5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-music.jpg"); }
 
-  .honeycomb > a.item:active,
-  .honeycomb > a.item:focus {
-    filter: grayscale(0);
-  } 
-
-  .honeycomb > a.item {
-    transition: filter 0.4s ease;
+  .honeycomb > .item:hover {
+    --_t: 1;
+    transition: none;
   }
+
+  .footnotes {
+    padding: 20px 0 20px 0;
+  }
+
   /* post flow box on mobile with lower padding */
   .hp-flow-text {
-    padding-right: calc(var(--dx) - 15px);
+    padding-right: calc(var(--dx) - 50px);
   }
 }
 
