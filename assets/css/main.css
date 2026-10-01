@@ -48,12 +48,12 @@ p {
   margin: 0 auto;
 }
 
-.container a {
+main a {
   color: #36c;
   text-decoration: none;
 }
 
-.container a:hover {
+main a:hover {
   text-decoration: underline;
 }
 
@@ -247,6 +247,7 @@ nav {
 .updated-date {
    text-align: right;
    font-size: 0.9rem;
+   font-style: italic;
 }
 
 /*standard figure | img | caption display values*/
@@ -255,7 +256,7 @@ figure {
   margin: 0;
 }
 
-figure > img {
+figure picture > img {
   display: block;
   width: 100%;
   height: auto;

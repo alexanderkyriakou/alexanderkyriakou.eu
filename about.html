@@ -20,33 +20,159 @@
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
 
-  <!-- TODO schema json
-  Use https://developers.google.com/search/docs/appearance/structured-data/profile-page-->
+  <!--schema json-->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "@id": "https://alexanderkyriakou.eu/about#profilepage",
+        "url": "https://alexanderkyriakou.eu/about",
+        "name": "Who is Alexander Kyriakou and what this website is about",
+        "description": "About Alexander Kyriakou, an SEO and Organic Growth Product Manager with expertise in technical SEO, web development, analytics, and cross-functional product delivery.",
+        "inLanguage": "en",
+        "dateCreated": "2025-10-21",
+        "dateModified": "2026-09-30",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://alexanderkyriakou.eu/#person",
+        "name": "Alexander Kyriakou",
+        "givenName": "Alexander",
+        "familyName": "Kyriakou",
+        "alternateName": [
+          "Alex Kyriakou",
+          "Bilyk Alexander"
+        ],
+        "description": "SEO and Organic Growth Product Manager with expertise in technical SEO, web development, analytics, and cross-functional product delivery. A strong advocate for digital literacy and societal transformation through digital means.",
+        "url": "https://alexanderkyriakou.eu/",
+        "image": [
+          {
+            "@type": "ImageObject",
+            "contentUrl": "https://alexanderkyriakou.eu/assets/images/about-platforms/schema-photo/alexander-kyriakou-2026-16.9.jpg",
+            "creditText": "Alexander Kyriakou",
+            "creator": {
+              "@id": "https://alexanderkyriakou.eu/#person"
+            },
+            "copyrightNotice": "Alexander Kyriakou"
+          },
+          "https://alexanderkyriakou.eu/assets/images/about-platforms/schema-photo/alexander-kyriakou-2026-1.1.jpg",
+          "https://alexanderkyriakou.eu/assets/images/about-platforms/schema-photo/alexander-kyriakou-2026-4.3.jpg"
+        ],
+        "jobTitle": "SEO Product Manager",
+        "gender": "Male",
+        "birthDate": "1992-07-28",
+        "birthPlace": {
+          "@type": "Country",
+          "name": "Ukraine"
+        },
+        "nationality": {
+          "@type": "Country",
+          "name": "Greece"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Athens, Greece"
+        },
+        "knowsAbout": [
+          "Search engine optimization",
+          "Technical SEO",
+          "Product management",
+          "Digital marketing",
+          "Web development",
+          "Analytics"
+        ],
+        "knowsLanguage": [
+          {
+            "@type": "Language",
+            "name": "Greek"
+          },
+          {
+            "@type": "Language",
+            "name": "English"
+          },
+          {
+            "@type": "Language",
+            "name": "Russian"
+          }
+        ],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Technological Educational Institute of Eastern Macedonia and Thrace",
+          "alternateName": "TEI of Eastern Macedonia and Thrace"
+        },
+        "hasCredential": {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Bachelor of Science in Information Management and Business Administration",
+          "credentialCategory": "Bachelor's degree",
+          "educationalLevel": "Bachelor's degree",
+          "recognizedBy": {
+            "@type": "CollegeOrUniversity",
+            "name": "Technological Educational Institute of Eastern Macedonia and Thrace"
+          },
+          "dateCreated": "2016"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/in/alexanderkyriakou",
+          "https://www.facebook.com/kyriakoualexander/",
+          "https://bsky.app/profile/alexanderkyriakou.eu",
+          "https://www.youtube.com/@alexanderkyriakou",
+          "https://www.mixcloud.com/alexanderkyriakou/",
+          "https://github.com/alexanderkyriakou"
+        ],
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/about#profilepage"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://alexanderkyriakou.eu/#website",
+        "url": "https://alexanderkyriakou.eu/",
+        "name": "Alexander Kyriakou",
+        "description": "Personal website of Alexander Kyriakou, sharing insights on web development, SEO, and other interests.",
+        "inLanguage": "en",
+        "about": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        }
+      }
+    ]
+  }
+  </script>
+  <!--end of schema json-->
 
-  <!-- TODO OG tags-->
   <!--og tags start-->
   <meta property="og:title" content="Who is Alexander Kyriakou?"/>
   <meta property="og:description" content="A short story about Alexander Kyriakou, his background and the purpose of this website."/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Alexander Kyriakou"/>
   <meta property="og:url" content="https://alexanderkyriakou.eu/about"/>
-  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/opengraph/hp-temp-og.jpg"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/opengraph/about-og.jpg"/>
   <!--og tags end-->
 <style>
 .nav-list > li:nth-child(2) a {
   color: #1e90ff;
 }
 
-.post :is(h1, h2, h3, h4, h5, h6) {
-  margin-bottom: 10px;
+.container p {
+  margin: 0 0 20px 0;
+  line-height: 1.5;
 }
 
-.post > p {
-  margin-top: 10px;
+.container :is(h1, h2, h3, h4) {
+  margin: 0 0 10px 0;
+  line-height: 1.5;
 }
 
 .post li {
   font-size: 1.2rem;
+  line-height: 1.5;
 }
 
 /*about hero section start*/
@@ -87,6 +213,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
+  margin: 10px 0 20px 0;
 }
 
 .grid-auto-fit > a {
@@ -151,7 +278,7 @@
 
   .about-hero-text {
     text-align: center;
-    margin: -10px auto 20px auto;
+    margin: -20px auto 20px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -175,35 +302,35 @@
 <body>
   <header>
     <div class="nav-border">
-     <nav role="navigation">
+      <nav aria-label="Main navigation">
 <!--mobile menu start-->
         <div class="mobile-menu">
-            <ul class="nav-list">
-                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
-                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
-                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
-            </ul>
-            </div>
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
 <!--mobile menu end-->
 
 <!--desktop menu start-->
         <div class="desktop-menu">
-            <ul class="nav-list">
-                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
-                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
-                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
-            </ul>
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
         </div>
 <!--desktop menu end-->
-    </nav>
+      </nav>
     </div>
-    </header>
+  </header>
 
 <div class="about-hero">
-  <div class="about-hero-text">
+  <header class="about-hero-text">
         <h1>Who is Alexander Kyriakou and what this website is about</h1>
         <h4>Let's not be complete strangers.</h4>
-  </div>
+  </header>
 
   <svg class="about-hero-image" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
     <defs>
@@ -232,7 +359,7 @@
  
 </div>
 
-<div class="container" role="main"> 
+<main class="container"> 
     <div class="post">
 <p>I believe we should go online to explore, have fun, and enrich ourselves. Not dull our senses with meaningless content.</p>
 
@@ -247,10 +374,20 @@
   
 <p>I'm a big fan of technology and its potential to improve our world. In my free time, I enjoy tinkering with the digital spaces, learning new skills, and staying up-to-date with technological news. Overall, I strive to live a balanced life, and maintain ways of being that will make my future self proud of its past. </p>
 
-  <figure>
-    <img draggable="false" src="assets/images/alexander-kyriakou-malta-2020.gif" loading="lazy" alt="A gif of Alexander Kyriakou, Valletta in Malta, 2020 "/>
-    <figcaption class="about-photo-caption">Me in Malta, Summer of 2020</figcaption>
-  </figure>
+<figure>
+  <picture>
+    <source type="image/avif" srcset="
+        assets/images/about-platforms/about-page/alexander-kyriakou-summer-2026-dog-s.avif 1x,
+        assets/images/about-platforms/about-page/alexander-kyriakou-summer-2026-dog-m.avif 2x,
+        assets/images/about-platforms/about-page/alexander-kyriakou-summer-2026-dog.avif 3x">
+    <img
+      draggable="false" src="assets/images/about-platforms/about-page/alexander-kyriakou-summer-2026-dog.jpg" alt="Alexander Kyriakou holding a small dog during summer 2026" fetchpriority="high" srcset="
+        assets/images/about-platforms/about-page/alexander-kyriakou-summer-2026-dog-s.jpg 1x,
+        assets/images/about-platforms/about-page/alexander-kyriakou-summer-2026-dog-m.jpg 2x,
+        assets/images/about-platforms/about-page/alexander-kyriakou-summer-2026-dog.jpg 3x">
+  </picture>
+  <figcaption>Alexander Kyriakou holding Diky during the summer of 2026</figcaption>
+</figure>
 
 <h3 style="margin-top: 10px;">Professional work-life</h3>
 <p>My first experience in a work environment was interning in the HR department of my University, followed by a gig as a Production Assistant for an event company. In parallel I was working as Technical Support to local pharmacies and doctors' offices. Around late 2017, I joined a language center in Piraeus as a Moodle developer, where I had the opportunity to create the <a href="https://fastschool.eu/elearning/" target="_blank">fastschool English elearning platform</a>. After a year or so, I started teaching computer skills to adults in order to obtain the ECDL certificate.</p>
@@ -261,7 +398,7 @@
 
 <p>After a while felt stagnant and a strong feeling of wanting to develop myself professionally, resulting joining Relevance where I focused on Technical SEO and extensive audits. Few months in, natural progress of things, dived more into Analytics and Visualization. It was a year filled with projects from multiple sectors and a big variety of websites of all sizes. An intense and quite interesting year, which unfortunately had to come to an end cause of eventful intra-company dynamics. Stayed out of the corporate world for a year, keeping up with personal life, readings, and skilling-up on analytics towards BI.</p>
   
-<p>In September of 2024 I joined Ferryscanner, as the in-house SEO Project Manager/Owner, in more fancy terms <em>Organic Growth Product Manager</em>. A position that my agency colleagues joked would fit me like a glove, cause I'd be free to go really, really in-depth. They were right. Presently, the whole product is getting reworked with bots in mind, and everything involving the end user. Many challenges, including progressive adoption of quality fundamentals have arisen over the year. Still, an interesting work in progress. For more in debth exploration of my career journey, <a href="cv">check my resume</a>.</p>
+<p>In September of 2024 I joined Ferryscanner, as the in-house SEO Project Manager/Owner, in more fancy terms <em>Organic Growth Product Manager</em>. A position that my agency colleagues joked would fit me like a glove, cause I'd be free to go really, really in-depth. They were right. Presently, the whole product is getting reworked with bots in mind, and everything involving the end user. Many challenges, including progressive adoption of quality fundamentals have arisen over the year. Still, an interesting work in progress. For more in debth exploration of my career journey, <a href="https://alexanderkyriakou.eu/cv">check my resume</a>.</p>
 
 <p>May the future be worth looking forward to.</p>
 
@@ -272,7 +409,7 @@
       <div class="item"><img src="assets/images/about-platforms/linkedin-logo.png" alt="LinkedIn" loading="lazy" width="75" height="75"><span>LinkedIn</span></div>
     </a>
     <a href="https://bsky.app/profile/alexanderkyriakou.eu" title="Alexander Kyriakou on Bluesky" rel="me" target="_blank">
-      <div class="item"><img src="assets/images/about-platforms/bluesky-logo.png" alt="Bluesky" loading="lazy" width="90" height=""><span>Bluesky</span></div>
+      <div class="item"><img src="assets/images/about-platforms/bluesky-logo.png" alt="Bluesky" loading="lazy" width="90" height="90"><span>Bluesky</span></div>
     </a>
     <a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" rel="me" target="_blank">
       <div class="item"><img src="assets/images/about-platforms/facebook-logo.png" alt="Facebook" loading="lazy" width="80" height="80"><span>Facebook</span></div>
@@ -281,7 +418,7 @@
       <div class="item"><img src="assets/images/about-platforms/x-logo.png" alt="X (Twitter)" loading="lazy" width="70" height="75"><span>X (Twitter)</span></div>
     </a>
     <a href="https://www.youtube.com/@alexanderkyriakou" title="Alexander Kyriakou on YouTube" rel="me" target="_blank">
-      <div class="item"><img src="assets/images/about-platforms/youtube-icon.png" alt="YouTube" loading="lazy" width="120" height=""><span>YouTube</span></div>
+      <div class="item"><img src="assets/images/about-platforms/youtube-icon.png" alt="YouTube" loading="lazy" width="120" height="98"><span>YouTube</span></div>
     </a>
     <a href="https://www.mixcloud.com/alexanderkyriakou/" title="Alexander Kyriakou on Mixcloud" rel="me" target="_blank">
       <div class="item"><img src="assets/images/about-platforms/mixcloud-logo.svg" alt="Mixcloud" loading="lazy" width="75" height="75"><span>Mixcloud</span></div>
@@ -290,7 +427,7 @@
       <div class="item"><img src="assets/images/about-platforms/internet-archive-logo.svg" alt="Internet Archive" loading="lazy" width="65" height="75"><span>Internet Archive</span></div>
     </a>
     <a href="https://bandcamp.com/alexanderkyriakou" title="Alexander Kyriakou on Bandcamp" rel="me" target="_blank">
-      <div class="item"><img src="assets/images/about-platforms/bandcamp-logo.png" alt="Bandcamp" loading="lazy" width="120" height=""><span>Bandcamp</span></div>
+      <div class="item"><img src="assets/images/about-platforms/bandcamp-logo.png" alt="Bandcamp" loading="lazy" width="120" height="90"><span>Bandcamp</span></div>
     </a>
     <a href="https://github.com/alexanderkyriakou" title="Alexander Kyriakou on GitHub" rel="me" target="_blank">
       <div class="item"><img src="assets/images/about-platforms/github-logo.svg" alt="GitHub" loading="lazy" width="80" height="78"><span>GitHub</span></div>
@@ -324,6 +461,8 @@
   <li>Optimizing existing approaches</li>
   <li>Fixing various present bugs</li>
   <li>More correct use of HTML & CSS</li>
+  <li>More semantic HTML use</li>
+  <li>Accessibility fundamentals</li>
   <li>Better informational structure</li>
   <li>Local hosting</li>
   <li>Pages in Greek</li>
@@ -335,9 +474,9 @@
 <p>There are no analytics or ad services on this website, thus no cookies (sorry).</p>
 
 <!-- TODO JS date auto-update on commit -->
-<p class="updated-date"><i>Updated on September 25, 2026</i></p>
+<p class="updated-date"><time datetime="2026-09-30">Updated on September 30, 2026</time></p>
     </div>
-</div>
+  </main>
 
 <picture>
   <source media="(width < 768px)" srcset="assets/images/calvin-and-hobbes-significant-dust-speck-mobile.jpg" />

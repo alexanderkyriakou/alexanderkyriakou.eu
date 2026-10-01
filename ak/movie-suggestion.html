@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>A Movie Suggestion from My Watchlist</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Let me suggest a movie from my collection of 2,300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next.">
+  <meta name="author" content="Alexander Kyriakou">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/movie-suggestion">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/thoughts.css">
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+
+  <meta name="twitter:dnt" content="on">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="A Movie Suggestion from my Watchlist"/>
+  <meta property="og:description" content="Let me suggest a movie from my collection of 2,300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/movie-suggestion"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/greek-characters-latin/og/assets/images/thoughts/movie-suggestion/og/odeon-herodes-atticus-athens-2023-open-air-cinema.jpg"/>
+  <!--og tags end-->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/movie-suggestion#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/movie-suggestion",
+        "name": "A Movie Suggestion from My Watchlist",
+        "description": "Let me suggest a movie from my collection of 2,300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next.",
+        "inLanguage": "en",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/movie-suggestion#application"
+        },
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "dateModified": "2026-10-01"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://alexanderkyriakou.eu/ak/movie-suggestion#application",
+        "name": "Movie Suggestion Tool",
+        "url": "https://alexanderkyriakou.eu/ak/movie-suggestion",
+        "description": "A movie suggestion tool that recommends a random title from Alexander Kyriakou's personal IMDb ratings, with filters for personal rating and genre.",
+        "applicationCategory": "EntertainmentApplication",
+        "operatingSystem": "Web browser",
+        "isAccessibleForFree": true,
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        }
+      }
+    ]
+  }
+  </script>
+
+<style>
+.suggestmovie {
+  box-sizing: border-box;
+  color: #1f1f1f;
+  line-height: 1.5;
+  margin: 20px 0;
+}
+
+.suggestmovie *, .suggestmovie *::before, .suggestmovie *::after { 
+  box-sizing: inherit; 
+}
+
+.suggestmovie [hidden] { 
+  display: none !important; 
+}
+
+.suggestmovie .suggestmovie-header,
+.suggestmovie .movie-tool,
+.suggestmovie .movie-stats {
+  width: min(calc(100% - 2rem), 1100px);
+  margin-inline: auto;
+}
+
+/* header */
+.suggestmovie .suggestmovie-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 2rem;
+  margin-bottom: 1vh;
+}
+
+.suggestmovie .suggestmovie-header-text {
+  min-width: 0;
+}
+
+.suggestmovie .suggestmovie-header img {
+  display: block;
+  width: 160px;
+  height: 160px;
+  justify-self: right;
+  margin-top: -20px;
+}
+
+.suggestmovie .suggestmovie-header h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.suggestmovie .suggestmovie-header .intro {
+  margin: .5rem 0 0;
+  max-width: 65ch;
+  color: #555;
+}
+
+/* tool */
+.suggestmovie .movie-tool-inner {
+  display: grid;
+  grid-template-columns: 450px minmax(0, 1fr);
+  column-gap: 30px;
+  row-gap: 1.5rem;
+  padding-top: 1.5rem;
+  align-items: start;
+}
+
+.suggestmovie .movie-poster-wrap {
+  width: 450px;
+  justify-self: center;
+}
+
+.suggestmovie #poster {
+  display: block;
+  width: 450px;
+  height: 675px;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  color: transparent;
+  background: #eee;
+  box-shadow: 0 1rem 2rem -1rem rgb(31 31 31 / .45);
+}
+
+/* details column */
+.suggestmovie .movie-details {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 675px;
+}
+
+.suggestmovie .movie-details > * {
+  margin: 0;
+  min-width: 0;
+}
+
+.suggestmovie .movie-details-main {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.suggestmovie .movie-details-bottom {
+  display: grid;
+  gap: 1rem;
+}
+
+.suggestmovie .movie-details-main > * {
+  margin: 0;
+}
+
+.suggestmovie .movie-details-bottom > * {
+  margin: 0;
+}
+
+.suggestmovie .movie-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding-top: 1rem;
+}
+
+.suggestmovie .movie-details h2 {
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+.suggestmovie .movie-ratings {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-width: 0;
+}
+
+.suggestmovie .movie-ratings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.suggestmovie .imdb-review {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+.suggestmovie .movie-rating {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .4rem;
+  padding: 5px 0px;
+  font-size: .9rem;
+  line-height: 1.2;
+  color: #555;
+}
+.suggestmovie .movie-rating-label {
+  font-size: .9rem;
+  white-space: nowrap;
+}
+.suggestmovie .movie-rating-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #1f1f1f;
+  white-space: nowrap;
+}
+
+/* metadata */
+.suggestmovie .movie-meta {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap: 1rem;
+  row-gap: .25rem;
+  margin: 0;
+}
+.suggestmovie .movie-meta:empty { display: none; }
+.suggestmovie .movie-meta dt,
+.suggestmovie .movie-meta dd { margin: 0; }
+.suggestmovie .movie-meta dt {
+  font-size: .9rem;
+  color: #555;
+}
+.suggestmovie .movie-meta dd {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* overview */
+.suggestmovie .movie-overview {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: .5rem;
+  line-height: 1.5;
+}
+
+/* IMDb link */
+.suggestmovie #imdb-link {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  padding: 0 15px;
+}
+
+.suggestmovie #imdb-link::after {
+  content: " \2197"; 
+  content: " \2197" / ""; 
+}
+
+.suggestmovie .movie-filter {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.suggestmovie #rating-options {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  flex-wrap: nowrap;
+}
+
+.suggestmovie #rating-options label {
+  min-width: 0;
+}
+
+.suggestmovie #rating-options label > span {
+  width: 100%;
+  aspect-ratio: 1;
+  min-height: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 92%,
+    50% 71%,
+    21% 92%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+}
+
+.suggestmovie .movie-actions {
+  grid-column: 1 / -1;
+}
+
+.suggestmovie #genre-options {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 8px;
+}
+
+.movie-filter-options label:has(input[type="checkbox"]:disabled) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.suggestmovie #genre-options label {
+  flex: 0 0 auto;
+}
+
+/* hide multiple button selections */
+.suggestmovie .movie-filter-options input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.suggestmovie .movie-filter-options label > span,
+.suggestmovie .movie-filter-options button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.25rem;
+  padding: .25rem .9rem;
+  border: 1px solid #555;
+  border-radius: 8px;
+  background: transparent;
+  color: #555;
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.suggestmovie .movie-filter-options label:hover > span,
+.suggestmovie .movie-filter-options button:hover {
+  background: #eee;
+  border-color: #1f1f1f;
+}
+
+.suggestmovie .movie-filter-options input:checked + span,
+.suggestmovie .movie-filter-options button[aria-pressed="true"] {
+  background: #1f1f1f;
+  border-color: #1f1f1f;
+  color: #fff;
+}
+.suggestmovie .movie-filter-options input:focus-visible + span,
+.suggestmovie .movie-filter-options button:focus-visible {
+  outline: 1px solid #173d8f;
+  outline-offset: 3px;
+}
+
+.suggestmovie #rating-options label > span {
+  min-width: 3.5rem;
+  min-height: 2.75rem;
+  padding: .35rem .95rem;
+  font-size: 1rem;
+}
+
+.suggestmovie #rating-options label:hover > span { background: #eee; border-color: #1f1f1f; }
+.suggestmovie #rating-options input:checked + span {
+  background: #1f4fb4;
+  border-color: #1f4fb4;
+  color: #fff;
+}
+
+.suggestmovie #rating-options input:checked + span:hover {
+  background: #173d8f;
+  border-color: #173d8f;
+}
+
+
+/* cta */
+.suggestmovie #suggest {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: min(17rem, 100%);
+  min-height: 3.5rem;
+  padding: .75rem 2rem;
+  border: 0;
+  border-radius: 8px;
+  background: #1f4fb4;
+  color: #fff;
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow:
+    0 .2rem 0 #173d8f,
+    0 .85rem 1.4rem -.6rem rgb(31 79 180 / .7);
+  transition: background-color .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+
+.suggestmovie #suggest:not(:disabled):hover {
+  background: #173d8f;
+  transform: translateY(-1px);
+  box-shadow:
+    0 .3rem 0 #173d8f,
+    0 1.1rem 1.6rem -.6rem rgb(31 79 180 / .75);
+}
+
+.suggestmovie #suggest:not(:disabled):active {
+  transform: translateY(.2rem);
+  box-shadow: 0 0 0 #173d8f;
+}
+
+.suggestmovie #suggest:focus-visible { outline: 3px solid #173d8f; outline-offset: 4px; }
+.suggestmovie #suggest:disabled {
+  background: #eee;
+  color: #fff;
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.suggestmovie .movie-message {
+  margin: .5rem 0;
+  font-size: .9rem;
+  line-height: 1.4;
+  text-align: center;
+  color: #555;
+}
+
+.suggestmovie .movie-message:empty { margin: 0; }
+
+.suggestmovie .movie-start-over {
+  width: 100%;
+  min-height: 2.75rem;
+  margin-top: .25rem;
+  padding: .5rem 1.25rem;
+  border: 2px solid #1f4fb4;
+  border-radius: 8px;
+  background: transparent;
+  color: #1f4fb4;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.suggestmovie .movie-start-over:hover { background: #eee; }
+.suggestmovie .movie-start-over:focus-visible { outline: 3px solid #173d8f; outline-offset: 3px; }
+
+/* stats */
+.suggestmovie .movie-stats { 
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+.suggestmovie .movie-stats h2 {
+  margin: 0;
+  line-height: 1.2;
+}
+.suggestmovie .movie-stats > p {
+  margin: 8px 0 20px 0;
+  color: #555;
+}
+
+.suggestmovie .movie-chart-panel {
+  padding: 20px;
+  background: #eee;
+  border-radius: 15px;
+}
+
+.suggestmovie .movie-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.suggestmovie .movie-chart .bar {
+  fill: #1f4fb4;
+  rx: 4px;
+}
+
+.suggestmovie .movie-chart .value {
+  fill: #1f1f1f;
+  text-anchor: middle;
+  font-size: 0.9rem;
+}
+
+/* star positioning on chart */
+.suggestmovie .movie-chart .value:nth-of-type(even) {
+  text-anchor: end;
+  font-weight: 600;
+}
+/* decorative stars on the X axis */
+.suggestmovie .movie-chart .chart-stars {
+  fill: #555;
+  pointer-events: none;
+}
+
+.suggestmovie .movie-actions-mobile {
+  display: none;
+}
+
+.suggestmovie .movie-chart-mobile {
+  display: none;
+}
+
+.process-list {
+  font-size: 1.2rem;
+  padding-left: 20px;
+  margin: 10px 0 20px 0;
+}
+
+@media (max-width: 768px) {
+  .suggestmovie .suggestmovie-header {
+    display: block;
+    position: relative;
+    min-height: auto;
+  }
+
+  .suggestmovie .suggestmovie-header img {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    right: 0;
+    top: 15px;
+    z-index: 0;
+  }
+
+  .suggestmovie .suggestmovie-header-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  .suggestmovie .suggestmovie-header h1,
+  .suggestmovie .suggestmovie-header .intro {
+    max-width: calc(100% - 110px);
+  }
+
+  .suggestmovie .suggestmovie-header h1 {
+    text-wrap: pretty;
+  }
+
+  .suggestmovie .movie-tool {
+    margin-inline: 15px;
+  }
+
+  .suggestmovie .movie-tool-inner {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 8px;
+    padding-top: 1rem;
+  }
+
+  .suggestmovie .movie-poster-wrap {
+    width: 100%;
+    justify-self: stretch;
+  }
+
+  .suggestmovie #poster {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .suggestmovie .movie-details-main h2 {
+    text-align: center;
+  }
+
+  .suggestmovie .movie-ratings-row {
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .suggestmovie .movie-ratings {
+    justify-content: center;
+  }
+
+  .suggestmovie #imdb-link {
+    padding-inline: 0;
+  }
+
+  .suggestmovie .movie-details {
+    min-height: 0;
+  }
+
+  .suggestmovie .movie-actions {
+    margin-top: 1rem;
+  }
+
+  .suggestmovie #genre-options {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    row-gap: 10px;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .suggestmovie #genre-options label:nth-child(1),
+  .suggestmovie #genre-options label:nth-child(2),
+  .suggestmovie #genre-options label:nth-child(3) {
+    grid-column: span 2;
+  }
+
+  .suggestmovie #genre-options label:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .suggestmovie #genre-options label:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+
+  .suggestmovie .movie-details-bottom {
+    gap: 20px;
+    margin-top: 16px;
+  }
+
+  .suggestmovie #rating-options {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .suggestmovie #rating-options label {
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .suggestmovie #rating-options label > span {
+    width: 100%;
+    max-width: 3.5rem;
+  }
+
+  /* mobile fixed cta */
+  .suggestmovie .movie-actions-mobile {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background: rgb(255 255 255 / .95);
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -6px 20px rgb(31 31 31 / .08);
+    backdrop-filter: blur(8px);
+  }
+
+  .suggestmovie #suggest-mobile {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 3rem;
+    padding: .65rem 1rem;
+    border: 0;
+    border-radius: 8px;
+    background: #1f4fb4;
+    color: #fff;
+    font: inherit;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.2;
+    cursor: pointer;
+  }
+
+  .suggestmovie #suggest-mobile:disabled {
+    background: #eee;
+    color: #fff;
+    cursor: not-allowed;
+  }
+
+  .suggestmovie .movie-actions-mobile .movie-message {
+    flex: 0 1 auto;
+    margin: 0;
+    text-align: center;
+  }
+
+  .suggestmovie #start-over-mobile {
+    flex: 0 0 auto;
+    min-height: 3rem;
+    padding: .5rem 1rem;
+    border: 2px solid #1f4fb4;
+    border-radius: 8px;
+    background: transparent;
+    color: #1f4fb4;
+    font: inherit;
+    font-weight: 600;
+  }
+
+  .suggestmovie .movie-message {
+    flex: 1 1 12rem;
+    margin: .5rem 0;
+    text-align: left;
+  }
+
+  .suggestmovie .movie-message:empty {
+    margin: 0;
+  }
+
+  .suggestmovie .movie-start-over {
+    width: auto;
+    margin-top: 0;
+  }
+
+  .suggestmovie .movie-actions-mobile {
+    display: flex;
+  }
+
+  .suggestmovie .movie-stats {
+    margin-top: 30px;
+  }
+
+  .suggestmovie .movie-details-bottom .movie-actions {
+    display: none;
+  }
+
+  .suggestmovie .movie-chart {
+    display: none;
+  }
+
+  .suggestmovie .movie-chart-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    padding: 4px 0 0;
+  }
+
+  .suggestmovie .mobile-chart-row {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) 40px;
+    align-items: center;
+    gap: 8px;
+    min-height: 24px;
+  }
+
+  .suggestmovie .mobile-chart-rating {
+    font-size: .85rem;
+    font-weight: 600;
+    line-height: 1;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .suggestmovie .mobile-chart-bar-wrap {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .suggestmovie .mobile-chart-bar {
+    display: block;
+    width: var(--bar-width);
+    height: 100%;
+    background: #1f4fb4;
+    border-radius: 4px;
+  }
+
+  .suggestmovie .mobile-chart-value {
+    font-size: .8rem;
+    line-height: 1;
+    text-align: left;
+    color: #555;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .suggestmovie .mobile-chart-axis {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr) 40px;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .suggestmovie .mobile-chart-axis-scale {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px solid #999;
+    font-size: .7rem;
+    line-height: 1;
+    color: #555;
+  }
+
+  .suggestmovie .mobile-chart-axis-title {
+    grid-column: 2;
+    margin-top: 4px;
+    font-size: .75rem;
+    line-height: 1.2;
+    color: #555;
+    text-align: center;
+  }
+}
+</style>
+<body>
+  <header>
+    <div class="nav-border">
+     <nav role="navigation">
+<!--mobile menu start-->
+        <div class="mobile-menu">
+            <ul class="nav-list">
+                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+            </ul>
+            </div>
+<!--mobile menu end-->
+
+<!-- Desktop menu start -->
+        <div class="desktop-menu">
+            <ul class="nav-list">
+                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+            </ul>
+        </div>
+<!--desktop menu end-->
+      </nav>
+    </div>
+  </header>
+
+<main>
+<article class="suggestmovie">
+  <header class="suggestmovie-header">
+    <div class="suggestmovie-header-text">
+      <h1>Allow me to suggest a movie</h1>
+      <p class="intro">View a random <em>story</em> from my personal IMDb ratings.</p>
+    </div>
+    <img src="../assets/images/thoughts/movie-suggestion/watches-tv.webp" width="360" height="360" title="High similarity with the author while growing up" alt="A boy sits in front of an old TV, transparent" decoding="async">
+  </header>
+
+  <section class="movie-tool">
+    <div class="movie-tool-inner">
+      <div class="movie-poster-wrap">
+        <img id="poster" class="movie-poster" width="450" height="675" alt="Poster of Coraline" decoding="async">
+      </div>
+
+      <div class="movie-details">
+        <div class="movie-details-main">
+        <h2 id="movie-tool-title">Coraline</h2>
+        <div class="movie-ratings-row">
+          <div id="ratings" class="movie-ratings"></div>
+          <a id="imdb-link" href="https://www.imdb.com/title/tt0327597" target="_blank" rel="nofollow noopener">IMDb</a>
+        </div>
+        <dl id="movie-meta" class="movie-meta"></dl>
+        <p id="movie-overview" class="movie-overview" hidden></p>
+      </div>
+      
+      <div class="movie-details-bottom">
+
+        <fieldset class="movie-filter">
+          <div class="movie-filter-options" id="genre-options">
+            <label><input type="checkbox" value="Drama"><span>Drama</span></label>
+            <label><input type="checkbox" value="Comedy"><span>Comedy</span></label>
+            <label><input type="checkbox" value="Thriller"><span>Thriller</span></label>
+            <label><input type="checkbox" value="Adventure"><span>Adventure</span></label>
+            <label><input type="checkbox" value="Action"><span>Action</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="movie-filter">
+          <div id="rating-options" class="movie-filter-options"></div>
+        </fieldset>
+        <div class="movie-actions">
+          <button id="suggest" type="button" disabled>Suggest a title</button>
+          <p id="message" class="movie-message"></p>
+          <button id="start-over" class="movie-start-over" type="button" hidden>Start over</button>
+        </div>
+        </div>
+      </div>
+        
+    </div>
+  </section>
+
+  <div class="movie-actions-mobile">
+    <button id="suggest-mobile" type="button" disabled>Suggest a title</button>
+    <p id="message-mobile" class="movie-message"></p>
+    <button id="start-over-mobile" class="movie-start-over" type="button" hidden>Start over</button>
+  </div>
+
+  <section class="movie-stats">
+    <h2 id="stats-title">My movie ratings at a glance</h2>
+    <p id="stats-summary">Rated 2328 movies and series up to 30 September, 2026.</p>
+
+    <div class="movie-chart-panel">
+      <svg id="ratings-chart" class="movie-chart" viewBox="0 0 700 320" role="img" aria-labelledby="chart-title chart-desc">
+        <title id="chart-title">My IMDb rating distribution</title>
+        <desc id="chart-desc">Number of titles for each personal rating from 1 to 10.</desc>
+        <g class="chart-stars">
+          <defs>
+            <path id="ratings-chart-star" d="M0,-5 L1.18,-1.62 L4.76,-1.55 L1.9,0.62 L2.94,4.05 L0,2 L-2.94,4.05 L-1.9,0.62 L-4.76,-1.55 L-1.18,-1.62 Z"/>
+          </defs>
+            <use href="#ratings-chart-star" x="55"  y="299.5"/>
+            <use href="#ratings-chart-star" x="126" y="299.5"/>
+            <use href="#ratings-chart-star" x="191"   y="299.5"/>
+            <use href="#ratings-chart-star" x="261" y="299.5"/>
+            <use href="#ratings-chart-star" x="326" y="299.5"/>
+            <use href="#ratings-chart-star" x="392" y="299.5"/>
+            <use href="#ratings-chart-star" x="461" y="299.5"/>
+            <use href="#ratings-chart-star" x="529"   y="299.5"/>
+            <use href="#ratings-chart-star" x="593" y="299.5"/>
+            <use href="#ratings-chart-star" x="661"   y="299.5"/>
+        </g>
+      </svg>
+        <div id="ratings-chart-mobile" class="movie-chart-mobile"></div>
+    </div>
+  </section>
+
+<div class="container">
+<section>
+<h2 id="story-title">A movie collection worth sharing</h2>
+<p>I enjoy sharing almost everything, and movies are easily one of the best things to share with someone. They're a great vessel for conveying meaning, exploring ideas, and, in general, telling stories. Sometimes you just want to recommend something you've watched; other times, you want to find that one title that fits the evening without having to scroll through an endless catalogue.</p>
+<p>So, whenever someone asks me which movie I suggest, I'll send them this page.</p>
+
+<h3>A small window into my watch history</h3>
+<p>The tool suggests titles from my currently watched list, which currently sits at around 2,300 movies and series. Anything I've rated with a <strong>10</strong> is something I genuinely suggest watching. And yes, I do revalue ratings when I rewatch something. A rating isn't necessarily a permanent scientific measurement of a movie; sometimes a second, third, or tenth viewing changes how a story lands.</p>
+<p><em>Coraline</em>, for example, is a must-watch stop-motion film, and I can't suggest it enough. That's why it is the default suggestion when the page loads. It seemed appropriate.</p>
+
+<h3>Why not just use IMDb?</h3>
+<p>Yes, my IMDb profile is cute and all, but very few people are going to sit through it and explore a collection of more than two thousand titles just to find something they might want to watch. There's also something slightly more enjoyable about having a small tool make the first suggestion for you.</p>
+<p>That's essentially what this page is: a little tool for a little problem. It's fun, playful, informative, and maybe kind of useful when you're one evening out of ideas about what to watch next. You click or tap around, get a title, and decide whether it catches your attention.</p>
+<p>Could there be more filters? Probably. You could filter by more genres (and not just my top 5 ones), year, runtime, language, country, or some wonderfully specific combination of all of them. But come on, that's too much trouble already. Part of the fun here is letting the list do a little of the deciding for you.</p>
+
+<h3>A rating is a moving target</h3>
+<p>There's also a small distinction worth making about the ratings. A <strong>10</strong> here doesn't mean I believe a movie is objectively perfect. There is no useful universal scale for that, and I'm not particularly interested in pretending there is. It's simply the rating I've given that movie at the time, based on how it affected me, what I found in it, and how much I would want to return to it.</p>
+<p>Rewatches can change that. Sometimes a movie gets better with time; sometimes I notice things I missed; sometimes nostalgia gets involved; sometimes I simply realise that my original rating was a bit generous. The list is therefore less of a fixed archive and more of a collection that keeps changing as I keep watching.</p>
+<h3>If you want the whole thing</h3>
+
+<p>For a more detailed approach to the list, there's always the <a href="https://www.imdb.com/user/p.rmslm6uggot2cx4xejy35ofevq/ratings/" target="_blank">official thing on my IMDb profile</a>. And in case I forget to update this page after three to six months, that is probably the safer place to look.
+<p>For now, have fun clicking and tapping around. Hopefully you'll stumble upon an interesting title worth exploring further. For real, anything I've rated with a <strong>10</strong> is something I'd gladly rewatch after some time, and those are the titles I simply <em>suggest</em> you watch.</p>
+<p>Hopefully your time will be well spent—or invested. Ooolala.</p>
+
+<section>
+<h2 id="process-title">How this came together</h2>
+<ul class="process-list">
+  <li>Started with my personal IMDb ratings and exported the data as the initial dataset. The exported CSV was then transformed into a pretty JSON with an online tool, as IMDb doesn't provide a free public API for retrieving your personal ratings.</li>
+  <li>Cleaned and filtered the export with a short script, keeping movies and series while excluding individual episodes. Later on, I realised that IMDb could actually export a filtered list directly -.-</li>
+  <li>Used the TMDB API to match titles and retrieve poster slugs and overviews. This means that some poster inconsistencies compared with IMDb are expected, as are occasional differences in titles. The data gets matched and fixed periodically.</li>
+  <li>Wrote a small .mjs build script with ChatGPT to process the IMDb export and generate an enriched JSON file. The enrichment added information such as poster slugs and overviews that weren't included in the initial IMDb export.</li>
+  <li>Kept the enrichment as a build step rather than having the page query TMDB for every title on every visit. This means the browser only needs to load one static JSON file, while the extra information is already prepared beforehand. Less work for the browser, fewer requests, and a simpler runtime.</li>
+  <li>Added some graceful handling for incomplete data. Invalid records are filtered out during the build, while titles without poster artwork fall back to a local placeholder rather than leaving an awkward empty space.</li>
+  <li>Added Genres as a second filter. Multiple selected genres need to match simultaneously, while ratings remain an OR filter. In other words, selecting several genres narrows the results to titles containing all of those genres, while selecting several ratings allows any of those ratings.</li>
+  <li>Suggestions keep a session-based history, so changing the filters doesn't suddenly bring back titles that have already been suggested during the same session. Starting over clears that history and gives the list a clean slate.</li>
+  <li>The filtering, suggestion logic and data handling all happen locally in the browser. Apart from loading poster artwork from TMDB's CDN, there's no runtime service involved. Once the JSON is loaded, the little machine is essentially running on its own.</li>
+  <li>Used native HTML controls for the filters and actions rather than replacing them with custom UI components. The ratings chart also carries a textual description, so the information isn't communicated entirely through visual presentation.</li>
+  <li>Built the ratings chart as inline SVG rather than relying on a charting library. It's a relatively small chart, so bringing an entire library along for the ride seemed unnecessary.</li>
+  <li>The page is otherwise plain HTML, CSS and JavaScript, with no third-party runtime dependencies apart from TMDB's poster CDN. Informational exchange is so much easier when you don't introduce a flashy and complicated approach for the sake of having one.</li>
+  <li>The whole thing initially appeared broken because I was opening the HTML file directly instead of serving it over localhost. Firefox quite reasonably wasn't having any of that. The more you know.</li>
+  <li>Spent a day figuring out the layout and pixel-crafting the positioning of things, and voila. I tried getting a design mockup out of Claude and Gemini, but nuh, too cluttered and just looked off. Instead of trying to explain what is what and where, top to bottom, step by step, I covered the page's entire "design" myself. I know, it's childish to call it a design, but to me it does its job: clear, precise and not too confusing, hopefully.</li>
+  <li>I like the saying <em>Good design is invisible</em>, and for something to be good in that sense, damn, it's hard. I like to keep things minimal, so hopefully it works. During the process I remembered some UI/UX fundamentals I'd read here and there, with contextual proximity being one of my favourites. It makes things just "click" without needing backdrops, cards, or whatever those background boxes are called, as if the interface were a physical space that needs to be tidied. And mobile for this kind of functionality requires total restructuring, for something I'm not set for. Anyway, this is probably not the page to expand on this subject.</li>
+  <li>Sections are therefore identified primarily through visual proximity rather than background colouring, which to me is mostly visual noise. Things that belong together sit together; things that don't, don't.</li>
+  <li>And apparently, a necessary disclaimer: this webpage uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB. <a href="https://www.themoviedb.org" target="_blank" rel="nofollow noopener">Posters provided by TMDB.</a></li>
+</ul>
+</section>
+
+<footer class="postfooter">
+  <ul class="postfooter-info"> <!--TODO publish pages for movies & data categories-->
+    <li>Follow the 🐰 <span>›</span> <a href="https://alexanderkyriakou.eu/thoughts/tools">tools</a> · <a href="https://alexanderkyriakou.eu/thoughts/movies">movies</a> · <a href="https://alexanderkyriakou.eu/thoughts/data">data</a></li>
+    <li>Author is I, <a href="https://alexanderkyriakou.eu">Alexander Kyriakou</a></li>
+    <li title="The date of the most recent edit to the page, even if only a single letter was changed">Updated on <time datetime="2026-10-01">October 1, 2026</time></li>
+  </ul>
+
+    <div class="postfooter-share">
+      <button type="button" title="Copy page's URL">
+        <span>Share me</span>
+
+        <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 12C14 14.7614 11.7614 17 9 17H7C4.23858 17 2 14.7614 2 12C2 9.23858 4.23858 7 7 7H7.5M10 12C10 9.23858 12.2386 7 15 7H17C19.7614 7 22 9.23858 22 12C22 14.7614 19.7614 17 17 17H16.5" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <span class="link-copied">Link copied ♥</span>
+    </div>
+  </footer>
+
+</article>
+</div>
+</main>
+
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <h4>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</h4>
+                  </div>
+
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg></a></li>
+                        <li><a href="https://bsky.app/profile/alexanderkyriakou.eu" title="Alexander Kyriakou on Bluesky" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+        <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" alt="Illustration of a city outline, transparent">
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+      </div>
+  </div>
+    <div class="copyright" aria-label="Copyright info">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+    </div>
+</footer>
+<script>
+  (() => {
+    'use strict';
+
+    const DATA_URL = '/assets/data/movie-ratings-rich.json';
+
+    const PLACEHOLDER =
+      'data:image/svg+xml;charset=UTF-8,' +
+      encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" width="450" height="675" viewBox="0 0 220 330">' +
+        '<rect width="220" height="330" fill="#ddd"/>' +
+        '<path d="M55 230l35-42 27 30 25-32 43 44H55z" fill="#bbb"/>' +
+        '<circle cx="77" cy="116" r="27" fill="#bbb"/>' +
+        '<text x="110" y="282" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#777">No poster available</text>' +
+        '</svg>'
+      );
+
+    const state = {
+      titles: [],
+      shown: null,
+      seen: new Set()
+    };
+
+    const $ = id => document.getElementById(id);
+
+    function getControls() {
+      return {
+        desktop: {
+          suggest: $('suggest'),
+          message: $('message'),
+          startOver: $('start-over')
+        },
+        mobile: {
+          suggest: $('suggest-mobile'),
+          message: $('message-mobile'),
+          startOver: $('start-over-mobile')
+        }
+      };
+    }
+
+    function allControls(callback) {
+      const controls = getControls();
+
+      Object.values(controls).forEach(group => {
+        if (group.suggest) {
+          callback(group);
+        }
+      });
+    }
+
+    function setSuggestionState({
+      disabled,
+      message = '',
+      startOverHidden = true,
+      label = 'Suggest a title'
+    }) {
+      allControls(({ suggest, message: output, startOver }) => {
+        suggest.disabled = disabled;
+        suggest.textContent = label;
+
+        if (output) {
+          output.textContent = message;
+        }
+
+        if (startOver) {
+          startOver.hidden = startOverHidden;
+        }
+      });
+    }
+
+    function formatDate(iso, year) {
+      if (!iso) {
+        return year == null ? null : String(year);
+      }
+
+      const [y, m, d] = iso.split('-').map(Number);
+
+      const months = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+      ];
+
+      if (!y || !m || !d || !months[m - 1]) {
+        return year == null ? null : String(year);
+      }
+
+      return `${d} ${months[m - 1]} ${y}`;
+    }
+
+    function validTitles(data) {
+      const raw = Array.isArray(data)
+        ? data
+        : Array.isArray(data?.titles)
+          ? data.titles
+          : [];
+
+      return raw.filter(item =>
+        item &&
+        /^tt\d+$/.test(item.id) &&
+        typeof item.title === 'string' &&
+        item.title.trim() &&
+        Number.isInteger(item.myRating) &&
+        item.myRating >= 1 &&
+        item.myRating <= 10
+      );
+    }
+
+    function counts() {
+      return Array.from(
+        { length: 10 },
+        (_, index) =>
+          state.titles.filter(
+            item => item.myRating === index + 1
+          ).length
+      );
+    }
+
+    function selectedRatings() {
+      return [
+        ...document.querySelectorAll(
+          '#rating-options input[type="checkbox"]:checked'
+        )
+      ].map(input => Number(input.value));
+    }
+
+    function selectedGenres() {
+      return [
+        ...document.querySelectorAll(
+          '#genre-options input[type="checkbox"]:checked'
+        )
+      ].map(input => input.value);
+    }
+
+    function matchesFilters(item, ratings, genres) {
+      if (!ratings.includes(item.myRating)) {
+        return false;
+      }
+
+      if (!genres.length) {
+        return true;
+      }
+
+      const itemGenres = Array.isArray(item.genres)
+        ? item.genres
+        : [];
+
+      return genres.every(
+        genre => itemGenres.includes(genre)
+      );
+    }
+
+    function updateGenreAvailability() {
+      const options = $('genre-options');
+
+      if (!options) {
+        return;
+      }
+
+      const checkboxes = [
+        ...options.querySelectorAll(
+          'input[type="checkbox"]'
+        )
+      ];
+
+      const selected = checkboxes.filter(
+        input => input.checked
+      ).length;
+
+      checkboxes.forEach(input => {
+        input.disabled =
+          selected >= 2 && !input.checked;
+      });
+    }
+
+    function setPoster(item) {
+      const poster = $('poster');
+
+      if (!poster) return;
+
+      poster.alt = `Poster of ${item.title}`;
+
+      poster.onerror = () => {
+        poster.onerror = null;
+        poster.src = PLACEHOLDER;
+      };
+
+      poster.src = item.poster
+        ? `https://image.tmdb.org/t/p/w500${item.poster}`
+        : PLACEHOLDER;
+    }
+
+    function renderItem(item) {
+      state.shown = item;
+
+      const title = $('movie-tool-title');
+
+      if (title) {
+        title.textContent = item.title;
+      }
+
+      setPoster(item);
+
+      const ratings = $('ratings');
+
+      if (ratings) {
+        ratings.replaceChildren();
+
+        const mine = document.createElement('span');
+        mine.className = 'movie-rating';
+
+        mine.innerHTML =
+          '<span class="movie-rating-label">My rating</span>' +
+          '<span class="movie-rating-value">★ ' +
+          item.myRating +
+          '/10</span>';
+
+        ratings.append(mine);
+
+        if (item.imdbRating != null) {
+          const imdb = document.createElement('span');
+          imdb.className = 'movie-rating';
+
+          imdb.innerHTML =
+            '<span class="movie-rating-label">IMDb rating</span>' +
+            '<span class="movie-rating-value">★ ' +
+            Number(item.imdbRating).toFixed(1) +
+            '</span>';
+
+          ratings.append(imdb);
+        }
+      }
+
+      const meta = $('movie-meta');
+
+      if (meta) {
+        meta.replaceChildren();
+
+        const dateLabel =
+          item.type === 'series'
+            ? 'First aired '
+            : 'Release date ';
+
+        const dateText = formatDate(
+          item.releaseDate,
+          item.year
+        );
+
+        if (dateText) {
+          const dt = document.createElement('dt');
+          dt.textContent = dateLabel;
+
+          const dd = document.createElement('dd');
+          dd.textContent = dateText;
+
+          meta.append(dt, dd);
+        }
+
+        if (item.runtime != null) {
+          const dt = document.createElement('dt');
+          dt.textContent = 'Runtime ';
+
+          const dd = document.createElement('dd');
+          dd.textContent = `${item.runtime} min`;
+
+          meta.append(dt, dd);
+        }
+
+        if (
+          Array.isArray(item.genres) &&
+          item.genres.length
+        ) {
+          const dt = document.createElement('dt');
+          dt.textContent = 'Genres ';
+
+          const dd = document.createElement('dd');
+          dd.textContent = item.genres.join(', ');
+
+          meta.append(dt, dd);
+        }
+      }
+
+      const overview = $('movie-overview');
+
+      if (overview) {
+        if (item.overview) {
+          overview.textContent = item.overview;
+          overview.hidden = false;
+        } else {
+          overview.textContent = '';
+          overview.hidden = true;
+        }
+      }
+
+      const link = $('imdb-link');
+
+      if (link) {
+        link.href =
+          item.url ||
+          `https://www.imdb.com/title/${item.id}`;
+      }
+    }
+
+    function renderFilters() {
+      const options = $('rating-options');
+
+      if (!options) {
+        throw new Error(
+          'Missing #rating-options element.'
+        );
+      }
+
+      options.replaceChildren();
+
+      const data = counts();
+
+      const highest = data.reduce(
+        (max, value, index) =>
+          value ? index + 1 : max,
+        0
+      );
+
+      const initialRating = data[9]
+        ? 10
+        : highest;
+
+      for (let rating = 1; rating <= 10; rating++) {
+        const total = data[rating - 1];
+
+        if (!total) continue;
+
+        const label = document.createElement('label');
+
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.value = String(rating);
+        input.checked = rating === initialRating;
+
+        input.addEventListener(
+          'change',
+          updateAvailability
+        );
+
+        const text = document.createElement('span');
+        text.textContent = `${rating}`;
+
+        label.append(input, text);
+        options.append(label);
+      }
+
+      updateAvailability();
+    }
+
+    function updateAvailability() {
+      const selected = selectedRatings();
+      const genres = selectedGenres();
+
+      if (!selected.length) {
+        setSuggestionState({
+          disabled: true,
+          message:
+            'Select at least one rating to get a suggestion.',
+          startOverHidden: true
+        });
+
+        return;
+      }
+
+      const matchingTitles = state.titles.filter(
+        item => matchesFilters(item, selected, genres)
+      );
+
+      if (!matchingTitles.length) {
+        setSuggestionState({
+          disabled: true,
+          message:
+            'No titles match this combination',
+          startOverHidden: true
+        });
+
+        return;
+      }
+
+      const pool = matchingTitles.filter(
+        item => !state.seen.has(item.id)
+      );
+
+      if (!pool.length) {
+        setSuggestionState({
+          disabled: false,
+          message:
+            `You have seen all ${matchingTitles.length} titles for this selection.`,
+          startOverHidden: false,
+          label: 'Suggest another'
+        });
+      } else {
+        setSuggestionState({
+          disabled: false,
+          message: '',
+          startOverHidden: true,
+          label: state.shown
+            ? 'Suggest another'
+            : 'Suggest a title'
+        });
+      }
+    }
+
+    function randomItem(pool) {
+      if (globalThis.crypto?.getRandomValues) {
+        const limit =
+          0x100000000 -
+          (0x100000000 % pool.length);
+
+        const array = new Uint32Array(1);
+
+        do {
+          globalThis.crypto.getRandomValues(array);
+        } while (array[0] >= limit);
+
+        return pool[array[0] % pool.length];
+      }
+
+      return pool[
+        Math.floor(Math.random() * pool.length)
+      ];
+    }
+
+    function suggest() {
+      const selected = selectedRatings();
+      const genres = selectedGenres();
+
+      if (!selected.length) {
+        updateAvailability();
+        return;
+      }
+
+      const pool = state.titles.filter(
+        item =>
+          matchesFilters(item, selected, genres) &&
+          !state.seen.has(item.id)
+      );
+
+      if (!pool.length) {
+        updateAvailability();
+        return;
+      }
+
+      const item = randomItem(pool);
+
+      state.seen.add(item.id);
+
+      renderItem(item);
+
+      updateAvailability();
+    }
+
+    function reset() {
+      state.seen.clear();
+
+      setSuggestionState({
+        disabled: false,
+        message: '',
+        startOverHidden: true,
+        label: 'Suggest a title'
+      });
+
+      updateAvailability();
+    }
+
+    function renderChart() {
+      const svg = $('ratings-chart');
+
+      if (!svg) {
+        throw new Error(
+          'Missing #ratings-chart SVG element.'
+        );
+      }
+
+      const data = counts();
+
+      const mobileChart = $('ratings-chart-mobile');
+
+      if (mobileChart) {
+        const mobileMax = Math.max(1, ...data);
+
+        mobileChart.innerHTML = '';
+
+        // 10 → 1, so the highest rating appears at the top.
+        for (let rating = 10; rating >= 1; rating--) {
+          const value = data[rating - 1];
+
+          const row = document.createElement('div');
+          row.className = 'mobile-chart-row';
+
+          const ratingLabel = document.createElement('span');
+          ratingLabel.className = 'mobile-chart-rating';
+          ratingLabel.textContent = `${rating} ★`;
+
+          const barWrap = document.createElement('div');
+          barWrap.className = 'mobile-chart-bar-wrap';
+
+          const bar = document.createElement('span');
+          bar.className = 'mobile-chart-bar';
+
+          const percentage = (value / mobileMax) * 100;
+          bar.style.setProperty('--bar-width', `${percentage}%`);
+
+          barWrap.append(bar);
+
+          const valueLabel = document.createElement('span');
+          valueLabel.className = 'mobile-chart-value';
+          valueLabel.textContent = String(value);
+
+          row.append(
+            ratingLabel,
+            barWrap,
+            valueLabel
+          );
+
+          mobileChart.append(row);
+        }
+
+        const axis = document.createElement('div');
+        axis.className = 'mobile-chart-axis';
+
+        const scale = document.createElement('div');
+        scale.className = 'mobile-chart-axis-scale';
+
+        const steps = 5;
+
+        for (let i = 0; i <= steps; i++) {
+          const label = document.createElement('span');
+          const value = Math.round(
+            (mobileMax / steps) * i
+          );
+
+          label.textContent = String(value);
+          scale.append(label);
+        }
+
+        axis.append(
+          document.createElement('span'),
+          scale,
+          document.createElement('span')
+        );
+
+      }
+
+      const max = Math.max(1, ...data);
+
+      const W = 700;
+      const H = 318;
+      const left = 20;
+      const right = 20;
+      const top = 24;
+      const bottom = 32;
+
+      const plotW = W - left - right;
+      const plotH = H - top - bottom;
+
+      const gap = 12;
+      const barW =
+        (plotW - gap * 9) / 10;
+
+      svg
+        .querySelectorAll('.chart-generated')
+        .forEach(node => node.remove());
+
+      const group =
+        document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'g'
+        );
+
+      group.setAttribute(
+        'class',
+        'chart-generated'
+      );
+
+      const axis =
+        document.createElementNS(
+          'http://www.w3.org/2000/svg',
+          'line'
+        );
+
+      axis.setAttribute('class', 'axis');
+      axis.setAttribute('x1', left);
+      axis.setAttribute(
+        'y1',
+        top + plotH
+      );
+      axis.setAttribute(
+        'x2',
+        W - right
+      );
+      axis.setAttribute(
+        'y2',
+        top + plotH
+      );
+
+      group.append(axis);
+
+      data.forEach((value, index) => {
+        const x =
+          left +
+          index * (barW + gap);
+
+        const h = value
+          ? (value / max) * (plotH - 18)
+          : 0;
+
+        const y =
+          top + plotH - h;
+
+        const bar =
+          document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'rect'
+          );
+
+        bar.setAttribute(
+          'class',
+          'bar'
+        );
+        bar.setAttribute('x', x);
+        bar.setAttribute('y', y);
+        bar.setAttribute(
+          'width',
+          barW
+        );
+        bar.setAttribute(
+          'height',
+          h
+        );
+
+        group.append(bar);
+
+        const valueLabel =
+          document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'text'
+          );
+
+        valueLabel.setAttribute(
+          'class',
+          'value'
+        );
+        valueLabel.setAttribute(
+          'x',
+          x + barW / 2
+        );
+        valueLabel.setAttribute(
+          'y',
+          value
+            ? y - 5
+            : top + plotH - 5
+        );
+
+        valueLabel.textContent =
+          String(value);
+
+        group.append(valueLabel);
+
+        const ratingLabel =
+          document.createElementNS(
+            'http://www.w3.org/2000/svg',
+            'text'
+          );
+
+        ratingLabel.setAttribute(
+          'class',
+          'value'
+        );
+        ratingLabel.setAttribute(
+          'x',
+          x + barW / 2
+        );
+        ratingLabel.setAttribute(
+          'y',
+          H - 14
+        );
+
+        ratingLabel.textContent =
+          String(index + 1);
+
+        group.append(ratingLabel);
+      });
+
+      svg.append(group);
+
+      const chartDesc = $('chart-desc');
+
+      if (chartDesc) {
+        chartDesc.textContent =
+          `There are ${state.titles.length} titles in total. ` +
+          `Ratings 1 through 10 have counts ` +
+          `${data.join(', ')} respectively.`;
+      }
+
+      const summary = $('stats-summary');
+
+      if (summary) {
+        summary.textContent =
+          `Rated ${state.titles.length} ` +
+          `${state.titles.length === 1 ? 'title' : 'titles'} up to 30 September, 2026. Series episodes are excluded from the count.`;
+      }
+    }
+
+    function showError(message) {
+      const title = $('movie-tool-title');
+      const poster = $('poster');
+
+      if (title) {
+        title.textContent =
+          'Ratings unavailable';
+      }
+
+      if (poster) {
+        poster.src = PLACEHOLDER;
+        poster.alt =
+          'No poster available';
+      }
+
+      setSuggestionState({
+        disabled: true,
+        message,
+        startOverHidden: true
+      });
+    }
+
+    async function init() {
+      try {
+        const response =
+          await fetch(DATA_URL, {
+            cache: 'no-cache'
+          });
+
+        if (!response.ok) {
+          throw new Error(
+            `Could not load ratings (${response.status}).`
+          );
+        }
+
+        const data =
+          await response.json();
+
+        state.titles =
+          validTitles(data);
+
+        if (!state.titles.length) {
+          throw new Error(
+            'The ratings JSON loaded, but contains no valid titles.'
+          );
+        }
+
+        renderChart();
+        renderFilters();
+
+        const genreOptions =
+          $('genre-options');
+
+        if (genreOptions) {
+          genreOptions
+            .querySelectorAll(
+              'input[type="checkbox"]'
+            )
+            .forEach(input => {
+              input.checked = false;
+            });
+        }
+
+        updateGenreAvailability();
+        updateAvailability();
+
+        const initial =
+          state.titles.find(
+            item => item.id === 'tt0327597'
+          ) ||
+          state.titles[0];
+
+        renderItem(initial);
+
+        updateAvailability();
+
+      } catch (error) {
+        console.error(
+          'Movie suggestion initialization failed:',
+          error
+        );
+
+        showError(
+          'The ratings data could not be loaded.'
+        );
+      }
+    }
+
+    function bindEvents() {
+      const controls = getControls();
+      const genreOptions = $('genre-options');
+
+      if (
+        !controls.desktop.suggest &&
+        !controls.mobile.suggest
+      ) {
+        throw new Error(
+          'Missing suggestion button.'
+        );
+      }
+
+      if (
+        !controls.desktop.startOver &&
+        !controls.mobile.startOver
+      ) {
+        throw new Error(
+          'Missing start-over button.'
+        );
+      }
+
+      /*
+      * Both desktop and mobile buttons trigger
+      * the same suggestion function.
+      */
+      allControls(({ suggest: button }) => {
+        button.addEventListener(
+          'click',
+          suggest
+        );
+      });
+
+      /*
+      * Both desktop and mobile Start over buttons
+      * trigger the same reset function.
+      */
+      const startOverButtons = [
+        controls.desktop.startOver,
+        controls.mobile.startOver
+      ].filter(Boolean);
+
+      startOverButtons.forEach(button => {
+        button.addEventListener(
+          'click',
+          reset
+        );
+      });
+
+      if (genreOptions) {
+        genreOptions.addEventListener(
+          'change',
+          event => {
+            if (
+              event.target.matches(
+                'input[type="checkbox"]'
+              )
+            ) {
+              updateGenreAvailability();
+              updateAvailability();
+            }
+          }
+        );
+      }
+    }
+
+    function start() {
+      bindEvents();
+      init();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener(
+        'DOMContentLoaded',
+        start,
+        { once: true }
+      );
+    } else {
+      start();
+    }
+  })();
+</script>
+
+<script defer src="../assets/js/main.js"></script>
+
+</body>
+</html>
