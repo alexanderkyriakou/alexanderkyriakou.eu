@@ -12,7 +12,7 @@ document.querySelectorAll('.honeycomb .item').forEach(el => {
 });
 
 // Thoughts page copy URL button
-const shareButton = document.querySelector('.footnotes-share button');
+const shareButton = document.querySelector('.postfooter-share button');
 const linkCopied = document.querySelector('.link-copied');
 
 shareButton.addEventListener('click', async () => {
@@ -26,6 +26,6 @@ shareButton.addEventListener('click', async () => {
     }, 2000);
 
   } catch (error) {
-    console.error('Failed to copy URL:', error);
+    console.error('Ooops, try again :-(', error);
   }
 });

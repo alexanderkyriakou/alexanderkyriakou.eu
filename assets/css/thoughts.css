@@ -16,26 +16,23 @@
 /* end of standarizations */
 
 /* footnotes/endnotes at the end of each thought page */
-.footnotes {
+.postfooter {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   column-gap: 40px;
-  margin-top: 10px;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
-.footnotes::before {
+.postfooter::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 1px;
-  background: linear-gradient(to right,#858da8 0%, transparent 70%);
+  background: linear-gradient(to left,#eee 0%, transparent 100%);
 }
 
-.footnotes-info {
+.postfooter-info {
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -45,42 +42,35 @@
   text-wrap: nowrap;
 }
 
-.footnotes-info li:nth-last-child(-n + 2) {
-  font-size: 0.9rem;
+.postfooter-info li:nth-last-child(1) {
   color: #555;
 }
 
-.footnotes-share {
+.postfooter-share {
   display: flex;
   align-items: center;
-  align-self: center;
+  align-self: flex-end;
   gap: 8px;
   white-space: nowrap;
   position: relative;
+  color: #555;
 }
 
-.footnotes-share button {
+.postfooter-share button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: inherit;
   font-size: 1rem;
-  gap: 4px;
-  padding: 4px;
+  gap: 5px;
+  padding-bottom: 2px;
   border: 0;
   background: none;
   cursor: pointer;
   color: #555;
 }
 
-.footnotes-share svg {
-  width: 16px;
-  height: 16px;
-  display: block;
-  transform: translateY(-2px);
-}
-
-.footnotes-info svg {
+.postfooter-share svg {
   width: 16px;
   height: 16px;
   display: block;
@@ -225,6 +215,7 @@
   margin-block: calc(var(--s) / 1.15 + var(--g) + 1rem);
   margin-inline-start: calc(.75 * var(--s) + .87 * var(--g));
   margin-inline-end:   calc(1.5 * var(--s) + 1.74 * var(--g));
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
 }
 
 .honeycomb > .item {
@@ -492,7 +483,7 @@
       animation-delay: 14s;
   }
   .thoughts-animated li:nth-child(4) {
-      left: 89%;
+      left: 86%;
       width: 39px;
       height: 39px;
       top: -139px;
@@ -506,7 +497,7 @@
       animation-delay: 17s;
   }
   .thoughts-animated li:nth-child(6) {
-      left: 88%;
+      left: 82%;
       width: 52px;
       height: 52px;
       top: -142px;
@@ -557,13 +548,13 @@
   .honeycomb > .item:nth-child(7) { --_y: calc(100% + var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-tools.jpg"); }
   .honeycomb > .item:nth-child(8) { --_x: calc(75% + .87*var(--g)); --_y: calc(150% + 1.5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-music.jpg"); }
 
-  .honeycomb > .item:hover {
+  .honeycomb > a.item:hover {
     --_t: 1;
     transition: none;
   }
 
-  .footnotes {
-    padding: 20px 0 20px 0;
+  .postfooter {
+    padding: 10px 0 20px 0;
   }
 
   /* post flow box on mobile with lower padding */

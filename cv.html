@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Professional experience, projects and skills acquired through time.">
   <meta name="author" content="Alexander Kyriakou">
-  <meta  name="robots" content="none">
+  <meta name="robots" content="none">
   <link rel="canonical" href="https://alexanderkyriakou.eu/cv">
   <link rel="stylesheet" href="assets/css/main.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/resume.md">
 
   <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
   <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
@@ -106,12 +106,12 @@ h2 {
   margin-bottom: 0px;
 }
 
-.container h3, 
-.container h4 {
+main h3, 
+main h4 {
   margin: 0px;
 }
 
-.container p {
+main p {
   line-height: 1.5;
 }
 
@@ -219,7 +219,7 @@ tr > td:first-of-type {
   display: none;
 }
 
-.container h2 {
+main h2 {
   scroll-margin-top: 20px;
 }
 
@@ -404,7 +404,11 @@ tr > td:first-of-type {
     font-size: 1.1rem;
   }
 
-  .container p, li, td {
+  p, li, table {
+    font-size: 1rem;
+  }
+
+  tr > td:first-of-type {
     font-size: 1rem;
   }
 
@@ -422,36 +426,37 @@ tr > td:first-of-type {
 <body>
   <header>
     <div class="nav-border">
-     <nav role="navigation">
+      <nav aria-label="Main navigation">
 <!--mobile menu start-->
         <div class="mobile-menu">
-            <ul class="nav-list">
-                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
-                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
-                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
-            </ul>
-            </div>
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
 <!--mobile menu end-->
 
 <!--desktop menu start-->
         <div class="desktop-menu">
-            <ul class="nav-list">
-                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
-                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
-                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
-            </ul>
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
         </div>
 <!--desktop menu end-->
-    </nav>
+      </nav>
     </div>
   </header>
 
-<div class="container" role="main">
+<main>
+  <div class="container">
   <div class="flex">
   <div class="flex-img">
     <picture>
       <source type="image/avif" srcset="assets/images/resume/alexander-kyriakou-summer-2026-dog-s.avif 1x, assets/images/resume/alexander-kyriakou-summer-2026-dog-m.avif 2x, assets/images/resume/alexander-kyriakou-summer-2026-dog.avif 3x">
-      <img class="slide" draggable="false" src="assets/images/resume/alexander-kyriakou-summer-2026-dog.jpg" alt="Alexander Kyriakou with a little dog on his lamps in the Summer of 2026" fetchpriority="high" srcset="assets/images/resume/alexander-kyriakou-summer-2026-dog-s.jpg 1x, assets/images/resume/alexander-kyriakou-summer-2026-dog-m.jpg 2x, assets/images/resume/alexander-kyriakou-summer-2026-dog.jpg 3x">
+      <img class="slide" draggable="false" src="assets/images/resume/alexander-kyriakou-summer-2026-dog.jpg" alt="Alexander Kyriakou with a little dog on his laps in the Summer of 2026" fetchpriority="high" srcset="assets/images/resume/alexander-kyriakou-summer-2026-dog-s.jpg 1x, assets/images/resume/alexander-kyriakou-summer-2026-dog-m.jpg 2x, assets/images/resume/alexander-kyriakou-summer-2026-dog.jpg 3x">
     </picture>
     <picture>
       <source type="image/avif" srcset="assets/images/resume/alexander-kyriakou-autumn-2025-river-s.avif 1x, assets/images/resume/alexander-kyriakou-autumn-2025-river-m.avif 2x, assets/images/resume/alexander-kyriakou-autumn-2025-river.avif 3x">
@@ -469,6 +474,7 @@ tr > td:first-of-type {
     </div>
     <div class="flex-text-intro">
         <p><i>SEO and Organic Growth Product Manager with expertise in technical SEO, web development, analytics, and cross-functional product delivery. A strong advocate for digital literacy and societal transformation through digital means.</i></p>
+        <!--SEO and Organic Growth Product Manager specializing in technical SEO, web product delivery, analytics, and cross-functional implementation. Combines hands-on web development and data analysis with product management to improve organic growth, search visibility, and user experience.-->
     </div>
   </div>
 </div>
@@ -557,23 +563,39 @@ tr > td:first-of-type {
   </div>
   <p class="company-desc">A multi-awarded performance marketing agency founded in 2013. It has grown to become Google's leading Partner in Video and Display Innovation for Europe, Middle East, and Africa.</p>
   <span class="company-header">
-    <h4>Technical SEO Lead & Analytics</h4> 
+    <h4>Technical SEO Lead and Analytics</h4> 
     <p class="work-dur">Promotion and title change after 6 months</p>
   </span>
   <p style="margin: 0px;">Duties remained the same; title changed to better reflect my role in the department.</p>
   <ul>
-    <li>Built interactive Looker Studio reports for clients, including C-level executives, translating complex data into clear business insights, while providing ongoing support and adapting to emerging trends in data visualization.</li>
-    <li>Created data solutions via GA4 for enhanced decision-making.</li>
-    <li>Conducted log-file analysis via Screaming Frog and Sheets, identifying technical issues before they surfaced in GSC.</li>
-    <li>Created internal learning materials and shared emerging SEO, analytics, and technology developments to strengthen team capability.</li>
+    <li>Built interactive Looker Studio reports for clients, including C-level executives, and internal use, translating complex data into clear business insights. Created and maintained around 20 client reports while providing ongoing support and adapting to emerging trends in data visualization.</li>
+    <li>Created custom explorations in Google Analytics 4 for enhanced analysis and decision-making.</li>
+    <li>Conducted log-file analysis via Screaming Frog and Sheets, typically analyzing around 50GB of Google-filtered data across three-month periods to identify technical issues before they surfaced in GSC.</li>
+    <li>Delivered optimized robots.txt files, troubleshooting existing ones and managing complex directives.</li>
+    <li>Assessed the proper implementation of structured data using JSON-LD and Microdata, providing enriched examples.</li>
+    <li>Provided guidelines for semantic HTML utilization.</li>
+    <li>Developed first on-page and off-page optimization roadmaps and initial strategy roadmaps.</li>
+    <li>Developed crawlability optimization options for large websites (>100k URLs).</li>
+    <li>Provided learning material, explained new or advanced concepts, and shared new developments to encourage continuous learning and development within the team.</li>
   </ul>
 
     <h4>Technical SEO Expert</h4>
     <ul>
-      <li>Delivered technical SEO audits across ecommerce, news, real estate, and nonprofit sites, helping business owners and developers resolve crawl, indexing, and implementation issues and improve their businesses in a more user-centric and search-engine-friendly manner.</li>
+      <li>Delivered 50+ technical SEO audits across ecommerce, news, real estate, and nonprofit sites, helping business owners and developers resolve crawl, indexing, and implementation issues and improve their businesses in a more user-centric and search-engine-friendly manner; managed 8 audits concurrently at a time, with some sites receiving more than 5m monthly visits.</li>
+      <li>Wrote priority plans for audit tasks and their respective implementation.</li>
       <li>Wrote and refined JavaScript automation for Google Sheets, improving internal SEO workflows.</li>
+      <li>Assessed primary user accessibility standards against WCAG using browser plugins and external tools, and provided detailed documentation on their relation to SEO.</li>
+      <li>Analyzed Core Web Vitals and provided detailed guidelines for performance on user devices and for user agents, with websites typically reaching acceptable orange or green assessment results.</li>
+      <li>Assessed social media shareability through correct use of Open Graph meta tags and further optimizations.</li>
       <li>Wrote data extraction Python scripts for internal data analysis.</li>
-      <li>Designed SEO migration roadmaps and delivered near-lossless site transitions.</li>
+      <li>Managed localization for international or market-specific websites across 2–8 markets, with streamlined prioritization and close monitoring.</li>
+      <li>Developed SEO migration and redesign roadmaps and delivered near-lossless site transitions.</li>
+      <li>Utilized ahrefs, OpenAI, DataForSEO, and Google Autocomplete APIs for bulk data filling and management.</li>
+      <li>Presented technical and non-technical findings to development teams and occasionally to clients, providing practical solutions and documentation while remaining open to alternative approaches.</li>
+      <li>Troubleshot rendering issues in SPAs, PWAs and JS-dependent HTML pages, affecting user agents and users.</li>
+      <li>Consulted on JavaScript-based websites to support SEO-friendly practices within their respective frameworks.</li>
+      <li>Assessed content for readers and search engines, ensuring core quality metrics were maintained according to Google's search quality rater guidelines, and provided further optimizations to improve user experience.</li>
+      <li>Analyzed HTTP headers and provided respective technical recommendations.</li>
       <li>Introduced LLM-assisted workflows using ChatGPT and Copilot for SEO and analytical tasks.</li>
     </ul>
 </article>
@@ -590,12 +612,17 @@ tr > td:first-of-type {
   </span>
   <ul>
     <li>Conducted extensive on-page and off-page SEO audits, creating and executing respective strategies.</li>
-    <li>Advised clients on SEO strategy and broader digital presence.</li>
     <li>Conducted keyword research and analysis; developed content strategies and improved existing content.</li>
+    <li>Built and maintained strong client relationships while advising on SEO strategy and digital presence.</li>
     <li>Troubleshot keyword cannibalization through careful content management.</li>
+    <li>Created Google and Bing Knowledge Panels and improved clients' local and national SERP visibility.</li>
+    <li>Developed content marketing strategies and wrote content for GIM's blog.</li>
     <li>Wrote an updated version of the published SEO Book.</li>
-    <li>Validated and performed basic configuration of WordPress, Magento, and other CMSs.</li>
-    <li>Troubleshooted and recovered hacked company's WordPress websites.</li>
+    <li>Implemented UX and CRO improvements or provided respective recommendations.</li>
+    <li>Validated and performed basic SEO configuration of WordPress, Shopify, PrestaShop, and other CMSs.</li>
+    <li>Implemented on-page improvements and SEO copywriting, including title links, meta descriptions, and introductory texts.</li>
+    <li>Validated HTML, CSS, and JavaScript to ensure websites were properly accessible to users and crawlers.</li>
+    <li>Troubleshot and recovered hacked company WordPress websites.</li>
   </ul>
 </article>
 
@@ -607,12 +634,24 @@ tr > td:first-of-type {
 <p class="company-desc">Foreign language centre established at Pasalimani Piraeus in 1985.</p>
   <h4>Moodle Developer/Administrator | IT Tutor</h4>
   <ul>
-    <li>Built and administered the Moodle platform <a href="https://fastschool.eu/elearning/" target="_blank">Fastschool</a>, supporting 20 courses and 1,000+ quizzes, for another 3 language centers.</li>
+    <li>Built and administered the Moodle platform <a href="https://fastschool.eu/elearning/" target="_blank">Fastschool</a>, supporting 20 courses and 1,100+ quizzes, for Synchrono and 3 additional language centers.</li>
+    <li>Created more than 1,100 interactive quizzes using the Cloze question format.</li>
+    <li>Used HTML and CSS to personalize the platform's UI/UX.</li>
     <li>Wrote 3 manuals on the platform, in text and video form.</li>
     <li>Created promotional video and graphics for the platform.</li>
+    <li>Implemented plugins that gamified the learning experience.</li>
     <li>Digitized placement testing with Google Forms.</li>
     <li>Designed email templates for Gmail & Outlook and email marketing campaigns on Mailchimp.</li>
+    <li>Guided the hosting company during the establishment of the Moodle platform.</li>
+    <li>Presented the platform to third parties in person and virtually.</li>
+    <li>Configured courses for use by multiple users and classrooms.</li>
+    <li>Implemented dictionary capabilities through custom process with PDF/DOCX files as only resource, allowing users to see word meanings and translations according to their book by clicking on them.</li>
     <li>Taught ICT to adults for the ECDL certification or similar, covering the Base & Advanced units.</li>
+    <ul>
+    <li>Created personalized exercises for adult ICT students.</li>
+    <li>Prepared students for their chosen ECDL certification through mockup testing.</li>
+    <li>Explained complex ICT subjects clearly and provided feedback on student projects and homework.</li>
+    </ul>
   </ul>
 </article>
 
@@ -724,13 +763,13 @@ tr > td:first-of-type {
 <section>
 <h2 id="technical-skills">Technical Skills</h2>
   <h3>SEO & Organic Growth</h3>
-  <p style="margin-top: 10px;">SEO Auditing · Technical SEO · Programmatic SEO · International SEO · JavaScript SEO · Log-file Analysis · SEO Migrations · App Store Optimization · Conversion Rate Optimization · Schema Markup · Content Management / Optimization</p>
+  <p style="margin-top: 10px;">SEO Auditing · Technical SEO · Programmatic SEO · International SEO · JavaScript SEO · Log-file Analysis · SEO Migrations · App Store Optimization · Conversion Rate Optimization · Schema Markup · Content Management / Optimization · Semrush / ahrefs</p>
   
   <h3>Product & Analytics</h3>
-  <p style="margin-top: 10px;">Product Management · Web Product Delivery · Google Analytics 4 · Google Search Console / Bing Web Tools · BigQuery · SQL · Looker Studio · Data Analysis · Data Visualization · UX</p>
+  <p style="margin-top: 10px;">Product Management · Web Product Delivery · Google Analytics 4 · Google Tag Manager · Google Search Console / Bing Web Tools · BigQuery · SQL · Looker Studio · Google Cloud · Data Analysis · Google Colab/Jupyter Notebooks · Data Visualization · UX</p>
 
   <h3>Web & Automation</h3>
-  <p style="margin-top: 10px;">HTML · CSS · JavaScript · Python (Pandas/NumPy) · Google Apps Script · Git · CMS · Accessibility · Debugging · n8n/Zapier </p>
+  <p style="margin-top: 10px;">HTML · CSS · JavaScript · Python (Pandas/NumPy) · Google Apps Script · Regular Expressions · Git · CMS · Accessibility · Debugging · n8n / Zapier </p>
 
   <h3>AI</h3>
   <p style="margin-top: 10px;">LLM APIs · Local LLMs · Agents · MCPs · AI-assisted Workflows · Generative AI · Stable Diffusion · AI IDEs (Antigravity, Cursor)</p>
@@ -796,7 +835,7 @@ tr > td:first-of-type {
 <div class="grid">
   <section class="edu">
     <h2 id="education">Education</h2>
-    <p style="margin: 10px 0px;">Bachelor of Science in <a href="https://www.mst.duth.gr/index.php/en/homepage-en/" target="_blank">Information Management and Business Administration</a> · <span style="font-size: 0.9rem; color: #555;">2010–2015</span></p>
+    <p style="margin: 10px 0px;">Bachelor of Science in <a href="https://www.mst.duth.gr/index.php/en/homepage-en/" target="_blank">Information Management and Business Administration</a> · <span style="font-size: 0.9rem; color: #555;">2010–2016</span></p>
     <p style="font-size: 1.1rem; margin-bottom: 0px;">Technological Educational Institute of Eastern Macedonia and Thrace</p>
     <p style="font-size: 1rem;">Thesis: <em>mCommerce in Greece and its usage among millennials</em> · 9.5/10</p>
   </section>
@@ -963,9 +1002,10 @@ tr > td:first-of-type {
   </tbody>
 </table>
 <!-- TODO JS date auto-update on commit -->
-  <p class="updated-date"><i>Updated on September 24, 2026</i></p>
+  <p class="updated-date"><time datetime="2026-09-30">Updated on September 30, 2026</time></p>
   <p id="no-print" style="color: #555; font-size: 0.9rem; text-align: center;"><a href="resume.md" target="_blank"><em>Markdown version</em></a></p>
 </div>
+</main>
 
 
 

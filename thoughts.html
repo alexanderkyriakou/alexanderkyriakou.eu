@@ -9,7 +9,6 @@
   <link rel="canonical" href="https://alexanderkyriakou.eu/thoughts">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/thoughts.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
   <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
@@ -26,8 +25,8 @@
 
   <!--og tags-->
 <style>
-  .nav-list > li:nth-child(3) a {
-    color: #1e90ff;
+.nav-list > li:nth-child(3) a {
+  color: #1e90ff;
 }
 </style>
 
@@ -36,29 +35,29 @@
 <body>
   <header>
     <div class="nav-border">
-     <nav role="navigation">
+      <nav aria-label="Main navigation">
 <!--mobile menu start-->
         <div class="mobile-menu">
-            <ul class="nav-list">
-                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
-                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
-                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
-            </ul>
-            </div>
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
 <!--mobile menu end-->
 
 <!--desktop menu start-->
         <div class="desktop-menu">
-            <ul class="nav-list">
-                <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
-                <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
-                <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
-            </ul>
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
         </div>
 <!--desktop menu end-->
-    </nav>
+      </nav>
     </div>
-    </header>
+  </header>
   
   <div class="thoughts-animated">
     <ul>
@@ -82,14 +81,28 @@
   <div class="item" style="cursor: default;"><h1>thoughts</h1></div>
   <a class="item off" href="#"><h4>seo</h4></a>
   <a class="item off" href="#"><h4>books</h4></a>
-  <a class="item off" href="#"><h4>movies</h4></a>
-  <a class="item off" href="#"><h4>data</h4></a>
+  <a class="item" href="https://alexanderkyriakou.eu/thoughts/movies" title="Stories in moving pictures, irrelevant reviews and ideations"><h4>movies</h4></a>
+  <a class="item" href="https://alexanderkyriakou.eu/thoughts/data" title="Data analysis, management, usage and what on earth is data"><h4>data</h4></a>
   <a class="item" href="https://alexanderkyriakou.eu/thoughts/tools" title="Small online tools, some useful and others not so much"><h4>tools</h4></a>
   <a class="item off" href="#"><h4>music</h4></a>
 </div>
 </div>
 
-<div class="container" role="main">
+<main>
+  <div class="container">
+    <div class="post">
+    <a class="hp-flow-block" href="https://alexanderkyriakou.eu/ak/movie-suggestion">
+      <span class="hp-flow-border" aria-hidden="true"></span>
+      <div class="hp-flow-text">
+        <div class="flow-post-timestamp" title="Updated on">October 1, 2026</div>
+        <h2>What should you watch next?</h2>
+        <p>Let me suggest a movie from my collection of 2.300+ watched titles.</p>
+      </div>
+      <figure class="hp-flow-image">
+        <img src="assets/images/thoughts/movie-suggestion/thumbnail/open-air-cinema-screen-athens-2025.avif" loading="lazy" alt="Black and white screening of a movie in an open-air cinema in Athens, Greece taken by Alexander Kyriakou in summer of 2025">
+      </figure>
+    </a>
+  </div>
   <div class="post">
     <a class="hp-flow-block" href="https://alexanderkyriakou.eu/ak/greek-characters-latin">
       <span class="hp-flow-border" aria-hidden="true"></span>
@@ -116,7 +129,8 @@
       </figure>
     </a>
   </div>
-</div>
+  </div>
+</main>
 
 <footer role="contentinfo">
   <div class="footer">
