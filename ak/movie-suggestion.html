@@ -4,7 +4,7 @@
   <title>A Movie Suggestion from My Watchlist</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Let me suggest a movie from my collection of 2,300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next.">
+  <meta name="description" content="Let me suggest a movie from my collection of 2.300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next.">
   <meta name="author" content="Alexander Kyriakou">
   <link rel="canonical" href="https://alexanderkyriakou.eu/ak/movie-suggestion">
   <link rel="stylesheet" href="../assets/css/main.css">
@@ -21,7 +21,7 @@
 
   <!--og tags start-->
   <meta property="og:title" content="A Movie Suggestion from my Watchlist"/>
-  <meta property="og:description" content="Let me suggest a movie from my collection of 2,300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next."/>
+  <meta property="og:description" content="Let me suggest a movie from my collection of 2.300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next."/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Alexander Kyriakou"/>
   <meta property="og:url" content="https://alexanderkyriakou.eu/ak/movie-suggestion"/>
@@ -37,7 +37,7 @@
         "@id": "https://alexanderkyriakou.eu/ak/movie-suggestion#webpage",
         "url": "https://alexanderkyriakou.eu/ak/movie-suggestion",
         "name": "A Movie Suggestion from My Watchlist",
-        "description": "Let me suggest a movie from my collection of 2,300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next.",
+        "description": "Let me suggest a movie from my collection of 2.300+ watched titles. Explore highly rated films, filter by genre and discover something worth watching next.",
         "inLanguage": "en",
         "isPartOf": {
           "@id": "https://alexanderkyriakou.eu/#website"
@@ -48,7 +48,7 @@
         "author": {
           "@id": "https://alexanderkyriakou.eu/#person"
         },
-        "dateModified": "2026-10-01"
+        "dateModified": "2026-10-02"
       },
       {
         "@type": "WebApplication",
@@ -277,16 +277,31 @@
   line-height: 1.5;
 }
 
-/* IMDb link */
-.suggestmovie #imdb-link {
-  font-size: 0.9rem;
-  white-space: nowrap;
-  padding: 0 15px;
+/* imdb link */
+.suggestmovie .imdb-rating-link {
+  flex: 0 0 auto;
+  margin-left: auto;
+  padding: 5px 0;
+  color: #555;
+  text-decoration: none;
 }
 
-.suggestmovie #imdb-link::after {
-  content: " \2197"; 
-  content: " \2197" / ""; 
+.suggestmovie .imdb-rating-link:hover {
+  color: #1e90ff;
+  transition: color .2s ease;
+}
+
+.suggestmovie .imdb-rating-link:focus-visible {
+  outline: 1px solid #555;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.suggestmovie .imdb-rating-icon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: -3px;
 }
 
 .suggestmovie .movie-filter {
@@ -628,10 +643,6 @@
     justify-content: center;
   }
 
-  .suggestmovie #imdb-link {
-    padding-inline: 0;
-  }
-
   .suggestmovie .movie-details {
     min-height: 0;
   }
@@ -694,12 +705,10 @@
     z-index: 100;
     display: flex;
     align-items: center;
-    gap: 10px;
     padding: 10px 15px;
-    background: rgb(255 255 255 / .95);
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #eee;
     box-shadow: 0 -6px 20px rgb(31 31 31 / .08);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(6px);
   }
 
   .suggestmovie #suggest-mobile {
@@ -720,7 +729,7 @@
 
   .suggestmovie #suggest-mobile:disabled {
     background: #eee;
-    color: #fff;
+    color: #555;
     cursor: not-allowed;
   }
 
@@ -760,6 +769,19 @@
   .suggestmovie .movie-actions-mobile {
     display: flex;
   }
+
+  /* hide mobile actions on scroll down */
+  .suggestmovie .movie-actions-mobile {
+    transition: opacity .6s ease, transform 1s ease, visibility .6s ease;
+  }
+
+  .suggestmovie .movie-actions-mobile.is-hidden {
+    opacity: 0;
+    transform: translateY(100%);
+    visibility: hidden;
+    pointer-events: none;
+  }
+  /* end of hide mobile actions on scroll down */
 
   .suggestmovie .movie-stats {
     margin-top: 30px;
@@ -876,6 +898,7 @@
       </nav>
     </div>
   </header>
+<noscript><p class="nojs">The page requires JavaScript to be enabled to function properly.</p></noscript>
 
 <main>
 <article class="suggestmovie">
@@ -897,8 +920,20 @@
         <div class="movie-details-main">
         <h2 id="movie-tool-title">Coraline</h2>
         <div class="movie-ratings-row">
-          <div id="ratings" class="movie-ratings"></div>
-          <a id="imdb-link" href="https://www.imdb.com/title/tt0327597" target="_blank" rel="nofollow noopener">IMDb</a>
+          <div id="ratings" class="movie-ratings">
+            <span class="movie-rating">
+              <span class="movie-rating-label">My rating</span>
+              <span class="movie-rating-value"></span>
+            </span>
+
+            <a class="movie-rating imdb-rating-link" href="#" target="_blank" rel="nofollow noopener">
+              <span class="movie-rating-label">IMDb rating</span>
+              <span class="movie-rating-value"></span>
+              <svg class="imdb-rating-icon" width="100" height="100" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                <path d="M10 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V14M11 13L20 4M20 4V9M20 4H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
         <dl id="movie-meta" class="movie-meta"></dl>
         <p id="movie-overview" class="movie-overview" hidden></p>
@@ -968,36 +1003,36 @@
 <section>
 <h2 id="story-title">A movie collection worth sharing</h2>
 <p>I enjoy sharing almost everything, and movies are easily one of the best things to share with someone. They're a great vessel for conveying meaning, exploring ideas, and, in general, telling stories. Sometimes you just want to recommend something you've watched; other times, you want to find that one title that fits the evening without having to scroll through an endless catalogue.</p>
-<p>So, whenever someone asks me which movie I suggest, I'll send them this page.</p>
+<p>So, whenever someone asks me which movie I'd suggest, I'll send them this page.</p>
 
 <h3>A small window into my watch history</h3>
-<p>The tool suggests titles from my currently watched list, which currently sits at around 2,300 movies and series. Anything I've rated with a <strong>10</strong> is something I genuinely suggest watching. And yes, I do revalue ratings when I rewatch something. A rating isn't necessarily a permanent scientific measurement of a movie; sometimes a second, third, or tenth viewing changes how a story lands.</p>
-<p><em>Coraline</em>, for example, is a must-watch stop-motion film, and I can't suggest it enough. That's why it is the default suggestion when the page loads. It seemed appropriate.</p>
+<p>The tool suggests titles from my currently watched list, as exported on 30 September 2026, which sits at around 2300 movies and series. Anything I've rated with a <strong>10</strong> is something I genuinely suggest watching, not reccomend per se as I can't guarantee joyable viewing. And yes, I do revalue ratings when I rewatch something. A rating isn't necessarily a permanent scientific measurement of a movie; sometimes a second, third, or tenth viewing changes how a story lands.</p>
+<p><em>Coraline</em>, for example, is a must-watch stop-motion film, and I can't <em>recommend</em> it enough. That's why it is the default suggestion when the page loads. It seemed appropriate.</p>
 
-<h3>Why not just use IMDb?</h3>
+<h3>Why not just use my IMDb?</h3>
 <p>Yes, my IMDb profile is cute and all, but very few people are going to sit through it and explore a collection of more than two thousand titles just to find something they might want to watch. There's also something slightly more enjoyable about having a small tool make the first suggestion for you.</p>
 <p>That's essentially what this page is: a little tool for a little problem. It's fun, playful, informative, and maybe kind of useful when you're one evening out of ideas about what to watch next. You click or tap around, get a title, and decide whether it catches your attention.</p>
-<p>Could there be more filters? Probably. You could filter by more genres (and not just my top 5 ones), year, runtime, language, country, or some wonderfully specific combination of all of them. But come on, that's too much trouble already. Part of the fun here is letting the list do a little of the deciding for you.</p>
+<p>Could there be more filters? Probably. You could filter by more genres (and not just my top 5 ones), year, runtime, language, country, movie or series, or some wonderfully specific combination of all of them. But come on, that's too much trouble already. Part of the fun here is letting the list do a little of the deciding for you.</p>
 
 <h3>A rating is a moving target</h3>
 <p>There's also a small distinction worth making about the ratings. A <strong>10</strong> here doesn't mean I believe a movie is objectively perfect. There is no useful universal scale for that, and I'm not particularly interested in pretending there is. It's simply the rating I've given that movie at the time, based on how it affected me, what I found in it, and how much I would want to return to it.</p>
 <p>Rewatches can change that. Sometimes a movie gets better with time; sometimes I notice things I missed; sometimes nostalgia gets involved; sometimes I simply realise that my original rating was a bit generous. The list is therefore less of a fixed archive and more of a collection that keeps changing as I keep watching.</p>
-<h3>If you want the whole thing</h3>
 
-<p>For a more detailed approach to the list, there's always the <a href="https://www.imdb.com/user/p.rmslm6uggot2cx4xejy35ofevq/ratings/" target="_blank">official thing on my IMDb profile</a>. And in case I forget to update this page after three to six months, that is probably the safer place to look.
+<h3>If you want the whole thing</h3>
+<p>For a more detailed approach to my watchlist, there's always the <a href="https://www.imdb.com/user/p.rmslm6uggot2cx4xejy35ofevq/ratings/" target="_blank">official thing on my IMDb profile</a>. And in case I forget to update this page after three to six months, that is probably the safer place to look.
 <p>For now, have fun clicking and tapping around. Hopefully you'll stumble upon an interesting title worth exploring further. For real, anything I've rated with a <strong>10</strong> is something I'd gladly rewatch after some time, and those are the titles I simply <em>suggest</em> you watch.</p>
-<p>Hopefully your time will be well spent, or invested. Ooolala.</p>
+<p>Hopefully your time will be well spent, or invested. Enjoy.</p>
 
 <section>
 <h2 id="process-title">How this came together</h2>
 <ul class="process-list">
+  <li><em>Alex, what do you suggest for me to watch?</em> Initial question by most once they get to know that you enjoy <em>devouring</em> movies and series. And because sending a link to my IMDb prodile doesn't do the trick, voila this little page.</li>
   <li>Started with my personal IMDb ratings and exported the data as the initial dataset. The exported CSV was then transformed into a pretty JSON with an online tool, as IMDb doesn't provide a free public API for retrieving your personal ratings.</li>
   <li>Cleaned and filtered the export with a short script, keeping movies and series while excluding individual episodes. Later on, I realised that IMDb could actually export a filtered list directly -.-</li>
-  <li>Used the TMDB API to match titles and retrieve poster slugs and overviews. This means that some poster inconsistencies compared with IMDb are expected, as are occasional differences in titles. The data gets matched and fixed periodically.</li>
-  <li>Wrote a small .mjs build script with ChatGPT to process the IMDb export and generate an enriched JSON file. The enrichment added information such as poster slugs and overviews that weren't included in the initial IMDb export.</li>
+  <li>Used the TMDB API through a small .mjs build script with ChatGPT, to match IDs and retrieve poster slugs and overviews. This means that some poster inconsistencies compared with IMDb are expected, as are occasional differences in titles. The data gets matched and fixed periodically.</li>
   <li>Kept the enrichment as a build step rather than having the page query TMDB for every title on every visit. This means the browser only needs to load one static JSON file, while the extra information is already prepared beforehand. Less work for the browser, fewer requests, and a simpler runtime.</li>
   <li>Added some graceful handling for incomplete data. Invalid records are filtered out during the build, while titles without poster artwork fall back to a local placeholder rather than leaving an awkward empty space.</li>
-  <li>Added Genres as a second filter. Multiple selected genres need to match simultaneously, while ratings remain an OR filter. In other words, selecting several genres narrows the results to titles containing all of those genres, while selecting several ratings allows any of those ratings.</li>
+  <li>Added Genres as a second filter after the ratings filter. Multiple selected genres need to match simultaneously (AND), while ratings remain an OR filter. In other words, selecting several genres narrows the results to titles containing all of those genres, while selecting several ratings allows any of those ratings.</li>
   <li>Suggestions keep a session-based history, so changing the filters doesn't suddenly bring back titles that have already been suggested during the same session. Starting over clears that history and gives the list a clean slate.</li>
   <li>The filtering, suggestion logic and data handling all happen locally in the browser. Apart from loading poster artwork from TMDB's CDN, there's no runtime service involved. Once the JSON is loaded, the little machine is essentially running on its own.</li>
   <li>Used native HTML controls for the filters and actions rather than replacing them with custom UI components. The ratings chart also carries a textual description, so the information isn't communicated entirely through visual presentation.</li>
@@ -1006,7 +1041,8 @@
   <li>The whole thing initially appeared broken because I was opening the HTML file directly instead of serving it over localhost. Firefox quite reasonably wasn't having any of that. The more you know.</li>
   <li>Spent a day figuring out the layout and pixel-crafting the positioning of things, and voila. I tried getting a design mockup out of Claude and Gemini, but nuh, too cluttered and just looked off. Instead of trying to explain what is what and where, top to bottom, step by step, I covered the page's entire "design" myself. I know, it's childish to call it a design, but to me it does its job: clear, precise and not too confusing, hopefully.</li>
   <li>I like the saying <em>Good design is invisible</em>, and for something to be good in that sense, damn, it's hard. I like to keep things minimal, so hopefully it works. During the process I remembered some UI/UX fundamentals I'd read here and there, with contextual proximity being one of my favourites. It makes things just "click" without needing backdrops, cards, or whatever those background boxes are called, as if the interface were a physical space that needs to be tidied. And mobile for this kind of functionality requires total restructuring, for something I'm not set for. Anyway, this is probably not the page to expand on this subject.</li>
-  <li>Sections are therefore identified primarily through visual proximity rather than background colouring, which to me is mostly visual noise. Things that belong together sit together; things that don't, don't.</li>
+  <li>Sections are therefore identified primarily through visual proximity rather than background colouring, which to me is mostly visual noise. Things that belong together sit together; things that don't, don't. For example initially had small description for the Genres and Star rating filters, which didn't make sense afterwards. Like, the user intiutively should know what each filter does. After initial release, next day got feedback that on iPhones the appended symbol <code>\2197</code> (↗) near the IMDb, was translated into an emoji... again, the more you know. So, on a revisit it got omitted entirely and indicative visual for external link was added elsewhere.</li>
+  <li>On next day visit after release, the CTA on mobile got more natural feeling (was overlapping footer elements before, besides being misaligned...), some typos got fixed, and small touches here and there.</li>
   <li>And apparently, a necessary disclaimer: this webpage uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB. <a href="https://www.themoviedb.org" target="_blank" rel="nofollow noopener">Posters provided by TMDB.</a></li>
 </ul>
 </section>
@@ -1015,7 +1051,7 @@
   <ul class="postfooter-info"> <!--TODO publish pages for movies & data categories-->
     <li>Follow the 🐰 <span>›</span> <a href="https://alexanderkyriakou.eu/thoughts/tools">tools</a> · <a href="https://alexanderkyriakou.eu/thoughts/movies">movies</a> · <a href="https://alexanderkyriakou.eu/thoughts/data">data</a></li>
     <li>Author is I, <a href="https://alexanderkyriakou.eu">Alexander Kyriakou</a></li>
-    <li title="The date of the most recent edit to the page, even if only a single letter was changed">Updated on <time datetime="2026-10-01">October 1, 2026</time></li>
+    <li title="The date of the most recent edit to the page, even if only a single letter was changed">Updated on <time datetime="2026-10-02">October 2, 2026</time></li>
   </ul>
 
     <div class="postfooter-share">
@@ -1276,30 +1312,42 @@
       const ratings = $('ratings');
 
       if (ratings) {
-        ratings.replaceChildren();
+        const ratingItems =
+          ratings.querySelectorAll('.movie-rating');
 
-        const mine = document.createElement('span');
-        mine.className = 'movie-rating';
+        const myRating = ratingItems[0];
+        const imdbRating = ratingItems[1];
 
-        mine.innerHTML =
-          '<span class="movie-rating-label">My rating</span>' +
-          '<span class="movie-rating-value">★ ' +
-          item.myRating +
-          '/10</span>';
+        if (myRating) {
+          const value =
+            myRating.querySelector('.movie-rating-value');
 
-        ratings.append(mine);
+          if (value) {
+            value.textContent =
+              `★ ${item.myRating}/10`;
+          }
+        }
 
-        if (item.imdbRating != null) {
-          const imdb = document.createElement('span');
-          imdb.className = 'movie-rating';
+        const imdbLink =
+          ratings.querySelector('.imdb-rating-link');
 
-          imdb.innerHTML =
-            '<span class="movie-rating-label">IMDb rating</span>' +
-            '<span class="movie-rating-value">★ ' +
-            Number(item.imdbRating).toFixed(1) +
-            '</span>';
+        if (imdbLink) {
+          const value =
+            imdbLink.querySelector('.movie-rating-value');
 
-          ratings.append(imdb);
+          if (value) {
+            value.textContent =
+              item.imdbRating != null
+                ? `★ ${Number(item.imdbRating).toFixed(1)}`
+                : '';
+          }
+
+          imdbLink.href =
+            item.url ||
+            `https://www.imdb.com/title/${item.id}`;
+
+          imdbLink.hidden =
+            item.imdbRating == null;
         }
       }
 
@@ -1934,6 +1982,7 @@
 
     function start() {
       bindEvents();
+      bindMobileActionsVisibility();
       init();
     }
 
@@ -1945,6 +1994,73 @@
       );
     } else {
       start();
+    }
+
+    // cta disappears on scroll on mobile before reaching bottom page
+    function bindMobileActionsVisibility() {
+      const actions = document.querySelector(
+        '.movie-actions-mobile'
+      );
+
+      if (!actions) {
+        return;
+      }
+
+      const mobileQuery =
+        window.matchMedia('(max-width: 768px)');
+
+      if (!mobileQuery.matches) {
+        return;
+      }
+
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      function updateVisibility() {
+        const scrollY = window.scrollY;
+        const documentHeight =
+          document.documentElement.scrollHeight;
+        const viewportHeight =
+          window.innerHeight;
+
+        const maxScroll =
+          documentHeight - viewportHeight;
+
+        if (maxScroll <= 0) {
+          actions.classList.remove('is-hidden');
+          lastScrollY = scrollY;
+          ticking = false;
+          return;
+        }
+
+        const scrollProgress =
+          scrollY / maxScroll;
+
+        if (scrollProgress >= 0.90) {
+          actions.classList.add('is-hidden');
+        } else {
+          actions.classList.remove('is-hidden');
+        }
+
+        lastScrollY = scrollY;
+        ticking = false;
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(
+            updateVisibility
+          );
+
+          ticking = true;
+        }
+      }
+
+      window.addEventListener(
+        'scroll',
+        onScroll,
+        { passive: true }
+      );
     }
   })();
 </script>
