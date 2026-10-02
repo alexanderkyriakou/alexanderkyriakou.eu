@@ -57,6 +57,14 @@ main a:hover {
   text-decoration: underline;
 }
 
+code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  background-color: #eee;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
 /*fonts*/
 @font-face {
   font-display: swap;
@@ -150,6 +158,14 @@ nav {
 }
 /*desktop menu end*/
 /*header end*/
+
+.nojs {
+  padding: 10px;
+  background: #eee;
+  text-align: center;
+  margin: 0;
+  color: red;
+}
 
 /*main content start*/
 /*homepage start*/
