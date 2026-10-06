@@ -48,7 +48,7 @@
         "author": {
           "@id": "https://alexanderkyriakou.eu/#person"
         },
-        "dateModified": "2026-10-02"
+        "dateModified": "2026-10-04"
       },
       {
         "@type": "WebApplication",
@@ -122,7 +122,7 @@
   font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem);
   font-weight: 700;
   line-height: 1.2;
-  text-wrap: balance;
+  text-wrap: pretty;
   overflow-wrap: break-word;
 }
 
@@ -602,7 +602,7 @@
   }
 
   .suggestmovie .suggestmovie-header h1 {
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
   .suggestmovie .movie-tool {
@@ -973,7 +973,7 @@
 
   <section class="movie-stats">
     <h2 id="stats-title">My movie ratings at a glance</h2>
-    <p id="stats-summary">Rated 2328 movies and series up to September 30, 2026.</p>
+    <p id="stats-summary">Rated 2331 movies and series up to October 4, 2026.</p>
 
     <div class="movie-chart-panel">
       <svg id="ratings-chart" class="movie-chart" viewBox="0 0 700 320" role="img" aria-labelledby="chart-title chart-desc">
@@ -1006,7 +1006,7 @@
 <p>So, whenever someone asks me which movie I'd suggest, I'll send them this page.</p>
 
 <h3>A small window into my watch history</h3>
-<p>The tool suggests titles from my currently watched list, as exported on 30 September 2026, which sits at around 2300 movies and series. Anything I've rated with a <strong>10</strong> is something I genuinely suggest watching, not reccomend per se as I can't guarantee joyable viewing. And yes, I do revalue ratings when I rewatch something. A rating isn't necessarily a permanent scientific measurement of a movie; sometimes a second, third, or tenth viewing changes how a story lands.</p>
+<p>The tool suggests titles from my currently watched list, as exported on October 4, 2026, which sits at around 2300 movies and series. Anything I've rated with a <strong>10</strong> is something I genuinely suggest watching, not reccomend per se as I can't guarantee joyable viewing. And yes, I do revalue ratings when I rewatch something. A rating isn't necessarily a permanent scientific measurement of a movie; sometimes a second, third, or tenth viewing changes how a story lands.</p>
 <p><em>Coraline</em>, for example, is a must-watch stop-motion film, and I can't <em>recommend</em> it enough. That's why it is the default suggestion when the page loads. It seemed appropriate.</p>
 
 <h3>Why not just use my IMDb?</h3>
@@ -1051,7 +1051,7 @@
   <ul class="postfooter-info"> <!--TODO publish pages for movies & data categories-->
     <li>Follow the 🐰 <span>›</span> <a href="https://alexanderkyriakou.eu/thoughts/tools">tools</a> · <a href="https://alexanderkyriakou.eu/thoughts/movies">movies</a> · <a href="https://alexanderkyriakou.eu/thoughts/data">data</a></li>
     <li>Author is I, <a href="https://alexanderkyriakou.eu">Alexander Kyriakou</a></li>
-    <li title="The date of the most recent edit to the page, even if only a single letter was changed">Updated on <time datetime="2026-10-02">October 2, 2026</time></li>
+    <li title="The date of the most recent edit to the page, even if only a single letter was changed">Updated on <time datetime="2026-10-04">October 4, 2026</time></li>
   </ul>
 
     <div class="postfooter-share">
@@ -1070,12 +1070,13 @@
 </div>
 </main>
 
+<!-- work on footer only from /index -->
 <footer>
   <div class="footer">
       <div class="f-container">
           <div class="f-groups">
                   <div class="wcities">
-                    <h4>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</h4>
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
                   </div>
 
                   <div class="f-group-2">
@@ -1087,16 +1088,27 @@
                   </div>
           </div>
       </div>
-        <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" alt="Illustration of a city outline, transparent">
-        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
-        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
-        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
       </div>
-  </div>
-    <div class="copyright" aria-label="Copyright info">
-         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
-    </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by <span class="copyright-symbol">©</span> Alexander Kyriakou <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+      </div>
 </footer>
+
 <script>
   (() => {
     'use strict';
@@ -1822,7 +1834,7 @@
       if (summary) {
         summary.textContent =
           `Rated ${state.titles.length} ` +
-          `${state.titles.length === 1 ? 'title' : 'titles'} up to September 30, 2026. Series episodes are excluded from the count.`;
+          `${state.titles.length === 1 ? 'title' : 'titles'} up to October 4, 2026. Series episodes are excluded from the count.`;
       }
     }
 
@@ -2065,7 +2077,8 @@
   })();
 </script>
 
-<script defer src="../assets/js/main.js"></script>
+  <script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+  <script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
 
 </body>
 </html>

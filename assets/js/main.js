@@ -3,9 +3,6 @@ const currentYear = new Date().getFullYear();
 const yearElement = document.getElementById('copy-year');
 yearElement.textContent = currentYear;
 
-// Extras
-console.log("Hi there explorer!");
-  
 // Disable draggable elements
 document.querySelectorAll('.honeycomb .item').forEach(el => {
   el.setAttribute('draggable', false);
@@ -29,3 +26,6 @@ shareButton.addEventListener('click', async () => {
     console.error('Ooops, try again :-(', error);
   }
 });
+
+// Extras
+console.log("Hi there explorer!");

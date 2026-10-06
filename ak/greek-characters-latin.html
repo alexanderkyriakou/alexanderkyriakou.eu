@@ -352,12 +352,13 @@ textarea[readonly] {
 </article>
 </main>
 
+<!-- work on footer only from /index -->
 <footer>
   <div class="footer">
       <div class="f-container">
           <div class="f-groups">
                   <div class="wcities">
-                    <h4>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</h4>
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
                   </div>
 
                   <div class="f-group-2">
@@ -369,15 +370,25 @@ textarea[readonly] {
                   </div>
           </div>
       </div>
-        <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" alt="Illustration of a city outline, transparent">
-        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
-        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
-        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
       </div>
-  </div>
-    <div class="copyright" aria-label="Copyright info">
-         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
-    </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by <span class="copyright-symbol">©</span> Alexander Kyriakou <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+      </div>
 </footer>
 
 <script type="text/javascript">
@@ -655,7 +666,9 @@ textarea[readonly] {
     element.classList.add('is-visible');
   });
 </script>
-<script defer src="../assets/js/main.js"></script>
+
+  <script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+  <script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
 
 </body>
 </html>

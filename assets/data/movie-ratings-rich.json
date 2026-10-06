@@ -1,5 +1,62 @@
 [
   {
+    "id": "tt33095251",
+    "title": "Tony",
+    "type": "movie",
+    "releaseDate": "2025-10-10",
+    "year": 2026,
+    "runtime": 113,
+    "genres": [
+      "Coming-of-Age",
+      "Dark Comedy",
+	  "Docudrama",
+	  "Period Drama",
+	  "Biography",
+	  "Comedy",
+	  "Drama"
+    ],
+    "imdbRating": 7.3,
+    "myRating": 10,
+    "url": "https://www.imdb.com/title/tt33095251",
+    "poster": "/uwZF5guNR5EnXkjIVTk4UPTVGiS.jpg",
+    "overview": "A 19-year-old Anthony Bourdain travels to Provincetown and stumbles into the chaotic world of a restaurant kitchen, setting off a summer that will shape the course of his life."
+  },
+  {
+    "id": "tt33022710",
+    "title": "Ocean with David Attenborough",
+    "type": "movie",
+    "releaseDate": "2025-06-08",
+    "year": 2025,
+    "runtime": 95,
+    "genres": [
+      "Nature Documentary",
+      "Documentary"
+    ],
+    "imdbRating": 8.4,
+    "myRating": 9,
+    "url": "https://www.imdb.com/title/tt33022710",
+    "poster": "/oAKzcqUCP3EK7rgAx9Jj8Futv8O.jpg",
+    "overview": "David Attenborough takes viewers on a breathtaking journey showing there is nowhere more vital for our survival, more full of life, wonder, or surprise, than the ocean. Through spectacular sequences featuring coral reefs, kelp forests and the open ocean, Attenborough shares why a healthy ocean keeps the entire planet stable and flourishing."
+  },
+  {
+    "id": "tt22526100",
+    "title": "The Love Hypothesis",
+    "type": "movie",
+    "releaseDate": "2025-09-23",
+    "year": 2026,
+    "runtime": 110,
+    "genres": [
+      "Feel-Good Romance",
+      "Comedy",
+	  "ROmance"
+    ],
+    "imdbRating": 6.9,
+    "myRating": 8,
+    "url": "https://www.imdb.com/title/tt22526100",
+    "poster": "/vfZxVHextAGC70zrNhS8lsROqP1.jpg",
+    "overview": "Olive Smith, a biology PhD candidate, and Dr. Adam Carlsen, a hotshot professor and well-known tyrant, enter into a fake relationship, seeing each of their carefully calculated theories on love get thrown into chaos."
+  },
+  {
     "id": "tt18382850",
     "title": "If I Had Legs I'd Kick You",
     "type": "movie",
@@ -37018,7 +37075,7 @@
   },
   {
     "id": "tt0079641",
-    "title": "Nosferatu: Phantom der Nacht",
+    "title": "Nosferatu the Vampyre",
     "type": "movie",
     "releaseDate": "1979-01-17",
     "year": 1979,
