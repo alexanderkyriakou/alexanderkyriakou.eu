@@ -86,15 +86,15 @@
 <h1 style="line-height: 1.2">Data is everywhere, apparently</h1>
 <p class="category-description">We leave traces, turn them into numbers, turn those numbers into information, and eventually build entire systems around them. I'm exploring some of the ideas, consequences and curiosities that live somewhere along that chain.</p>
 
-  <div class="post">
-    <a class="hp-flow-block" href="https://alexanderkyriakou.eu/ak/movie-suggestion">
-      <span class="hp-flow-border" aria-hidden="true"></span>
-      <div class="hp-flow-text">
-        <div class="flow-post-timestamp" title="Updated on">October 2, 2026</div>
+  <div class="card">
+    <a class="card-click" href="https://alexanderkyriakou.eu/ak/movie-suggestion">
+      <span class="card-border"></span>
+      <div class="card-text">
+        <div class="card-timestamp" title="Updated on">October 2, 2026</div>
         <h2>What should you watch next?</h2>
         <p>Let me suggest a movie from my collection of 2.300+ watched titles.</p>
       </div>
-      <figure class="hp-flow-image">
+      <figure class="card-image">
         <img src="../assets/images/thoughts/movie-suggestion/thumbnail/open-air-cinema-screen-athens-2025.avif" loading="lazy" alt="Black and white screening of a movie in an open-air cinema in Athens, Greece taken by Alexander Kyriakou in summer of 2025">
       </figure>
     </a>
@@ -102,12 +102,13 @@
   </div>
 </main>
 
-<footer role="contentinfo">
+<!-- work on footer only from /index -->
+<footer>
   <div class="footer">
       <div class="f-container">
           <div class="f-groups">
                   <div class="wcities">
-                    <h4>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</h4>
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
                   </div>
 
                   <div class="f-group-2">
@@ -119,18 +120,29 @@
                   </div>
           </div>
       </div>
-        <img draggable="false" class="footer-bg" src="../assets/images/footer_bg.webp" loading="lazy" alt="Illustration of a city outline, transparent">
-        <img draggable="false" class="footer-bg-one" src="../assets/images/mf-bicycle.webp" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
-        <img draggable="false" class="footer-bg-two" src="../assets/images/city-cyclist.gif" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
-        <img draggable="false" class="footer-bg-three" src="../assets/images/calvin-hobbes-transparent.webp" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
-      </div>
-  </div>
-    <div class="copyright" aria-label="Copyright info">
-         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
-    </div>
-</footer>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
 
-<script defer src="../assets/js/main.js"></script>
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by <span class="copyright-symbol">©</span> Alexander Kyriakou <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+      </div>
+</footer>
+  
+  <script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+  <script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
 
 </body>
 </html>

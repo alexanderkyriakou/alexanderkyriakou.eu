@@ -301,24 +301,24 @@
 /*end of honey comb*/
 /*end of hero section*/
 
-/* post flow block - thanks Claude */
+/* card flow block - thanks Claude */
 @property --dx {
   syntax: '<length-percentage>';
   initial-value: 0px;
   inherits: true;
 }
 
-.post { 
+.card { 
   margin: 30px 0;
 }
 
-.post a:hover {
+.card a:hover {
   text-decoration: none;
   box-shadow: rgba(71, 71, 71, 0.2) 0px 2px 8px 0px;
   transition: box-shadow 0.2s ease;
 }
 
-.hp-flow-block {
+.card-click {
   --line-color: #b0b3ba;
   --line-thickness: 1px;
 
@@ -335,22 +335,22 @@
   border-radius: var(--r);
 }
 
-.hp-flow-block > * {
+.card-click > * {
   --dx: var(--image-width);
 }
 
-.hp-flow-border,
-.hp-flow-text { 
+.card-border,
+.card-text { 
   grid-area: 1 / 1; 
 }
 
-.hp-flow-border {
+.card-border {
   container-type: size;
   z-index: -1;
   pointer-events: none;
 }
 
-.hp-flow-border::before {
+.card-border::before {
   --a: atan2(100cqh, var(--dx));
   --sa: calc(.5turn - var(--a));
 
@@ -392,37 +392,37 @@
     );
 }
 
-.hp-flow-text {
+.card-text {
   padding: 15px;
   padding-right: calc(var(--dx) - 30px);
   align-self: start;
 }
 
-.flow-post-timestamp {
+.card-timestamp {
   color: #555;
   font-size: 0.9rem;
 }
 
-.hp-flow-text > h2 {
+.card-text > h2 {
   margin: 10px 0;
   color: #000;
   line-height: 1.2;
 }
 
-.hp-flow-text > p {
+.card-text > p {
   margin: -5px 0 0 0;
   font-size: 1.1rem;
   color: #555;
   line-height: 1.2;
 }
 
-.hp-flow-image {
+.card-image {
   grid-area: 1 / 2;
   display: grid;
   margin: 0;
 }
 
-.hp-flow-image img {
+.card-image img {
   contain: size;
   place-self: stretch;
   border-radius: 0 var(--r) var(--r) 0;
@@ -432,7 +432,7 @@
   object-fit: cover;
   clip-path: polygon(0 0, 100% 0, 100% 100%, var(--dx) 100%);
 }
-/* end of post flow block */
+/* end of card flow block */
 
 /* mobile devices */
 @media (max-width: 768px) {
@@ -550,8 +550,8 @@
     padding: 10px 0 20px 0;
   }
 
-  /* post flow box on mobile with lower padding */
-  .hp-flow-text {
+  /* card flow box on mobile with lower padding */
+  .card-text {
     padding-right: calc(var(--dx) - 50px);
   }
 }
