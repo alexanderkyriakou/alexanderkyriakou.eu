@@ -699,13 +699,13 @@ figcaption {
 .footer-bg-four:focus-visible .bubble { 
   animation: none;
   opacity: 1;
-  background: #1e90ff;
+  background: #555;
   transition: opacity 0.8s ease-in;
 }
 
 .footer-bg-four:hover .bubble::before,
 .footer-bg-four:focus-visible .bubble::before { 
-  border-left-color: #1e90ff;
+  border-left-color: #555;
 }
 
 .footer-bg-four:hover .bubble-text,
