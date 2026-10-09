@@ -4,7 +4,7 @@
   const TRIGGER = '.footer-bg-four';
 
   const HOLD = 180;
-  const BURST = 1100;
+  const BURST = 1000;
 
   const trigger = document.querySelector(TRIGGER);
 
@@ -149,7 +149,7 @@
   /* --------------------------------------------------------------- helpers */
 
   const outExpo = (t) => (
-    t === 1 ? 1 : 1 - 2 ** (-10 * t)
+    t === 1 ? 1 : 1 - 2 ** (-5 * t)
   );
 
   const wait = (ms) =>

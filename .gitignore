@@ -1,0 +1,13 @@
+# Secrets and local environment
+.dev.vars
+.dev.vars.*
+.env
+.env.*
+*.local
+
+# Tooling
+.wrangler/
+node_modules/
+
+# OS
+.DS_Store

@@ -438,7 +438,7 @@ nav {
     animation: hp-word 45s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
   }
 
-  .hp-cycle > span + span                { display: block; }
+  .hp-cycle > span + span { display: block; }
   .hp-cycle > span:nth-child(2) { animation-delay: 3s; }
   .hp-cycle > span:nth-child(3) { animation-delay: 6s; }
   .hp-cycle > span:nth-child(4) { animation-delay: 9s; }
@@ -463,6 +463,7 @@ nav {
   .hp-chips li:nth-child(7) { animation: hp-bob 6.6s ease-in-out infinite alternate; animation-delay: -3.6s; }
   .hp-chips li:nth-child(8) { animation: hp-bob 7.1s ease-in-out infinite alternate; animation-delay: -4.2s; }
   .hp-chips li:nth-child(9) { animation: hp-bob 7.6s ease-in-out infinite alternate; animation-delay: -4.8s; }
+  .hp-chips li:nth-child(10) { animation: hp-bob 8.1s ease-in-out infinite alternate; animation-delay: -5.4s; }
 
   .hp-blob-teal  { animation: hp-blob-a 28s ease-in-out infinite alternate; }
   .hp-blob-indigo { animation: hp-blob-b 36s ease-in-out infinite alternate; }
@@ -675,7 +676,7 @@ figcaption {
   transition: background 0.3s ease;
   --cycle: 15s;
   opacity: 0;
-  animation: bubble-cycle var(--cycle) ease-in-out 2s infinite;
+  animation: bubble-cycle var(--cycle) ease-in-out 1.8s infinite;
 }
 
 .bubble::before {
@@ -695,26 +696,6 @@ figcaption {
   transition: border-left-color 0.3s ease;
 }
 
-.footer-bg-four:hover .bubble,
-.footer-bg-four:focus-visible .bubble { 
-  animation: none;
-  opacity: 1;
-  background: #555;
-  transition: opacity 0.8s ease-in;
-}
-
-.footer-bg-four:hover .bubble::before,
-.footer-bg-four:focus-visible .bubble::before { 
-  border-left-color: #555;
-}
-
-.footer-bg-four:hover .bubble-text,
-.footer-bg-four:focus-visible .bubble-text {
-  animation: none;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
 .bubble-text {
   display: inline-block;
   -webkit-mask-image: linear-gradient(90deg, #000 40%, transparent 60%);
@@ -723,11 +704,11 @@ figcaption {
   mask-size: 250% 100%;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  animation: text-reveal var(--cycle) ease-out 1.5s infinite;
+  animation: text-reveal var(--cycle) ease-out 2s infinite;
 }
 
 @keyframes bubble-cycle {
-  0%   { opacity: 0; transform: translateY(6px); }
+  0%   { opacity: 0; transform: translateX(6px); }
   6%   { opacity: 1; transform: translateY(0); }
   33%  { opacity: 1; transform: translateY(0); }
   55%  { opacity: 1; transform: translateY(0); }
