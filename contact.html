@@ -1080,13 +1080,13 @@ ul {
 
   function validate(v) {
     if (v.name.length < 2 || v.name.length > 80) {
-      return [nameField, 'A letter is not a name.'];
+      return [nameField, 'A letter is not a name or ooops, fill it in.'];
     }
     if (CONTROL_NAME.test(v.name) || INVISIBLE.test(v.name)) {
       return [nameField, 'Your name contains characters that are not allowed.'];
     }
     if (v.email.length > 254 || !EMAIL.test(v.email)) {
-      return [emailField, 'Please enter a valid email address using Latin characters only.'];
+      return [emailField, 'Please enter a valid email address.'];
     }
     if (v.message.length < 10 || v.message.length > 3000) {
       return [messageField, 'Two words or more (10 chars), nothing less.'];
