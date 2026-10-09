@@ -509,29 +509,29 @@ ul {
 
 @keyframes contact-floater-eight {
   0%, 100% {
-    transform: translate(60, 10) scale(.96);
+    transform: translate(0, 0) rotate(45deg) scale(.96);
     opacity: .44;
   }
 
   50% {
-    transform: translate(-7px, -9px) scale(1.08);
+    transform: translate(-7px, -9px) rotate(5deg) scale(1.08);
     opacity: .72;
   }
 }
 
 @keyframes contact-floater-nine {
   0%, 100% {
-    transform: translate(0, 0) rotate(-2deg) scale(.97);
+    transform: translate(0, 0) rotate(30deg) scale(.97);
     opacity: .45;
   }
 
   40% {
-    transform: translate(7px, 8px) rotate(4deg) scale(1.09);
+    transform: translate(7px, 8px) rotate(15deg) scale(1.09);
     opacity: .7;
   }
 
   75% {
-    transform: translate(-4px, -3px) rotate(-1deg) scale(1);
+    transform: translate(-4px, -3px) rotate(1deg) scale(1);
     opacity: .52;
   }
 }
@@ -902,9 +902,8 @@ ul {
 
   <div class="field">
     <label for="email">Email</label>
-    <input type="email" id="email" name="email" autocomplete="email" maxlength="254" placeholder="awesome@email.com" required>
-
-    <span class="field-hint" id="email-hint" >Used only to reply to you. No weird listings.</span>
+    <input type="email" id="email" name="email" autocomplete="email" maxlength="254" placeholder="awesome@email.com" required inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="email-hint">
+    <span class="field-hint" id="email-hint" aria-live="polite">Used only to reply to you. No weird listings.</span>
   </div>
 
   <div class="field">
@@ -948,12 +947,14 @@ ul {
   <ul>
     <li>Why does a personal site that isn't selling anything need a contact form? Well, to give a way to any web surfer to contact the web admin, for another page on the already site, and at the end for fun. To see how things work, you know.</li>
     <li>It started while digging around Cloudflare during initial setup, and saw that it allows to create a free custom email address under your domain. Technically, Email Routing doesn't give you a mailbox, it simply forwards whatever arrives at that address to your personal inbox. Which is exactly what I'd enjoy to play around with.</li>
-    <li>Then came the actual puzzle: how do I let people write to me without publishing the address anywhere for the ever-watching crawlers, agents, scrapers and scammers to collect? A <code>mailto:</code> link is basically a gift to them. I could filter into obvlion whatever gets delivers there, but ain't that fun. A form, on the other hand, keeps the destination on the server side, where neither visitors nor the public repository ever see it - bingo.</li>
+    <li>Then came the actual puzzle: how do I let people write to me without publishing the address anywhere for the ever-watching crawlers, agents, scrapers and scammers to collect? A <code>mailto:</code> link is basically a gift to them. I could filter into oblivion whatever gets delivered there, but ain't that fun. A form, on the other hand, keeps the destination on the server side, where neither visitors nor the public repository ever see it - bingo.</li>
     <li>Ready-made plugins and tools is what I was used to in the past when setting up Contact pages, especially on WordPress and Shopify. Install, play, done. From scratch, though, is such an alien world to me (sender domains, SPF, DKIM, DMARC, return paths, oof) that exploring it was <em>joyfully enlightening</em>.</li>
     <li>I was always wondering what other sections might be useful on a contact page, besides a map for a location when you're a store. The usual suspect is social media, which tends to repeat what's already in the footer (and on the About page in my case). WhatsApp was the obvious candidate, but it doesn't support linking by username yet (it's only now rolling out gradually), and exposing my mobile number is a no no. Messenger, on the other hand, allows linking by username quite easily, so here it goes.</li>
     <li>The other idea, for a future implementation: how to reveal an email address only to real people, without the usual checkbox-style checks. A mini game should do. Could an agent play it? Surely, if someone bothers to build one for a single small website. And that's kind of the point: a somewhat gaming experience isn't worth the effort for the generic scrapers. Will approach it with an experimental outlook, not sure how it can <em>play out</em> (hehe).</li>
     <li>The page itself is still plain HTML, CSS and JavaScript. The only non-static piece is a single small Pages Function at <code>/api/contact</code>, which runs on Cloudflare's edge when the form is submitted. No framework, no build step, no server to babysit and a castle to clean up.</li>
     <li>When you hit send, the page posts the message as JSON through <code>fetch</code> to that ↑ function. The function first verifies the Cloudflare Turnstile token server-side (the human check that rarely asks you to click on bicycles), and only then moves on to the rest: the request has to come from this domain, a hidden honeypot field has to be empty (bots love filling in everything), and the name, email and message are trimmed and validated against (generous or standard, dunno) length limits.</li>
+    <li>Complete name OR first name & last name, that is the question. For official stuff and large scale, the distinction between first and last names must exist. In this case, unecessery field.</li>
+    <li>The email field got a few fun rules of its own. Only Latin characters are accepted there: anything else is stripped as you type or paste (even spaces), with a note suggesting to switch the keyboard layout, besides the nice auto-email part when you're typing on the phone. The server rejects them anyway, because the browser is just the polite first line of <em>defense</em>. The address is also lowercased once you leave the field, have seen to get lowercased during typing, but feels a bit off. In theory the part before the <code>@</code> is case-sensitive, but in reality, every provider is treating it as if it weren't.</li>
     <li>Delivery goes through Resend's API as plain text, so nothing a visitor types is ever interpreted as HTML, with the visitor's address set as <em>Reply-to</em> so that hitting reply just works. Visitor input is never placed in the sender, recipient or subject without being checked first.</li>
     <li>Resend's testing sender only delivers to the email you registered with, so it would have been enough for the form itself. But it's a sandbox, it would have meant using my personal address as the destination, and it can't send as my own domain. So I verified the domain instead (a few DNS records, SPF and DKIM, added in Cloudflare). Now messages go to the domain address, and I can reply as it from my regular mail client through Resend's SMTP, without my personal address showing up in the headers. I checked, and so glad that it works!</li>
     <li>The very first test email landed straight in Spam. After sorting out the DMARC record in Cloudflare, it showed up in the inbox. The world of email is full of wonders I guess?</li>
@@ -963,6 +964,7 @@ ul {
     <li>Thanks Claude for <s>the help</s> generating the JS for the form.</li>
     <li>Thanks Resend for the detailed documentation.</li>
     <li>Thanks Cloudflare for allowing in the first place to create domain emails for free ♥</li>
+    <li>I didn't expect the functional complexity of this <em>simple</em> page. Email is old-school misunderstood.</li>
   </ul>
   <p class="updated-date"><time datetime="2026-10-09">Updated on October 9, 2026</time></p>
   </section>
@@ -979,9 +981,9 @@ ul {
 
                   <div class="f-group-2">
                       <ul class="f-socials"> 
-                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a></li>
-                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg></a></li>
-                        <li><a href="https://bsky.app/profile/alexanderkyriakou.eu" title="Alexander Kyriakou on Bluesky" rel="me" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530"><path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964-0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 0-88.687 77.742-60.816 125.72-24.795z"/></svg></a></li>
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" rel="me" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" rel="me" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M 32.7812 52.5508 C 34.4687 52.5508 35.6640 51.0977 36.5312 48.8477 L 51.8829 8.7461 C 52.3048 7.6680 52.5626 6.7070 52.5626 5.9102 C 52.5626 4.3867 51.6016 3.4492 50.0781 3.4492 C 49.2813 3.4492 48.3203 3.6836 47.2423 4.1055 L 6.9296 19.5508 C 4.9609 20.3008 3.4374 21.4961 3.4374 23.2070 C 3.4374 25.3633 5.0780 26.0899 7.3280 26.7695 L 20.0077 30.6133 C 21.4843 31.0821 22.3280 31.0352 23.3359 30.0977 L 49.0466 6.0742 C 49.3514 5.7930 49.7032 5.8399 49.9375 6.0508 C 50.1717 6.2852 50.1952 6.6367 49.9139 6.9414 L 25.9843 32.7461 C 25.0937 33.7070 24.9999 34.5039 25.4687 36.0742 L 29.1718 48.4492 C 29.8749 50.8164 30.6015 52.5508 32.7812 52.5508 Z"/></svg></a></li>
                       </ul>
                   </div>
           </div>
@@ -1021,6 +1023,29 @@ ul {
   var emailField = document.getElementById('email');
   var messageField = document.getElementById('message');
   var honeypotField = document.getElementById('company_website');
+  var emailHint = document.getElementById('email-hint');
+  var emailHintDefault = emailHint ? emailHint.textContent : '';
+
+  // Keep only printable ASCII without spaces while typing or pasting.
+  function stripNonAscii() {
+    var cleaned = emailField.value.replace(/[^\x21-\x7E]/g, '');
+    if (cleaned !== emailField.value) {
+      emailField.value = cleaned;
+      if (emailHint) {
+        emailHint.textContent = 'Latin characters only. Switch your keyboard layout if needed.';
+      }
+    }
+  }
+
+  emailField.addEventListener('input', function (event) {
+    if (event.isComposing) { return; }
+    stripNonAscii();
+  });
+  emailField.addEventListener('compositionend', stripNonAscii);
+  emailField.addEventListener('blur', function () {
+    emailField.value = emailField.value.toLowerCase();
+    if (emailHint) { emailHint.textContent = emailHintDefault; }
+  });
 
   // Control characters (name must not contain any; message may contain tab and line breaks).
   var CONTROL_NAME = /[\u0000-\u001F\u007F\u2028\u2029]/;
@@ -1055,7 +1080,7 @@ ul {
 
   function validate(v) {
     if (v.name.length < 2 || v.name.length > 80) {
-      return [nameField, 'Please enter your name (2 to 80 characters).'];
+      return [nameField, 'A letter is not a name.'];
     }
     if (CONTROL_NAME.test(v.name) || INVISIBLE.test(v.name)) {
       return [nameField, 'Your name contains characters that are not allowed.'];
@@ -1064,7 +1089,7 @@ ul {
       return [emailField, 'Please enter a valid email address using Latin characters only.'];
     }
     if (v.message.length < 10 || v.message.length > 3000) {
-      return [messageField, 'Please write a message between 10 and 3000 characters.'];
+      return [messageField, 'Two words or more (10 chars), nothing less.'];
     }
     if (CONTROL_MESSAGE.test(v.message)) {
       return [messageField, 'Your message contains characters that are not allowed.'];
@@ -1087,7 +1112,7 @@ ul {
 
     var values = {
       name: nameField.value.trim().replace(/\s+/g, ' '),
-      email: emailField.value.trim(),
+      email: emailField.value.trim().toLowerCase(),
       message: messageField.value.trim()
     };
 
@@ -1128,7 +1153,7 @@ ul {
       .then(function (response) {
         return response.json().catch(function () { return {}; }).then(function (data) {
           if (response.ok && data && data.ok === true) {
-            setStatus('success', 'Thank you. Your message was sent.');
+            setStatus('success', 'Thank you! Your message was sent ♥');
             form.reset();
           } else {
             setStatus('error', errorFor(response.status));
