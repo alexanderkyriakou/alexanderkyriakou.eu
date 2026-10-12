@@ -10,6 +10,16 @@
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/thoughts.css">
 
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-notions.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-thoughts.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-seo.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-books.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-games.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-data.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-tools.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-music.jpg" type="image/jpeg">
+  <link rel="preload" as="image" href="https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-movies.jpg" type="image/jpeg">
+
   <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
   <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
   <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
@@ -22,21 +32,53 @@
   <link rel="icon" href="favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
 
-  <link rel="prefetch" href="/"/>
-  <link rel="prefetch" href="about"/>
-  <link rel="prefetch" href="contact"/>
+  <link rel="prefetch" href="https://alexanderkyriakou.eu"/>
+  <link rel="prefetch" href="https://alexanderkyriakou.eu/about"/>
+  <link rel="prefetch" href="https://alexanderkyriakou.eu/contact"/>
 
-  <!--schema json-->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": "https://alexanderkyriakou.eu/thoughts#webpage",
+    "url": "https://alexanderkyriakou.eu/thoughts",
+    "name": "Thoughts",
+    "isPartOf": {
+      "@id": "https://alexanderkyriakou.eu/#website"
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Thoughts Categories",
+      "itemListOrder": "https://schema.org/ItemListUnordered",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "name": "Movies",
+          "url": "https://alexanderkyriakou.eu/thoughts/movies"
+        },
+        {
+          "@type": "ListItem",
+          "name": "Data",
+          "url": "https://alexanderkyriakou.eu/thoughts/data"
+        },
+        {
+          "@type": "ListItem",
+          "name": "Tools",
+          "url": "https://alexanderkyriakou.eu/thoughts/tools"
+        }
+      ]
+    }
+  }
+  </script>
 
-  <!--og tags-->
+  <!--TODO og tags-->
 <style>
 .nav-list > li:nth-child(3) a {
   color: #1e90ff;
 }
 </style>
-
 </head>
-  
+
 <body>
   <header>
     <div class="nav-border">
@@ -86,12 +128,11 @@
   <div class="item" style="cursor: default;"><h1>thoughts</h1></div>
   <a class="item off" href="#"><h4>seo</h4></a>
   <a class="item off" href="#"><h4>books</h4></a>
-  <a class="item" href="https://alexanderkyriakou.eu/thoughts/movies" title="Stories in moving pictures, irrelevant reviews and ideations"><h4>movies</h4></a>
-  <a class="item" href="https://alexanderkyriakou.eu/thoughts/data" title="Data analysis, management, usage and what on earth is data"><h4>data</h4></a>
-  <a class="item" href="https://alexanderkyriakou.eu/thoughts/tools" title="Small online tools, some useful and others not so much"><h4>tools</h4></a>
-  <a class="item off" href="#"><h4>music</h4></a>
-  <!--bg image a puzzle / outside chess / -->
   <a class="item off" href="#"><h4>games</h4></a>
+  <a class="item" href="https://alexanderkyriakou.eu/thoughts/data" title="Data is everywhere, apparently"><h4>data</h4></a>
+  <a class="item" href="https://alexanderkyriakou.eu/thoughts/tools" title="Small web tools, made for no particularly grand reason"><h4>tools</h4></a>
+  <a class="item off" href="#"><h4>music</h4></a>
+  <a class="item" href="https://alexanderkyriakou.eu/thoughts/movies" title="Movies, series, and the occasional rabbit hole"><h4>movies</h4></a>
 </div>
 </div>
 
@@ -101,7 +142,7 @@
       <a class="card-click" href="https://alexanderkyriakou.eu/ak/movie-suggestion">
         <span class="card-border"></span>
         <div class="card-text">
-          <div class="card-timestamp" title="Updated on">October 4, 2026</div>
+          <div class="card-timestamp" title="Updated on">October 12, 2026</div>
           <h2>What should you watch next?</h2>
           <p>Let me suggest a movie from my collection of 2.300+ watched titles.</p>
         </div>

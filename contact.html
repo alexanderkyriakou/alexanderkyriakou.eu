@@ -32,7 +32,7 @@
     "description": "Contact Alexander Kyriakou to report a bug, share feedback, suggest content, or discuss the website. Send a message through the contact form or reach out on Messenger.",
     "inLanguage": "en",
     "datePublished": "2026-10-09",
-    "dateModified": "2026-10-09",
+    "dateModified": "2026-10-12",
     "isPartOf": {
       "@id": "https://alexanderkyriakou.eu/#website"
     },
@@ -714,6 +714,10 @@ ul {
   margin-bottom: 45px;
 }
 
+.contact-links div {
+  filter: grayscale(90%);
+}
+
 .contact-link-card {
   position: relative;
   display: flex;
@@ -752,12 +756,6 @@ ul {
   width: 50px;
   height: 50px;
   object-fit: contain;
-}
-
-.contact-link-card:nth-child(2) .contact-link-icon {
-  width: 55px;
-  height: 55px;
-  flex-basis: 55px;
 }
 
 @media (max-width: 768px) {
@@ -937,10 +935,10 @@ ul {
     <img class="contact-link-icon" src="assets/images/messenger.svg" alt="" width="50" height="50" >
   </a>
 
-  <a class="contact-link-card" href="#" aria-label="Play a game for an email address" >
-    <strong>Play a game for an email address</strong>
-    <img class="contact-link-icon" src="assets/images/videogame.svg" alt="" width="55" height="55" >
-  </a>
+  <div class="contact-link-card" href="#" aria-label="Find me on WhatsApp" >
+    <strong>WhatsApp (<a href="https://faq.whatsapp.com/658755553162769/" target="_blank" rel="noopener noreferrer">TBA</a>)</strong>
+    <img class="contact-link-icon" src="assets/images/whatsapp.svg" alt="" width="50" height="50">
+  </div>
 </div>
 
 <h2>Setting up a contact form for free is <em>kind of</em> fun</h2>
@@ -950,7 +948,7 @@ ul {
     <li>Then came the actual puzzle: how do I let people write to me without publishing the address anywhere for the ever-watching crawlers, agents, scrapers and scammers to collect? A <code>mailto:</code> link is basically a gift to them. I could filter into oblivion whatever gets delivered there, but ain't that fun. A form, on the other hand, keeps the destination on the server side, where neither visitors nor the public repository ever see it - bingo.</li>
     <li>Ready-made plugins and tools is what I was used to in the past when setting up Contact pages, especially on WordPress and Shopify. Install, play, done. From scratch, though, is such an alien world to me (sender domains, SPF, DKIM, DMARC, return paths, oof) that exploring it was <em>joyfully enlightening</em>.</li>
     <li>I was always wondering what other sections might be useful on a contact page, besides a map for a location when you're a store. The usual suspect is social media, which tends to repeat what's already in the footer (and on the About page in my case). WhatsApp was the obvious candidate, but it doesn't support linking by username yet (it's only now rolling out gradually), and exposing my mobile number is a no no. Messenger, on the other hand, allows linking by username quite easily, so here it goes.</li>
-    <li>The other idea, for a future implementation: how to reveal an email address only to real people, without the usual checkbox-style checks. A mini game should do. Could an agent play it? Surely, if someone bothers to build one for a single small website. And that's kind of the point: a somewhat gaming experience isn't worth the effort for the generic scrapers. Will approach it with an experimental outlook, not sure how it can <em>play out</em> (hehe).</li>
+    <li>The other idea, for a future implementation: how to reveal an email address only to real people, without the usual checkbox-style checks. A mini game should do. Could an agent play it? Surely, if someone bothers to build one for a single small website. And that's kind of the point: a somewhat gaming experience isn't worth the effort for the generic scrapers. Will approach it with an experimental outlook, not sure how it can <em>play out</em> (hehe). UPDATE 12/10/26: And after a 2-day consideration, the implemnentation complexity is way higher than the fun or functionality of it. So, it's a no go. TBA WhatsApp it is.</li>
     <li>The page itself is still plain HTML, CSS and JavaScript. The only non-static piece is a single small Pages Function at <code>/api/contact</code>, which runs on Cloudflare's edge when the form is submitted. No framework, no build step, no server to babysit and a castle to clean up.</li>
     <li>When you hit send, the page posts the message as JSON through <code>fetch</code> to that ↑ function. The function first verifies the Cloudflare Turnstile token server-side (the human check that rarely asks you to click on bicycles), and only then moves on to the rest: the request has to come from this domain, a hidden honeypot field has to be empty (bots love filling in everything), and the name, email and message are trimmed and validated against (generous or standard, dunno) length limits.</li>
     <li>Complete name OR first name & last name, that is the question. For official stuff and large scale, the distinction between first and last names must exist. In this case, unecessery field.</li>
@@ -966,7 +964,7 @@ ul {
     <li>Thanks Cloudflare for allowing in the first place to create domain emails for free ♥</li>
     <li>I didn't expect the functional complexity of this <em>simple</em> page. Email is old-school misunderstood.</li>
   </ul>
-  <p class="updated-date"><time datetime="2026-10-09">Updated on October 9, 2026</time></p>
+  <p class="updated-date"><time datetime="2026-10-12">Updated on October 12, 2026</time></p>
   </section>
 </main>
 

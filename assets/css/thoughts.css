@@ -206,8 +206,7 @@
   --g: calc(var(--s) * .04);
   display: grid;
   margin-block: calc(var(--s) / 1.15 + var(--g) + 1rem);
-  margin-inline-start: calc(.75 * var(--s) + .87 * var(--g));
-  margin-inline-end:   calc(1.5 * var(--s) + 1.74 * var(--g));
+  margin-inline: calc(1.5 * var(--s) + 1.74 * var(--g));
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
 }
 
@@ -290,14 +289,15 @@
   letter-spacing: 1px;
 }
 
-.honeycomb > .item:nth-child(1) { --_y: calc(-100% - var(--g)); background-image: url("../images/thoughts-honeycomb/hc-notions.jpg"); }
-.honeycomb > .item:nth-child(2) { background-image: url("../images/thoughts-honeycomb/hc-thoughts.jpg"); filter: grayscale(45%) }
-.honeycomb > .item:nth-child(3) { --_x: calc(-75% - .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("../images/thoughts-honeycomb/hc-seo.jpg"); }
-.honeycomb > .item:nth-child(4) { --_x: calc( 75% + .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("../images/thoughts-honeycomb/hc-books.jpg"); }
-.honeycomb > .item:nth-child(5) { --_x: calc(-75% - .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("../images/thoughts-honeycomb/hc-movies.jpg"); }
-.honeycomb > .item:nth-child(6) { --_x: calc( 75% + .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("../images/thoughts-honeycomb/hc-data.jpg"); }
-.honeycomb > .item:nth-child(7) { --_y: calc(100% + var(--g)); background-image: url("../images/thoughts-honeycomb/hc-tools.jpg"); }
-.honeycomb > .item:nth-child(8) { --_x: calc(150% + 1.74*var(--g)); --_y: 0; background-image: url("../images/thoughts-honeycomb/hc-music.jpg"); }
+.honeycomb > .item:nth-child(1) { --_y: calc(-100% - var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-notions.jpg"); }
+.honeycomb > .item:nth-child(2) { background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-thoughts.jpg"); filter: grayscale(45%) }
+.honeycomb > .item:nth-child(3) { --_x: calc(-75% - .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-seo.jpg"); }
+.honeycomb > .item:nth-child(4) { --_x: calc( 75% + .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-books.jpg"); }
+.honeycomb > .item:nth-child(5) { --_x: calc(-75% - .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-games.jpg"); }
+.honeycomb > .item:nth-child(6) { --_x: calc( 75% + .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-data.jpg"); }
+.honeycomb > .item:nth-child(7) { --_y: calc(100% + var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-tools.jpg"); }
+.honeycomb > .item:nth-child(8) { --_x: calc(150% + 1.74 * var(--g)); --_y: 0; background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-music.jpg"); }
+.honeycomb > .item:nth-child(9) { --_x: calc(-150% - 1.74 * var(--g)); --_y: 0; background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-movies.jpg"); }
 /*end of honey comb*/
 /*end of hero section*/
 
@@ -536,10 +536,11 @@
   .honeycomb > .item:nth-child(2) { background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-thoughts.jpg"); filter: grayscale(30%) }
   .honeycomb > .item:nth-child(3) { --_x: calc(-75% - .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-seo.jpg"); }
   .honeycomb > .item:nth-child(4) { --_x: calc( 75% + .87*var(--g)); --_y: calc(-50% - .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-books.jpg"); }
-  .honeycomb > .item:nth-child(5) { --_x: calc(-75% - .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-movies.jpg"); }
+  .honeycomb > .item:nth-child(5) { --_x: calc(-75% - .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-games.jpg"); }
   .honeycomb > .item:nth-child(6) { --_x: calc( 75% + .87*var(--g)); --_y: calc(50% + .5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-data.jpg"); }
   .honeycomb > .item:nth-child(7) { --_y: calc(100% + var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-tools.jpg"); }
   .honeycomb > .item:nth-child(8) { --_x: calc(75% + .87*var(--g)); --_y: calc(150% + 1.5*var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-music.jpg"); }
+  .honeycomb > .item:nth-child(9) { --_x: calc(-75% - .87 * var(--g)); --_y: calc(150% + 1.5 * var(--g)); background-image: url("https://alexanderkyriakou.eu/assets/images/thoughts-honeycomb/hc-movies.jpg"); }
 
   .honeycomb > a.item:hover {
     --_t: 1;
