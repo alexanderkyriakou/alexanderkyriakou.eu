@@ -661,7 +661,7 @@
         finalUrl = new URL(response.finalUrl || resolved.robotsUrl);
         if (finalUrl.href !== resolved.robotsUrl) redirectNote = ' Final URL: ' + finalUrl.href + '.';
       } catch (_) {}
-      if (Number.isInteger(response.hops)) redirectNote += ' Redirects followed: ' + response.hops + ' / 3.';
+      if (Number.isInteger(response.hops)) redirectNote += ' Redirects followed: ' + response.hops + ' / 5.';
       else if (response.redirected || (finalUrl && finalUrl.href !== resolved.robotsUrl)) redirectNote += ' Redirect count could not be verified.';
       if (status >= 200 && status < 300) {
         const content = response.text.replace(/^\uFEFF/, '');

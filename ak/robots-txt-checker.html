@@ -48,7 +48,7 @@
         "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#webpage",
         "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker",
         "name": "Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO",
-        "description": "Fetch, edit and test robots.txt rules against multiple URLs for SEO, AI (GEO/AEO) and other crawlers. Validate rule matching, exceptions and create a correct robots.txt file.",
+        "description": "Fetch, edit and validate robots.txt rules for SEO, AI and other web crawlers. Test multiple URLs across multiple crawler identities, inspect live file redirects, and evaluate referenced page resources for potential crawling restrictions.",
         "inLanguage": "en",
         "isPartOf": {
           "@id": "https://alexanderkyriakou.eu/#website"
@@ -76,7 +76,7 @@
         "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#application",
         "name": "Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO",
         "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker",
-        "description": "Fetch, edit and test robots.txt rules against multiple URLs for SEO, AI (GEO/AEO) and other crawlers. Validate rule matching, exceptions and create a correct robots.txt file.",
+        "description": "Fetch, edit and validate robots.txt rules for SEO, AI and other web crawlers. Test multiple URLs across multiple crawler identities, inspect live file redirects, and evaluate referenced page resources for potential crawling restrictions.",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Web browser",
         "inLanguage": "en",
@@ -87,11 +87,12 @@
           "priceCurrency": "EUR"
         },
         "featureList": [
-          "Fetch and inspect live robots.txt files",
+          "Fetch live robots.txt files through a dedicated retrieval service",
+          "Follow and report up to five HTTP redirects, including cross-host redirects",
           "Edit and validate robots.txt directives",
           "Test robots.txt rules against multiple URLs",
-          "Compare crawling permissions across 142 crawler identities",
-          "Inspect page resources for crawler accessibility",
+          "Compare crawling permissions across multiple crawler identities",
+          "Discover referenced page resources in static HTML and evaluate robots.txt permissions",
           "Evaluate Allow and Disallow rule precedence",
           "Identify crawler-specific matching and fallback rules",
           "Download edited robots.txt files"
@@ -125,7 +126,8 @@
         "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker#about-checker",
         "headline": "Robots.txt checker and multi-crawler rule tester",
         "datePublished": "2026-10-20",
-        "description": "An in-depth guide to using the Robots.txt Checker, understanding RFC 9309, matching Allow and Disallow directives, identifying search and AI crawlers, checking page resources, and avoiding common SEO mistakes.",
+        "dateModified": "2026-10-20",
+        "description": "An in-depth guide to using the Robots.txt Checker, understanding RFC 9309, fetching robots.txt files and handling redirects, evaluating Allow and Disallow rules, identifying search and AI crawlers, inspecting referenced page resources, and avoiding common SEO mistakes.",
         "inLanguage": "en",
         "articleSection": [
           "How to use the checker",
@@ -510,7 +512,8 @@ to { transform: rotate(360deg); }
 .app-layout #resourceTable th { background: #f8fafc; color: #64748b; font-weight: 600; }
 .app-layout #resourceTable th:nth-child(1) { width: 35%; }
 .app-layout #resourceTable th:nth-child(2) { width: 90px; }
-.app-layout #resourceTable th:nth-child(3) { width: 115px; text-align: center; }
+.app-layout #resourceTable th:nth-child(3) { width: 140px; padding: 0 8px; text-align: center; }
+.app-layout #resourceTable td:nth-child(3) .badge { display: inline-block; vertical-align: middle; white-space: nowrap; }
 .app-layout #resourceTable th:nth-child(4) { width: auto; }
 
 .app-layout #resourceTable th:nth-child(2),
@@ -635,7 +638,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
   .page-index-mobile { display: block; margin: 0; }
   .page-index-mobile summary { width: 38px; height: 38px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; list-style: none; cursor: pointer; color: #555; background: rgba(235, 238, 245, 0.9); border-radius: 15px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); opacity: 0.9; }
   .page-index-mobile summary::-webkit-details-marker { display: none; }
-  .page-index-mobile nav { position: absolute; right: 0; bottom: 48px; display: flex; flex-direction: column; gap: 7px; width: min(220px, calc(100vw - 40px)); max-height: 65dvh; overflow-y: auto; padding: 14px 16px; box-sizing: border-box; background: rgba(255,255,255,0.95); border: 1px solid #cbd5e1; border-radius: 15px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); font-family: "Inter", sans-serif; }
+  .page-index-mobile nav { position: absolute; right: 0; bottom: 48px; display: flex; flex-direction: column; gap: 7px; width: min(220px, calc(100vw - 40px)); max-height: 65dvh; overflow-y: auto; padding: 14px 16px; box-sizing: border-box; background: rgba(255,255,255,0.92); border: 1px solid #cbd5e1; border-radius: 15px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
   .page-index-mobile nav a { color: #555; text-decoration: none; font-size: 0.85rem; font-weight: 400; line-height: 1.6; transition: color 0.2s ease; }
   .page-index-mobile nav a.active { color: #555; font-weight: 600; }
   .page-index-mobile nav a:focus-visible { outline: 2px solid #555; outline-offset: 2px; border-radius: 2px; }
@@ -987,14 +990,14 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
 <p>I made this checker/validator/editor, or whatever you're more comfortable calling it, to evaluate robots.txt rules without having to deploy a new file for every experiment and wait to see what happens in the <abbr title="Server Log Files">logs</abbr>. Its function must be familiar to you, it compares one or more URLs with the directives in a robots.txt file, across a collection of personally found and selected web crawlers. It can also inspect a page's referenced resources to determine whether those same rules would allow a particular crawler to fetch its stylesheets, scripts, images, and other assets. Quite useful when a seemingly innocent <code>Disallow</code> rule has rather unintended consequences. It also doubles as a playground: fetch or paste a file, change a rule, invent a scenario, and see which directive wins. And hey! Nothing you change or save here gets published to your domain obviously.</p>
 <p>The result is a <em>rules-based evaluation</em> to the best of my knowledge and available documentation, not a live conversation with Googlebot, Bingbot, or any other crawler. An <strong>Allowed</strong> result doesn't guarantee that a crawler will visit or index the URL. A <strong>Blocked</strong> result doesn't prove that every client on the internet will respect the restriction. Neither result tells you what happened during an actual crawler request. For that, inspect your server logs. Google's Search Console Crawl Stats and the crawling reports in Bing Webmaster Tools can also provide useful, though less granular, operational context.</p>
 
-<!-- TODO update once cf worker up -->
 <h2 id="using-checker">How to use the checker</h2>
-<p>Start with a website address and use <strong>Fetch Live</strong> to try to retrieve its root-level robots.txt file. The checker first attempts a direct browser request and, when that fails, tries a third-party fetching service. Browser requests can be restricted by <abbr title="Cross-Origin Resource Sharing">CORS</abbr>, while both methods can fail because of network errors, rate limits, security rules, or issues with the fetching service itself. A failed fetch is not evidence that the website has no robots.txt file. I'm also considering a dedicated Cloudflare Worker to make fetching more reliable.</p>
+<p>Start with a website address and use <strong>Fetch Live</strong> to retrieve its root-level robots.txt file. I've set up a dedicated Cloudflare Worker to handle these requests, rather than relying on the browser or a third-party proxy. This avoids the usual <abbr title="Cross-Origin Resource Sharing">CORS</abbr> restrictions and makes fetching a little more dependable, although websites can still refuse or interrupt requests because of network issues, security rules, rate limits, or other server-side restrictions. A failed fetch is not evidence that the website has no robots.txt file.</p>
+<p>The fetcher can also follow up to five HTTP redirects, including those leading to another hostname, and reports the number followed and the final destination where applicable. It also handles certain <code>www</code> and non-<code>www</code> retrieval problems, without assuming the two hostnames are interchangeable. More on that <a href="#robots-location">further down</a>.</p>
 <p>You can also paste rules directly into the editor, type a new file from scratch, or drop a local <code>.txt</code> file into the <a href="#dropZone">dedicated field</a>. The file is read in your browser rather than uploaded to this website. The editor's parser can flag certain problems (mainly typos), and you can copy or download the new or edited file. Ctrl/Cmd + S triggers the download as well. The result is a local <code>robots.txt</code> file; it does not update the server hosting your website(!).</p>
 <p>Enter an absolute target URL, including <code>http://</code> or <code>https://</code>, then select the crawler user-agents to test against the rules in the editor. I've already pre-selected a few user-agents that I think are best left allowed, per moi, but feel free to play with the list (142 user-agents so far) and the categories I've put together. Auto-check is enabled initially because I find it pointless to press <em>Enter</em> after every tiny edit; disable it if you prefer the familiar <strong>Check URL</strong> button. My beloved expanded multi-URL area accepts up to ten additional distinct URLs, one per line. Duplicate entries are omitted, and the same editor rules are evaluated against each URL. Really don't know why it isn't a default feature in existing checkers. <strong>Tip</strong>: Closing the <em>multiple URLs drawer</em> clears its editor, or you can keep it open and use the <em>Clear</em> button instead.</p>
 
 <h3>Checking a page's resources</h3>
-<p>Checking whether a crawler can access a page is one thing. Knowing whether it can fetch the resources that page relies on is another. Enable <strong>Check resources</strong>, and the checker will attempt to retrieve the target page's HTML, identify its referenced assets, and evaluate their URLs against the robots.txt rules in the editor. This includes stylesheets, JavaScript files, images (including responsive image candidates), favicons, preloaded resources, video, and audio. Relative URLs are resolved too, so you don't need to go hunting for absolute addresses.</p>
+<p>Checking whether a crawler is allowed to access a page is one thing. Knowing whether the same applies to the resources that page relies on is another. Enable <strong>Check resources</strong>, and the checker will attempt to retrieve the target page's HTML through the same fetching service used by <strong>Fetch Live</strong>, identify its referenced assets, and evaluate their URLs against the robots.txt rules in the editor. This includes stylesheets, JavaScript files, images (including responsive image candidates), favicons, selected preloaded resources, video, and audio. Relative URLs are resolved too, so you don't need to go hunting for absolute addresses.</p>
 <p>The mode starts with Googlebot selected, although you're free to choose another crawler from the sidebar. Only one user-agent can be tested at a time here, since the idea is to inspect the resources of a particular page from the perspective of a particular crawler. Auto-check and the multiple URLs area are temporarily unavailable; press <strong>Check URL</strong> to run the inspection. Turn off <strong>Check resources</strong>, and your previous crawler selections return, along with the standard checking functionality.</p>
 <p>There's also a Google-specific detail worth keeping in mind. When checking resources with Googlebot selected, image URLs are evaluated in the context of <code>Googlebot-Image</code>, and video URLs in that of <code>Googlebot-Video</code>. Both can have their own robots.txt rules, with Googlebot acting as a fallback when no dedicated group applies. So, a page might be allowed for Googlebot while one of its images is blocked for Googlebot-Image. The results identify the crawler context used, rather than leaving you guessing which rules were applied. This distinction belongs to resource checking; the regular URL tester evaluates the crawler you've explicitly selected.</p>
 
@@ -1007,7 +1010,8 @@ Disallow: /*.png
 </pre>
 
 <p>In this example, ordinary Googlebot crawling is allowed, but PNG images are restricted for Googlebot-Image. If a page references one of those images, the resource checker can identify the restriction under the corresponding Google image-crawling context. That doesn't mean every ordinary Googlebot request for the same URL would inherit the image-specific rule.</p>
-<p>A small but important distinction: the checker inspects the HTML it retrieves, not a fully rendered page. It doesn't execute JavaScript, discover resources introduced dynamically after the initial HTML response, or reproduce everything a real browser (or Google's rendering infrastructure) might request. Resources hosted on another origin also have their own robots.txt policies, so the rules from your current editor aren't automatically applicable to them. These cases are reported as Inconclusive rather than pretending that one file governs the entire web.</p>
+<p>A small but important distinction: the checker examines the HTML it retrieves, not a fully rendered page. It doesn't execute JavaScript, discover resources introduced dynamically, or reproduce everything a real browser (or Google's rendering infrastructure) might request. It also doesn't download the individual resources or check whether their servers actually return them successfully. An <strong>Allowed</strong> result here means the evaluated robots.txt rules permit the request, not that the resource is necessarily available.</p>
+<p>Resources hosted on another origin have their own robots.txt policies, which the checker doesn't automatically retrieve. These are reported as <strong>Inconclusive</strong> rather than applying the rules from your current editor to an unrelated host. A CDN-hosted image, for example, might have an entirely different crawling policy from the page referencing it. One robots.txt file doesn't govern the entire web, however convenient that would be.</p>
 <p>There is no requirement to keep the tested URL(s) on the origin from which the rules were fetched. You could fetch Google's robots.txt, alter a few lines, and test an entirely unrelated website - for the fun of it. The tool warns you when the primary URL has a different origin from a fetched file; the same warning is not repeated beside every additional URL.</p>
 
 <figure>
@@ -1019,7 +1023,7 @@ Disallow: /*.png
 <p>Refreshing the page resets the fields.</p>
 
 <h3 id="reading-results">Reading your results</h3>
-<p><strong>Allowed</strong> means the selected rules permit the URL under this checker's <em>extensively researched matching model</em>, whether a matching <code>Allow</code> rule wins or no applicable restriction exists. <strong>Blocked</strong> means a matching <code>Disallow</code> rule wins. <strong>Inconclusive</strong> means the checker cannot establish a reliable result, for example because no rules or valid target URL have been supplied, or because wildcard applicability for certain special tokens is undocumented. In resource mode, an Inconclusive result can also mean that a resource belongs to another origin or couldn't be evaluated reliably with the available information.</p>
+<p><strong>Allowed</strong> means the evaluated rules permit the URL under this checker's <em>extensively researched matching model</em>, whether a matching <code>Allow</code> rule wins, no applicable restriction exists, or the selected crawler is documented as ignoring robots.txt. <strong>Blocked</strong> means a matching <code>Disallow</code> rule wins. <strong>Inconclusive</strong> means the checker cannot establish a reliable result, for example because no rules or valid target URL have been supplied, or because wildcard applicability for certain special tokens is undocumented. In resource mode, it can also mean that a resource belongs to another origin or cannot be reliably evaluated with the available information. These classifications describe rules-based crawling permission, not whether an HTTP request would succeed, a crawler would actually visit, or a search engine would index the URL.</p>
 <p>The <strong>Winning Directive</strong> column explains the decision. It may not be the first matching line: more specific rules take precedence, with <code>Allow</code> winning a tie under the standard matching model. Click a result row with a line number to jump to and temporarily highlight that rule in the editor. The small icon alongside a crawler name copies its robots.txt-friendly <em>user-agent name</em> (formally product token), which is what goes after <code>User-agent:</code>; it is not the <span style="text-decoration-line: underline; text-decoration-style: dotted;" title="Example for Googlebot Smartphone: Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)">full HTTP User-agent request header</span>.</p>
 <p>The indicator beside the primary URL describes its validity and whether the selected evaluations completed. It is <em>not</em> a single permission verdict for all crawlers. The pre-selected crawlers are my practical starting set, not a ranking of importance and certainly not a recommended blocklist. Change them as you wish.</p>
 <p>TL;DR: Check the <a href="#results-legend">Reading the Results legend</a>.</p>
@@ -1039,8 +1043,8 @@ https://www.yourdomain.eu/robots.txt
 https://blog.yourdomain.eu/robots.txt
 </pre>
 <p>These are potentially three different policies. The same separation applies to HTTP versus HTTPS, and to different network ports. I've encountered the assumption that a file on the main domain automatically governs its subdomains more than once; it doesn't. If you manage several hosts, check the file and its served HTTP status by each one rather than expecting the apex/root domain's instructions to travel around with them.</p>
-<!-- TODO update if via cf will count number of redirects -->
-<p>A root robots.txt URL may redirect to another location, including a subdirectory, a differently named file, or even another hostname. When the file is successfully retrieved within the redirect chain, its rules apply to the <em>original origin</em>, not the redirect destination. RFC 9309 says crawlers should follow at least five consecutive redirects. The checker's current live-fetch methods don't independently verify how many redirects occurred (yet).</p>
+<p>A root robots.txt URL may redirect to another location, including a subdirectory, a differently named file, or even another hostname. When successfully retrieved, its rules apply to the <em>original origin</em>, not the redirect destination. RFC 9309 recommends that crawlers follow at least five consecutive redirects, including those between different hosts. The checker follows up to five such redirects and reports how many were encountered, along with the final URL where applicable. Redirect loops or chains exceeding that limit result in a retrieval error, rather than an assumption about what the crawler would ultimately find.</p>
+<p>There's a related detail with <code>www</code> and non-<code>www</code> hostnames. If the requested <code>www</code> hostname cannot be reached, the fetcher may attempt its apex counterpart as a fallback. That's a separate request, not evidence of an HTTP redirect. The interface makes the distinction explicit because retrieving <code>https://yourdomain.eu/robots.txt</code> doesn't automatically establish what <code>https://www.yourdomain.eu/robots.txt</code> serves. Different origins, potentially different rules.</p>
 
 <figure>
   <img src="..\assets\images\thoughts\robots-txt-checker\robots-txt-redirect-parse.webp" width="965" height="791" loading="lazy" alt="Diagram illustrating how redirects from a robots.txt URL are followed and how the retrieved rules apply to the original origin.">
@@ -1077,7 +1081,7 @@ https://blog.yourdomain.eu/robots.txt
   <figcaption>Requesting a robots.txt recrawl from Google Search Console after an important change.</figcaption>
 </figure>
 
-<p>A successful fetch in this checker shows the response obtained by its fetch method at that moment. It cannot tell you what Google or another service currently has cached. Avoid assuming a restriction has taken effect everywhere because a local test looks correct.</p>
+<p>A successful live fetch in this checker shows what the Cloudflare Worker was able to retrieve at that moment. It doesn't mean Googlebot, Bingbot, or another crawler would receive the same response, nor can it tell you which version they currently have cached. Different request origins, security policies, and caching behaviour can all affect what a crawler actually encounters. Avoid assuming a restriction has taken effect everywhere because a local test looks correct.</p>
 
 <h2 id="rules-and-syntax">Reading and writing the rules</h2>
 <p>A basic file is made of groups of user-agent declarations followed by <code>Allow</code> and <code>Disallow</code> path rules. A <code>Sitemap:</code> line can also advertise a sitemap location, although it is not itself a crawl-permission rule. Blank lines are fine, and comments begin with <code>#</code>.</p>
@@ -1236,7 +1240,7 @@ Disallow: /static/
   <dd>Different products may involve different crawlers, existing indexes, user-initiated fetches, and contractual or technical controls. A robots.txt preference is <a href="#tokens-vs-headers">not a universal licence or enforcement mechanism</a>.</dd>
 
   <dt>“A live checker shows exactly what Google and other user-agents see.”</dt>
-  <dd>It fetches and evaluates available content at that moment, but Google <a href="#caching">may have cached different rules</a> and applies its own documented retrieval and crawler policies.</dd>
+  <dd>This particular checker retrieves robots.txt through its own Cloudflare Worker, not through Googlebot, Bingbot, or whichever crawler you've selected. The retrieved file is evaluated against that crawler's documented rules, but the actual crawler might encounter a different response, have <a href="#caching">older rules cached</a>, or follow its own retrieval and error-handling policies. A successful fetch here confirms what this checker's infrastructure received, not what every crawler sees.</dd>
 
   <dt>“You can use 'Noindex' inside robots.txt.”</dt>
   <dd>Google stopped supporting the unofficial <code>Noindex:</code> <a href="https://developers.google.com/search/blog/2019/07/a-note-on-unsupported-rules-in-robotstxt" target="_blank" rel="noopener">directive in robots.txt on September 1, 2019</a>. To remove a page from Google's index using a supported noindex instruction, the crawler <a href="#noindex-canonical">must be allowed to fetch it</a> so it can read a meta <code>noindex</code> tag or HTTP response header.</dd>
@@ -1253,13 +1257,19 @@ Disallow: /static/
 
 <h2 id="troubleshooting">A few practical questions</h2>
 <h3>Why won't the checker fetch a site's robots.txt?</h3>
-<p>The endpoint might be inaccessible, or the browser and fallback service may be unable to retrieve it. CORS, DNS, TLS, proxy availability, security rules, and rate limiting can all play a part. Paste your file into the editor or load it locally to continue testing.</p>
+<p>Live fetching runs through a dedicated Cloudflare Worker, so the usual browser CORS restrictions aren't an obstacle. But DNS failures, TLS errors, timeouts, server-side security rules, rate limits, redirect loops, or an excessive redirect chain can still prevent retrieval. Some websites may also restrict requests coming from Cloudflare's infrastructure. The fetching service has its own limits, too, so it isn't guaranteed to reach every website. A failed request doesn't prove the file is missing. You can always paste its contents into the editor or load a local file to continue testing.</p>
+
+<h3>Why did the checker fetch a different hostname?</h3>
+<p>The website might have redirected its robots.txt request to another hostname, which the checker follows and reports. Alternatively, if a <code>www</code> hostname couldn't be reached, the fetcher may have tried its non-<code>www</code> counterpart. These aren't the same thing. A successful fallback doesn't verify that the original hostname redirects correctly or serves the same robots.txt rules. Check the status message to see what got flagged.</p>
 
 <h3>Why doesn't Check resources find every image or script?</h3>
 <p>Because it examines the HTML returned for the target page, not the page after JavaScript has run. Some resources are introduced dynamically, loaded only after an interaction, or requested through CSS and JavaScript rather than referenced directly in the HTML. They won't necessarily appear in the results. Think of it as inspecting the page's initial resource references, not recording everything a browser might eventually load.</p>
 
 <h3>Why are some resources marked Inconclusive?</h3>
 <p>They might belong to another origin, have an invalid or unsupported URL, or otherwise lack the information needed for a reliable evaluation. A resource hosted on a CDN, for example, is governed by that origin's own robots.txt file rather than the one you're currently editing. Inconclusive doesn't mean the resource is blocked, broken, or unavailable; it means the checker can't establish its crawling permission from the current information.</p>
+
+<h3>Does Allowed mean the resource is accessible?</h3>
+<p>Nope. It means the evaluated robots.txt rules would permit the selected crawler to request that URL. The resource checker doesn't fetch each discovered stylesheet, script, image, or other asset individually, so it can't confirm whether the URL returns HTTP 200, requires authentication, redirects elsewhere, or fails altogether. Think of it as testing crawling permission, not actual resource availability. For the latter, you'll need to inspect the HTTP responses or use a browser's developer tools and the relevant search engine's inspection tools.</p>
 
 <h3>Why do two crawlers get different answers?</h3>
 <p>They can match different user-agent groups, have documented fallback identities, or be subject to a special policy. Check the Winning Directive and the crawler's descriptive note rather than comparing only the coloured labels.</p>
