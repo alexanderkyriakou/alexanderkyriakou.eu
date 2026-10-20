@@ -1345,5 +1345,261 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
       target.classList.remove('jump-highlight');
     });
   });
+})();
 
+// url input history
+(function () {
+  'use strict';
+
+  const MAX_HISTORY = 15;
+  const STORAGE_PREFIX = 'robots-checker-history-';
+
+  const configurations = [
+    { type: 'fetch', inputId: 'fetchUrlInput', buttonId: 'fetchBtn' },
+    { type: 'test', inputId: 'testPath', buttonId: 'checkBtn' }
+  ];
+
+  function readHistory(type) {
+    try {
+      const data = JSON.parse(
+        localStorage.getItem(STORAGE_PREFIX + type) || '[]'
+      );
+      return Array.isArray(data)
+        ? data.filter(item => typeof item === 'string')
+        : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function writeHistory(type, items) {
+    try {
+      localStorage.setItem(
+        STORAGE_PREFIX + type,
+        JSON.stringify(items.slice(0, MAX_HISTORY))
+      );
+    } catch {
+      // Storage may be disabled.
+    }
+  }
+
+  function validUrl(value, type) {
+    try {
+      const candidate = type === 'fetch' && !/^https?:\/\//i.test(value)
+        ? 'https://' + value
+        : value;
+
+      const url = new URL(candidate);
+
+      return /^https?:$/.test(url.protocol) &&
+        !!url.hostname &&
+        !url.username &&
+        !url.password &&
+        !/\s/.test(value);
+    } catch {
+      return false;
+    }
+  }
+
+  function saveUrl(type, value) {
+    value = value.trim();
+    if (!validUrl(value, type)) return;
+
+    const items = readHistory(type).filter(
+      item => item !== value
+    );
+
+    items.unshift(value);
+    writeHistory(type, items);
+  }
+
+  function initHistory(config) {
+    const { type, inputId, buttonId } = config;
+    const input = document.getElementById(inputId);
+    const button = document.getElementById(buttonId);
+    const wrapper = input?.closest('.url-history-anchor');
+    const menu = wrapper?.querySelector('.url-history-menu');
+
+    if (!input || !wrapper || !menu) return;
+
+    let matches = [];
+    let activeIndex = -1;
+
+    function close() {
+      menu.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      activeIndex = -1;
+    }
+
+    function setActive(index) {
+      const rows = menu.querySelectorAll('.url-history-item');
+
+      rows.forEach((row, i) => {
+        row.classList.toggle('is-active', i === index);
+      });
+
+      activeIndex = index;
+
+      if (index >= 0 && rows[index]) {
+        rows[index].scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    function select(value) {
+      input.value = value;
+      close();
+
+      // Notify existing input-dependent evaluation logic.
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+
+      input.focus();
+    }
+
+    function render() {
+      const query = input.value.trim().toLowerCase();
+
+      matches = readHistory(type).filter(
+        url => url.toLowerCase().includes(query)
+      );
+
+      menu.replaceChildren();
+      activeIndex = -1;
+
+      if (!matches.length) {
+        close();
+        return;
+      }
+
+      const list = document.createElement('ul');
+      list.className = 'url-history-list';
+
+      matches.forEach(url => {
+        const item = document.createElement('li');
+        item.className = 'url-history-item';
+
+        const selectButton = document.createElement('button');
+        selectButton.type = 'button';
+        selectButton.className = 'url-history-select';
+        const clock = document.createElement('span');
+        clock.className = 'url-history-clock';
+        clock.setAttribute('aria-hidden', 'true');
+
+        clock.innerHTML = ` <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="9"></circle> <path d="M12 7v5l3 2"></path> </svg> `;
+
+        const urlText = document.createElement('span');
+        urlText.className = 'url-history-url';
+        urlText.textContent = url;
+
+        selectButton.append(clock, urlText);
+        selectButton.title = url;
+
+        selectButton.addEventListener('click', () => select(url));
+
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.className = 'url-history-remove';
+        removeButton.textContent = '\u00d7';
+        removeButton.title = 'Remove from history';
+        removeButton.setAttribute(
+          'aria-label', 'Remove ' + url + ' from history'
+        );
+
+        removeButton.addEventListener('click', () => {
+          writeHistory(
+            type,
+            readHistory(type).filter(item => item !== url)
+          );
+
+          input.focus();
+          render();
+        });
+
+        item.append(selectButton, removeButton);
+        list.appendChild(item);
+      });
+
+      const footer = document.createElement('div');
+      footer.className = 'url-history-footer';
+
+      const clearButton = document.createElement('button');
+      clearButton.type = 'button';
+      clearButton.className = 'url-history-clear';
+      clearButton.textContent = 'Clear history';
+
+      clearButton.addEventListener('click', () => {
+        writeHistory(type, []);
+        close();
+        input.focus();
+      });
+
+      footer.appendChild(clearButton);
+      menu.append(list, footer);
+
+      menu.hidden = false;
+      input.setAttribute('aria-expanded', 'true');
+    }
+
+    input.addEventListener('focus', render);
+    input.addEventListener('click', render);
+    input.addEventListener('input', render);
+
+    input.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !menu.hidden) {
+        event.preventDefault();
+        close();
+        return;
+      }
+
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        if (menu.hidden) render();
+        if (!matches.length) return;
+
+        event.preventDefault();
+
+        const direction = event.key === 'ArrowDown' ? 1 : -1;
+        const next = activeIndex + direction;
+
+        setActive(
+          next < 0 ? matches.length - 1 :
+          next >= matches.length ? 0 : next
+        );
+      }
+
+      if (event.key === 'Enter' && !menu.hidden && activeIndex >= 0) {
+        event.preventDefault();
+        select(matches[activeIndex]);
+      }
+    });
+
+    document.addEventListener('pointerdown', event => {
+      if (!wrapper.contains(event.target)) close();
+    });
+
+    input.addEventListener('focusout', () => {
+      // Allow clicks on menu controls to finish.
+      setTimeout(() => {
+        if (!wrapper.contains(document.activeElement)) close();
+      }, 0);
+    });
+
+    if (button) {
+      button.addEventListener('click', () => {
+        saveUrl(type, input.value);
+        close();
+      });
+    }
+  }
+
+  configurations.forEach(initHistory);
+
+  // Available to the existing checker, including its auto-check logic.
+  window.robotsUrlHistory = {
+    saveFetch(value) {
+      saveUrl('fetch', value);
+    },
+    saveTest(value) {
+      saveUrl('test', value);
+    }
+  };
 })();
