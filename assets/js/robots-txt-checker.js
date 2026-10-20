@@ -1440,9 +1440,7 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
 
   function select(value) {
     input.value = value;
-    close();
 
-    // Notify the checker's existing evaluation listeners.
     input.dispatchEvent(
       new Event('input', { bubbles: true })
     );
@@ -1451,10 +1449,10 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
       new Event('change', { bubbles: true })
     );
 
-    // Avoid reopening the dropdown on programmatic focus.
     input.focus();
+    close();
   }
-
+  
   function render() {
     const query = showAll
       ? ''
