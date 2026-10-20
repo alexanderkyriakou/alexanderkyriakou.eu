@@ -46,7 +46,7 @@ allow: /
 user-agent: *
 disallow: /
 
-
+# Intentional error-inducing lines :•)
   ,-~~-.___.
  / |  '     \         It was a dark and stormy night....
 (  )         0              

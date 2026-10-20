@@ -713,8 +713,12 @@
 
   .postfooter-share {
     grid-column: 2;
-    align-self: end;
+    align-self: center;
     transform: none;
+  }
+
+  .postfooter-bottom:has(.postfooter-dates > span:only-child) .postfooter-share {
+    transform: translateY(-3px);
   }
   /* end of postfooter */
 

@@ -1,4 +1,3 @@
-
 /*
  * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at https://opensource.org/license/CPAL-1.0. The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 have been added to cover use of software over a computer network and provide for limited attribution for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B.
  *
@@ -196,7 +195,7 @@
     ['misc', 'Miscellaneous']
   ];
   // Configuration. Empty = direct browser fetch + AllOrigins fallback.
-  const WORKER_PROXY_URL = '';
+  const WORKER_PROXY_URL = 'https://robots-checker-fetch.alexanderkyriakou.workers.dev/fetch';
   const MAX_BYTES = 512000;
   const MAX_FILE = 2 * 1024 * 1024;
   const MSG_MS = 5000;
@@ -569,54 +568,65 @@
   });
 
   // Live fetch helpers (unchanged behavior)
-  async function getDirect(url, signal) {
-    const response = await fetch(url, { signal, redirect: 'follow', credentials: 'omit', cache: 'no-store' });
-    return { status: response.status, text: await response.text(), finalUrl: response.url, proxied: false, redirected: response.redirected };
-  }
-  async function getViaProxy(url, signal) {
-    const endpoint = WORKER_PROXY_URL
-      ? WORKER_PROXY_URL + (WORKER_PROXY_URL.includes('?') ? '&' : '?') + 'url=' + encodeURIComponent(url)
-      : 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
-    const response = await fetch(endpoint, { signal, credentials: 'omit', cache: 'no-store' });
-    if (WORKER_PROXY_URL && response.status === 422) {
-      const data = await response.json().catch(() => ({}));
-      if (data.code === 'TOO_MANY_REDIRECTS') {
-        const error = new Error('More than 3 redirects were found. Unable to fetch robots.txt.');
-        error.code = 'TOO_MANY_REDIRECTS'; throw error;
+  async function fetchWithDeadline(url, parentSignal, mode = 'robots') {
+    if (parentSignal.aborted) throw new DOMException('Aborted', 'AbortError');
+    if (!WORKER_PROXY_URL) throw new Error('Worker endpoint has not been configured.');
+
+    // The caller specifies the operation; never infer it from a page filename.
+    const target = new URL(url);
+    if (mode !== 'robots' && mode !== 'page') throw new Error('Unsupported fetch mode.');
+    const endpoint = new URL(WORKER_PROXY_URL);
+    endpoint.searchParams.set('url', target.href);
+    endpoint.searchParams.set('mode', mode);
+
+    const controller = new AbortController();
+    const onAbort = () => controller.abort();
+    parentSignal.addEventListener('abort', onAbort, { once: true });
+    const timer = setTimeout(() => controller.abort(), mode === 'robots' ? 14000 : 16000);
+    try {
+      const response = await fetch(endpoint.href, {
+        signal: controller.signal,
+        credentials: 'omit',
+        cache: 'no-store',
+        headers: { 'Accept': 'application/json' }
+      });
+      const data = await response.json().catch(() => null);
+      if (!data || typeof data !== 'object') {
+        const error = new Error('The fetch service returned invalid JSON.');
+        error.code = 'BAD_RESPONSE'; throw error;
       }
-    }
-    if (!response.ok) throw new Error('Proxy HTTP ' + response.status);
-    const data = await response.json();
-    if (WORKER_PROXY_URL && typeof data.status === 'number') {
-      return { status: data.status, text: data.text || '', finalUrl: data.finalUrl || url, proxied: true, redirected: data.hops > 0, hops: data.hops };
-    }
-    if (!data || !data.status || typeof data.status.http_code !== 'number') throw new Error('Proxy returned an unusable response');
-    return { status: data.status.http_code, text: data.contents || '', finalUrl: data.status.url || url,
-      proxied: true, redirected: !!data.status.url && data.status.url !== url };
-  }
-  async function fetchWithDeadline(url, parentSignal) {
-    const methods = WORKER_PROXY_URL
-      ? [{ name: 'Worker', fetcher: getViaProxy, timeout: 9000 }]
-      : [{ name: 'direct', fetcher: getDirect, timeout: 4500 }, { name: 'AllOrigins proxy', fetcher: getViaProxy, timeout: 6500 }];
-    let lastError = null;
-    for (const method of methods) {
+      if (!response.ok) {
+        const error = new Error(data.error || ('Fetch service HTTP ' + response.status));
+        error.code = data.code || 'WORKER_ERROR';
+        error.httpStatus = response.status;
+        throw error;
+      }
+      if (!Number.isInteger(data.status) || typeof data.text !== 'string' ||
+          typeof data.finalUrl !== 'string' || !Number.isInteger(data.hops)) {
+        const error = new Error('The fetch service returned incomplete data.');
+        error.code = 'BAD_RESPONSE'; throw error;
+      }
+      return {
+        status: data.status,
+        text: data.text,
+        finalUrl: data.finalUrl,
+        proxied: true,
+        redirected: data.hops > 0,
+        hops: data.hops,
+        redirects: Array.isArray(data.redirects) ? data.redirects : [],
+        method: 'Cloudflare Worker'
+      };
+    } catch (error) {
       if (parentSignal.aborted) throw new DOMException('Aborted', 'AbortError');
-      const controller = new AbortController();
-      const onAbort = () => controller.abort();
-      parentSignal.addEventListener('abort', onAbort, { once: true });
-      const timer = setTimeout(() => controller.abort(), method.timeout);
-      try {
-        const result = await method.fetcher(url, controller.signal);
-        return { ...result, method: method.name };
-      } catch (error) {
-        if (parentSignal.aborted) throw new DOMException('Aborted', 'AbortError');
-        if (error.code === 'TOO_MANY_REDIRECTS') throw error;
-        lastError = error;
-      } finally {
-        clearTimeout(timer); parentSignal.removeEventListener('abort', onAbort);
+      if (controller.signal.aborted) {
+        const timeout = new Error('The fetch service timed out.');
+        timeout.code = 'TIMEOUT'; throw timeout;
       }
+      throw error;
+    } finally {
+      clearTimeout(timer);
+      parentSignal.removeEventListener('abort', onAbort);
     }
-    throw lastError || new Error('Unable to fetch robots.txt');
   }
 
   // Live fetch
@@ -880,7 +890,7 @@
     resourceScanController = controller; resourceScanBusy = true;
     updateTargetState(); updateResourceProgress(0, 'Fetching page...');
     try {
-      const response = await fetchWithDeadline(target.url.href, controller.signal);
+      const response = await fetchWithDeadline( target.url.href, controller.signal, 'page' );
       if (controller.signal.aborted || scanId !== resourceScanId) return;
       if (response.status < 200 || response.status >= 300) throw new Error('Page returned HTTP ' + response.status);
       if (!/<(?:!doctype\s+html|html|head|body)\b/i.test(response.text)) throw new Error('The response does not appear to contain an HTML page');
@@ -1337,6 +1347,3 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
   });
 
 })();
-
-
-
