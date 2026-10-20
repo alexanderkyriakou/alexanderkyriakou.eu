@@ -6,7 +6,7 @@
 
 ### [Ferryscanner](https://www.ferryscanner.com/en/ferry)
 
-**Syntagma, Athens • Full-time • Hybrid • 9/2024 - 5/2026 • 1 year and 9 months**
+Syntagma, Athens • Full-time • Hybrid • 9/2024 - 5/2026 • 1 year and 9 months
 
 The second largest ferry ticket aggregator and OTA in Greece since 2018, providing services in 25 languages.
 
@@ -38,7 +38,7 @@ The second largest ferry ticket aggregator and OTA in Greece since 2018, providi
 
 ### Health and well-being
 
-**7/2023 - 5/2024 • 10 months**
+7/2023 - 5/2024 • 10 months
 
 An intentional career break focused on restoring well-being, reassessing my professional direction, and investing in skills and projects that support my next chapter.
 
@@ -51,7 +51,7 @@ An intentional career break focused on restoring well-being, reassessing my prof
 
 ### [Relevance](https://www.relevance.com/)
 
-**Syntagma, Athens • Full-time • Hybrid • 5/2022 - 6/2023 • 1 year and 1 month**
+Syntagma, Athens • Full-time • Hybrid • 5/2022 - 6/2023 • 1 year and 1 month
 
 A multi-awarded performance marketing agency founded in 2013. It has grown to become Google's leading Partner in Video and Display Innovation for Europe, Middle East, and Africa.
 
@@ -92,7 +92,7 @@ Duties remained the same; title changed to better reflect my role in the departm
 
 ### [GIM Agency](https://www.gimagency.com/)
 
-**Agios Dimitrios, Athens • Full-time • Hybrid • 2/2020 - 4/2022 • 2 years and 2 months**
+Agios Dimitrios, Athens • Full-time • Hybrid • 2/2020 - 4/2022 • 2 years and 2 months
 
 Digital marketing agency est. 2009, focused on SMBs.
 
@@ -115,7 +115,7 @@ Digital marketing agency est. 2009, focused on SMBs.
 
 ### [Synchrono](https://www.synchrono.eu/en/)
 
-**Piraeus • Full-time/Part-time • On-site • 10/2017 -...- 1/2020 • 1 year and 6 months**
+Piraeus • Full-time/Part-time • On-site • 10/2017 -...- 1/2020 • 1 year and 6 months
 
 Foreign language centre established at Pasalimani Piraeus in 1985.
 
@@ -140,7 +140,7 @@ Foreign language centre established at Pasalimani Piraeus in 1985.
 
 ### [Enallaktikos](https://enallaktikos.gr/)
 
-**Neo Psychiko • Full-time • On-site/Hybrid • 5/2017 - 8/2017 • 4 months**
+Neo Psychiko • Full-time • On-site/Hybrid • 5/2017 - 8/2017 • 4 months
 
 Independent online news and information portal focused on the solidarity, social and cooperative economy, sustainability, and civil society, with an extensive directory of social and cooperative initiatives.
 
@@ -156,7 +156,7 @@ Six-month internship completed as part of the SEPE 18-24 ICT training and practi
 
 ### [Magna Events](https://magna-events.gr/)
 
-**Athens • Part-time • On-site • 3/2016 - 4/2017 • 1 year and 2 months**
+Athens • Part-time • On-site • 3/2016 - 4/2017 • 1 year and 2 months
 
 Event management and production company specializing in corporate, cultural, and entertainment events, delivering projects from concept and planning through to on-site execution since 2001.
 
@@ -171,7 +171,7 @@ Event management and production company specializing in corporate, cultural, and
 
 ### IT Support Specialist
 
-**Athens • Part-time • On-site • 5/2015 - 7/2017 • 2 years and 2 months**
+Athens • Part-time • On-site • 5/2015 - 7/2017 • 2 years and 2 months
 
 Provided independent IT support to businesses and professionals, covering hardware, software, networking, and digital platforms.
 
@@ -186,7 +186,7 @@ Provided independent IT support to businesses and professionals, covering hardwa
 
 ### [Democritus University of Thrace](https://duth.gr/en/home-english/)
 
-**Kavala • Full-time • On-site • 10/2014 - 3/2015 • 6 months**
+Kavala • Full-time • On-site • 10/2014 - 3/2015 • 6 months
 
 HR Assistant during a six-month internship undertaken as part of the requirements for my Bachelor’s degree. The institution was previously known as the Technological Educational Institute of Eastern Macedonia and Thrace.
 
@@ -205,7 +205,7 @@ HR Assistant during a six-month internship undertaken as part of the requirement
 
 ### [Kinitro](https://kinitro.org/)
 
-**Part-time • Remote • 5/2022 - 6/2024 • 2 years and 1 month**
+Part-time • Remote • 5/2022 - 6/2024 • 2 years and 1 month
 
 Non-profit social enterprise focused on inclusive education, diversity, accessibility, and social rights through non-formal education, training, and European projects.
 
@@ -221,7 +221,7 @@ Chosen volunteering position after finishing a ReGeneration programme.
 
 ### [Praxis (Πράξις)](https://praxisth.gr/)
 
-**Kavala • Part-time • On-site • 9/2011 - 2/2012 • 6 months**
+Kavala • Part-time • On-site • 9/2011 - 2/2012 • 6 months
 
 Multidisciplinary therapeutic and counselling unit in Kavala since 2001, providing specialized support and rehabilitation services for children and adults with developmental, educational, communication, and other needs.
 
@@ -255,7 +255,7 @@ LLM APIs · Local LLMs · Agents · MCPs · AI-assisted Workflows · Generative 
 
 ### alexanderkyriakou.eu Personal Website
 
-Personal playground for web development fundamentals, experimentation, and publishing articles on various topics. As you can already browse, else [check the repository](https://github.com/alexanderkyriakou/alexanderkyriakou.eu).
+Personal playground for web development fundamentals, experimentation, and publishing articles on various topics. Most technical explorations reside in the [Tools category](https://alexanderkyriakou.eu/thoughts/tools). The present website is open source, you may [check the repository](https://github.com/alexanderkyriakou/alexanderkyriakou.eu).
 
 ### [epilektonart.com](https://epilektonart.com/) Development & Maintenance of Friendly Website
 
@@ -309,7 +309,7 @@ Personal cultural preservation project documenting and making publicly accessibl
 
 ## Education
 
-**Bachelor of Science in [Information Management and Business Administration](https://www.mst.duth.gr/index.php/en/homepage-en/)** · *2010–2016*
+Bachelor of Science in [Information Management and Business Administration](https://www.mst.duth.gr/index.php/en/homepage-en/) · 2010–2016
 
 Technological Educational Institute of Eastern Macedonia and Thrace
 
@@ -323,8 +323,8 @@ Russian • Certificate level B1
 
 ## Lifelong Learning
 
-| Date | Course / Activity |
-|---|---|
+| Date | Training / Activity |
+| --- | --- |
 | March 2026 | First Aid for [Humans](https://drive.google.com/file/d/1tg7GZlN6FjSp7ZBBweEnTDIiUnnbUScX/view?usp=sharing) & [Dogs](https://drive.google.com/file/d/1xdB9gJrbdLT4hk2HIQB_tzwTaBTGfu75/view?usp=sharing) \| Red Cross |
 | February 2026 | AI Transformation: Artificial Intelligence and Business Transformation \| [AUEB](https://drive.google.com/file/d/1gB3j_HXrtCpn5RyS1waHTu1dU2iRuUf2/view?usp=sharing) |
 | February 2025 | Green Skills for Smart Careers: From Technology to Sustainability \| [UNIWA](https://drive.google.com/file/d/17jPfuqGZ6gkbENXmMVg2J9v36dUbTc7V/view?usp=sharing) |
@@ -340,7 +340,7 @@ Russian • Certificate level B1
 | August 2021 | Master Python for Data Science \| [LinkedIn Learning](https://www.linkedin.com/learning/paths/master-python-for-data-science) |
 | December 2020 | Excel Skills for Business: Intermediate I & II \| [Coursera](https://www.coursera.org/account/accomplishments/verify/YCN4FQU8PTKD) |
 | December 2020 | Search Engine Optimization (SEO) – 5-Course Specialization \| [Coursera](https://www.coursera.org/account/accomplishments/specialization/ZL8BXFVY986X) |
-| September 2020 | Digital Marketing Analytics in Practice \| Coursera |
+| September 2020 | Digital Marketing Analytics in Practice \| [Coursera](https://www.coursera.org/account/accomplishments/verify/JRE5P9CXGTHP) |
 | August 2020 | MozCon 2020 \| [Moz](https://www.youtube.com/playlist?list=PLbKcy9p3mh_Gb4dEAizl3yQPlLT85mBi_) |
 | August 2020 | How to Dominate Ecommerce in 2020 \| [SEJ eSummit Webinar](https://www.searchenginejournal.com/how-to-dominate-ecommerce-this-year/379350/) |
 | August 2020 | SEO Master Class: Advanced Title Tag Optimization (For Any Site) \| [Moz Webinar](https://moz.com/webinars/registration-title-tags) |
@@ -363,4 +363,4 @@ Russian • Certificate level B1
 | May 2024 | Innovation and Change Management |
 | June 2012 | The Impact of the Economic Crisis on the Stock Market |
 
-*Updated on September 30, 2026*
+*Updated on October 15, 2026*

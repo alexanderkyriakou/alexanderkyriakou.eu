@@ -51,6 +51,7 @@ p {
 main a {
   color: #36c;
   text-decoration: none;
+  text-underline-offset: 3px;
 }
 
 main a:hover {
@@ -59,7 +60,7 @@ main a:hover {
 
 code {
   font-family: 'Courier New', Courier, monospace;
-  font-size: 1.1rem;
+  font-size: 1rem;
   background-color: #eee;
   padding: 2px 4px;
   border-radius: 4px;
@@ -515,7 +516,7 @@ figcaption {
 
 .f-container {
   position: relative;
-  max-width: 850px;
+  max-width: 900px;
   margin: 0 auto;
 }
 

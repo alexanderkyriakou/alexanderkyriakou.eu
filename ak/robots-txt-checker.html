@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fetch, edit and test robots.txt rules against multiple URLs for SEO, AI (GEO/AEO) and other crawlers. Validate rule matching, exceptions and create a correct robots.txt file.">
+  <meta name="author" content="Alexander Kyriakou">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/robots-txt-checker">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/thoughts.css">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/robots-txt-checker.md" title="Robots.txt Checker; Markdown documentation for the fellow AI agents">
+  
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <meta name="twitter:dnt" content="on">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO"/>
+  <meta property="og:description" content="Fetch, edit and test robots.txt rules against multiple URLs for SEO, AI (GEO/AEO) and other crawlers. Validate rule matching, exceptions and create a correct robots.txt file."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/robots-txt-checker"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-checker/og/brighton-museum-art-gallery-2023.jpg"/>
+  <!--og tags end-->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker",
+        "name": "Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO",
+        "description": "Fetch, edit and test robots.txt rules against multiple URLs for SEO, AI (GEO/AEO) and other crawlers. Validate rule matching, exceptions and create a correct robots.txt file.",
+        "inLanguage": "en",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#application"
+        },
+        "hasPart": [
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#article"
+          },
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#redirect-diagram"
+          },
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#rule-precedence-diagram"
+          }
+        ]
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#application",
+        "name": "Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO",
+        "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker",
+        "description": "Fetch, edit and test robots.txt rules against multiple URLs for SEO, AI (GEO/AEO) and other crawlers. Validate rule matching, exceptions and create a correct robots.txt file.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web browser",
+        "inLanguage": "en",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "featureList": [
+          "Fetch and inspect live robots.txt files",
+          "Edit and validate robots.txt directives",
+          "Test robots.txt rules against multiple URLs",
+          "Compare crawling permissions across 142 crawler identities",
+          "Inspect page resources for crawler accessibility",
+          "Evaluate Allow and Disallow rule precedence",
+          "Identify crawler-specific matching and fallback rules",
+          "Download edited robots.txt files"
+        ],
+        "license": "https://opensource.org/license/CPAL-1.0",
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#webpage"
+        },
+        "softwareHelp": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#article"
+        },
+        "subjectOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#article"
+        }
+      },
+      {
+        "@type": "Article",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#article",
+        "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker#about-checker",
+        "headline": "Robots.txt checker and multi-crawler rule tester",
+        "datePublished": "2026-10-20",
+        "description": "An in-depth guide to using the Robots.txt Checker, understanding RFC 9309, matching Allow and Disallow directives, identifying search and AI crawlers, checking page resources, and avoiding common SEO mistakes.",
+        "inLanguage": "en",
+        "articleSection": [
+          "How to use the checker",
+          "What robots.txt does, and where it lives",
+          "Reading and writing the rules",
+          "Not all crawlers are created equal",
+          "Crawling, indexing, and the things between them",
+          "Robots.txt misconceptions",
+          "Troubleshooting",
+          "Robots.txt culture"
+        ],
+        "keywords": [
+          "robots.txt",
+          "Robots Exclusion Protocol",
+          "RFC 9309",
+          "robots.txt checker",
+          "robots.txt validator",
+          "crawler user-agents",
+          "AI crawlers",
+          "Googlebot",
+          "Bingbot",
+          "SEO",
+          "GEO",
+          "AEO"
+        ],
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "copyrightNotice": "© 2026 Alexander Kyriakou",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#webpage"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#webpage"
+        },
+        "about": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#application"
+        },
+        "hasPart": [
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#redirect-diagram"
+          },
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#rule-precedence-diagram"
+          }
+        ],
+        "image": [
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#redirect-diagram"
+          },
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#rule-precedence-diagram"
+          }
+        ]
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#redirect-diagram",
+        "name": "Robots.txt Redirects and Rule Application",
+        "description": "Diagram illustrating how redirects from a robots.txt URL are followed and how the retrieved rules apply to the original origin.",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-checker/robots-txt-redirect-parse.webp",
+        "encodingFormat": "image/webp",
+        "width": 965,
+        "height": 791,
+        "inLanguage": "en",
+        "creator": {
+          "@type": "Person",
+          "@id": "https://alexanderkyriakou.eu/#person",
+          "name": "Alexander Kyriakou"
+        },
+        "creditText": "Alexander Kyriakou",
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "copyrightNotice": "© 2026 Alexander Kyriakou",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#article"
+        }
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#rule-precedence-diagram",
+        "name": "Robots.txt Rule Precedence: Allow and Disallow",
+        "description": "Illustration of how matching robots.txt Allow and Disallow rules are compared to determine the winning directive, including the precedence of Allow for equivalent rules under Google's matching model.",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-checker/why-one-robots.txt-directive-wins.webp",
+        "encodingFormat": "image/webp",
+        "width": 901,
+        "height": 570,
+        "inLanguage": "en",
+        "creator": {
+          "@type": "Person",
+          "@id": "https://alexanderkyriakou.eu/#person",
+          "name": "Alexander Kyriakou"
+        },
+        "creditText": "Alexander Kyriakou",
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "copyrightNotice": "© 2026 Alexander Kyriakou",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#article"
+        }
+      }
+    ]
+  }
+  </script>
+
+<style>
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/Inter_24pt-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/Inter_24pt-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/assets/fonts/Inter_24pt-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+.app-layout,
+.app-layout *,
+.app-layout *::before,
+.app-layout *::after {
+  box-sizing: border-box;
+}
+
+.robotstxt-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 20px; margin: 20px 20px 0; }
+.robotstxt-header img { display: block; width: 130px; height: 130px; object-fit: contain; justify-self: right; margin-top: -20px; animation: robotstxt-shake 3.5s ease-in-out infinite; transform-origin: center; }
+.robotstxt-header h1 { margin: 0; font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem); font-weight: 600; line-height: 1.2; text-wrap: wrap; }
+.robotstxt-header p { margin: 8px 0 10px; width: fit-content; max-width: 100%; color: #555; }
+
+  /* Subtle, occasional robot shake */
+  @keyframes robotstxt-shake {
+    0%, 85%, 100% {
+      transform: rotate(0deg) translateX(0);
+    }
+    87% {
+      transform: rotate(-3deg) translateX(-2px);
+    }
+    89% {
+      transform: rotate(3deg) translateX(2px);
+    }
+    91% {
+      transform: rotate(-2deg) translateX(-1px);
+    }
+    93% {
+      transform: rotate(1deg) translateX(1px);
+    }
+    95% {
+      transform: rotate(0deg) translateX(0);
+    }
+  }
+.app-layout { font-family: "Inter", sans-serif; display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 20px; align-items: start; margin: 0 20px 30px;} .app-layout button, .app-layout input, .app-layout textarea { font-family: "Inter", sans-serif; }
+.app-layout .main-panel, .app-layout .card-container { min-width: 0; }
+.app-layout .form-group { margin-bottom: 1rem; }
+.app-layout .form-group > label, .app-layout .multi-url-body > label { display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: #64748b; margin-bottom: 8px; }
+.app-layout input[type="text"] { width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; outline: none; }
+.app-layout input[type="text"]:focus { border-color: #0284c7; }
+.app-layout .check-row label.chk { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; text-transform: none; letter-spacing: 0; font-weight: 500; cursor: pointer; }
+.app-layout .ua-item label { flex: 1; user-select: none; text-transform: none; letter-spacing: 0.2px; font-weight: 400; font-size: 0.9rem; color: #0f172a; margin: 0; }
+.sidebar-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 15px; padding: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03); position: sticky; top: 20px; max-height: calc(100vh - 40px);   /* fallback */ max-height: calc(100dvh - 40px); overflow-y: auto; }
+.sidebar-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: #64748b; margin-bottom: 8px; }
+.ua-search-input { width: 100%; padding: 0.5rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem; margin-bottom: 0.75rem; outline: none; }
+.ua-search-wrap { position: relative; margin-bottom: 0.75rem; }
+.ua-search-wrap .ua-search-input { margin-bottom: 0; padding-right: 2rem; }
+.ua-search-clear { position: absolute; top: 50%; right: 8px; transform: translateY(-50%); width: 20px; height: 20px; padding: 0; border: none; border-radius: 50%; background: #eee; color: #555; font-family: Arial, sans-serif; font-size: 12px; font-weight: 400; line-height: 1; display: grid; place-items: center; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+.ua-search-clear:hover, .ua-search-clear:focus-visible { background: #0284c7; color: #fff; outline: none; }
+.ua-search-clear[hidden] { display: none; }
+.ua-search-input:focus { border-color: #0284c7; }
+.ua-list { max-height: clamp(150px, 35vh, 295px); overflow-y: auto; border: 1px solid #cbd5e1; border-radius: 8px; padding: 0.5rem; margin-bottom: 1rem; background: #fafafa; }
+.ua-cat { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; color: #64748b; margin: 0.4rem 0 0.1rem; }
+.ua-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.2rem; line-height: 1.2; font-size: 0.9rem; cursor: pointer; }
+.ua-item input, .ua-item label { cursor: pointer; }
+.ua-item label { flex: 1; user-select: none; text-transform: none; letter-spacing: 0.2px; font-weight: 400; font-size: 0.9rem; color: #0f172a; margin: 0; }
+.bulk-actions { display: flex; flex-direction: column; gap: 0.4rem; }
+.btn-bulk { padding: 0.45rem 0.65rem; border: 1px solid #cbd5e1; background: #fff; color: #0f172a; font-size: 0.9rem; font-weight: 500; border-radius: 6px; cursor: pointer; text-align: left; transition: all 0.2s ease; }
+.btn-bulk:hover, .btn-bulk.active { background: #0284c7; color: white; border-color: #0284c7; }
+.btn-group-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+.sidebar-column { position: sticky; top: 0; display: flex; flex-direction: column; gap: 20px; align-self: start; }
+.sidebar-column .sidebar-card { position: static; flex: none; max-height: calc(100dvh - 40px); overflow-y: auto; }
+.results-legend { flex: none; }
+.results-legend { flex: 0 0 auto; background: #fff; border: 1px solid #cbd5e1; border-radius: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); overflow: hidden; interpolate-size: allow-keywords; }
+.results-legend summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 1rem; color: #64748b; font-family: "Inter", sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; cursor: pointer; user-select: none; list-style: none; transition: color 0.3s ease; }
+.results-legend summary::-webkit-details-marker { display: none; }
+.results-legend summary:hover, .results-legend[open] summary { color: #0284c7; }
+.results-legend summary:focus-visible { outline: 2px solid #0284c7; outline-offset: -4px; border-radius: 15px; }
+.results-legend-arrow { flex: none; width: 8px; height: 8px; margin-top: -3px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); transition: transform 0.3s ease; }
+.results-legend[open] .results-legend-arrow { margin-top: 3px; transform: rotate(225deg); }
+.results-legend::details-content { height: 0; overflow: hidden; content-visibility: hidden; transition: height 0.3s ease-in-out, content-visibility 0.3s allow-discrete; }
+.results-legend[open]::details-content { height: auto; content-visibility: visible; }
+.results-legend-content { padding: 0 1rem 1rem; opacity: 0; transform: translateY(-6px); transition: opacity 0.3s ease, transform 0.3s ease; }
+.results-legend[open] .results-legend-content { opacity: 1; transform: translateY(0); }
+.results-legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.results-legend-item p { flex: 1; min-width: 0; margin: 0; color: #475569; font-size: 0.8rem; line-height: 1.5; }
+.results-legend-label { display: inline-flex; flex: 0 0 108px; width: 108px; min-height: 25px; align-items: center; justify-content: center; margin-top: 1px; white-space: nowrap; font-size: 0.65rem; }
+.app-layout .results-legend-item code { font-size: inherit; }
+.results-legend-divider { height: 1px; margin: 14px 0; background: #e2e8f0; }
+.results-legend-subtitle { margin: 0 0 12px; color: #64748b; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; }
+.results-legend-indicator { display: inline-grid; flex: 0 0 26px; width: 26px; height: 26px; min-width: 26px; min-height: 26px; aspect-ratio: 1; place-items: center; padding: 0; margin-top: 1px; border-radius: 50%; font-size: 0.9rem; font-weight: 600; line-height: 1; cursor: default; }
+.results-legend-note { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 0.72rem; line-height: 1.6; }
+.main-panel { display: flex; flex-direction: column; gap: 1.25rem; }
+.card-container { background: #fff; border: 1px solid #cbd5e1; border-radius: 15px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+.fetch-bar { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; align-items: stretch; }
+.fetch-input { flex: 1; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; min-width: 0; }
+.btn-fetch { padding: 0.6rem 1rem; background: #0284c7; color: white; border: none; border-radius: 6px; font-weight: 500; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.btn-fetch:hover { background: #0369a1; }
+.btn-fetch:disabled { opacity: 0.6; cursor: not-allowed; }
+.drop-zone { border: 2px dashed #cbd5e1; border-radius: 8px; padding: 0.6rem; text-align: center; font-size: 0.8rem; color: #64748b; margin-bottom: 1rem; cursor: pointer; background: #fafaf9; transition: all 0.2s; }
+.drop-zone.dragover, .drop-zone:focus-visible { border-color: #0284c7; background: #eff6ff; color: #0284c7; outline: none; }
+.app-layout .editor-wrapper { display: grid; grid-template-columns: 42px minmax(0, 1fr); grid-template-rows: minmax(0, auto); align-items: stretch; position: relative; width: 100%; min-width: 0; overflow: hidden; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; }
+.app-layout .editor-lines { position: absolute; top: 0; bottom: 0; left: 0; width: 42px; margin: 0; padding: 0.75rem 0.5rem; border-right: 1px solid #cbd5e1; background: #f1f5f9; color: #94a3b8; text-align: right; user-select: none; overflow: hidden; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1rem; font-weight: 400; line-height: 24px; white-space: pre; }
+.app-layout .editor-content { grid-column: 2; grid-row: 1; display: block; position: relative; min-width: 0; width: 100%; min-height: 0; }
+.app-layout .editor-textarea { display: block; width: 100%; height: 500px; min-height: 180px; margin: 0; padding: 0.75rem; padding-right: 5rem; border: 0; border-radius: 0; outline: none; box-shadow: none; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 1rem; font-weight: 400; line-height: 24px; letter-spacing: normal; tab-size: 4; white-space: pre; overflow-x: auto; overflow-y: auto; overflow-wrap: normal; resize: vertical; background: transparent; position: relative; z-index: 2; }
+.app-layout .highlight-overlay { position: absolute; top: 0; right: 0; bottom: 0; left: 0; margin: 0; padding: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.app-layout .highlight-marker { position: absolute; left: 0; right: 0; height: 24px; pointer-events: none; }
+.app-layout .highlight-line-block { background: rgba(239, 68, 68, 0.17); }
+.app-layout .highlight-line-allow { background: rgba(34, 197, 94, 0.17); }
+.app-layout .editor-tools { position: absolute; top: 0.4rem; right: 0.6rem; display: flex; gap: 0.3rem; z-index: 3; }
+.icon-btn { position: relative; width: 30px; height: 30px; display: block; border: 1px solid #cbd5e1; background: #fff; color: #0f172a; border-radius: 6px; cursor: pointer; }
+.icon-btn:hover:not(:disabled) { background: #0284c7; color: #fff; border-color: #0284c7; }
+.icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.icon-btn .ico, .icon-btn .done { position: absolute; inset: 0; display: grid; place-items: center; transition: opacity 0.3s ease; }
+.icon-btn .done { opacity: 0; font-size: 1rem; font-weight: 600; color: inherit; }
+.icon-btn.copied .ico { opacity: 0; }
+.icon-btn.copied .done { opacity: 1; }
+.icon-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.editor-foot { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-top: 0.35rem; }
+.size-info { font-size: 0.8rem; color: #64748b; text-align: right; margin-left: auto; }
+.size-info.over { color: #991b1b; font-weight: 600; }
+.app-layout .msg { font-size: 0.8rem; color: #64748b; }
+.app-layout .msg.error { color: #991b1b; } .msg.ok { color: #166534; } .msg.warn { color: #92400e; }
+.form-group { margin-bottom: 1rem; }
+label { display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: #64748b; margin-bottom: 8px; }
+input[type="text"] { width: 100%; padding: 0.6rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; outline: none; min-width: 0; flex: 1; }
+input[type="text"]:focus { border-color: #0284c7; }
+.target-url-empty { border: 2px dashed #0284c7 !important; background-color: #f0f9ff !important; }
+.multi-url-panel { margin: -10px 0 -20px; padding: 0; border: 0; background: transparent; interpolate-size: allow-keywords; }
+.multi-url-body { height: 0; overflow: hidden; opacity: 0; transform: translateY(-10px); transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out, content-visibility 0.3s allow-discrete; }
+.multi-url-panel[open] .multi-url-body { height: auto; opacity: 1; transform: translateY(0); }
+.multi-url-panel::details-content { height: 0; overflow: hidden; content-visibility: hidden; transition: height 0.3s ease-in-out, content-visibility 0.3s allow-discrete; }
+.multi-url-panel[open]::details-content { height: auto; content-visibility: visible; }
+.multi-url-panel summary { display: flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; margin: 0 auto; padding: 0.4rem 0; cursor: pointer; user-select: none; list-style: none; font-family: "Inter", sans-serif; font-size: 0.9rem; font-weight: 500; color: #55555558; }
+.multi-url-panel summary::-webkit-details-marker { display: none; }
+.multi-url-panel summary:hover { color: #555555ca; transition: color 0.2s ease;}
+.multi-url-panel summary:focus-visible { outline: 2px solid #555; outline-offset: 3px; border-radius: 3px; }
+.multi-url-panel[open] summary { font-weight: 500; }
+.multi-url-arrow { display: inline-block; flex: none; width: 8px; height: 8px; margin-top: -3px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); transition: transform 0.3s ease; }
+.multi-url-panel[open] .multi-url-arrow { margin-top: 3px; transform: rotate(225deg); }
+.multi-url-heading { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 8px; }
+.app-layout .multi-url-heading label { display: block; margin: 0; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: #64748b; }
+#additionalUrlCount { flex: none; font-size: 0.75rem; color: #555; white-space: nowrap; }
+.multi-url-input { display: block; width: 100%; min-height: 120px; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace !important; font-size: 0.85rem; line-height: 1.6; white-space: pre; overflow: auto; }
+.multi-url-input:focus { outline: none; border-color: #0284c7; }
+.multi-url-footer { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.multi-url-help { margin: 0; font-size: 0.8rem; line-height: 1.5; color: #64748b; }
+.multi-url-actions { display: flex; align-items: center; flex-shrink: 0; margin: 0; }
+.multi-url-clear { padding: 0.25rem 0.1rem; border: 0; background: transparent; color: #64748b; font-family: "Inter", sans-serif; font-size: 0.8rem; font-weight: 500; cursor: pointer; }
+.multi-url-clear:hover { color: #0284c7; text-decoration: none; }
+.multi-url-clear:focus-visible { outline: 2px solid #0284c7; outline-offset: 3px; }
+.results-table-scroll { width: 100%; overflow-x: auto; }
+.app-layout table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.875rem; table-layout: fixed; }
+.ua-copy-token { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; margin-left: 6px; padding: 0; border: 0; border-radius: 5px; background: transparent; color: #cbd5e1; vertical-align: middle; cursor: pointer; transition: color 0.2s ease, background 0.2s ease; }
+.ua-copy-token:hover { color: #555; background: #f0f0f0; }
+.ua-copy-token:focus-visible { outline: 2px solid #555; outline-offset: 2px; }
+.ua-copy-token.is-copied { color: #228b22; background: transparent; font-size: 16px; font-weight: 500; }
+.app-layout th, .app-layout td { padding: 0.65rem; text-align: left; border-bottom: 1px solid #cbd5e1; }
+.app-layout td { overflow-wrap: anywhere; }
+.app-layout th { font-weight: 600; color: #64748b; background: #f8fafc; }
+.app-layout th:nth-child(2) { width: 120px; text-align: center; }
+.app-layout th:nth-child(1) { width: 30%; }
+.app-layout tr { transition: background-color 0.2s ease; }
+.app-layout tr:hover { background-color: #eeeeee50; }
+.app-layout tr.row-click { cursor: pointer; }
+.app-layout tr.row-click:focus-visible { outline: 2px solid #0284c7; }
+.app-layout .stale tbody { opacity: 0.5; }
+.results-table-scroll table.has-multiple-urls { min-width: 690px; }
+.results-table-scroll table.has-multiple-urls th:nth-child(1) { width: 22%; }
+.results-table-scroll table.has-multiple-urls th:nth-child(2) { width: 25%; }
+.results-table-scroll table.has-multiple-urls th:nth-child(3) { width: 110px; text-align: center; }
+.result-url-heading td { background: #f1f5f9; color: #475569; font-weight: 600; font-size: 0.8rem; }
+.url-row { display: flex; gap: 0.5rem; align-items: center; }
+.url-status { width: 28px; height: 28px; flex: none; display: grid; place-items: center; border-radius: 50%; font-weight: 600; font-size: 0.9rem; background: #f1f5f9; color: #64748b; border: 1px solid #cbd5e1; cursor: help; }
+.url-status.ok { background: #e0f2fe; color: #0369a1; border-color: #7dd3fc; }
+.url-status.fail { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+.check-row { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; }
+.check-row label.chk { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; text-transform: none; letter-spacing: 0; font-weight: 500; cursor: pointer; }
+.check-row .btn-fetch { padding: 0.4rem 0.8rem; }
+.check-row .resource-toggle { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 0.4rem 0; font-family: "Inter", sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: none; letter-spacing: 0; color: #55555558; cursor: pointer; user-select: none; transition: color 0.2s ease; }
+.check-row .resource-toggle:hover, .check-row .resource-toggle:has(input:checked) { color: #555555ca; }
+.check-row .resource-toggle input { margin: 0; accent-color: #555; cursor: pointer; }
+.multi-url-panel.resource-disabled { opacity: 0.35; cursor: not-allowed; transition: opacity 0.2s ease;
+}
+.multi-url-panel.resource-disabled summary { cursor: not-allowed; }
+.check-row label.chk:has(input:disabled) { opacity: 0.4; cursor: not-allowed; }
+.check-row label.chk input:disabled { cursor: not-allowed; }
+.app-layout [data-bulk]:disabled { opacity: 0.4; cursor: not-allowed; }
+.bulk-disabled-tooltip { position: fixed; z-index: 9999; max-width: 230px; padding: 7px 10px; border-radius: 5px; background: #222; color: #eee; font-family: "Inter", sans-serif; font-size: 0.9rem; font-weight: 400; line-height: 1.5; text-align: center; pointer-events: none; }
+.resource-control { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; margin-left: auto; }
+.resource-progress { display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 190px; font-size: 0.75rem; color: #555; }
+.resource-progress[hidden] { display: none; }
+.resource-spinner { width: 14px; height: 14px; flex: 0 0 14px; border: 2px solid #ddd; border-top-color: #555; border-radius: 50%; animation: resource-spin 0.75s linear infinite; }
+
+@keyframes resource-spin {
+to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+.resource-spinner {
+  animation-duration: 2s;
+}
+}
+
+.resource-results-info.error { color: #b91c1c; font-weight: 500; }
+.results-table-scroll { width: 100%; overflow-x: auto; }
+.app-layout #resultsTable { width: 100%; min-width: 540px; margin-top: 0.75rem; border-collapse: collapse; table-layout: fixed; font-size: 0.875rem; }
+.app-layout #resultsTable th, .app-layout #resultsTable td { padding: 0.65rem; border-bottom: 1px solid #cbd5e1; text-align: left; vertical-align: middle; overflow-wrap: anywhere; }
+.app-layout #resultsTable th { font-weight: 600; color: #64748b; background: #f8fafc; }
+.app-layout #resultsTable th:nth-child(1) { width: 40%; }
+.app-layout #resultsTable th:nth-child(2) { width: 140px; padding: 0 30px; text-align: center; }
+.app-layout #resultsTable td:nth-child(2) { text-align: center; }
+.app-layout #resultsTable td:nth-child(2) .badge { display: inline-block; vertical-align: middle; }
+.app-layout #resultsTable th:nth-child(3) { width: auto; text-align: left; padding-left: 20px; }
+.app-layout #resultsTable td:nth-child(3) { text-align: left; padding-left: 20px; }
+.app-layout #resultsTable tr { transition: background-color 0.2s ease; }
+.app-layout #resultsTable tr:hover { background-color: #eeeeee50; }
+.app-layout #resultsTable tr.row-click { cursor: pointer; }
+.app-layout #resultsTable tr.row-click:focus-visible { outline: 2px solid #0284c7; }
+.app-layout #resultsTable.stale tbody { opacity: 0.5; }
+.app-layout #resultsTable.has-multiple-urls { min-width: 650px; }
+.app-layout #resultsTable.has-multiple-urls th:nth-child(1) { width: 30%; }
+.app-layout #resultsTable.has-multiple-urls th:nth-child(2) { width: 140px; padding: 0 30px; text-align: center; }
+.app-layout #resultsTable.has-multiple-urls th:nth-child(3) { width: auto; text-align: left; }
+.app-layout #resultsTable .result-url-heading td { padding: 0.65rem; background: #f1f5f9; color: #475569; font-weight: 600; font-size: 0.8rem; text-align: left; }
+.badge { padding: 0.25rem 0.5rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+.badge-allowed { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+.badge-blocked { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+.badge-na { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+.fallback-note { font-size: 0.7rem; color: #64748b; display: block; margin-top: 2px; user-select: none; }
+
+#multiAgentResults[hidden],
+#resourceResults[hidden],
+#resourceSummary[hidden],
+#resourceTableWrap[hidden] {
+  display: none;
+}
+
+.resource-results-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.app-layout .resource-results-heading label { margin: 0; }
+.resource-results-agent { flex: none; padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fafafa; color: #555; font-size: 0.8rem; font-weight: 600; }
+.resource-results-info { margin: 12px 0; color: #555; font-size: 0.9rem; line-height: 1.5; }
+.resource-summary { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0 18px; }
+.resource-summary-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 8px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; }
+.resource-summary-item strong { font-size: 1.4rem; font-weight: 600; line-height: 1.3; }
+.resource-summary-item span { color: #64748b; font-size: 0.75rem; }
+#resourceAllowedCount { color: #166534; }
+#resourceBlockedCount { color: #991b1b; }
+#resourceInconclusiveCount { color: #475569; }
+.app-layout #resourceTable { width: 100%; min-width: 650px; margin-top: 0.75rem; border-collapse: collapse; table-layout: fixed; font-size: 0.8rem; }
+.app-layout #resourceTable th, .app-layout #resourceTable td { padding: 0.65rem; border-bottom: 1px solid #cbd5e1; text-align: left; vertical-align: middle; overflow-wrap: anywhere; }
+.app-layout #resourceTable th { background: #f8fafc; color: #64748b; font-weight: 600; }
+.app-layout #resourceTable th:nth-child(1) { width: 35%; }
+.app-layout #resourceTable th:nth-child(2) { width: 90px; }
+.app-layout #resourceTable th:nth-child(3) { width: 115px; text-align: center; }
+.app-layout #resourceTable th:nth-child(4) { width: auto; }
+
+.app-layout #resourceTable th:nth-child(2),
+.app-layout #resourceTable td:nth-child(2),
+.app-layout #resourceTable th:nth-child(3),
+.app-layout #resourceTable td:nth-child(3) {
+  text-align: center;
+}
+
+.app-layout #resourceTable tr { transition: background-color 0.2s ease; }
+.app-layout #resourceTable tbody tr:hover { background: #eeeeee50; }
+.app-layout #resourceTable tr.row-click { cursor: pointer; }
+.app-layout #resourceTable tr.row-click:focus-visible { outline: 2px solid #0284c7; }
+.resource-url { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8rem; }
+.resource-directive { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8rem; }
+.resource-results-help { margin: 14px 0 0; color: #555; font-size: 0.9rem; line-height: 1.5; }
+#resourceResults.resource-results-stale .resource-summary,
+#resourceResults.resource-results-stale #resourceTableWrap { opacity: 0.5; filter: grayscale(0.7); pointer-events: none; transition: opacity 0.3s ease, filter 0.3s ease; }
+#resourceResults.resource-results-stale .resource-results-info { color: #b91c1c; font-weight: 500; }
+#resourceResults.resource-results-stale #resourceTable tbody tr { cursor: default; }
+.robots-guide pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+.robots-guide table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 1rem; line-height: 1.5; }
+.robots-guide table caption { caption-side: top; text-align: center; font-size: 1.3rem; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
+.robots-guide table thead { border-bottom: 1px solid #aaa; }
+.robots-guide table thead th { padding: 12px 8px; text-align: center; font-weight: 600; color: #555; }
+.robots-guide table thead th:last-child { text-align: left; }
+.robots-guide table tbody tr { border-bottom: 1px solid #e5e5e5; }
+.robots-guide table tbody tr:last-child { border-bottom: none; }
+.robots-guide table tbody th, table tbody td { padding: 8px; vertical-align: middle; }
+.robots-guide table tbody th { width: 25%; font-weight: 500; text-align: center; color: #444; }
+.robots-guide table thead th, .robots-guide table tbody th { font-family: "Inter", sans-serif; }
+.robots-results-legend { font-size: .78rem; line-height: 1.6; margin: .75rem 0 0; color: #475569; }
+.robots-results-legend span { font-weight: 600; }
+
+/* desktop toc */
+.page-index { position: sticky; top: 80px; width: 0; height: 0; margin-left: calc(100% + 20px); z-index: 10; opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(-12px); transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s allow-discrete; }
+.page-index.index-visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateX(0); }
+.page-index-desktop { display: flex; flex-direction: column; gap: 6px; width: 170px; max-height: calc(100dvh - 110px); overflow-y: auto; font-size: 0.9rem; line-height: 1.5; opacity: 0;   transform: translateX(-20px); transition: opacity 0.8s ease, transform 0.8s ease; } 
+.page-index.index-visible .page-index-desktop { opacity: 1; transform: translateX(0); }
+.page-index-desktop a { color: #555; opacity: 0.65; font-weight: 400; text-decoration: none; transition: color 0.6s ease, opacity 0.6s ease; }
+.page-index-desktop a.active { color: #555; opacity: 1; }
+.page-index-mobile { display: none; }
+.robots-guide h2[id], .robots-guide h3[id] { scroll-margin-top: 20px; }
+
+figure { margin-bottom: 20px; text-align: center;}
+figure img { display: block; width: 100%; height: auto; }
+figcaption { color: #555; }
+figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4px; }
+.robotstxt-myths { margin: 10px 0; padding: 0; font-size: 1.2rem; line-height: 1.5; }
+.robotstxt-myths dt { margin: 0; padding: 1.25rem 0 0; border-top: 1px solid #e5e7eb; font-size: inherit; font-weight: 500; line-height: 1.2; ; }
+.robotstxt-myths dt:first-child { padding-top: 0; border-top: 0; }
+.robotstxt-myths dt strong { font-weight: 500; }
+.robotstxt-myths dd { margin: 0; padding: 8px 0 12px; font-size: inherit; font-weight: 400; line-height: 1.5; color: inherit; }
+.robotstxt-myths figure img { display: block; width: 100%; max-width: 650px; height: auto; border-radius: 15px; margin: 0 auto -20px; }
+.robotstxt-myths figcaption { c#olor: #555; width: 60%; padding-top: 10px; }
+
+#results-legend, #dropZone { scroll-margin-top: 150px; }
+#results-legend { scroll-margin-top: 300px; }
+
+/* Temporary border highlight */
+@keyframes jump-highlight {
+  0%, 75% {
+    border-color: #3b82f6;
+  }
+  100% {
+    border-color: #cbd5e1;
+  }
+}
+
+#results-legend.jump-highlight, #dropZone.jump-highlight { animation: jump-highlight 5s ease-out; }
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .page-index { display: none; }
+}
+
+.robotstxt-mobile-notice { display: none; }
+.ua-mobile-toggle { display: none; }
+
+/* mobile */
+@media (max-width: 768px) {
+  .robotstxt-header { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin: 15px 15px 12px; }
+  .robotstxt-header-text { display: flex; flex-direction: column; }
+  .robotstxt-header h1 { width: 100%; margin: 0; font-weight: 600; line-height: 1.2; text-wrap: balance; }
+  .robotstxt-header .robotstxt-subheading { width: 100%; max-width: 100%; margin: 12px 0 0; font-size: 1rem; line-height: 1.5; color: #555; }
+  .robotstxt-header img { width: 110px; height: auto; max-width: 100%; align-self: center; margin: 8px 0 -4px; }
+  .robotstxt-mobile-notice { display: block; margin: 0 15px 15px; padding: 10px 12px; border-radius: 8px; background: #f1f5f9; color: #64748b; font-size: 0.9rem; line-height: 1.5; text-align: center; font-style: italic; }
+  .sidebar-column .sidebar-card { position: static; width: 100%; max-height: none; overflow: visible; padding: 0; }
+  .ua-mobile-toggle { display: flex; width: 100%; min-height: 56px; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border: 0; border-radius: 15px; background: #fff; color: #64748b; font-family: "Inter", sans-serif; text-align: left; cursor: pointer; }
+  .ua-mobile-toggle:focus-visible { outline: 2px solid #0284c7; outline-offset: 2px; }
+  .ua-mobile-toggle-text { display: flex; flex-direction: column; gap: 4px; }
+  .ua-mobile-toggle-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
+  .ua-selected-count { font-size: 0.75rem; font-weight: 400; color: #64748b; }
+  .ua-mobile-arrow { flex: none; width: 9px; height: 9px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); transition: transform 0.25s ease; }
+  .sidebar-card.is-open .ua-mobile-arrow { transform: rotate(225deg); }
+  .ua-sidebar-content { padding: 0 1rem 1rem; }
+  .ua-sidebar-content[hidden] { display: none !important; }
+  .app-layout { display: flex; flex-direction: column; width: auto; gap: 12px; margin: 0 15px 30px; }
+  .app-layout .sidebar-column { display: contents; }
+  .app-layout .sidebar-card { order: 1; }
+  .app-layout .ua-list { max-height: 260px; overflow-y: auto; }
+  .app-layout .main-panel { order: 2; width: 100%; }
+  .drop-zone { display: none; }
+  .app-layout .results-legend { order: 3; width: 100%; }
+  .app-layout, .app-layout .main-panel, .app-layout .card-container { min-width: 0; }
+  .app-layout .card-container { padding: 1rem; }
+  .fetch-bar { flex-direction: column; }
+  .fetch-bar .fetch-input { width: 100%; flex: none; }
+  .fetch-bar .btn-fetch { width: 100%; min-height: 42px; }
+  .app-layout .editor-wrapper { grid-template-columns: 36px minmax(0, 1fr); width: 100%; min-width: 0; }
+  .app-layout .editor-lines { width: 36px; font-size: 1rem; line-height: 24px; padding: 0.75rem 0.35rem; }
+  .app-layout .editor-content { min-width: 0; width: 100%; }
+  .app-layout .editor-textarea { display: block; width: 100%; height: 320px; min-height: 180px; margin: 0; padding: 0.75rem; padding-right: 4.5rem; font-size: 1rem; line-height: 24px; white-space: pre; overflow-x: auto; overflow-y: auto; overflow-wrap: normal; resize: vertical; }
+  .url-row { min-width: 0; }
+  .url-row input { min-width: 0; }
+  .check-row { gap: 10px; }
+  .resource-control { margin-left: 0; align-items: flex-start; }
+  .results-table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .sidebar-card { position: static; max-height: none; overflow-y: visible; }
+  .page-index { position: fixed; top: auto; right: 20px; bottom: 20px; width: auto; height: auto; margin: 0; transform: translateY(12px); }
+  .page-index.index-visible { transform: translateY(0); }
+  .page-index-desktop { display: none; }
+  .page-index-mobile { display: block; margin: 0; }
+  .page-index-mobile summary { width: 38px; height: 38px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; list-style: none; cursor: pointer; color: #555; background: rgba(235, 238, 245, 0.9); border-radius: 15px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); opacity: 0.9; }
+  .page-index-mobile summary::-webkit-details-marker { display: none; }
+  .page-index-mobile nav { position: absolute; right: 0; bottom: 48px; display: flex; flex-direction: column; gap: 7px; width: min(220px, calc(100vw - 40px)); max-height: 65dvh; overflow-y: auto; padding: 14px 16px; box-sizing: border-box; background: rgba(255,255,255,0.95); border: 1px solid #cbd5e1; border-radius: 15px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); font-family: "Inter", sans-serif; }
+  .page-index-mobile nav a { color: #555; text-decoration: none; font-size: 0.85rem; font-weight: 400; line-height: 1.6; transition: color 0.2s ease; }
+  .page-index-mobile nav a.active { color: #555; font-weight: 600; }
+  .page-index-mobile nav a:focus-visible { outline: 2px solid #555; outline-offset: 2px; border-radius: 2px; }
+  .page-index-mobile::details-content { opacity: 0; transform: translateY(6px); transition: opacity 0.3s ease, transform 0.25s ease, content-visibility 0.3s allow-discrete; }
+  .page-index-mobile[open]::details-content { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+  <header>
+    <div class="nav-border">
+      <nav aria-label="Main navigation">
+<!--mobile menu start-->
+        <div class="mobile-menu">
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
+<!--mobile menu end-->
+
+<!--desktop menu start-->
+        <div class="desktop-menu">
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
+<!--desktop menu end-->
+      </nav>
+    </div>
+  </header>
+<noscript><p class="nojs">The page requires JavaScript to be enabled to function properly.</p></noscript>
+
+<main>
+<header class="robotstxt-header">
+  <div class="robotstxt-header-text">
+    <h1>Robots.txt checker and multi-crawler rule tester</h1>
+    <p class="robotstxt-subheading"> Audit your robots.txt or create one and validate directives for more than 140 crawlers. </p>
+  </div>
+  <img src="../assets/images/thoughts/robots-txt-checker/small-robot.png" width="360" height="360" title="Don't block me please" alt="Transparent robot illustration" loading="eager" decoding="async">
+</header>
+    <p class="robotstxt-mobile-notice"> This tool is designed for desktop devices. For the best experience, use a larger screen. </p>
+
+  <div class="app-layout">
+    <aside class="sidebar-column">
+      <div class="sidebar-card">
+
+        <button type="button" id="uaMobileToggle" class="ua-mobile-toggle" aria-expanded="false" aria-controls="uaSidebarContent">
+
+          <span class="ua-mobile-toggle-text">
+            <span class="ua-mobile-toggle-title">Select User-Agents</span>
+            <span id="uaSelectedCount" class="ua-selected-count">9 agents selected</span>
+          </span>
+
+          <span class="ua-mobile-arrow" aria-hidden="true"></span>
+        </button>
+
+        <div id="uaSidebarContent" class="ua-sidebar-content">
+          <div class="sidebar-title">Select User-Agents</div>
+
+        <div class="ua-search-wrap">
+        <input type="text" id="uaSearchBox" class="ua-search-input" placeholder="Search user-agent..." aria-label="Search user-agents" autocomplete="off">
+        <button type="button" id="uaSearchClear" class="ua-search-clear" aria-label="Clear search" title="Clear search" hidden>X</button>
+      </div>
+      <div class="ua-list" id="uaCheckboxList"></div>
+      <div class="sidebar-title">User-agent selected groupings</div>
+      <div class="bulk-actions">
+        <button class="btn-bulk" data-bulk="top-search" aria-pressed="false" onclick="bulkSelect('top-search')">🔍 Top Search Engines</button>
+        <button class="btn-bulk" data-bulk="ai-search" aria-pressed="false" onclick="bulkSelect('ai-search')">🤖 AI & LLM Scrapers</button>
+        <button class="btn-bulk" data-bulk="eu-search" aria-pressed="false" onclick="bulkSelect('eu-search')">🇪🇺 European Search & Open Web</button>
+        <button class="btn-bulk" data-bulk="image-bots" aria-pressed="false" onclick="bulkSelect('image-bots')">🖼️ Image Search Bots</button>
+        <button class="btn-bulk" data-bulk="news-bots" aria-pressed="false" onclick="bulkSelect('news-bots')">📰 News Bots</button>
+        <button class="btn-bulk" data-bulk="social-bots" aria-pressed="false" onclick="bulkSelect('social-bots')">📸 Social Media Preview</button>
+        <button class="btn-bulk" data-bulk="seo-bots" aria-pressed="false" onclick="bulkSelect('seo-bots')">🕷️ SEO Crawlers</button>
+        <button class="btn-bulk" data-bulk="scrapers" aria-pressed="false" onclick="bulkSelect('scrapers')">🪳 Web Scrapers & Data Extraction</button>
+        <button class="btn-bulk" data-bulk="misc" aria-pressed="false" onclick="bulkSelect('misc')">Miscellaneous</button>
+        <div class="btn-group-row">
+          <button class="btn-bulk" data-bulk="all" aria-pressed="false" onclick="bulkSelect('all')">Select All</button>
+          <button class="btn-bulk" data-bulk="none" aria-pressed="false" onclick="bulkSelect('none')">Deselect All</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <details id="results-legend" class="results-legend">
+      <summary>
+        <span>Reading the results</span>
+        <span class="results-legend-arrow" aria-hidden="true"></span>
+      </summary>
+
+      <div class="results-legend-content">
+
+        <div class="results-legend-item">
+          <span class="badge badge-allowed results-legend-label">Allowed</span>
+          <p>Rules permit the URL, no restriction applies, or the user-agent ignores robots.txt.</p>
+        </div>
+
+        <div class="results-legend-item">
+          <span class="badge badge-blocked results-legend-label">Blocked</span>
+          <p>A matching <code>Disallow</code> rule wins.</p>
+        </div>
+
+        <div class="results-legend-item">
+          <span class="badge badge-na results-legend-label">Inconclusive</span>
+          <p>Missing or invalid input, unavailable rules, or uncertain crawler behavior.</p>
+        </div>
+
+        <div class="results-legend-divider"></div>
+
+        <p class="results-legend-subtitle">URL indicator</p>
+
+        <div class="results-legend-item">
+          <span class="url-status ok results-legend-indicator" aria-hidden="true">✓</span>
+          <p>Valid primary URL; no selected evaluation is inconclusive.</p>
+        </div>
+
+        <div class="results-legend-item">
+          <span class="url-status fail results-legend-indicator" aria-hidden="true">✗</span>
+          <p>Invalid primary URL or one or more inconclusive evaluations.</p>
+        </div>
+
+        <div class="results-legend-item">
+          <span class="url-status results-legend-indicator" aria-hidden="true">•</span>
+          <p>No primary URL entered, or results awaiting manual evaluation.</p>
+        </div>
+
+        <p class="results-legend-note"> These are rules-based evaluations, not proof of actual crawler access or indexing. The URL indicator does not represent crawl permission. </p>
+
+      </div>
+    </details>
+    </aside>
+
+    <div class="main-panel">
+      <div class="card-container">
+        <div class="form-group">
+          <label for="fetchUrlInput">Live Fetch Robots.txt</label>
+          <div class="fetch-bar">
+            <input type="text" id="fetchUrlInput" class="fetch-input" placeholder="Enter domain or any URL (e.g. yourdomain.eu/hello)" autocomplete="url">
+            <button id="fetchBtn" class="btn-fetch" title="Get domain's live robots.txt file">Fetch Live</button>
+          </div>
+          <div id="fetchMsg" class="msg" role="status" aria-live="polite"></div>
+        </div>
+
+        <div class="drop-zone" id="dropZone" role="button" tabindex="0" aria-label="Upload a robots.txt file: click to browse or drop a file here">
+         Drop a robots.txt file here / click to select
+        </div>
+        <input type="file" id="fileInput" accept=".txt,text/plain" hidden>
+
+        <div class="form-group">
+          <label for="robotsInput">robots.txt Editor</label>
+          <div class="editor-wrapper" id="editorWrapper">
+            <div class="editor-lines" id="editorLines" aria-hidden="true">1</div>
+
+            <div class="editor-content">
+              <div class="highlight-overlay" id="highlightOverlay" aria-hidden="true"></div>
+
+              <textarea class="editor-textarea" id="robotsInput" spellcheck="false" autocomplete="off" placeholder="# Bots, the doors are open&#10;User-agent: *&#10;Allow: /" ></textarea>
+
+              <div class="editor-tools">
+                <button type="button" class="icon-btn" id="copyBtn" disabled
+                  title="Copy editor content"
+                  aria-label="Copy editor content to clipboard">
+                  <span class="ico">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <rect x="8" y="8" width="13" height="13" rx="2"/> <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/> </svg>
+                  </span>
+                  <span class="done" aria-hidden="true">✓</span>
+                </button>
+
+                <button type="button" class="icon-btn" id="downloadBtn" disabled
+                  title="Download as robots.txt"
+                  aria-label="Download editor content as robots.txt">
+                  <span class="ico">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M12 3v12"/>
+                      <path d="M7 11l5 5 5-5"/>
+                      <path d="M5 21h14"/>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="editor-foot">
+            <div>
+              <div id="editorMsg" class="msg" role="status" aria-live="polite"></div>
+              <div id="parseNote" class="msg warn"></div>
+            </div>
+            <div id="sizeInfo" class="size-info" role="status" aria-live="polite" title="Rules beyond 500KiB of file size are ignored by Google">~ 0.0 / 500 KiB</div>
+          </div>
+        </div>
+
+      <div class="form-group" style="margin-bottom: 0;">
+        <label for="testPath">Check URL against robots.txt rules</label>
+
+        <div class="url-row">
+          <input type="text" id="testPath" value="" placeholder="Enter an absolute URL to test (e.g. https://yourdomain.eu/page?q=hint)" autocomplete="url">
+          <span id="urlStatus" class="url-status" role="img" tabindex="0">&bull;</span>
+        </div>
+
+        <div id="targetNote" class="msg" role="status" aria-live="polite"></div>
+
+        <div class="check-row">
+          <label class="chk"><input type="checkbox" id="autoCheck" title="The URL will be automatically checked against the robots.txt directives" checked>Auto-check</label>
+          <button type="button" id="checkBtn" class="btn-fetch" disabled>Check URL</button>
+          <div class="resource-control">
+            <label class="resource-toggle">
+              <input type="checkbox" id="resourceCheck">
+              <span>Check resources</span>
+            </label>
+
+          <div id="resourceProgress" class="resource-progress" role="status" aria-live="polite" hidden>
+            <span id="resourceProgressText">Checking resources...</span>
+            <span id="resourceProgressIcon" class="resource-spinner" aria-hidden="true"></span>
+          </div>
+
+        </div>
+        </div>
+      </div>
+      <details class="multi-url-panel" id="multiUrlPanel">
+        <summary>
+          <span>Check multiple URLs</span>
+          <span class="multi-url-arrow" aria-hidden="true"></span>
+        </summary>
+
+        <div class="multi-url-body">
+          <div class="multi-url-heading">
+            <label for="additionalUrls">Additional URLs to evaluate</label>
+            <span id="additionalUrlCount" aria-live="polite">0 / 10 URLs</span>
+          </div>
+
+          <textarea id="additionalUrls" class="multi-url-input" placeholder="https://yourdomain.eu/petential-victim&#10;https://yourdomain.eu/bye/crawlers&#10;https://yourdomain.eu/hi/memes?q=ai-apocalypse" spellcheck="false" autocomplete="url" rows="5" aria-describedby="multiUrlHelp" ></textarea>
+          <div id="additionalUrlMsg" class="msg" role="status" aria-live="polite"></div>
+
+          <div class="multi-url-footer">
+            <p id="multiUrlHelp" class="multi-url-help">One absolute URL per line. Duplicate URLs are automatically omitted.</p>
+            <div class="multi-url-actions">
+              <button type="button" id="clearAdditionalUrls" class="multi-url-clear">Clear</button>
+            </div>
+          </div>
+        </div>
+      </details>
+      </div>
+
+
+      <div class="card-container">
+
+        <!-- Existing multi-agent results -->
+        <div id="multiAgentResults">
+          <label>Multi-Agent Evaluation Results (Click a row to highlight rule in editor)</label>
+
+          <div class="results-table-scroll">
+            <table id="resultsTable">
+              <thead>
+                <tr id="resultsTableHead">
+                  <th>User-Agent</th>
+                  <th>Status</th>
+                  <th>Winning Directive</th>
+                </tr>
+              </thead>
+
+              <tbody id="matrixTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Resource checking results -->
+        <div id="resourceResults" hidden>
+          <div class="resource-results-heading">
+            <label>Resource Access Evaluation</label>
+            <span id="resourceResultsAgent" class="resource-results-agent">Googlebot</span>
+          </div>
+
+          <p id="resourceResultsInfo" class="resource-results-info"> Enter a target URL and press Check URL to discover and evaluate its resources. </p>
+
+          <div id="resourceSummary" class="resource-summary" hidden>
+            <div class="resource-summary-item">
+              <strong id="resourceAllowedCount">0</strong>
+              <span>Allowed</span>
+            </div>
+            <div class="resource-summary-item">
+              <strong id="resourceBlockedCount">0</strong>
+              <span>Blocked</span>
+            </div>
+            <div class="resource-summary-item">
+              <strong id="resourceInconclusiveCount">0</strong>
+              <span>Inconclusive</span>
+            </div>
+          </div>
+
+          <div id="resourceTableWrap" class="results-table-scroll" hidden>
+            <table id="resourceTable">
+              <thead>
+                <tr>
+                  <th scope="col">Resource</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Winning Directive</th>
+                </tr>
+              </thead>
+              <tbody id="resourceTableBody"></tbody>
+            </table>
+          </div>
+
+          <p class="resource-results-help">Select another user-agent in the sidebar and click Check URL to re-check resources. Results reflect robots.txt rules, not confirmed HTTP accessibility.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<div class="container">
+
+  <!-- floating toc -->
+  <aside id="no-print" class="page-index">
+    <details class="page-index-mobile">
+      <summary title="Table of contents">☰</summary>
+      <nav>
+        <a href="#about-checker">About the checker</a>
+        <a href="#using-checker">How to use</a>
+        <a href="#what-robots-does">How robots.txt works</a>
+        <a href="#rules-and-syntax">Rules & syntax</a>
+        <a href="#crawler-identities">Crawler identities</a>
+        <a href="#seo-implications">SEO implications</a>
+        <a href="#misconceptions">Common misconceptions</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#robots-culture">Robots.txt culture</a>
+        <a href="#further-reading">Further reading</a>
+      </nav>
+    </details>
+
+    <nav class="page-index-desktop">
+        <a href="#about-checker">About the checker</a>
+        <a href="#using-checker">How to use</a>
+        <a href="#what-robots-does">How robots.txt works</a>
+        <a href="#rules-and-syntax">Rules & syntax</a>
+        <a href="#crawler-identities">Crawler identities</a>
+        <a href="#seo-implications">SEO implications</a>
+        <a href="#misconceptions">Common misconceptions</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#robots-culture">Robots.txt culture</a>
+        <a href="#further-reading">Further reading</a>
+    </nav>
+  </aside>
+  <!-- end of floating toc -->
+
+<article class="robots-guide">
+<h2 id="about-checker">A personally refined robots.txt tool</h2>
+<p>I made this checker/validator/editor, or whatever you're more comfortable calling it, to evaluate robots.txt rules without having to deploy a new file for every experiment and wait to see what happens in the <abbr title="Server Log Files">logs</abbr>. Its function must be familiar to you, it compares one or more URLs with the directives in a robots.txt file, across a collection of personally found and selected web crawlers. It can also inspect a page's referenced resources to determine whether those same rules would allow a particular crawler to fetch its stylesheets, scripts, images, and other assets. Quite useful when a seemingly innocent <code>Disallow</code> rule has rather unintended consequences. It also doubles as a playground: fetch or paste a file, change a rule, invent a scenario, and see which directive wins. And hey! Nothing you change or save here gets published to your domain obviously.</p>
+<p>The result is a <em>rules-based evaluation</em> to the best of my knowledge and available documentation, not a live conversation with Googlebot, Bingbot, or any other crawler. An <strong>Allowed</strong> result doesn't guarantee that a crawler will visit or index the URL. A <strong>Blocked</strong> result doesn't prove that every client on the internet will respect the restriction. Neither result tells you what happened during an actual crawler request. For that, inspect your server logs. Google's Search Console Crawl Stats and the crawling reports in Bing Webmaster Tools can also provide useful, though less granular, operational context.</p>
+
+<!-- TODO update once cf worker up -->
+<h2 id="using-checker">How to use the checker</h2>
+<p>Start with a website address and use <strong>Fetch Live</strong> to try to retrieve its root-level robots.txt file. The checker first attempts a direct browser request and, when that fails, tries a third-party fetching service. Browser requests can be restricted by <abbr title="Cross-Origin Resource Sharing">CORS</abbr>, while both methods can fail because of network errors, rate limits, security rules, or issues with the fetching service itself. A failed fetch is not evidence that the website has no robots.txt file. I'm also considering a dedicated Cloudflare Worker to make fetching more reliable.</p>
+<p>You can also paste rules directly into the editor, type a new file from scratch, or drop a local <code>.txt</code> file into the <a href="#dropZone">dedicated field</a>. The file is read in your browser rather than uploaded to this website. The editor's parser can flag certain problems (mainly typos), and you can copy or download the new or edited file. Ctrl/Cmd + S triggers the download as well. The result is a local <code>robots.txt</code> file; it does not update the server hosting your website(!).</p>
+<p>Enter an absolute target URL, including <code>http://</code> or <code>https://</code>, then select the crawler user-agents to test against the rules in the editor. I've already pre-selected a few user-agents that I think are best left allowed, per moi, but feel free to play with the list (142 user-agents so far) and the categories I've put together. Auto-check is enabled initially because I find it pointless to press <em>Enter</em> after every tiny edit; disable it if you prefer the familiar <strong>Check URL</strong> button. My beloved expanded multi-URL area accepts up to ten additional distinct URLs, one per line. Duplicate entries are omitted, and the same editor rules are evaluated against each URL. Really don't know why it isn't a default feature in existing checkers. <strong>Tip</strong>: Closing the <em>multiple URLs drawer</em> clears its editor, or you can keep it open and use the <em>Clear</em> button instead.</p>
+
+<h3>Checking a page's resources</h3>
+<p>Checking whether a crawler can access a page is one thing. Knowing whether it can fetch the resources that page relies on is another. Enable <strong>Check resources</strong>, and the checker will attempt to retrieve the target page's HTML, identify its referenced assets, and evaluate their URLs against the robots.txt rules in the editor. This includes stylesheets, JavaScript files, images (including responsive image candidates), favicons, preloaded resources, video, and audio. Relative URLs are resolved too, so you don't need to go hunting for absolute addresses.</p>
+<p>The mode starts with Googlebot selected, although you're free to choose another crawler from the sidebar. Only one user-agent can be tested at a time here, since the idea is to inspect the resources of a particular page from the perspective of a particular crawler. Auto-check and the multiple URLs area are temporarily unavailable; press <strong>Check URL</strong> to run the inspection. Turn off <strong>Check resources</strong>, and your previous crawler selections return, along with the standard checking functionality.</p>
+<p>There's also a Google-specific detail worth keeping in mind. When checking resources with Googlebot selected, image URLs are evaluated in the context of <code>Googlebot-Image</code>, and video URLs in that of <code>Googlebot-Video</code>. Both can have their own robots.txt rules, with Googlebot acting as a fallback when no dedicated group applies. So, a page might be allowed for Googlebot while one of its images is blocked for Googlebot-Image. The results identify the crawler context used, rather than leaving you guessing which rules were applied. This distinction belongs to resource checking; the regular URL tester evaluates the crawler you've explicitly selected.</p>
+
+<pre>
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Disallow: /*.png
+</pre>
+
+<p>In this example, ordinary Googlebot crawling is allowed, but PNG images are restricted for Googlebot-Image. If a page references one of those images, the resource checker can identify the restriction under the corresponding Google image-crawling context. That doesn't mean every ordinary Googlebot request for the same URL would inherit the image-specific rule.</p>
+<p>A small but important distinction: the checker inspects the HTML it retrieves, not a fully rendered page. It doesn't execute JavaScript, discover resources introduced dynamically after the initial HTML response, or reproduce everything a real browser (or Google's rendering infrastructure) might request. Resources hosted on another origin also have their own robots.txt policies, so the rules from your current editor aren't automatically applicable to them. These cases are reported as Inconclusive rather than pretending that one file governs the entire web.</p>
+<p>There is no requirement to keep the tested URL(s) on the origin from which the rules were fetched. You could fetch Google's robots.txt, alter a few lines, and test an entirely unrelated website - for the fun of it. The tool warns you when the primary URL has a different origin from a fetched file; the same warning is not repeated beside every additional URL.</p>
+
+<figure>
+  <img src="..\assets\images\thoughts\robots-txt-checker\page-resources-blocked-robots-txt.webp" width="1140" height="711" loading="lazy" alt="Blocked resources example from Result page of Alexander Kyriakou's robots.txt checker">
+  <figcaption style="width: 80%;">One page, several resources, and a few potentially unwanted restrictions. The resource checker evaluates the referenced asset URLs against the selected crawler's robots.txt rules.</figcaption>
+</figure>
+
+<p><a href="https://www.bing.com/webmasters/help/robots-txt-tester-623520ca" target="_blank" rel="noopener">Bing Webmaster Tools also has a robots.txt tester</a> for checking URLs against a site's rules. I've encountered some rather odd behaviour in its interface, although I wouldn't treat that as evidence of how Bingbot itself handles different origins. This checker deliberately lets you test a hypothetical robots.txt file against another origin, while warning you about the mismatch instead of preventing the experiment.</p>
+<p>Refreshing the page resets the fields.</p>
+
+<h3 id="reading-results">Reading your results</h3>
+<p><strong>Allowed</strong> means the selected rules permit the URL under this checker's <em>extensively researched matching model</em>, whether a matching <code>Allow</code> rule wins or no applicable restriction exists. <strong>Blocked</strong> means a matching <code>Disallow</code> rule wins. <strong>Inconclusive</strong> means the checker cannot establish a reliable result, for example because no rules or valid target URL have been supplied, or because wildcard applicability for certain special tokens is undocumented. In resource mode, an Inconclusive result can also mean that a resource belongs to another origin or couldn't be evaluated reliably with the available information.</p>
+<p>The <strong>Winning Directive</strong> column explains the decision. It may not be the first matching line: more specific rules take precedence, with <code>Allow</code> winning a tie under the standard matching model. Click a result row with a line number to jump to and temporarily highlight that rule in the editor. The small icon alongside a crawler name copies its robots.txt-friendly <em>user-agent name</em> (formally product token), which is what goes after <code>User-agent:</code>; it is not the <span style="text-decoration-line: underline; text-decoration-style: dotted;" title="Example for Googlebot Smartphone: Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/W.X.Y.Z Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)">full HTTP User-agent request header</span>.</p>
+<p>The indicator beside the primary URL describes its validity and whether the selected evaluations completed. It is <em>not</em> a single permission verdict for all crawlers. The pre-selected crawlers are my practical starting set, not a ranking of importance and certainly not a recommended blocklist. Change them as you wish.</p>
+<p>TL;DR: Check the <a href="#results-legend">Reading the Results legend</a>.</p>
+
+<h2 id="what-robots-does">What robots.txt does, and where it lives</h2>
+<p>Robots.txt lets a website publish crawling <em>preferences</em> for automated clients that choose to follow them. A compliant crawler checks the file before fetching other resources within its scope and applies the relevant user-agent group and path directives. The idea is rather simple: give website owners a way to communicate with automated visitors collectively.</p>
+
+<h3 id="rfc-history">From a webmaster's headache to RFC 9309</h3>
+<p>In 1994, Martijn Koster proposed a way for website owners to tell robots which parts of a site they should skip. Crawlers were already making a nuisance of themselves by overwhelming servers. The proposal caught on, and search engines adopted it, but for a surprisingly long time the protocol was more of a shared convention than a formal Internet standard. Somewhat similar to what we're witnessing now with <code>llms.txt</code>: an idea gains attention and adoption before there's any certainty about whether it will become a formal standard.</p>
+<p>That changed in September 2022, when the Internet Engineering Task Force published <a href="https://www.rfc-editor.org/rfc/rfc9309.html" target="_blank" rel="noopener">RFC 9309, the Robots Exclusion Protocol</a>. An RFC (Request for Comments) is a technical publication used to define and document Internet protocols and practices. This one specifies how compliant crawlers should discover, parse, and match robots.txt rules, and what to do when the file is unavailable. It formalized a protocol the web had already been using since the 90s, although individual crawlers still have their own extensions and implementation quirks.</p>
+
+<h3 id="robots-location">One website, potentially several robots.txt files</h3>
+<p>One of the more important details established by the protocol is where crawlers should look for the file, and which URLs its instructions apply to. Robots.txt belongs at the root of the particular origin it is meant to govern. A file at <code>/folder/robots.txt</code> is just another file, not the robots.txt discovery location for that origin.</p>
+<pre>
+https://yourdomain.eu/robots.txt
+https://www.yourdomain.eu/robots.txt
+https://blog.yourdomain.eu/robots.txt
+</pre>
+<p>These are potentially three different policies. The same separation applies to HTTP versus HTTPS, and to different network ports. I've encountered the assumption that a file on the main domain automatically governs its subdomains more than once; it doesn't. If you manage several hosts, check the file and its served HTTP status by each one rather than expecting the apex/root domain's instructions to travel around with them.</p>
+<!-- TODO update if via cf will count number of redirects -->
+<p>A root robots.txt URL may redirect to another location, including a subdirectory, a differently named file, or even another hostname. When the file is successfully retrieved within the redirect chain, its rules apply to the <em>original origin</em>, not the redirect destination. RFC 9309 says crawlers should follow at least five consecutive redirects. The checker's current live-fetch methods don't independently verify how many redirects occurred (yet).</p>
+
+<figure>
+  <img src="..\assets\images\thoughts\robots-txt-checker\robots-txt-redirect-parse.webp" width="965" height="791" loading="lazy" alt="Diagram illustrating how redirects from a robots.txt URL are followed and how the retrieved rules apply to the original origin.">
+  <figcaption>Robots.txt redirects: the rules apply to the original origin, even when the file is retrieved from somewhere else.<small> © 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Source</a></small></figcaption>
+</figure>
+
+<p>Robots.txt is neither authentication nor a confidentiality mechanism. Naming <code>/admin/</code> or <code>/internal-documents/</code> in a public file might even advertise a directory's existence. Use access controls for private resources. And remember: robots.txt regulates crawling by cooperating clients; it does not automatically remove known URLs from search indexes!</p>
+<p>There's also a modern complication: your hosting or CDN provider might modify what gets served at <code>/robots.txt</code>. Cloudflare, for example, offers <a href="https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/" target="_blank" rel="noopener">managed robots.txt directives</a> that can be added to an existing file or served when the origin doesn't provide one. Some of these concern AI crawlers and content-use preferences rather than the standard <code>Allow</code> and <code>Disallow</code> rules. Another reason to inspect the actual HTTP response instead of assuming the file on your server tells the whole story.</p>
+
+<h3 id="retrieval-failures">When the file cannot be retrieved</h3>
+<p>The response to <em>the robots.txt request</em> matters independently of whether normal pages appear to work. A real HTTP 404 or 410 generally means that no restrictions are available. A temporary server failure is another story.</p>
+
+<table>
+  <caption>Robots.txt retrieval outcomes: standards and notable Google behaviour</caption>
+  <thead><tr><th scope="col">Response</th><th scope="col">Meaning for crawling</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">200</th><td>Parse the returned file. A successful response alone doesn't mean the directives are correct.</td></tr>
+    <tr><th scope="row">404 / 410</th><td>File unavailable; compliant crawlers may proceed without robots.txt restrictions. A missing file is not inherently an SEO error.</td></tr>
+    <tr><th scope="row">401 / 403</th><td>RFC 9309 treats these as unavailable. Google likewise treats 4xx responses other than 429 as no restrictions; they are not a reliable way to block Googlebot.</td></tr>
+    <tr><th scope="row">429</th><td>Rate limiting; Google treats this as a server-error condition rather than its usual 4xx behaviour.</td></tr>
+    <tr><th scope="row">500–599</th><td>Unreachable under the RFC: initially assume a complete disallow. Google's documented recovery process involves retries and, where available, previously cached rules.</td></tr>
+    <tr><th scope="row">DNS, TLS, timeout or connection failure</th><td>Potentially unreachable, not proof of a missing file. Client-specific recovery behaviour can differ.</td></tr>
+  </tbody>
+</table>
+
+<p>One of the more unpleasant situations I've faced was a robots.txt endpoint returning HTTP 500 while the file itself looked perfectly normal when opening in any browser. That's why a simple visual check of 'Does this load?' ain't enough. Google documents an initial halt in crawling when it cannot retrieve robots.txt because of a server error, followed by a longer recovery process that depends partly on its last usable cached copy. A repeated 500 is therefore worth investigating quickly, even if nobody is reporting a broken page. See <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#http-status-codes" rel="noopener">Google's robots.txt error handling</a> for its current time windows and exceptions.</p>
+<p>For operational clarity, I generally prefer an intentional, valid file returned with HTTP 200, even when it simply allows all crawling. But a genuine 404 for a file that doesn't exist is not automatically wrong. The important part is knowing which response your server actually sends and whether that behaviour matches your intent.</p>
+
+<h3 id="caching">The cached version might be different</h3>
+<p>Changing robots.txt on your server does not mean every crawler immediately uses the new version. RFC 9309 recommends generally limiting cached robots.txt use to 24 hours, with exceptions for unreachable files. Google usually caches the file for up to 24 hours, may honour HTTP cache headers, and can keep a cached version longer when it cannot refresh it. It also allows for manual crawl request in <abbr title="Google Search Console">GSC</abbr>, <code>Settings > Crawling: robots.txt Report > Menu: Request a recrawl</code>. Other crawlers have their own schedules.</p>
+
+<figure>
+  <img src="..\assets\images\thoughts\robots-txt-checker\google-search-console-recrawl-robots-txt.webp" style="width: 70%; margin: 0 auto;" width="799" height="232" alt="Google Search Console robots.txt report showing the option to request a recrawl.">
+  <figcaption>Requesting a robots.txt recrawl from Google Search Console after an important change.</figcaption>
+</figure>
+
+<p>A successful fetch in this checker shows the response obtained by its fetch method at that moment. It cannot tell you what Google or another service currently has cached. Avoid assuming a restriction has taken effect everywhere because a local test looks correct.</p>
+
+<h2 id="rules-and-syntax">Reading and writing the rules</h2>
+<p>A basic file is made of groups of user-agent declarations followed by <code>Allow</code> and <code>Disallow</code> path rules. A <code>Sitemap:</code> line can also advertise a sitemap location, although it is not itself a crawl-permission rule. Blank lines are fine, and comments begin with <code>#</code>.</p>
+
+<pre>
+# A fun note for meat proxies
+User-agent: *
+Disallow: /drafts/
+Allow: /drafts/public/
+
+Sitemap: https://yourdomain.eu/sitemap.xml
+</pre>
+
+<p>In this wildcard group example, <code>/drafts/notes</code> is blocked while <code>/drafts/public/overview</code> is allowed: the longer matching <code>Allow</code> rule takes precedence. A group can contain multiple user-agent lines before its rules, and repeated groups for the same product token must be combined by a compliant parser.</p>
+<p>One less obvious detail: a crawler's specific user-agent group generally takes precedence over the wildcard group. For Google, rules in <code>User-agent: *</code> aren't automatically added to a matching <code>User-agent: Googlebot</code> group. If you define separate groups, make sure the restrictions you actually want are present in the relevant one.</p>
+
+<h3 id="patterns">Wildcards, encoding, and rule specificity</h3>
+<p>For URL patterns, <code>*</code> matches any sequence of characters and a trailing <code>$</code> anchors the end of the URL path-and-query match. For example:</p>
+
+<pre>
+User-agent: *
+Disallow: /*?sort=
+Disallow: /downloads/*.pdf$
+Allow: /downloads/public/
+</pre>
+
+<p>The first rule catches URL representations containing <code>?sort=</code>; it is not an assertion that every possible ordering of query parameters is blocked. The second matches PDF-ending URLs in <code>/downloads/</code>, subject to rule precedence. Query strings matter during matching, but URL fragments (the portion beginning with <code>#</code>) are not sent in HTTP requests and are not part of the evaluated URL.</p>
+<p>These wildcards do <em>not</em> apply to crawler names. This is not a valid way to collectively address every Googlebot variant:</p>
+<pre>User-agent: Googlebot*
+Disallow: /</pre>
+<p>Declare supported product tokens separately where necessary, and check the operator's documented fallback behaviour. Googlebot-Image and Googlebot-Video, for example, can use Googlebot rules when they do not have their own applicable group, something that you'll notice while using the checker. The general fallback cannot simply be inferred for every crawler whose name looks similar.</p>
+
+<figure>
+  <img src="..\assets\images\thoughts\robots-txt-checker\why-one-robots.txt-directive-wins.webp" width="901" height="570" loading="lazy" alt="Illustration of how matching robots.txt Allow and Disallow rules are compared to determine the winning directive.">
+  <figcaption style="width: 80%;">When several rules match, specificity determines the winner. For equivalent Allow and Disallow rules, Allow takes precedence under Google's matching model.<small> © 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Source</a></small></figcaption>
+</figure>
+
+<p>Directive names and user-agent product tokens are matched case-insensitively, but URL paths are case-sensitive under Google's robots.txt matching model. Consequently, <code>Disallow: /Images/</code> and <code>Disallow: /images/</code> are not interchangeable(!). In the checker, I've made directive and user-agent matching case-insensitive, so <code>allow</code> and <code>Allow</code> are treated equally, for example. Robots.txt uses UTF-8, and matching gets a little more interesting when percent-encoded characters enter the picture. For example, <code>/c%61t/</code> and <code>/cat/</code> can represent the same path for matching purposes, while encoded reserved characters need more careful treatment. The checker accounts for these distinctions, including encoded characters that might otherwise be mistaken for wildcard operators, and calculates rule specificity accordingly. That doesn't make it a complete reproduction of every crawler's matching implementation, but it avoids treating all percent-encoded characters as interchangeable.</p>
+<p>Similar-looking characters can cause problems with crawler names, too. Copy a user-agent token from a formatted document, for example, and you might end up with a Unicode hyphen that looks almost identical to an ordinary one. Take <code>User-agent: Perplexity‑User</code>, where the separator is a non-breaking hyphen (<code>U+2011</code>) instead of the ASCII hyphen (<code>U+002D</code>) used in <code>User-agent: Perplexity-User</code>. The two might look interchangeable to us, but not to a robots.txt parser. The checker flags such declarations and suggests the correct spelling without silently changing the file. One of those tiny mistakes that can be annoyingly difficult to spot.</p>
+
+<h3 id="empty-rules">Empty values and parser notes</h3>
+<p>An empty <code>Disallow:</code> doesn't block everything; it has no effect. An empty <code>Allow:</code> also has no meaningful effect. That's different from <code>Allow: /</code>, which is an actual matching rule for root-relative URLs. If you want to express that the default group has no restrictions, this is sufficient:</p>
+
+<pre>
+User-agent: *
+Disallow:
+</pre>
+
+<p>The editor warns about malformed declarations, empty or invalid user-agent values, misplaced <code>Allow</code> or <code>Disallow</code> directives, and path rules that don't begin with <code>/</code>. It also recognizes some common non-standard names, including <code>Crawl-delay</code>, without applying them in the evaluation. Invalid declarations are flagged rather than silently corrected, and those that cannot be interpreted reliably are excluded from rule evaluation. These notes are practical diagnostics, not a certificate of complete RFC compliance. I've tried to anticipate, through my own experience and research, as many edge cases as possible, although I'm sure a few have stayed out of my radar. They'll probably make themselves known eventually.</p>
+<p><code>Crawl-delay</code> is a good example of how robots.txt support differs between search engines. Google <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#syntax" target="_blank" rel="noopener">doesn't recognize the directive</a>, while Bing has <a href="https://blogs.bing.com/webmaster/2009/8/Crawl-delay-and-the-Bing-crawler,-MSNBot/" target="_blank" rel="noopener">documented its support</a> since at least 2009. Bing also offers <a href="https://www.bing.com/webmasters/help/crawl-control-55a30303" target="_blank" rel="noopener">Crawl Control in Webmaster Tools</a>, allowing website owners to adjust crawling activity throughout the day. However, according to Bing's documentation, a <code>Crawl-delay</code> directive in robots.txt overrides those crawl-rate settings. It's a detail worth remembering when configuring both, and a good illustration of why RFC 9309 doesn't tell the whole story about how individual crawlers behave.</p>
+<p>For a more authoritative reference on how Google interprets robots.txt rules, Google has published its <a href="https://github.com/google/robotstxt" target="_blank" rel="noopener">open-source robots.txt parser and matcher</a>, derived from the code used by Googlebot. Unlike this checker, which I've built in JavaScript with additional crawler-specific assumptions (e.g. fallback policies) and an interactive interface, Google's library focuses on parsing and matching rules according to its implementation. It's a useful reference for investigating unusual matching behaviour, particularly around encoding, specificity, and other edge cases where implementation details matter. I've accounted for several of these in my own parser, but Google's implementation remains the more authoritative reference for understanding Googlebot's matching behaviour.</p>
+
+<h3 id="llm-robots">Should you let an LLM write your robots.txt?</h3>
+<p>It's tempting nowadays to ask an LLM for a robots.txt file, upload the file, and consider the job finished. The file is short, the syntax looks uncomplicated, and the generated answer usually arrives with a reassuring explanation. That combination makes it rather easy to publish something you haven't properly checked.</p>
+<p>An LLM can help explain an existing rule or draft a starting point for an experiment. But it has no automatic knowledge of your actual URL patterns, infrastructure, crawler priorities, or which directories need to stay crawlable. It can produce a perfectly parseable rule that blocks an entire image directory, suggest a made-up crawler token, or put <code>Noindex:</code> in robots.txt even though Google doesn't support it there. A syntactically valid file can still be the wrong file for your website.</p>
+
+<pre>
+# This can look reasonable in a generated example
+User-agent: *
+Disallow: /assets/
+Disallow: /*? # With you serving your core pages with parameters~
+</pre>
+
+<p>Are images, style files, scripts, or other useful resources under <code>/assets/</code>? Then the proposed restriction deserves a closer look. I'd use an LLM to explore possibilities, not to make the final crawling decision. Check every directive against the intended crawler's documentation, test representative URLs and exceptions, use the resource checker to catch any referenced assets that your rules might unintentionally block, and inspect the actual published response afterward. If the result is difficult to explain line by line, it probably isn't ready to deploy.</p>
+
+<h4><i>But Alex, my website is completely vibe-coded, not even then?</i></h4>
+<p>If you've entrusted your whole website to some trust-me-bro app, agent, or LLM chat, it might have enough context to know what's going on and which resources are important for crawlers. Personally, I still wouldn't trust it to make that decision without checking, unless you're happy with an <em>Allow Everyone and Everything</em> approach. But whatever you choose, at least don't serve your robots.txt with an HTTP 500 error.</p>
+
+<h2 id="crawler-identities">Not all crawlers are created equal</h2>
+<p>Writing the rules is one thing; knowing which crawlers they address is another. It'd be much easier to think of crawlers simply as search engines collecting pages for their indexes. That picture now leaves out quite a lot: search bots, image and news fetchers, social preview generators, SEO tools, independent search infrastructure, AI training collection, AI search discovery, and user-initiated retrieval. Some of these use distinct HTTP identities; some are control tokens that don't send HTTP requests under their own names at all.</p>
+<p>An interesting example of a token naming confusion was documented by <a href="https://www.404media.co/websites-are-blocking-the-wrong-ai-scrapers-because-ai-companies-keep-making-new-ones/" target="_blank" rel="nofollow noopener">404 Media in 2024</a>. Hundreds of websites were explicitly blocking older Anthropic crawler identifiers while overlooking the newer <code>ClaudeBot</code>. Anthropic later confirmed that ClaudeBot would honour existing restrictions targeting those older identifiers, but the situation illustrates how easily crawler blocklists can become outdated, especially when they're copied from one website to another without checking (the theoretically <em>updated</em> documentation out there) whether the listed agents are still active.</p>
+<p>I spent considerable time sorting the user-agent catalogue into useful groups and looking for first-party descriptions. The difficulty isn't always finding a name; it's finding a dependable explanation of what that name does today. Legacy identifiers, user-configurable crawler frameworks, and community-reported names add uncertainty and confusion. Inclusion in my user-agent list therefore isn't a guarantee that a bot is active, official, or even well documented. Well-known operators usually have more detailed public documentation, but that doesn't mean every crawler claiming their identity is genuine.</p>
+
+<h3 id="tokens-vs-headers">A token isn't necessarily the HTTP User-Agent</h3>
+<p>A robots.txt <em>product token</em> is the identifier you can use in a <code>User-agent:</code> group. The full HTTP User-Agent header can contain browser-like information, version numbers, and a URL describing the crawler. It can also be spoofed. When identity matters, verify requests using the operator's documented IP ranges and DNS procedures rather than trusting a string.</p>
+<!-- TODO link the future tool -->
+<p>For the checker I'm storing token names in lowercase for case-insensitive matching and standardization; your robots.txt file does not need to use lowercase. Some user-agent entries have documented fallback tokens. Some special controls return <strong>Inconclusive</strong> when their applicability to a wildcard group is not established. These are modelling choices, not a promise to reproduce every operator's (unknown) internal policy.</p>
+
+<h3 id="ai-controls">Training, discovery, and user-triggered requests</h3>
+<p>OpenAI documents separate purposes for <code>GPTBot</code>, <code>OAI-SearchBot</code>, and <code>ChatGPT-User</code>. Anthropic also distinguishes <code>ClaudeBot</code>, <code>Claude-SearchBot</code>, and <code>Claude-User</code>. Mistral documents its own indexing, training, and user-driven fetcher identities. Blocking an AI training crawler is therefore not synonymous with blocking every AI-assisted search or user-requested visit.</p>
+<p>This distinction also matters when thinking about SEO and its newer relatives, Answer Engine Optimization (AEO) and Generative Engine Optimization (GEO). Giving an AI search crawler access is one consideration; whether your content is discovered, used, cited, or represented accurately is another. Robots.txt can influence some of the fetching involved, but it doesn't determine the final outcome.</p>
+<p><code>Google-Extended</code> is especially instructive: it is a robots.txt control token for specified Gemini-related uses, not an independent HTTP-fetching crawler. It does not control inclusion in Google Search. Apple also documents <code>Applebot-Extended</code> as a separate data-use control. Treat controls of this kind as product-specific preferences, not proof that a particular HTTP request will be denied.</p>
+<p>Google has since introduced another layer of control on August 31, 2026, this time outside robots.txt. Through <a href="https://support.google.com/webmasters/answer/16908024" target="_blank" rel="noopener">Search Console's Search generative AI control</a>, you can choose whether your website content is eligible to appear in AI Overviews, AI Mode, and generative AI features in Discover. Inclusion is the default, although it guarantees nothing about actually appearing. Excluding your website doesn't remove it from regular Google Search, nor does the setting control AI training. That's still a separate matter, addressed through <code>Google-Extended</code>. Quite a few different controls for what might initially look like the same thing.</p>
+<p>This checker represents some of these differences and deliberately leaves certain wildcard scenarios or crawler-specific behaviours inconclusive rather than assigning a verdict it can't reliably support. Not every user-triggered fetcher behaves like <code>Perplexity-User</code>, either. Consult the relevant operator documentation before treating an <em>Allowed</em> or <em>Blocked</em> result as definitive.</p>
+
+<h3 id="who-to-block">Who should be allowed?</h3>
+<p>There is no universal answer, and a blocklist without a reason was never much of a strategy. Blocking Googlebot or Bingbot certainly undermines discoverability in their search ecosystems. Blocking social-preview fetchers can affect how shared links appear. Restricting SEO crawlers can reduce third-party data collection but may interfere with an audit you actually want to run. Blocking Common Crawl or AI training crawlers involves a different choice from allowing AI search discovery or on-demand page retrieval.</p>
+<p>I'm personally sympathetic to independent search indexes and the efforts to build a more diverse search ecosystem, including initiatives such as <a href="https://openwebsearch.eu/" target="_blank" rel="noopener">OpenWebSearch.eu</a> and services such as Mojeek and Seznam. Qwant's indexing partnerships also illustrate why "European search engine" and "entirely independent index" are not the same thing. Anti-monopoly and a less concentrated web are worthwhile goals to me, but every website still needs to make its own decision about access, cost, and reuse.</p>
+<p>I've deliberately included a collection of web scrapers in the checker, some of which have rather unclear identities or purposes. For aggressive or unidentified ones, robots.txt may not be enough. Rate limiting, authentication, abuse detection, and server-side controls can be more appropriate. And when something claims to be Googlebot, its name alone is not sufficient evidence.</p>
+<p>The <a href="https://almanac.httparchive.org/en/2025/seo" target="_blank" rel="noopener">2025 HTTP Archive Web Almanac</a> offers useful perspective: in its desktop sample, <code>GPTBot</code> appeared as a named robots.txt user-agent on 4.5% of sites, a 55% increase from 2024. While the figures don't tell us whether those websites are allowing or restricting GPTBot, they do show that explicit references to AI crawlers are becoming more common.</p>
+
+<h2 id="seo-implications">Crawling, indexing, and the things between them</h2>
+<p>One of the recurring SEO problems with robots.txt is expecting it to solve a problem that actually belongs elsewhere. Crawling, indexing, canonicalization, HTTP response handling, and access control are related systems, but they're not interchangeable.</p>
+
+<h3 id="images-and-icons">When a path restriction takes out images or icons</h3>
+<p>I've seen image paths blocked and icon paths caught by a broad robots.txt restriction. A rule that looks harmless because it targets "assets" can prevent compliant crawlers from fetching images needed for image search or for understanding and presenting a page. Google's documentation connects the availability of images and other page resources with search features and rendering. Sometimes I wonder if someone suggested blocking those resources in an attempt to improve PageSpeed scores. It wouldn't improve the actual Core Web Vitals experienced by users, but the things people do.</p>
+
+<pre>
+User-agent: *
+Disallow: /images/
+Disallow: /static/
+</pre>
+
+<p>This might be intentional if keeping those resources out of crawlers is the goal. But if you expect those assets to appear in Google Images, support search features, or be available when a crawler renders your page, it's worth reconsidering. A resource loading perfectly fine in your browser doesn't necessarily mean a crawler is permitted to fetch it. With <strong>Check resources</strong>, you can inspect the resource URLs referenced in a page's HTML and see whether your current rules would allow the selected crawler to fetch them, without identifying every stylesheet, image, or script manually. It doesn't tell you whether Google actually fetched or rendered those resources, though. For that, Google's <a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Rich Results Test</a> and <a href="https://support.google.com/webmasters/answer/9012289" target="_blank" rel="noopener">URL Inspection Tool</a> provide a more direct view of Google's testing and rendering behaviour. For the latter, run a live test and open <code>View Tested Page > More Info > Page Resources</code>.</p>
+
+<figure>
+  <img src="..\assets\images\thoughts\robots-txt-checker\page-resources-blocked-googlebot.webp" style="width: 70%; margin: 0 auto;" width="825" height="327" loading="lazy" alt="Google's inspection tools report showing resources that Googlebot could not load.">
+  <figcaption style="width: 60%;">Google's inspection tools can help identify page resources that Googlebot could not retrieve during a live URL test.</figcaption>
+</figure>
+
+<h3 id="noindex-canonical">Robots.txt, noindex, and canonical tags</h3>
+<p>Consider a page with <code>&lt;meta name="robots" content="noindex" OR content="none"&gt;</code> in its HTML, OR <code>X-Robots-Tag: noindex</code> in its HTTP response headers, while also being blocked by <code>Disallow: /related-path/</code>. Google needs to request the URL to discover either instruction. If robots.txt prevents that request, the crawler won't see the noindex directive, and the URL may still appear in search results.</p>
+<p>The same basic limitation applies to a canonical tag within blocked HTML and HTTP header. A canonical is a signal about the preferred representative among duplicate URLs; blocking access can prevent that signal from being read. If a resource moved permanently, a relevant redirect is usually a stronger, more direct signal. Blocking the page in robots.txt does not guarantee that it will stay out of search results(!). If the content is confidential, use proper access controls rather than relying on either directive.</p>
+<p>Staging environments are a particularly good example. I've encountered setups that rely on <code>Disallow: /</code> to keep an unfinished website out of search results, but that isn't access control or a guarantee against indexation. If the environment shouldn't be publicly accessible, protect it with authentication or network restrictions. If it's intentionally public but shouldn't be indexed, a supported <code>noindex</code> instruction may be appropriate, provided the crawler can access it. And if you're moving the finished site into production, don't forget to check which restrictions came along for the ride.</p>
+
+<h3 id="removed-pages">The deleted pages that remained blocked and indexed</h3>
+<p>Another sequence I've run into: a directory was first disallowed in robots.txt, and later its pages were removed so they returned HTTP 404 to users. The removal had happened on the server, but the robots.txt restriction remained in place.</p>
+<p>A compliant crawler still sees the disallow and avoids requesting those URLs, thus their HTTP headers. It never gets the opportunity to observe their new 404 responses. A URL already known to a search engine may consequently remain in its index longer than expected, and probably you might have experienced it some times, opening a page just to see their 404 design. Removing the <code>Disallow</code>, where safe and appropriate, lets crawlers revisit those addresses and observe that the resources are gone.</p>
+<p>For pages with a genuine replacement, use an appropriate redirect. For permanently removed pages, let crawlers observe a 404 or 410 when possible. I would treat endless autogenerated URL combinations differently: allowing every combination to be crawled merely to return a 404 can waste considerable resources.</p>
+
+<h3 id="crawl-budget">Crawl budget, without the obsession</h3>
+<p>Google describes crawl budget in terms of crawl capacity and crawl demand: how much crawling a site can accommodate, and how much Google wants to crawl. This becomes particularly relevant for websites generating large numbers of URLs, such as news outlets and ecommerce stores with extensive filtering options. Different combinations of categories, colours, sizes, sorting options, and query parameters can produce thousands of URLs containing essentially the same information. Robots.txt can help prevent crawlers from spending time requesting combinations that serve little to no purpose, provided those URLs aren't needed to be served to users (indexed). However, blocking them doesn't guarantee Google will spend the saved crawling capacity elsewhere on your website.</p>
+<p>I tend to start paying closer attention to crawl efficiency from 50.000 pages and onwards, particularly for self-hosted websites, large ecommerce stores, news outlets, or sites with rapidly changing content. It's a personal benchmark, not something prescribed by Google. If your website is relatively small and important pages are getting crawled without substantial delays, there are probably more interesting things to address.</p>
+
+
+<h2 id="misconceptions">Some encountered (and debated) robots.txt misconceptions</h2>
+<dl class="robotstxt-myths">
+  <dt>“Disallowing a URL prevents it from being indexed.”</dt>
+  <dd>Blocking a page with robots.txt prevents compliant crawlers from fetching it, but <a href="#noindex-canonical">Google can still index the URL</a> if it discovers it through links or other signals. Search Console may report it as "Indexed, though blocked by robots.txt", and the search result may contain limited information about the page, as in the example below.
+
+  <figure>
+    <img src="..\assets\images\thoughts\robots-txt-checker\robots-txt-blocked-search-result-google.webp" width="855" height="199" loading="lazy" alt="Google search result for a URL blocked by robots.txt, displayed with limited page information.">
+    <figcaption>A URL can still appear in Google Search even when robots.txt prevents Googlebot from fetching its content.</figcaption>
+  </figure>
+  </dd>
+
+  <dt>“Rules are read sequentially from top to bottom.”</dt>
+  <dd>Robots.txt isn't a first-match-wins list. Under the standard matching model, the <a href="#patterns">most specific matching path rule</a> takes precedence, regardless of where it appears in the file. When equivalent Allow and Disallow rules conflict, Allow wins the tie.</dd>
+
+  <dt>“A single robots.txt file covers your entire domain and all subdomains.”</dt>
+  <dd>A robots.txt file only <a href="#robots-location">governs the exact protocol and subdomain where it is hosted</a>. Placing one at <code>yourdomain.eu</code> does not automatically apply rules to <code>subdomain.yourdomain.eu</code> or switch between HTTP and HTTPS.</dd>
+
+  <dt>“Robots.txt is a secure way to hide private folders or files.”</dt>
+  <dd>The file is public. Listing sensitive directories or admin paths in a robots.txt <a href="#robots-location">acts like a neon sign</a> telling bad actors and scrapers exactly where your hidden content is located.</dd>
+
+  <dt>“Allowed means the crawler will visit.”</dt>
+  <dd>It only means the evaluated rules do not prohibit that URL. <a href="#crawl-budget">Discovery, demand, server access</a>, and the crawler's own priorities still matter.</dd>
+
+  <dt>“A 404 robots.txt is automatically broken SEO.”</dt>
+  <dd>It simply means <a href="#retrieval-failures">no robots.txt restrictions exist</a>. Don't confuse a missing file with an unreachable one.</dd>
+
+  <dt>“All bots respect the file.”</dt>
+  <dd>The protocol is cooperative. <a href="#crawler-identities">Some clients ignore it</a>, and others are configurable or deliberately misidentify themselves.</dd>
+
+  <dt>“Blocking AI training bots prevents all AI-related use.”</dt>
+  <dd>Different products may involve different crawlers, existing indexes, user-initiated fetches, and contractual or technical controls. A robots.txt preference is <a href="#tokens-vs-headers">not a universal licence or enforcement mechanism</a>.</dd>
+
+  <dt>“A live checker shows exactly what Google and other user-agents see.”</dt>
+  <dd>It fetches and evaluates available content at that moment, but Google <a href="#caching">may have cached different rules</a> and applies its own documented retrieval and crawler policies.</dd>
+
+  <dt>“You can use 'Noindex' inside robots.txt.”</dt>
+  <dd>Google stopped supporting the unofficial <code>Noindex:</code> <a href="https://developers.google.com/search/blog/2019/07/a-note-on-unsupported-rules-in-robotstxt" target="_blank" rel="noopener">directive in robots.txt on September 1, 2019</a>. To remove a page from Google's index using a supported noindex instruction, the crawler <a href="#noindex-canonical">must be allowed to fetch it</a> so it can read a meta <code>noindex</code> tag or HTTP response header.</dd>
+
+  <dt>“Blocking JavaScript assets improves crawl efficiency.”</dt>
+  <dd>Blocking content-critical CSS, JavaScript, or API endpoints <a href="#images-and-icons">can prevent search engines from rendering your pages accurately</a>, potentially leaving important content or page elements unavailable to the crawler. Whether that happens depends on what the blocked resources actually provide.</dd>
+
+  <dt>“Adding * at the end of a Disallow rule makes it cover all subdirectories.”</dt>
+  <dd><a href="#patterns">It already does</a>. A rule such as <code>Disallow: /images/</code> matches URLs beginning with that path, including files and nested directories. Adding a trailing wildcard, as in <code>Disallow: /images/*</code>, doesn't extend its coverage. Wildcards become useful when matching variable parts within a URL, while <code>$</code> can be used to require a match at the end.</dd>
+
+  <dt>“Server downtime on robots.txt just pauses crawling temporarily.”</dt>
+  <dd>A <code>5xx</code> response can have different consequences depending on the crawler, how long the error persists, and whether a cached file exists. RFC 9309 calls for initially assuming a complete disallow when robots.txt is unreachable. Google documents a more detailed <a href="#retrieval-failures">recovery process</a>, including an initial crawling halt, retries, and possible use of cached rules. If the problem continues, Google may eventually crawl without robots.txt restrictions, depending on the site's wider availability. A broken robots.txt endpoint is therefore worth investigating rather than treating it as a harmless pause.</dd>
+</dl>
+
+<h2 id="troubleshooting">A few practical questions</h2>
+<h3>Why won't the checker fetch a site's robots.txt?</h3>
+<p>The endpoint might be inaccessible, or the browser and fallback service may be unable to retrieve it. CORS, DNS, TLS, proxy availability, security rules, and rate limiting can all play a part. Paste your file into the editor or load it locally to continue testing.</p>
+
+<h3>Why doesn't Check resources find every image or script?</h3>
+<p>Because it examines the HTML returned for the target page, not the page after JavaScript has run. Some resources are introduced dynamically, loaded only after an interaction, or requested through CSS and JavaScript rather than referenced directly in the HTML. They won't necessarily appear in the results. Think of it as inspecting the page's initial resource references, not recording everything a browser might eventually load.</p>
+
+<h3>Why are some resources marked Inconclusive?</h3>
+<p>They might belong to another origin, have an invalid or unsupported URL, or otherwise lack the information needed for a reliable evaluation. A resource hosted on a CDN, for example, is governed by that origin's own robots.txt file rather than the one you're currently editing. Inconclusive doesn't mean the resource is blocked, broken, or unavailable; it means the checker can't establish its crawling permission from the current information.</p>
+
+<h3>Why do two crawlers get different answers?</h3>
+<p>They can match different user-agent groups, have documented fallback identities, or be subject to a special policy. Check the Winning Directive and the crawler's descriptive note rather than comparing only the coloured labels.</p>
+
+<h3>Why is the result inconclusive?</h3>
+<p>The input may be missing or invalid, the editor may not contain any rules to evaluate, or the checker may deliberately avoid guessing about a special token's wildcard behaviour. It is a statement about the evidence available to the tool, not proof of a real crawler error.</p>
+
+<h3>Can I test a different domain with rules I've edited?</h3>
+<p>Yes. That is one of the reasons the editor exists. Just remember that applying a hypothetical file to another origin does not mean that origin actually serves or follows those rules.</p>
+
+<h2 id="robots-culture">When robots.txt gets a little less serious</h2>
+<p>A robots.txt file is intended for automated clients, but it is also a public text file that curious humans occasionally open. Comments beginning with <code>#</code> don't change crawling decisions, which leaves a little room for jokes, recruiting notes, tiny artworks, and messages to fellow web wanderers. Here's an example from Skroutz's robots.txt, retrieved on October 15, 2026:</p>
+<pre>
+# Hello, web crawlers and curious humans!
+# This file is here to guide well-behaved bots through the Skroutz universe.
+# We’ve crafted these rules to keep our servers happy and our users even happier.
+# If you're a bot, please play nice. If you're a developer, you know what to do.
+</pre>
+<p>I like this small corner of web culture: an operational file becoming an accidental noticeboard. Just keep the actual directives readable. A crawler isn't expected to appreciate the joke, and the humans troubleshooting your site shouldn't have to excavate the rules from an ASCII mural.</p>
+
+<h2 id="further-reading">Further reading and listening</h2>
+<p>For the protocol itself, begin with <a href="https://www.rfc-editor.org/rfc/rfc9309.html" target="_blank" rel="noopener">RFC 9309</a>. For Google's implementation details, read <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec" target="_blank" rel="noopener">Google's robots.txt specification</a> and its <a href="https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers" target="_blank" rel="noopener">crawler catalogue</a>. For differences in AI-related purposes, the <a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener">OpenAI crawler documentation</a> and <a href="https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler">Anthropic's crawler guidance</a> are useful starting points. The <a href="https://almanac.httparchive.org/en/2025/seo" target="_blank" rel="noopener">2025 Web Almanac SEO chapter</a> adds measurements from real websites.</p>
+<p>For something less like reading a specification, try <a href="https://www.youtube.com/watch?v=DchuJS7JWvk" target="_blank" rel="noopener">Analysing Robots.txt at Scale with HTTP Archive and BigQuery</a>, a Search Off the Record discussion with Martin Splitt and Gary Illyes about examining robots.txt across websites. Another relevant conversation is <a href="https://www.youtube.com/watch?v=nSjUI2lUUJs" target="_blank" rel="noopener">The Past, Present, and Future of Robots.txt</a>, for historical context around the protocol. Both are more useful complements to testing than yet another collection of copy-and-paste blocking rules.</p>
+
+<p>Ooof, end of the jargony wall of text. Go block some robots!</p>
+
+<p>PS: Some related articles might make a useful follow-up to this tool.</br>
+PPS: For any issues you encounter, or suggestions and corrections to the user-agent list, <a href="https://alexanderkyriakou.eu/contact">send me a note</a>.</p>
+
+<p style="font-style: italic;"><strong>License and attribution.</strong> © 2026 Alexander Kyriakou. The Robots.txt Checker's original parser and dedicated JavaScript are licensed under <a href="https://opensource.org/license/CPAL-1.0" target="_blank" rel="license noopener">CPAL 1.0</a>, with applicable attribution under Section 14. Original written content, visual design and diagrams are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">CC BY 4.0</a>, unless otherwise noted. See the <a href="/ak/robots-txt-checker-LICENSE.md">tool-specific license details</a>, <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker-NOTICES.md">attribution notices</a> and <a href="https://alexanderkyriakou.eu/ak/CPAL-1.0.txt">full software license</a>. <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Original tool</a>. Third-party material retains its own license. </p>
+</article>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/tools">tools</a>
+            <a href="https://alexanderkyriakou.eu/thoughts/seo">seo</a>
+
+          </nav>
+        </div>
+
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants">Code assistants, Claude Sonnet 5.5 · GPT-6 Luna · Gemini 3 Flash</p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-10-20">Oct 20, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied ♥</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</main>
+
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M 32.7812 52.5508 C 34.4687 52.5508 35.6640 51.0977 36.5312 48.8477 L 51.8829 8.7461 C 52.3048 7.6680 52.5626 6.7070 52.5626 5.9102 C 52.5626 4.3867 51.6016 3.4492 50.0781 3.4492 C 49.2813 3.4492 48.3203 3.6836 47.2423 4.1055 L 6.9296 19.5508 C 4.9609 20.3008 3.4374 21.4961 3.4374 23.2070 C 3.4374 25.3633 5.0780 26.0899 7.3280 26.7695 L 20.0077 30.6133 C 21.4843 31.0821 22.3280 31.0352 23.3359 30.0977 L 49.0466 6.0742 C 49.3514 5.7930 49.7032 5.8399 49.9375 6.0508 C 50.1717 6.2852 50.1952 6.6367 49.9139 6.9414 L 25.9843 32.7461 C 25.0937 33.7070 24.9999 34.5039 25.4687 36.0742 L 29.1718 48.4492 C 29.8749 50.8164 30.6015 52.5508 32.7812 52.5508 Z"/></svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+      </div>
+</footer>
+
+  <script defer src="../assets/js/main.js"></script>
+  <script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+  <script defer src="../assets/js/robots-txt-checker.js"></script>
+</body>
+</html>

@@ -1,29 +1,57 @@
 # There's never enough time to do all the nothing you want. • Bill Watterson
+# Bots, play nicely or else 
 
-User-agent: Googlebot
-User-agent: Google-Extended
-User-agent: Bingbot
-User-agent: YandexBot
-User-agent: facebookexternalhit
-User-agent: OAI-SearchBot
-User-agent: GPTBot
-User-agent: anthropic-ai
-User-agent: ClaudeBot
-User-agent: Claude-User
-User-agent: Claude-SearchBot
-User-agent: CCBot
-User-agent: Applebot
-User-agent: archive.org_bot
-User-agent: meta-webindexer
-User-agent: meta-externalagent
-User-agent: meta-externalfetcher
-User-agent: PerplexityBot
-User-agent: Perplexity‑User
-User-agent: MistralAI-User
-User-agent: MistralAI-Index
-User-agent: DuckDuckBot
-User-agent: Qwantbot
-Allow: /
+user-agent: googlebot
+user-agent: google-extended
+user-agent: googleother-image
+user-agent: gemini-deep-research
+user-agent: bingbot
+user-agent: microsoftcopilot
+user-agent: yandexbot
+user-agent: facebookbot
+user-agent: oai-searchbot
+user-agent: gptbot
+user-agent: chatgpt-user
+user-agent: anthropic-ai
+user-agent: claudebot
+user-agent: claude-user
+user-agent: claude-searchbot
+user-agent: claude-web
+user-agent: ccbot
+user-agent: applebot
+user-agent: archive.org_bot
+user-agent: meta-webindexer
+user-agent: meta-externalagent
+user-agent: meta-externalfetcher
+user-agent: facebookexternalhit
+user-agent: perplexitybot
+user-agent: perplexity-user
+user-agent: mistralai-user
+user-agent: mistralai-index
+user-agent: mistralai-training
+user-agent: duckduckbot
+user-agent: duckassistbot
+user-agent: qwantbot
+user-agent: linkedinbot
+user-agent: slackbot
+user-agent: bravebot
+user-agent: msnbot-media
+user-agent: bingpreview
+user-agent: owler
+user-agent: seznambot
+user-agent: mojeekbot
+user-agent: twitterbot
+allow: /
 
-User-agent: *
-Disallow: /
+user-agent: *
+disallow: /
+
+
+  ,-~~-.___.
+ / |  '     \         It was a dark and stormy night....
+(  )         0              
+ \_/-, ,----'            
+    ====           //                     
+   /  \-'~;    /~~~(O)
+  /  __/~|   /       |     
+=(  _____| (_________|   W<

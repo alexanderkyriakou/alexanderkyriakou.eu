@@ -18,71 +18,172 @@
 /* footnotes/endnotes at the end of each thought page */
 .postfooter {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 40px;
-  padding-top: 10px;
+  margin-top: 40px;
+  padding-top: 20px;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.postfooter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   border-top: 1px solid #eee;
 }
 
-.postfooter-info {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  gap: 8px;
-  list-style: none;
-  text-wrap: nowrap;
+.postfooter-mark {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 0 15px;
+  background: #fff;
+  color: #777;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
 }
 
-.postfooter-info li:nth-last-child(1) {
+.postfooter-top {
+  margin-bottom: 20px;
+}
+
+.postfooter-topics {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 8px;
+}
+
+.postfooter-topics-label {
   color: #555;
+  white-space: nowrap;
+}
+
+.postfooter-topics-label span {
+  margin-left: 3px;
+  color: #777;
+}
+
+.postfooter-tags {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.postfooter-tags a {
+  padding: 3px 5px;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.postfooter-tags a + a::before {
+  content: "·";
+  display: inline-block;
+  margin-right: 10px;
+  color: #b0b0b0;
+  text-decoration: none;
+}
+
+.postfooter-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px 24px;
+}
+
+.postfooter-info {
+  min-width: 0;
+}
+
+.postfooter-info p {
+  margin: 0 0 5px;
+}
+
+.postfooter-info p:last-child {
+  margin-bottom: 0;
+}
+
+.postfooter-info a {
+  color: #000;
+  text-decoration: underline;
+  text-decoration-color: #b0b0b0;
+  text-underline-offset: 3px;
+}
+
+.postfooter-info a:hover {
+  text-decoration-color: currentColor;
+}
+
+.postfooter-info .postfooter-assistants {
+  color: #555;
+}
+
+.postfooter-info .postfooter-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+  margin-top: 9px;
+  color: #555;
+}
+
+.postfooter-dates > span + span::before {
+  content: "·";
+  margin-right: 4px;
+  color: #555;
+}
+
+.postfooter-info .postfooter-dates time {
+  color: #000;
 }
 
 .postfooter-share {
-  display: flex;
-  align-items: center;
-  align-self: flex-end;
-  gap: 8px;
-  white-space: nowrap;
-  position: relative;
-  color: #555;
+  flex-shrink: 0;
+  transform: translateY(-3px);
 }
 
 .postfooter-share button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-family: inherit;
-  font-size: 1rem;
-  gap: 5px;
-  padding-bottom: 2px;
-  border: 0;
-  background: none;
-  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+  min-width: 121px;
+  min-height: 38px;
+  padding: 8px 13px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
   color: #555;
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-.postfooter-share svg {
-  width: 16px;
-  height: 16px;
-  display: block;
+.postfooter-share button:hover {
+  background: #eee;
+  border-color: #ccc;
+}
+
+.postfooter-share button > span {
+  grid-area: 1 / 1;
+  transition: opacity 0.4s ease;
+}
+
+.postfooter-share-label {
+  opacity: 1;
 }
 
 .link-copied {
-  position: absolute;
-  color: #555;
-  font-size: 0.9rem;
-  bottom: calc(100% + 6px);
-  right: 2px;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  pointer-events: none;
 }
 
-.link-copied.visible {
+.postfooter-share button.copied .postfooter-share-label {
+  opacity: 0;
+}
+
+.postfooter-share button.copied .link-copied {
   opacity: 1;
-  visibility: visible;
 }
 /* end of footnotes/endnotes at the end of each thought page */
 
@@ -547,9 +648,75 @@
     transition: none;
   }
 
+  /* postfooter */
   .postfooter {
-    padding: 10px 0 20px 0;
+    margin: 40px 0;
   }
+
+   .postfooter-topics {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+  }
+
+  .postfooter-tags {
+    display: contents;
+  }
+
+  .postfooter-tags a {
+    white-space: nowrap;
+  }
+
+  .postfooter-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 10px;
+  }
+
+  .postfooter-info {
+    display: contents;
+  }
+
+  .postfooter-info > p:not(.postfooter-dates) {
+    grid-column: 1 / -1;
+    margin-top: -10px;
+    margin-bottom: 5px;
+  }
+
+  .postfooter-info > p:first-child {
+    white-space: nowrap;
+  }
+
+  .postfooter-info .postfooter-assistants {
+    overflow-wrap: break-word;
+  }
+
+  .postfooter-info .postfooter-dates {
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    column-gap: 8px;
+    row-gap: 3px;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+
+  .postfooter-dates > span {
+    display: contents;
+  }
+
+  .postfooter-dates > span + span::before {
+    display: none;
+  }
+
+  .postfooter-share {
+    grid-column: 2;
+    align-self: end;
+    transform: none;
+  }
+  /* end of postfooter */
 
   /* card flow box on mobile with lower padding */
   .card-text {

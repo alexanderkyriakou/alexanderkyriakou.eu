@@ -9,23 +9,44 @@ document.querySelectorAll('.honeycomb .item').forEach(el => {
 });
 
 // Thoughts page copy URL button
-const shareButton = document.querySelector('.postfooter-share button');
-const linkCopied = document.querySelector('.link-copied');
+document.querySelectorAll('.postfooter-share').forEach(share => {
+  const button = share.querySelector('button');
+  const status = share.querySelector('.postfooter-share-status');
 
-shareButton.addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(window.location.href);
+  if (!button) return;
 
-    linkCopied.classList.add('visible');
+  let resetTimer;
 
-    setTimeout(() => {
-      linkCopied.classList.remove('visible');
-    }, 2000);
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
 
-  } catch (error) {
-    console.error('Ooops, try again :-(', error);
-  }
+      clearTimeout(resetTimer);
+
+      button.classList.add('copied');
+
+      if (status) {
+        status.textContent = 'Link copied';
+      }
+
+      resetTimer = setTimeout(() => {
+        button.classList.remove('copied');
+
+        if (status) {
+          status.textContent = '';
+        }
+      }, 2000);
+
+    } catch (error) {
+      console.error('Unable to copy page URL:', error);
+
+      if (status) {
+        status.textContent = 'Unable to copy link';
+      }
+    }
+  });
 });
+
 
 // Extras
 console.log("Hi there explorer!");
