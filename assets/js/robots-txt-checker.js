@@ -115,7 +115,7 @@
     // Social Media Preview
     E('discordbot', 'Discordbot (Discord Previews)', 'social-bots', { n: 'Generates link cards and rich embeds on Discord' }),
     E('facebookexternalhit', 'FacebookExternalHit (Meta)', 'social-bots', { n: 'Meta scraper retrieving Open Graph metadata for shared-link previews on Facebook and related platforms' }),
-    E('linkedinbot', 'LinkedInBot', 'social-bots', { n: 'Open Graph preview scraper for LinkedIn' }),
+    E('LinkedInBot', 'LinkedInBot', 'social-bots', { n: "Open Graph preview scraper for LinkedIn, it's case-sensitive - personally verified" }),
     E('pinterestbot', 'Pinterestbot', 'social-bots', { tags: ['image-bots'], n: 'Pinterest crawler discovering content and images for Pins and search' }),
     E('quora-bot', 'QuoraBot (Quora / Poe)', 'social-bots', { tags: ['ai-search'], n: 'Quora link-preview fetcher retrieving shared webpages and metadata; robots.txt compliance not fully verified' }),
     E('slackbot', 'Slackbot-LinkExpanding', 'social-bots', { n: 'URL preview expander for Slack messages' }),
@@ -1452,7 +1452,7 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
     input.focus();
     close();
   }
-  
+
   function render() {
     const query = showAll
       ? ''
