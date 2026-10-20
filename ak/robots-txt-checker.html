@@ -796,10 +796,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
         <div class="form-group">
           <label for="fetchUrlInput">Live Fetch Robots.txt</label>
           <div class="fetch-bar">
-            <div class="url-history-anchor" data-url-history="fetch">
-              <input type="text" id="fetchUrlInput" class="fetch-input" placeholder="Enter domain or any URL (e.g. yourdomain.eu/hello)" autocomplete="off" aria-autocomplete="list" aria-expanded="false" >
-              <div class="url-history-menu" hidden></div>
-            </div>
+            <input type="text" id="fetchUrlInput" class="fetch-input" placeholder="Enter domain or any URL (e.g. yourdomain.eu/hello)" autocomplete="off" aria-autocomplete="list" aria-expanded="false" >
             <button id="fetchBtn" class="btn-fetch" title="Get domain's live robots.txt file">Fetch Live</button>
           </div>
           <div id="fetchMsg" class="msg" role="status" aria-live="polite"></div>

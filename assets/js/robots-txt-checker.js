@@ -1347,23 +1347,31 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
   });
 })();
 
-// url input history
+
+/* check url input history */
 (function () {
   'use strict';
 
   const MAX_HISTORY = 15;
-  const STORAGE_PREFIX = 'robots-checker-history-';
+  const STORAGE_KEY = 'check-url-history';
 
-  const configurations = [
-    { type: 'fetch', inputId: 'fetchUrlInput', buttonId: 'fetchBtn' },
-    { type: 'test', inputId: 'testPath', buttonId: 'checkBtn' }
-  ];
+  const input = document.getElementById('testPath');
+  const button = document.getElementById('checkBtn');
+  const wrapper = input?.closest('.url-history-anchor');
+  const menu = wrapper?.querySelector('.url-history-menu');
 
-  function readHistory(type) {
+  if (!input || !wrapper || !menu) return;
+
+  let matches = [];
+  let activeIndex = -1;
+  let showAll = false;
+
+  function readHistory() {
     try {
       const data = JSON.parse(
-        localStorage.getItem(STORAGE_PREFIX + type) || '[]'
+        localStorage.getItem(STORAGE_KEY) || '[]'
       );
+
       return Array.isArray(data)
         ? data.filter(item => typeof item === 'string')
         : [];
@@ -1372,24 +1380,20 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
     }
   }
 
-  function writeHistory(type, items) {
+  function writeHistory(items) {
     try {
       localStorage.setItem(
-        STORAGE_PREFIX + type,
+        STORAGE_KEY,
         JSON.stringify(items.slice(0, MAX_HISTORY))
       );
     } catch {
-      // Storage may be disabled.
+      // Storage may be unavailable or disabled.
     }
   }
 
-  function validUrl(value, type) {
+  function validUrl(value) {
     try {
-      const candidate = type === 'fetch' && !/^https?:\/\//i.test(value)
-        ? 'https://' + value
-        : value;
-
-      const url = new URL(candidate);
+      const url = new URL(value);
 
       return /^https?:$/.test(url.protocol) &&
         !!url.hostname &&
@@ -1401,205 +1405,246 @@ document.querySelectorAll('a[href="#results-legend"], a[href="#dropZone"]')
     }
   }
 
-  function saveUrl(type, value) {
-    value = value.trim();
-    if (!validUrl(value, type)) return;
+  function saveUrl(value) {
+    value = String(value || '').trim();
 
-    const items = readHistory(type).filter(
+    if (!validUrl(value)) return;
+
+    const items = readHistory().filter(
       item => item !== value
     );
 
     items.unshift(value);
-    writeHistory(type, items);
+    writeHistory(items);
   }
 
-  function initHistory(config) {
-    const { type, inputId, buttonId } = config;
-    const input = document.getElementById(inputId);
-    const button = document.getElementById(buttonId);
-    const wrapper = input?.closest('.url-history-anchor');
-    const menu = wrapper?.querySelector('.url-history-menu');
+  function close() {
+    menu.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+    activeIndex = -1;
+  }
 
-    if (!input || !wrapper || !menu) return;
+  function setActive(index) {
+    const rows = menu.querySelectorAll('.url-history-item');
 
-    let matches = [];
-    let activeIndex = -1;
+    rows.forEach((row, i) => {
+      row.classList.toggle('is-active', i === index);
+    });
 
-    function close() {
-      menu.hidden = true;
-      input.setAttribute('aria-expanded', 'false');
-      activeIndex = -1;
+    activeIndex = index;
+
+    if (index >= 0 && rows[index]) {
+      rows[index].scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  function select(value) {
+    input.value = value;
+    close();
+
+    // Notify the checker's existing evaluation listeners.
+    input.dispatchEvent(
+      new Event('input', { bubbles: true })
+    );
+
+    input.dispatchEvent(
+      new Event('change', { bubbles: true })
+    );
+
+    // Avoid reopening the dropdown on programmatic focus.
+    input.focus();
+  }
+
+  function render() {
+    const query = showAll
+      ? ''
+      : input.value.trim().toLowerCase();
+
+    matches = readHistory().filter(
+      url => url.toLowerCase().includes(query)
+    );
+
+    menu.replaceChildren();
+    activeIndex = -1;
+
+    if (!matches.length) {
+      close();
+      return;
     }
 
-    function setActive(index) {
-      const rows = menu.querySelectorAll('.url-history-item');
+    const list = document.createElement('ul');
+    list.className = 'url-history-list';
 
-      rows.forEach((row, i) => {
-        row.classList.toggle('is-active', i === index);
+    matches.forEach(url => {
+      const item = document.createElement('li');
+      item.className = 'url-history-item';
+
+      const selectButton = document.createElement('button');
+      selectButton.type = 'button';
+      selectButton.className = 'url-history-select';
+      selectButton.title = url;
+
+      // Clock icon
+      const clock = document.createElement('span');
+      clock.className = 'url-history-clock';
+      clock.setAttribute('aria-hidden', 'true');
+
+      clock.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="14" height="14"
+             viewBox="0 0 24 24"
+             fill="none"
+             stroke="currentColor"
+             stroke-width="1.8"
+             stroke-linecap="round"
+             stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 7v5l3 2"></path>
+        </svg>
+      `;
+
+      // URL text
+      const urlText = document.createElement('span');
+      urlText.className = 'url-history-url';
+      urlText.textContent = url;
+
+      selectButton.append(clock, urlText);
+
+      selectButton.addEventListener('click', () => {
+        select(url);
       });
 
-      activeIndex = index;
+      // Remove individual URL
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'url-history-remove';
+      removeButton.textContent = '\u00d7';
+      removeButton.title = 'Remove from history';
 
-      if (index >= 0 && rows[index]) {
-        rows[index].scrollIntoView({ block: 'nearest' });
-      }
-    }
-
-    function select(value) {
-      input.value = value;
-      close();
-
-      // Notify existing input-dependent evaluation logic.
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.dispatchEvent(new Event('change', { bubbles: true }));
-
-      input.focus();
-    }
-
-    function render() {
-      const query = input.value.trim().toLowerCase();
-
-      matches = readHistory(type).filter(
-        url => url.toLowerCase().includes(query)
+      removeButton.setAttribute(
+        'aria-label',
+        'Remove ' + url + ' from history'
       );
 
-      menu.replaceChildren();
-      activeIndex = -1;
-
-      if (!matches.length) {
-        close();
-        return;
-      }
-
-      const list = document.createElement('ul');
-      list.className = 'url-history-list';
-
-      matches.forEach(url => {
-        const item = document.createElement('li');
-        item.className = 'url-history-item';
-
-        const selectButton = document.createElement('button');
-        selectButton.type = 'button';
-        selectButton.className = 'url-history-select';
-        const clock = document.createElement('span');
-        clock.className = 'url-history-clock';
-        clock.setAttribute('aria-hidden', 'true');
-
-        clock.innerHTML = ` <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"> <circle cx="12" cy="12" r="9"></circle> <path d="M12 7v5l3 2"></path> </svg> `;
-
-        const urlText = document.createElement('span');
-        urlText.className = 'url-history-url';
-        urlText.textContent = url;
-
-        selectButton.append(clock, urlText);
-        selectButton.title = url;
-
-        selectButton.addEventListener('click', () => select(url));
-
-        const removeButton = document.createElement('button');
-        removeButton.type = 'button';
-        removeButton.className = 'url-history-remove';
-        removeButton.textContent = '\u00d7';
-        removeButton.title = 'Remove from history';
-        removeButton.setAttribute(
-          'aria-label', 'Remove ' + url + ' from history'
+      removeButton.addEventListener('click', () => {
+        writeHistory(
+          readHistory().filter(item => item !== url)
         );
 
-        removeButton.addEventListener('click', () => {
-          writeHistory(
-            type,
-            readHistory(type).filter(item => item !== url)
-          );
-
-          input.focus();
-          render();
-        });
-
-        item.append(selectButton, removeButton);
-        list.appendChild(item);
+        render();
       });
 
-      const footer = document.createElement('div');
-      footer.className = 'url-history-footer';
-
-      const clearButton = document.createElement('button');
-      clearButton.type = 'button';
-      clearButton.className = 'url-history-clear';
-      clearButton.textContent = 'Clear history';
-
-      clearButton.addEventListener('click', () => {
-        writeHistory(type, []);
-        close();
-        input.focus();
-      });
-
-      footer.appendChild(clearButton);
-      menu.append(list, footer);
-
-      menu.hidden = false;
-      input.setAttribute('aria-expanded', 'true');
-    }
-
-    input.addEventListener('focus', render);
-    input.addEventListener('click', render);
-    input.addEventListener('input', render);
-
-    input.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && !menu.hidden) {
-        event.preventDefault();
-        close();
-        return;
-      }
-
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        if (menu.hidden) render();
-        if (!matches.length) return;
-
-        event.preventDefault();
-
-        const direction = event.key === 'ArrowDown' ? 1 : -1;
-        const next = activeIndex + direction;
-
-        setActive(
-          next < 0 ? matches.length - 1 :
-          next >= matches.length ? 0 : next
-        );
-      }
-
-      if (event.key === 'Enter' && !menu.hidden && activeIndex >= 0) {
-        event.preventDefault();
-        select(matches[activeIndex]);
-      }
+      item.append(selectButton, removeButton);
+      list.appendChild(item);
     });
 
-    document.addEventListener('pointerdown', event => {
-      if (!wrapper.contains(event.target)) close();
+    // Clear history footer
+    const footer = document.createElement('div');
+    footer.className = 'url-history-footer';
+
+    const clearButton = document.createElement('button');
+    clearButton.type = 'button';
+    clearButton.className = 'url-history-clear';
+    clearButton.textContent = 'Clear history';
+
+    clearButton.addEventListener('click', () => {
+      writeHistory([]);
+      close();
     });
 
-    input.addEventListener('focusout', () => {
-      // Allow clicks on menu controls to finish.
-      setTimeout(() => {
-        if (!wrapper.contains(document.activeElement)) close();
-      }, 0);
-    });
+    footer.appendChild(clearButton);
+    menu.append(list, footer);
 
-    if (button) {
-      button.addEventListener('click', () => {
-        saveUrl(type, input.value);
-        close();
-      });
-    }
+    menu.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
   }
 
-  configurations.forEach(initHistory);
+  // Opening the input displays all saved URLs.
+  input.addEventListener('focus', () => {
+    showAll = true;
+    render();
+  });
 
-  // Available to the existing checker, including its auto-check logic.
+  input.addEventListener('click', () => {
+    showAll = true;
+    render();
+  });
+
+  // Typing filters the history.
+  input.addEventListener('input', () => {
+    showAll = false;
+    render();
+  });
+
+  input.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !menu.hidden) {
+      event.preventDefault();
+      close();
+      return;
+    }
+
+    if (event.key === 'ArrowDown' ||
+        event.key === 'ArrowUp') {
+
+      if (menu.hidden) {
+        showAll = true;
+        render();
+      }
+
+      if (!matches.length) return;
+
+      event.preventDefault();
+
+      const direction =
+        event.key === 'ArrowDown' ? 1 : -1;
+
+      const next = activeIndex + direction;
+
+      setActive(
+        next < 0
+          ? matches.length - 1
+          : next >= matches.length
+            ? 0
+            : next
+      );
+    }
+
+    if (event.key === 'Enter' &&
+        !menu.hidden &&
+        activeIndex >= 0) {
+
+      event.preventDefault();
+      select(matches[activeIndex]);
+    }
+  });
+
+  // Close when clicking outside.
+  document.addEventListener('pointerdown', event => {
+    if (!wrapper.contains(event.target)) {
+      close();
+    }
+  });
+
+  // Close when keyboard focus leaves the component.
+  wrapper.addEventListener('focusout', event => {
+    if (!wrapper.contains(event.relatedTarget)) {
+      close();
+    }
+  });
+
+  // Save URLs when manually checking.
+  if (button) {
+    button.addEventListener('click', () => {
+      saveUrl(input.value);
+      close();
+    }, true);
+  }
+
+  // Public method for your existing auto-check logic.
   window.robotsUrlHistory = {
-    saveFetch(value) {
-      saveUrl('fetch', value);
-    },
     saveTest(value) {
-      saveUrl('test', value);
+      saveUrl(value);
     }
   };
+
 })();
