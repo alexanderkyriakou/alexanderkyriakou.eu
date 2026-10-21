@@ -15,8 +15,8 @@ These grants apply **only to the Robots.txt Checker and its specifically identif
 ## 2. Software — CPAL-1.0
 
 - **SPDX identifier:** `CPAL-1.0`
-- **Official, complete license text:** https://opensource.org/license/CPAL-1.0
-- **Required for a distributable source release:** include an unmodified copy of the complete CPAL-1.0 license text in a companion `CPAL-1.0.txt` file, along with the completed notices below. **This project-specific Markdown file alone is not the complete CPAL license.**
+- **Official, complete license text:** https://opensource.org/license/CPAL-1-0
+- **Required for a distributable source release:** include an unmodified copy of the complete CPAL-1.0 license text in a companion `CPAL-1-0.txt` file, along with the completed notices below. **This project-specific Markdown file alone is not the complete CPAL license.**
 
 CPAL permits software use, modification and redistribution under its conditions. Among other things, it includes requirements concerning availability of covered source code, documentation of modifications, copyright notices, and attribution in applicable graphical interfaces. Section 15 addresses externally deployed/network-accessible implementations. Read the entire license before reusing the code.
 
@@ -24,7 +24,7 @@ CPAL permits software use, modification and redistribution under its conditions.
 
 The applicable full-length project-specific source notice and attribution fields are published in [`robots-txt-checker-NOTICES.md`](https://alexanderkyriakou.eu/ak/robots-txt-checker-NOTICES.md). They identify Alexander Kyriakou as both Initial Developer and Original Developer, with the required Section 14 attribution phrase and URL, including in Larger Works. Include the completed Exhibit A notice in covered source files in the manner required by CPAL Section 3.5.
 
-The complete, standard, unmodified license terms and blank exhibit templates are retained in [`CPAL-1.0.txt`](https://alexanderkyriakou.eu/ak/CPAL-1.0.txt). The separate project notices supply the filled-in values; they do not rewrite or replace the underlying license.
+The complete, standard, unmodified license terms and blank exhibit templates are retained in [`CPAL-1-0.txt`](https://alexanderkyriakou.eu/ak/CPAL-1-0.txt). The separate project notices supply the filled-in values; they do not rewrite or replace the underlying license.
 
 **CPAL-1.0 only for this software:** the Initial Developer does not offer an additional alternative software license in the project-specific source notice. This does not alter permissions CPAL itself grants.
 
