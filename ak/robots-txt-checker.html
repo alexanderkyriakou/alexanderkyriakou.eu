@@ -126,7 +126,7 @@
         "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker#about-checker",
         "headline": "Robots.txt checker and multi-crawler rule tester",
         "datePublished": "2026-10-20",
-        "dateModified": "2026-10-20",
+        "dateModified": "2026-10-21",
         "description": "An in-depth guide to using the Robots.txt Checker, understanding RFC 9309, fetching robots.txt files and handling redirects, evaluating Allow and Disallow rules, identifying search and AI crawlers, inspecting referenced page resources, and avoiding common SEO mistakes.",
         "inLanguage": "en",
         "articleSection": [
@@ -278,7 +278,7 @@
 
 .robotstxt-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 20px; margin: 20px 20px 0; }
 .robotstxt-header img { display: block; width: 130px; height: 130px; object-fit: contain; justify-self: right; margin-top: -20px; animation: robotstxt-shake 3.5s ease-in-out infinite; transform-origin: center; }
-.robotstxt-header h1 { margin: 0; font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem); font-weight: 600; line-height: 1.2; text-wrap: wrap; }
+.robotstxt-header h1 { margin: 0; font-size: clamp(1.75rem, 1.3rem + 2.2vw, 2.5rem); font-weight: 500; line-height: 1.2; text-wrap: wrap; }
 .robotstxt-header p { margin: 8px 0 10px; width: fit-content; max-width: 100%; color: #555; }
 
   /* Subtle, occasional robot shake */
@@ -587,9 +587,15 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
 .robotstxt-myths dd { margin: 0; padding: 8px 0 12px; font-size: inherit; font-weight: 400; line-height: 1.5; color: inherit; }
 .robotstxt-myths figure img { display: block; width: 100%; max-width: 650px; height: auto; border-radius: 15px; margin: 0 auto -20px; }
 .robotstxt-myths figcaption { width: 60%; padding-top: 10px; }
-
 #results-legend, #dropZone { scroll-margin-top: 150px; }
 #results-legend { scroll-margin-top: 300px; }
+.tool-changelog { margin: 20px 0; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fdfefe; }
+.tool-changelog h2 { margin: 0 0 6px; font-size: 1.2rem; font-weight: 500; }
+.tool-changelog ul { margin: 0; padding: 0; list-style: none; }
+.tool-changelog li { padding: 8px 0; font-size: 1rem; line-height: 1.5; color: #555; }
+.tool-changelog li + li { border-top: 1px solid #e2e8f0; }
+.tool-changelog time { margin-right: 8px; font-weight: 500; color: #000; }
+.tool-changelog code { padding: 2px 4px; font-size: 0.9rem; border-radius: 4px; background: #eee; }
 
 /* Temporary border highlight */
 @keyframes jump-highlight {
@@ -1140,7 +1146,7 @@ Disallow: /</pre>
   <figcaption style="width: 80%;">When several rules match, specificity determines the winner. For equivalent Allow and Disallow rules, Allow takes precedence under Google's matching model.<small> © 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Source</a></small></figcaption>
 </figure>
 
-<p>Directive names and user-agent product tokens are matched case-insensitively, but URL paths are case-sensitive under Google's robots.txt matching model. Consequently, <code>Disallow: /Images/</code> and <code>Disallow: /images/</code> are not interchangeable(!). In the checker, I've made directive and user-agent matching case-insensitive, so <code>allow</code> and <code>Allow</code> are treated equally, for example. Robots.txt uses UTF-8, and matching gets a little more interesting when percent-encoded characters enter the picture. For example, <code>/c%61t/</code> and <code>/cat/</code> can represent the same path for matching purposes, while encoded reserved characters need more careful treatment. The checker accounts for these distinctions, including encoded characters that might otherwise be mistaken for wildcard operators, and calculates rule specificity accordingly. That doesn't make it a complete reproduction of every crawler's matching implementation, but it avoids treating all percent-encoded characters as interchangeable.</p>
+<p>Directive names and user-agent product tokens are matched case-insensitively per RFC 9309 Section 2.2.1, with one experienced exception for <code>LinkedInBot</code> which I addressed in the parser. But URL paths are case-sensitive under Google's robots.txt matching model. Consequently, <code>Disallow: /Images/</code> and <code>Disallow: /images/</code> are not interchangeable(!). In the checker, I've made directive and user-agent matching case-insensitive, so <code>allow</code> and <code>Allow</code> are treated equally, for example. Robots.txt uses UTF-8, and matching gets a little more interesting when percent-encoded characters enter the picture. For example, <code>/c%61t/</code> and <code>/cat/</code> can represent the same path for matching purposes, while encoded reserved characters need more careful treatment. The checker accounts for these distinctions, including encoded characters that might otherwise be mistaken for wildcard operators, and calculates rule specificity accordingly. That doesn't make it a complete reproduction of every crawler's matching implementation, but it avoids treating all percent-encoded characters as interchangeable.</p>
 <p>Similar-looking characters can cause problems with crawler names, too. Copy a user-agent token from a formatted document, for example, and you might end up with a Unicode hyphen that looks almost identical to an ordinary one. Take <code>User-agent: Perplexity‑User</code>, where the separator is a non-breaking hyphen (<code>U+2011</code>) instead of the ASCII hyphen (<code>U+002D</code>) used in <code>User-agent: Perplexity-User</code>. The two might look interchangeable to us, but not to a robots.txt parser. The checker flags such declarations and suggests the correct spelling without silently changing the file. One of those tiny mistakes that can be annoyingly difficult to spot.</p>
 
 <h3 id="empty-rules">Empty values and parser notes</h3>
@@ -1321,6 +1327,17 @@ Disallow: /static/
 PPS: For any issues you encounter, or suggestions and corrections to the user-agent list, <a href="https://alexanderkyriakou.eu/contact">send me a note</a>.</p>
 
 <p style="font-style: italic;"><strong>License and attribution.</strong> © 2026 Alexander Kyriakou. The Robots.txt Checker's original parser and dedicated JavaScript are licensed under <a href="https://opensource.org/license/CPAL-1.0" target="_blank" rel="license noopener">CPAL 1.0</a>, with applicable attribution under Section 14. Original written content, visual design and diagrams are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">CC BY 4.0</a>, unless otherwise noted. See the <a href="/ak/robots-txt-checker-LICENSE.md">tool-specific license details</a>, <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker-NOTICES.md">attribution notices</a> and <a href="https://alexanderkyriakou.eu/ak/CPAL-1.0.txt">full software license</a>. <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Original tool</a>. Third-party material retains its own license. </p>
+
+<section class="tool-changelog">
+  <h2 id="changelog-title">Updates</h2>
+  <ul>
+    <li>
+      <time datetime="2026-10-21">October 21, 2026</time>
+      <span>Improved <code>LinkedInBot</code> user-agent matching and added a parser note for nonstandard capitalization.</span>
+    </li>
+  </ul>
+</section>
+
 </article>
 
     <footer class="postfooter">
@@ -1345,6 +1362,10 @@ PPS: For any issues you encounter, or suggestions and corrections to the user-ag
             <span>
               <span>Published</span>
               <time datetime="2026-10-20">Oct 20, 2026</time>
+            </span>
+            <span>
+              <span>Updated</span>
+              <time datetime="2026-10-21">Oct 21, 2026</time>
             </span>
           </p>
         </div>

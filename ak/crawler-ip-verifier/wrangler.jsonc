@@ -1,0 +1,34 @@
+{
+  "name": "crawler-ip-verifier-dataset",
+  "main": "dataset-worker.js",
+  "compatibility_date": "2026-10-20",
+  "workers_dev": true,
+  "vars": {
+    "FRONTEND_ORIGIN": "https://alexanderkyriakou.eu",
+    "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008"
+  },
+  "triggers": {
+    "crons": [
+      "0 * * * *"
+    ]
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "DATASET_STORE",
+        "class_name": "DatasetStore"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "DatasetStore"
+      ]
+    }
+  ],
+  "observability": {
+    "enabled": false
+  }
+}

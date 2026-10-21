@@ -115,7 +115,7 @@
     // Social Media Preview
     E('discordbot', 'Discordbot (Discord Previews)', 'social-bots', { n: 'Generates link cards and rich embeds on Discord' }),
     E('facebookexternalhit', 'FacebookExternalHit (Meta)', 'social-bots', { n: 'Meta scraper retrieving Open Graph metadata for shared-link previews on Facebook and related platforms' }),
-    E('LinkedInBot', 'LinkedInBot', 'social-bots', { n: "Open Graph preview scraper for LinkedIn, it's case-sensitive - personally verified" }),
+    E('linkedinbot', 'LinkedInBot', 'social-bots', { t: 'LinkedInBot', n: "Open Graph preview scraper for LinkedIn, it's case-sensitive - personally verified" }),
     E('pinterestbot', 'Pinterestbot', 'social-bots', { tags: ['image-bots'], n: 'Pinterest crawler discovering content and images for Pins and search' }),
     E('quora-bot', 'QuoraBot (Quora / Poe)', 'social-bots', { tags: ['ai-search'], n: 'Quora link-preview fetcher retrieving shared webpages and metadata; robots.txt compliance not fully verified' }),
     E('slackbot', 'Slackbot-LinkExpanding', 'social-bots', { n: 'URL preview expander for Slack messages' }),
@@ -279,6 +279,16 @@
           inRules = false;
         }
         group.agents.push(normalized);
+        if (
+          value.toLowerCase() === 'linkedinbot' &&
+          value !== 'LinkedInBot'
+        ) {
+          warnings.push({
+            line: lineNumber,
+            msg: '"' + value +
+              '" is valid. LinkedIn though requires conventional capitalization: "LinkedInBot". Matching is case-sensitive for this crawler identifier.'
+          });
+        }
       } else if (key === 'allow' || key === 'disallow') {
         if (!group) { warnings.push({ line: lineNumber, msg: key + ' before any valid user-agent ignored' }); return; }
         inRules = true;
@@ -321,7 +331,7 @@
   }
   function matchGroups(groups, ua) {
     for (const token of [ua.token, ...ua.fb]) {
-      const matches = groups.filter(group => group.agents.includes(token));
+      const matches = groups.filter(group => group.agents.includes(token.toLowerCase()));
       if (matches.length) return { gs: matches, via: token };
     }
     if (ua.w === 1) return { gs: [], via: null, note: 'Wildcard group does not apply to this crawler (documented)' };

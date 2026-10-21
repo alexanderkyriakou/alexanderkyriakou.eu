@@ -32,7 +32,7 @@ user-agent: mistralai-training
 user-agent: duckduckbot
 user-agent: duckassistbot
 user-agent: qwantbot
-user-agent: LinkedInBot #Case-sensitive mtf
+user-agent: LinkedInBot #Case-sensitive mf
 user-agent: slackbot
 user-agent: bravebot
 user-agent: msnbot-media

@@ -5,6 +5,8 @@
 .env.*
 *.local
 ak/article.html
+ak/crawler-ip-verifier.html
+assets/js/crawler-ip-verifier.js
 
 # Tooling
 .wrangler/
