@@ -2639,6 +2639,16 @@ var DatasetStore = class {
         "Cache-Control": "public, max-age=31536000, immutable"
       } });
     }
+    if (request.method === "POST" && url.pathname === "/internal/bootstrap") {
+      const command2 = await request.json();
+      if (command2.kind !== "bootstrap" || !Number.isFinite(command2.time) || Math.abs(Date.now() - command2.time) > 36e5) return json({ error: "refresh-not-allowed" }, 400);
+      const manifest = await this.storage.get("manifest");
+      const source = sources.find((source2) => {
+        const entry = manifest?.sources.find((entry2) => entry2.sourceId === source2.id);
+        return !entry || entry.current === null && entry.lastAttemptedRefresh === null;
+      });
+      return source ? this.refresh(source, command2) : new Response(null, { status: 204 });
+    }
     const refresh = /^\/internal\/refresh\/([a-z0-9-]+)$/.exec(url.pathname);
     if (request.method !== "POST" || !refresh || !sourceById.has(refresh[1])) return json({ error: "not-found" }, 404);
     const command = await request.json();
@@ -2663,6 +2673,12 @@ var DatasetStore = class {
         await tx.put("admin", control);
       } else if (command.kind === "scheduled") {
         if (scheduledSource(command.time)?.id !== source.id || Math.abs(now - command.time) > 36e5) return { status: 400 };
+      } else if (command.kind === "bootstrap") {
+        if (!Number.isFinite(command.time) || Math.abs(now - command.time) > 36e5) return { status: 400 };
+        if (entry.current !== null || entry.lastAttemptedRefresh !== null) return { status: 429 };
+        const lastBootstrap = await tx.get("bootstrap:lastAccepted");
+        if (lastBootstrap !== void 0 && now - lastBootstrap < 6e4) return { status: 429 };
+        await tx.put("bootstrap:lastAccepted", now);
       } else return { status: 400 };
       const lastAttempt = Date.parse(entry.lastAttemptedRefresh ?? "");
       if (Number.isFinite(lastAttempt) && now - lastAttempt < 36e5) return { status: 429 };
@@ -2762,6 +2778,16 @@ var index_default = {
     return new Response(request.method === "HEAD" ? null : response.body, { status: response.status, headers });
   },
   async scheduled(controller, env) {
+    if (env.BOOTSTRAP_DATASETS === "true") {
+      const response2 = await store(env).fetch("https://store/internal/bootstrap", {
+        method: "POST",
+        body: JSON.stringify({ kind: "bootstrap", time: controller.scheduledTime })
+      });
+      if (response2.status !== 204) {
+        if (!response2.ok && response2.status !== 429) throw new Error(`bootstrap-refresh-${response2.status}`);
+        return;
+      }
+    }
     const source = scheduledSource(controller.scheduledTime);
     if (!source) return;
     const response = await store(env).fetch(`https://store/internal/refresh/${source.id}`, {
