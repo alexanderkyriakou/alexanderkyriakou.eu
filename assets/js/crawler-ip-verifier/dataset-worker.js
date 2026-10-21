@@ -942,6 +942,17 @@ var source_registry_default = {
             "other-documented-automation"
           ],
           documentationUrl: "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers"
+        },
+        {
+          id: "google-cloudvertexbot",
+          name: "Google-CloudVertexBot",
+          httpTokens: [
+            "Google-CloudVertexBot"
+          ],
+          purposes: [
+            "user-triggered-fetching"
+          ],
+          documentationUrl: "https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers"
         }
       ],
       documentationUrls: [
@@ -2285,6 +2296,196 @@ var source_registry_default = {
         }
       },
       refreshIntervalHours: 168
+    },
+    {
+      id: "mistral-user",
+      provider: {
+        id: "mistral",
+        name: "Mistral"
+      },
+      scope: "crawler-specific",
+      category: "user-triggered-fetching",
+      purpose: "User-requested page retrieval in Mistral products; not automated crawling or model training.",
+      identities: [
+        {
+          id: "mistralai-user",
+          name: "MistralAI-User",
+          httpTokens: [
+            "MistralAI-User"
+          ],
+          purposes: [
+            "user-triggered-fetching"
+          ],
+          documentationUrl: "https://docs.mistral.ai/robots"
+        }
+      ],
+      documentationUrls: [
+        "https://docs.mistral.ai/robots"
+      ],
+      limitations: [
+        "Published range membership does not authenticate an individual request.",
+        "No negative verdicts are enabled."
+      ],
+      feedUrl: "https://mistral.ai/mistralai-user-ips.json",
+      sourceType: "json-cidr-prefixes",
+      feedSchema: "publisher-prefixes-v1",
+      requiresPublisherTimestamp: true,
+      addressFamilies: [
+        4
+      ],
+      verificationStatus: "included",
+      negativeVerification: {
+        allowed: false,
+        reason: "Publisher feed inclusion alone does not establish complete identity/family coverage."
+      },
+      audit: {
+        checkedAt: "2026-10-21T12:55:10.554Z",
+        httpStatus: 200,
+        contentType: "application/json",
+        fixturePath: "fixtures/mistral-user.json",
+        fixtureSha256: "6226c5829c7edb91995769a9f3f0a52b686b4a18cc5a8d6d92479d2908f793f6",
+        publisherTimestampRaw: "2025-02-19T12:00:00.000000",
+        rangeCounts: {
+          ipv4: 4,
+          ipv6: 0
+        },
+        bytes: 279
+      },
+      runtime: {
+        lastAttemptedRefresh: null,
+        lastSuccessfulRefresh: null,
+        publisherTimestampRaw: null,
+        lastKnownGoodVersion: null,
+        lastRefreshError: null,
+        rangeCounts: {
+          ipv4: 0,
+          ipv6: 0
+        }
+      },
+      refreshIntervalHours: 168
+    },
+    {
+      id: "mistral-index",
+      provider: {
+        id: "mistral",
+        name: "Mistral"
+      },
+      scope: "crawler-specific",
+      category: "ai-search",
+      purpose: "Automated web indexing for Mistral search; not model training.",
+      identities: [
+        {
+          id: "mistralai-index",
+          name: "MistralAI-Index",
+          httpTokens: [
+            "MistralAI-Index"
+          ],
+          purposes: [
+            "ai-search"
+          ],
+          documentationUrl: "https://docs.mistral.ai/robots"
+        }
+      ],
+      documentationUrls: [
+        "https://docs.mistral.ai/robots"
+      ],
+      limitations: [
+        "Published range membership does not authenticate an individual request.",
+        "No negative verdicts are enabled."
+      ],
+      feedUrl: "https://mistral.ai/mistralai-index-ips.json",
+      sourceType: "json-cidr-prefixes",
+      feedSchema: "publisher-prefixes-v1",
+      requiresPublisherTimestamp: true,
+      addressFamilies: [
+        4
+      ],
+      verificationStatus: "included",
+      negativeVerification: {
+        allowed: false,
+        reason: "Publisher feed inclusion alone does not establish complete identity/family coverage."
+      },
+      audit: {
+        checkedAt: "2026-10-21T12:55:10.554Z",
+        httpStatus: 200,
+        contentType: "application/json",
+        fixturePath: "fixtures/mistral-index.json",
+        fixtureSha256: "35bf7aede93ea6a24b12606cf0abb809d8fe9846b2e054e0174dc53f91921c20",
+        publisherTimestampRaw: "2026-04-19T12:00:00.000000",
+        rangeCounts: {
+          ipv4: 2,
+          ipv6: 0
+        },
+        bytes: 176
+      },
+      runtime: {
+        lastAttemptedRefresh: null,
+        lastSuccessfulRefresh: null,
+        publisherTimestampRaw: null,
+        lastKnownGoodVersion: null,
+        lastRefreshError: null,
+        rangeCounts: {
+          ipv4: 0,
+          ipv6: 0
+        }
+      },
+      refreshIntervalHours: 168
+    },
+    {
+      id: "kimi-shared",
+      provider: {
+        id: "kimi",
+        name: "Kimi / Moonshot AI"
+      },
+      scope: "provider-shared",
+      category: "shared-crawlers",
+      purpose: "Publisher-listed Kimi infrastructure; the feed does not distinguish crawler identities or purposes.",
+      identities: [],
+      documentationUrls: [
+        "https://www.kimi.ai/policies/kimibot.json"
+      ],
+      limitations: [
+        "Published range membership does not authenticate an individual request.",
+        "No negative verdicts are enabled.",
+        "Official JSON is available, but supporting per-identity documentation could not be verified; do not infer KimiBot, Kimi-SearchBot or Kimi-User from an IP match."
+      ],
+      feedUrl: "https://www.kimi.ai/policies/kimibot.json",
+      sourceType: "json-cidr-prefixes",
+      feedSchema: "publisher-prefixes-v1",
+      requiresPublisherTimestamp: true,
+      addressFamilies: [
+        4
+      ],
+      verificationStatus: "included",
+      negativeVerification: {
+        allowed: false,
+        reason: "Publisher feed inclusion alone does not establish complete identity/family coverage."
+      },
+      audit: {
+        checkedAt: "2026-10-21T12:55:10.554Z",
+        httpStatus: 200,
+        contentType: "application/json",
+        fixturePath: "fixtures/kimi-shared.json",
+        fixtureSha256: "cc2df677a3164de0b0eaa5c6fad21cac1ecb03a905743b3bf23db347f0b058c4",
+        publisherTimestampRaw: "2026-05-18T10:04:07Z",
+        rangeCounts: {
+          ipv4: 4,
+          ipv6: 0
+        },
+        bytes: 186
+      },
+      runtime: {
+        lastAttemptedRefresh: null,
+        lastSuccessfulRefresh: null,
+        publisherTimestampRaw: null,
+        lastKnownGoodVersion: null,
+        lastRefreshError: null,
+        rangeCounts: {
+          ipv4: 0,
+          ipv6: 0
+        }
+      },
+      refreshIntervalHours: 168
     }
   ],
   excludedHttpTokens: [
@@ -2604,6 +2805,10 @@ async function ingest(source, { fetcher = fetch, now = Date.now(), baseline } = 
 // worker/src/store.js
 var blank = (sourceId) => ({ sourceId, lastAttemptedRefresh: null, lastRefreshError: null, current: null, previous: null });
 var json = (data, status = 200) => Response.json(data, { status });
+var withSources = (manifest) => ({
+  ...manifest ?? { schemaVersion: 1, generatedAt: (/* @__PURE__ */ new Date(0)).toISOString() },
+  sources: sources.map((source) => manifest?.sources.find((entry) => entry.sourceId === source.id) ?? blank(source.id))
+});
 var WEEKLY_CRON = "0 0 * * MON";
 var weeklySlot = (time) => {
   if (!Number.isFinite(time)) return false;
@@ -2616,7 +2821,8 @@ var scheduledSource = (time) => {
   if (date.getUTCMinutes() !== 0) return null;
   if (date.getUTCHours() === 18) return sourceById.get("bing");
   const weekly = sources.filter((source) => source.id !== "bing");
-  return date.getUTCDay() === 1 ? weekly[date.getUTCHours()] ?? null : null;
+  const slot = date.getUTCHours() > 18 ? date.getUTCHours() - 1 : date.getUTCHours();
+  return date.getUTCDay() === 1 ? weekly[slot] ?? null : null;
 };
 var DatasetStore = class {
   constructor(state) {
@@ -2624,12 +2830,20 @@ var DatasetStore = class {
   }
   async fetch(request) {
     const url = new URL(request.url);
+    if (request.method === "POST" && url.pathname === "/internal/dns-budget") {
+      const now = Date.now(), minute = Math.floor(now / 6e4), day = Math.floor(now / 864e5);
+      const accepted = await this.storage.transaction(async (tx) => {
+        const previous = await tx.get("dns:budget") ?? {};
+        const count = previous.minute === minute ? previous.count : 0;
+        const daily = previous.day === day ? previous.daily : 0;
+        if (count >= 5 || daily >= 500) return false;
+        await tx.put("dns:budget", { minute, count: count + 1, day, daily: daily + 1 });
+        return true;
+      });
+      return new Response(null, { status: accepted ? 204 : 429 });
+    }
     if (request.method === "GET" && url.pathname === "/v1/manifest") {
-      const manifest = await this.storage.get("manifest") ?? {
-        schemaVersion: 1,
-        generatedAt: (/* @__PURE__ */ new Date(0)).toISOString(),
-        sources: sources.map((source) => blank(source.id))
-      };
+      const manifest = withSources(await this.storage.get("manifest"));
       const body = JSON.stringify(manifest);
       return new Response(body, { headers: {
         "Content-Type": "application/json",
@@ -2664,11 +2878,7 @@ var DatasetStore = class {
   async refresh(source, command) {
     const now = Date.now();
     const claim = await this.storage.transaction(async (tx) => {
-      const manifest = await tx.get("manifest") ?? {
-        schemaVersion: 1,
-        generatedAt: (/* @__PURE__ */ new Date(0)).toISOString(),
-        sources: sources.map((item) => blank(item.id))
-      };
+      const manifest = withSources(await tx.get("manifest"));
       const entry = manifest.sources.find((item) => item.sourceId === source.id);
       if (command.kind === "admin") {
         const control = await tx.get("admin") ?? { lastAccepted: 0, nonces: {} };
@@ -2724,6 +2934,659 @@ var DatasetStore = class {
   }
 };
 
+// data/iana/special-purpose.json
+var special_purpose_default = {
+  schemaVersion: 1,
+  observedOn: "2026-10-20",
+  sources: [
+    {
+      url: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      fixture: "ipv4-special.csv",
+      sha256: "cbc4b7653c8bc640ba1e8e5d4ebbf11e7c7a1d867e7f1593aad001d3f8632aac",
+      observedOn: "2026-10-20"
+    },
+    {
+      url: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      fixture: "ipv6-special.csv",
+      sha256: "bf56772aef97fbf9b4a27c98b8511f2bb1ba96da4b9ccc12ab203a2496faba66",
+      observedOn: "2026-10-20"
+    }
+  ],
+  ranges: [
+    {
+      cidr: "0.0.0.0/8",
+      name: '"This network"',
+      category: "this-network",
+      globallyReachable: false,
+      reference: "[RFC 791, Section 3.2]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "0.0.0.0/32",
+      name: '"This host on this network"',
+      category: "unspecified",
+      globallyReachable: false,
+      reference: "[RFC 1122, Section 3.2.1.3]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "10.0.0.0/8",
+      name: "Private-Use",
+      category: "private",
+      globallyReachable: false,
+      reference: "[RFC 1918]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "100.64.0.0/10",
+      name: "Shared Address Space",
+      category: "shared-address-space",
+      globallyReachable: false,
+      reference: "[RFC 6598]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "127.0.0.0/8",
+      name: "Loopback",
+      category: "loopback",
+      globallyReachable: false,
+      reference: "[RFC 1122, Section 3.2.1.3]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "169.254.0.0/16",
+      name: "Link Local",
+      category: "link-local",
+      globallyReachable: false,
+      reference: "[RFC 3927]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "172.16.0.0/12",
+      name: "Private-Use",
+      category: "private",
+      globallyReachable: false,
+      reference: "[RFC 1918]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.0.0/24",
+      name: "IETF Protocol Assignments",
+      category: "protocol-assignment",
+      globallyReachable: false,
+      reference: "[RFC 6890, Section 2.1]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.0.0/29",
+      name: "IPv4 Service Continuity Prefix",
+      category: "protocol-assignment",
+      globallyReachable: false,
+      reference: "[RFC 7335]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.0.8/32",
+      name: "IPv4 dummy address",
+      category: "protocol-assignment",
+      globallyReachable: false,
+      reference: "[RFC 7600]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.0.9/32",
+      name: "Port Control Protocol Anycast",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7723]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.0.10/32",
+      name: "Traversal Using Relays around NAT Anycast",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 8155]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.0.170/32",
+      name: "NAT64/DNS64 Discovery",
+      category: "protocol-assignment",
+      globallyReachable: false,
+      reference: "[RFC 8880]; [RFC 7050, Section 2.2]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.0.171/32",
+      name: "NAT64/DNS64 Discovery",
+      category: "protocol-assignment",
+      globallyReachable: false,
+      reference: "[RFC 8880]; [RFC 7050, Section 2.2]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.0.2.0/24",
+      name: "Documentation (TEST-NET-1)",
+      category: "documentation",
+      globallyReachable: false,
+      reference: "[RFC 5737]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.31.196.0/24",
+      name: "AS112-v4",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7535]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.52.193.0/24",
+      name: "AMT",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7450]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.88.99.0/24",
+      name: "Deprecated (6to4 Relay Anycast)",
+      category: "protocol-assignment",
+      globallyReachable: null,
+      reference: "[RFC 7526]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "2015-03"
+    },
+    {
+      cidr: "192.88.99.2/32",
+      name: "6a44-relay anycast address",
+      category: "protocol-assignment",
+      globallyReachable: false,
+      reference: "[RFC 6751]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.168.0.0/16",
+      name: "Private-Use",
+      category: "private",
+      globallyReachable: false,
+      reference: "[RFC 1918]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "192.175.48.0/24",
+      name: "Direct Delegation AS112 Service",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7534]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "198.18.0.0/15",
+      name: "Benchmarking",
+      category: "benchmarking",
+      globallyReachable: false,
+      reference: "[RFC 2544]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "198.51.100.0/24",
+      name: "Documentation (TEST-NET-2)",
+      category: "documentation",
+      globallyReachable: false,
+      reference: "[RFC 5737]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "203.0.113.0/24",
+      name: "Documentation (TEST-NET-3)",
+      category: "documentation",
+      globallyReachable: false,
+      reference: "[RFC 5737]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "240.0.0.0/4",
+      name: "Reserved",
+      category: "reserved",
+      globallyReachable: false,
+      reference: "[RFC 1112, Section 4]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "255.255.255.255/32",
+      name: "Limited Broadcast",
+      category: "limited-broadcast",
+      globallyReachable: false,
+      reference: "[RFC 8190]; [RFC 919, Section 7]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv4-special-registry/iana-ipv4-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "::1/128",
+      name: "Loopback Address",
+      category: "loopback",
+      globallyReachable: false,
+      reference: "[RFC 4291]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "::/128",
+      name: "Unspecified Address",
+      category: "unspecified",
+      globallyReachable: false,
+      reference: "[RFC 4291]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "::ffff:0:0/96",
+      name: "IPv4-mapped Address",
+      category: "ipv4-mapped",
+      globallyReachable: false,
+      reference: "[RFC 4291]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "64:ff9b::/96",
+      name: "IPv4-IPv6 Translat.",
+      category: "translation",
+      globallyReachable: true,
+      reference: "[RFC 6052]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "64:ff9b:1::/48",
+      name: "IPv4-IPv6 Translat.",
+      category: "translation-local",
+      globallyReachable: false,
+      reference: "[RFC 8215]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "100::/64",
+      name: "Discard-Only Address Block",
+      category: "discard-only",
+      globallyReachable: false,
+      reference: "[RFC 6666]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "100:0:0:1::/64",
+      name: "Dummy IPv6 Prefix",
+      category: "dummy-prefix",
+      globallyReachable: false,
+      reference: "[RFC 9780]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001::/23",
+      name: "IETF Protocol Assignments",
+      category: "protocol-assignment",
+      globallyReachable: false,
+      reference: "[RFC 2928]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001::/32",
+      name: "TEREDO",
+      category: "teredo",
+      globallyReachable: null,
+      reference: "[RFC 4380]; [RFC 8190]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:1::1/128",
+      name: "Port Control Protocol Anycast",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7723]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:1::2/128",
+      name: "Traversal Using Relays around NAT Anycast",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 8155]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:1::3/128",
+      name: "DNS-SD Service Registration Protocol Anycast",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 9665]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:2::/48",
+      name: "Benchmarking",
+      category: "benchmarking",
+      globallyReachable: false,
+      reference: "[RFC 5180]; [RFC Errata 1752]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:3::/32",
+      name: "AMT",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7450]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:4:112::/48",
+      name: "AS112-v6",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7535]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:10::/28",
+      name: "Deprecated (previously ORCHID)",
+      category: "protocol-assignment",
+      globallyReachable: null,
+      reference: "[RFC 4843]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "2014-03"
+    },
+    {
+      cidr: "2001:20::/28",
+      name: "ORCHIDv2",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7343]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:30::/28",
+      name: "Drone Remote ID Protocol Entity Tags (DETs) Prefix",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 9374]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2001:db8::/32",
+      name: "Documentation",
+      category: "documentation",
+      globallyReachable: false,
+      reference: "[RFC 3849]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2002::/16",
+      name: "6to4",
+      category: "six-to-four",
+      globallyReachable: null,
+      reference: "[RFC 3056]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "2620:4f:8000::/48",
+      name: "Direct Delegation AS112 Service",
+      category: "global-special-purpose",
+      globallyReachable: true,
+      reference: "[RFC 7534]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "3fff::/20",
+      name: "Documentation",
+      category: "documentation",
+      globallyReachable: false,
+      reference: "[RFC 9637]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "5f00::/16",
+      name: "Segment Routing (SRv6) SIDs",
+      category: "segment-routing",
+      globallyReachable: false,
+      reference: "[RFC 9602]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "fc00::/7",
+      name: "Unique-Local",
+      category: "unique-local",
+      globallyReachable: false,
+      reference: "[RFC 4193]; [RFC 8190]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "fe80::/10",
+      name: "Link-Local Unicast",
+      category: "link-local",
+      globallyReachable: false,
+      reference: "[RFC 4291]",
+      registryUrl: "https://www.iana.org/assignments/iana-ipv6-special-registry/iana-ipv6-special-registry-1.csv",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "224.0.0.0/4",
+      name: "IPv4 multicast",
+      category: "multicast",
+      globallyReachable: false,
+      reference: "https://www.rfc-editor.org/rfc/rfc5771",
+      registryUrl: "https://www.rfc-editor.org/rfc/rfc5771",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "ff00::/8",
+      name: "IPv6 multicast",
+      category: "multicast",
+      globallyReachable: false,
+      reference: "https://www.rfc-editor.org/rfc/rfc4291",
+      registryUrl: "https://www.rfc-editor.org/rfc/rfc4291",
+      terminationDate: "N/A"
+    },
+    {
+      cidr: "::/96",
+      name: "Deprecated IPv4-compatible representation",
+      category: "ipv4-compatible",
+      globallyReachable: false,
+      reference: "https://www.rfc-editor.org/rfc/rfc4291#section-2.5.5.1",
+      registryUrl: "https://www.rfc-editor.org/rfc/rfc4291#section-2.5.5.1",
+      terminationDate: "N/A"
+    }
+  ]
+};
+
+// web/src/ip/prefix-index.js
+var PrefixIndex = class {
+  #families = /* @__PURE__ */ new Map([[4, /* @__PURE__ */ new Map()], [6, /* @__PURE__ */ new Map()]]);
+  #lengths;
+  #size = 0;
+  constructor(entries = []) {
+    if (!Array.isArray(entries)) throw new TypeError("Range entries must be an array.");
+    const seen = /* @__PURE__ */ new Set();
+    for (const entry of entries) {
+      if (!entry || typeof entry.sourceId !== "string" || !entry.sourceId || typeof entry.cidr !== "string") {
+        throw new TypeError("Every range entry needs a stable sourceId and a CIDR string.");
+      }
+      const cidr = parseCIDR(entry.cidr);
+      const dedupKey = JSON.stringify([entry.sourceId, cidr.canonical]);
+      if (seen.has(dedupKey)) continue;
+      seen.add(dedupKey);
+      const record = Object.freeze({
+        ...structuredClone(entry),
+        cidr: cidr.canonical,
+        publishedCidr: entry.cidr
+      });
+      const prefixes = this.#families.get(cidr.family);
+      if (!prefixes.has(cidr.prefixLength)) prefixes.set(cidr.prefixLength, /* @__PURE__ */ new Map());
+      const networks2 = prefixes.get(cidr.prefixLength);
+      if (!networks2.has(cidr.network)) networks2.set(cidr.network, []);
+      networks2.get(cidr.network).push(record);
+      this.#size++;
+    }
+    this.#lengths = new Map([...this.#families].map(([family, prefixes]) => [family, [...prefixes.keys()].sort((a, b) => b - a)]));
+  }
+  get size() {
+    return this.#size;
+  }
+  get prefixLengths() {
+    return { ipv4: [...this.#lengths.get(4)], ipv6: [...this.#lengths.get(6)] };
+  }
+  lookup(input, { includeMappedIPv4 = false } = {}) {
+    const address = parseIP(input);
+    const matches = [];
+    const find = (ip, matchedVia) => {
+      for (const prefix of this.#lengths.get(ip.family)) {
+        const shift = BigInt(ip.bits - prefix);
+        const network = ip.value >> shift << shift;
+        const records = this.#families.get(ip.family).get(prefix).get(network);
+        if (records) for (const record of records) {
+          matches.push({ ...structuredClone(record), matchedVia });
+        }
+      }
+    };
+    find(address, "native");
+    if (includeMappedIPv4 && address.isIPv4Mapped) find(parseIP(address.embeddedIPv4), "ipv4-mapped");
+    return matches;
+  }
+};
+
+// web/src/ip/special-use.js
+var index = new PrefixIndex(special_purpose_default.ranges.map((range) => ({ ...range, sourceId: "iana-special-purpose" })));
+function classifyIP(input) {
+  const address = parseIP(input);
+  const ranges = index.lookup(address);
+  const selected = ranges[0];
+  if (address.isIPv4Mapped) {
+    const embedded = classifyIP(address.embeddedIPv4);
+    return {
+      kind: "ipv4-mapped",
+      globallyReachable: false,
+      matchingAllowed: embedded.matchingAllowed,
+      ranges,
+      embeddedIPv4: { address: address.embeddedIPv4, classification: embedded },
+      explanation: "IPv4-mapped IPv6 representation; IPv4 matching is explicitly projected to the embedded address."
+    };
+  }
+  return {
+    kind: selected?.category ?? "public-candidate",
+    globallyReachable: selected ? selected.globallyReachable : null,
+    matchingAllowed: selected ? selected.globallyReachable === true : true,
+    ranges,
+    explanation: selected ? `${selected.name}; this is special-purpose address space, not an ordinary public address.` : "No special-purpose assignment in the bundled registry. This does not prove routability, ownership, or human activity."
+  };
+}
+
+// worker/src/dns.js
+function publicAddress(value) {
+  const address = parseIP(value);
+  if (address.isIPv4Mapped || !classifyIP(address).matchingAllowed) throw new Error("dns-public-ip-required");
+  return address;
+}
+var reverseName = (address) => address.family === 4 ? address.normalized.split(".").reverse().join(".") + ".in-addr.arpa" : address.value.toString(16).padStart(32, "0").split("").reverse().join(".") + ".ip6.arpa";
+var hostname = (value) => {
+  if (typeof value !== "string") return null;
+  const name = value.toLowerCase().replace(/\.$/, "");
+  return name.length <= 253 && name.includes(".") && name.split(".").every((label) => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label)) ? name : null;
+};
+async function checkDNS(ip, { fetcher = fetch, now = Date.now() } = {}) {
+  const address = publicAddress(ip);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 1e4);
+  const query = async (name, type) => {
+    const url = new URL("https://cloudflare-dns.com/dns-query");
+    url.searchParams.set("name", name);
+    url.searchParams.set("type", type);
+    const response = await fetcher(url, {
+      headers: { Accept: "application/dns-json" },
+      redirect: "manual",
+      signal: controller.signal
+    });
+    if (!response.ok) {
+      await response.body?.cancel();
+      throw new Error("dns-resolver-unavailable");
+    }
+    const payload = JSON.parse(await boundedText(response, 16384));
+    if (!payload || ![0, 3].includes(payload.Status) || payload.TC === true) throw new Error("dns-resolver-error");
+    return payload.Answer ?? [];
+  };
+  try {
+    const names = [...new Set((await query(reverseName(address), "PTR")).filter((record) => record.type === 12).map((record) => hostname(record.data)).filter(Boolean))];
+    const hosts = [];
+    for (const name of names.slice(0, 3)) {
+      const replies = (await Promise.all([query(name, "A"), query(name, "AAAA")])).flat();
+      const addresses2 = [...new Set(replies.filter((record) => [1, 28].includes(record.type)).flatMap((record) => {
+        try {
+          return [parseIP(record.data).normalized];
+        } catch {
+          return [];
+        }
+      }))];
+      hosts.push({ hostname: name, addresses: addresses2, forwardConfirmed: addresses2.includes(address.normalized) });
+    }
+    return {
+      ip: address.normalized,
+      checkedAt: new Date(now).toISOString(),
+      hosts,
+      status: !names.length ? "no-ptr" : hosts.some((host) => host.forwardConfirmed) ? "forward-confirmed" : "not-confirmed",
+      uncheckedHosts: Math.max(0, names.length - 3),
+      limitation: "DNS is current supplementary evidence. A forward-confirmed hostname does not authenticate a crawler, prove benign traffic, or change the IP-range assessment."
+    };
+  } catch (error2) {
+    if (controller.signal.aborted) throw new Error("dns-timeout");
+    if (/^dns-[a-z-]+$/.test(error2.message)) throw error2;
+    throw new Error("dns-resolver-error");
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 // worker/src/index.js
 var error = (message, status) => Response.json({ error: message }, { status, headers: { "Cache-Control": "no-store" } });
 var store = (env) => env.DATASET_STORE.get(env.DATASET_STORE.idFromName("dataset-v1"));
@@ -2754,6 +3617,28 @@ var index_default = {
           response = new Response(null, { status: 304, headers: response.headers });
         }
       }
+    } else if (url.pathname === "/v1/dns/check") {
+      if (!origin || !allowedOrigins.has(origin)) response = error("request-not-allowed", 403);
+      else if (request.method === "OPTIONS") response = new Response(null, { status: 204, headers: {
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Max-Age": "600"
+      } });
+      else if (request.method !== "POST") response = error("method-not-allowed", 405);
+      else {
+        try {
+          if (request.headers.get("content-type")?.split(";")[0].trim() !== "application/json") throw new Error("dns-invalid-input");
+          const body = JSON.parse(await boundedText(request, 256));
+          if (!body || Object.keys(body).length !== 1 || !Object.hasOwn(body, "ip")) throw new Error("dns-invalid-input");
+          const address = publicAddress(body.ip);
+          const claim = await store(env).fetch("https://store/internal/dns-budget", { method: "POST" });
+          if (!claim.ok) response = error("dns-service-rate-limit", 429);
+          else response = Response.json(await checkDNS(address.normalized));
+        } catch (failure) {
+          const code = /^dns-[a-z-]+$/.test(failure.message) ? failure.message : "dns-invalid-input";
+          response = error(code, ["dns-invalid-input", "dns-public-ip-required"].includes(code) ? 400 : 502);
+        }
+      }
     } else {
       const match = /^\/admin\/refresh\/([a-z0-9-]+)$/.exec(url.pathname);
       if (!match || !sourceById.has(match[1])) response = error("not-found", 404);
@@ -2779,7 +3664,7 @@ var index_default = {
     headers.set("X-Content-Type-Options", "nosniff");
     headers.set("Referrer-Policy", "no-referrer");
     if (!publicPath(url.pathname) || !response.ok && response.status !== 304) headers.set("Cache-Control", "no-store");
-    if (publicPath(url.pathname) && (!origin || allowedOrigins.has(origin))) {
+    if ((publicPath(url.pathname) || url.pathname === "/v1/dns/check") && (!origin || allowedOrigins.has(origin))) {
       headers.set("Access-Control-Allow-Origin", origin || env.FRONTEND_ORIGIN);
       headers.set("Access-Control-Expose-Headers", "ETag");
       headers.set("Vary", "Origin");

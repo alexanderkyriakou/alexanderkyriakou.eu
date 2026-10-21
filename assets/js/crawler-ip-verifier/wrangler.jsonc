@@ -4,12 +4,13 @@
   "compatibility_date": "2026-10-20",
   "workers_dev": true,
   "vars": {
-    "BOOTSTRAP_DATASETS": "false",
     "FRONTEND_ORIGIN": "https://alexanderkyriakou.eu",
     "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008"
   },
   "triggers": {
-    "crons": ["0 0 * * MON"]
+    "crons": [
+      "0 0 * * MON"
+    ]
   },
   "durable_objects": {
     "bindings": [
