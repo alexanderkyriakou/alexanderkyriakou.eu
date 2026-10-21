@@ -4,6 +4,7 @@
   "compatibility_date": "2026-10-20",
   "workers_dev": true,
   "vars": {
+    "BOOTSTRAP_DATASETS": "true",
     "FRONTEND_ORIGIN": "https://alexanderkyriakou.eu",
     "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008"
   },
