@@ -1777,17 +1777,17 @@ var source_registry_default = {
         reason: "Completeness, identity/family scope, freshness and historical applicability must be established before enabling negative verdicts; inclusion alone is insufficient."
       },
       audit: {
-        checkedAt: "2026-10-20T19:11:42.683706Z",
+        checkedAt: "2026-10-21T11:27:03.593Z",
         httpStatus: 200,
         contentType: "application/json",
         fixturePath: "fixtures/anthropic-shared.json",
-        fixtureSha256: "3390002342201626caf855458e05709ad8d3bd580fa5fa0a074c7309517a5103",
-        publisherTimestampRaw: "2026-10-07T00:00:00Z",
+        fixtureSha256: "c960bb55504c3c478d0335bc7153e9ca871c26388a69e403cbad121a5bb5c5dd",
+        publisherTimestampRaw: "2026-10-20T00:00:00Z",
         rangeCounts: {
-          ipv4: 38,
+          ipv4: 14,
           ipv6: 0
         },
-        bytes: 1667
+        bytes: 653
       },
       runtime: {
         lastAttemptedRefresh: null,
@@ -2604,6 +2604,13 @@ async function ingest(source, { fetcher = fetch, now = Date.now(), baseline } = 
 // worker/src/store.js
 var blank = (sourceId) => ({ sourceId, lastAttemptedRefresh: null, lastRefreshError: null, current: null, previous: null });
 var json = (data, status = 200) => Response.json(data, { status });
+var WEEKLY_CRON = "0 0 * * MON";
+var weeklySlot = (time) => {
+  if (!Number.isFinite(time)) return false;
+  const date = new Date(time);
+  return date.getUTCDay() === 1 && date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
+};
+var bootstrapEligible = (entry, source) => !entry || entry.current === null && (entry.lastAttemptedRefresh === null || entry.lastRefreshError === "implausible-range-change" && Date.parse(source.audit.checkedAt) > Date.parse(entry.lastAttemptedRefresh));
 var scheduledSource = (time) => {
   const date = new Date(time);
   if (date.getUTCMinutes() !== 0) return null;
@@ -2645,7 +2652,7 @@ var DatasetStore = class {
       const manifest = await this.storage.get("manifest");
       const source = sources.find((source2) => {
         const entry = manifest?.sources.find((entry2) => entry2.sourceId === source2.id);
-        return !entry || entry.current === null && entry.lastAttemptedRefresh === null;
+        return bootstrapEligible(entry, source2);
       });
       return source ? this.refresh(source, command2) : new Response(null, { status: 204 });
     }
@@ -2673,9 +2680,11 @@ var DatasetStore = class {
         await tx.put("admin", control);
       } else if (command.kind === "scheduled") {
         if (scheduledSource(command.time)?.id !== source.id || Math.abs(now - command.time) > 36e5) return { status: 400 };
+      } else if (command.kind === "weekly") {
+        if (!weeklySlot(command.time) || Math.abs(now - command.time) > 36e5) return { status: 400 };
       } else if (command.kind === "bootstrap") {
         if (!Number.isFinite(command.time) || Math.abs(now - command.time) > 36e5) return { status: 400 };
-        if (entry.current !== null || entry.lastAttemptedRefresh !== null) return { status: 429 };
+        if (!bootstrapEligible(entry, source)) return { status: 429 };
         const lastBootstrap = await tx.get("bootstrap:lastAccepted");
         if (lastBootstrap !== void 0 && now - lastBootstrap < 6e4) return { status: 429 };
         await tx.put("bootstrap:lastAccepted", now);
@@ -2787,6 +2796,24 @@ var index_default = {
         if (!response2.ok && response2.status !== 429) throw new Error(`bootstrap-refresh-${response2.status}`);
         return;
       }
+    }
+    if (controller.cron === WEEKLY_CRON) {
+      if (!weeklySlot(controller.scheduledTime)) throw new Error("weekly-schedule-invalid");
+      let failed = false;
+      for (const source2 of sources) {
+        try {
+          const response2 = await store(env).fetch(`https://store/internal/refresh/${source2.id}`, {
+            method: "POST",
+            body: JSON.stringify({ kind: "weekly", time: controller.scheduledTime })
+          });
+          if (!response2.ok && response2.status !== 429) failed = true;
+          await response2.body?.cancel();
+        } catch {
+          failed = true;
+        }
+      }
+      if (failed) throw new Error("weekly-refresh-failed");
+      return;
     }
     const source = scheduledSource(controller.scheduledTime);
     if (!source) return;
