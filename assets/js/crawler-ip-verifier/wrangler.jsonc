@@ -6,7 +6,7 @@
   "vars": {
     "FRONTEND_ORIGIN": "https://alexanderkyriakou.eu",
     "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008",
-    "MANUAL_REFRESH_ID": "refresh-20261022-1"
+    "MANUAL_REFRESH_ID": "refresh-20261022-2"
   },
   "triggers": {
     "crons": [
