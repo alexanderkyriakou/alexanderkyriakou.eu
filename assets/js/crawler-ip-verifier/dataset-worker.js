@@ -3571,6 +3571,9 @@ var withSources = (manifest) => ({
   ...manifest ?? { schemaVersion: 1, generatedAt: (/* @__PURE__ */ new Date(0)).toISOString() },
   sources: sources.map((source) => manifest?.sources.find((entry) => entry.sourceId === source.id) ?? blank(source.id))
 });
+var MANUAL_CRON = "* * * * *";
+var validManualId = (value) => typeof value === "string" && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$/.test(value);
+var manualCommand = (command) => command.kind === "manual" && validManualId(command.runId) && Number.isFinite(command.time) && Math.abs(Date.now() - command.time) <= 36e5;
 var WEEKLY_CRON = "0 0 * * MON";
 var weeklySlot = (time) => {
   if (!Number.isFinite(time)) return false;
@@ -3622,6 +3625,20 @@ var DatasetStore = class {
         "Cache-Control": "public, max-age=31536000, immutable"
       } });
     }
+    if (request.method === "POST" && url.pathname === "/internal/manual-refresh") {
+      const command2 = await request.json();
+      if (!manualCommand(command2)) return json({ error: "refresh-not-allowed" }, 400);
+      const control = await this.storage.get("manual:run");
+      const attempted = control?.id === command2.runId ? control.attempted : [];
+      const remaining = sources.filter((source2) => !attempted.includes(source2.id));
+      if (!remaining.length) return new Response(null, { status: 204 });
+      const manifest = withSources(await this.storage.get("manifest"));
+      const source = remaining.find((source2) => {
+        const last = Date.parse(manifest.sources.find((entry) => entry.sourceId === source2.id).lastAttemptedRefresh ?? "");
+        return !Number.isFinite(last) || Date.now() - last >= 36e5;
+      });
+      return source ? this.refresh(source, command2) : json({ error: "source-cooldown" }, 429);
+    }
     if (request.method === "POST" && url.pathname === "/internal/bootstrap") {
       const command2 = await request.json();
       if (command2.kind !== "bootstrap" || !Number.isFinite(command2.time) || Math.abs(Date.now() - command2.time) > 36e5) return json({ error: "refresh-not-allowed" }, 400);
@@ -3642,6 +3659,7 @@ var DatasetStore = class {
     const claim = await this.storage.transaction(async (tx) => {
       const manifest = withSources(await tx.get("manifest"));
       const entry = manifest.sources.find((item) => item.sourceId === source.id);
+      let manual;
       if (command.kind === "admin") {
         const control = await tx.get("admin") ?? { lastAccepted: 0, nonces: {} };
         control.nonces = Object.fromEntries(Object.entries(control.nonces).filter(([, expiry]) => expiry >= now));
@@ -3650,6 +3668,11 @@ var DatasetStore = class {
         control.lastAccepted = now;
         control.nonces[command.nonce] = command.timestamp + 3e5;
         await tx.put("admin", control);
+      } else if (command.kind === "manual") {
+        if (!manualCommand(command)) return { status: 400 };
+        const previous = await tx.get("manual:run");
+        manual = previous?.id === command.runId ? previous : { id: command.runId, attempted: [], lastAccepted: previous?.lastAccepted ?? null };
+        if (manual.attempted.includes(source.id) || manual.lastAccepted !== null && now - manual.lastAccepted < 6e4) return { status: 429 };
       } else if (command.kind === "scheduled") {
         if (scheduledSource(command.time)?.id !== source.id || Math.abs(now - command.time) > 36e5) return { status: 400 };
       } else if (command.kind === "weekly") {
@@ -3663,6 +3686,11 @@ var DatasetStore = class {
       } else return { status: 400 };
       const lastAttempt = Date.parse(entry.lastAttemptedRefresh ?? "");
       if (Number.isFinite(lastAttempt) && now - lastAttempt < 36e5) return { status: 429 };
+      if (manual) {
+        manual.attempted.push(source.id);
+        manual.lastAccepted = now;
+        await tx.put("manual:run", manual);
+      }
       const attemptedAt = new Date(now).toISOString();
       entry.lastAttemptedRefresh = attemptedAt;
       entry.lastRefreshError = "refresh-in-progress";
@@ -3782,6 +3810,16 @@ var index_default = {
     return new Response(request.method === "HEAD" ? null : response.body, { status: response.status, headers });
   },
   async scheduled(controller, env) {
+    if (controller.cron === MANUAL_CRON && env.MANUAL_REFRESH_ID) {
+      if (!validManualId(env.MANUAL_REFRESH_ID)) throw new Error("manual-refresh-id-invalid");
+      const response2 = await store(env).fetch("https://store/internal/manual-refresh", {
+        method: "POST",
+        body: JSON.stringify({ kind: "manual", runId: env.MANUAL_REFRESH_ID, time: controller.scheduledTime })
+      });
+      if (!response2.ok && response2.status !== 429) throw new Error(`manual-refresh-${response2.status}`);
+      await response2.body?.cancel();
+      return;
+    }
     if (env.BOOTSTRAP_DATASETS === "true") {
       const response2 = await store(env).fetch("https://store/internal/bootstrap", {
         method: "POST",
@@ -3792,6 +3830,7 @@ var index_default = {
         return;
       }
     }
+    if (controller.cron === MANUAL_CRON) return;
     if (controller.cron === WEEKLY_CRON) {
       if (!weeklySlot(controller.scheduledTime)) throw new Error("weekly-schedule-invalid");
       let failed = false;

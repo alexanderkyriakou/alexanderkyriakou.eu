@@ -5,11 +5,12 @@
   "workers_dev": true,
   "vars": {
     "FRONTEND_ORIGIN": "https://alexanderkyriakou.eu",
-    "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008"
+    "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008",
+    "MANUAL_REFRESH_ID": "refresh-20261022-1"
   },
   "triggers": {
     "crons": [
-      "* * * * *" //"0 0 * * MON"
+      "0 0 * * MON"
     ]
   },
   "durable_objects": {
