@@ -9,7 +9,7 @@
   },
   "triggers": {
     "crons": [
-      "0 0 * * MON"
+      "* * * * *" //"0 0 * * MON"
     ]
   },
   "durable_objects": {
