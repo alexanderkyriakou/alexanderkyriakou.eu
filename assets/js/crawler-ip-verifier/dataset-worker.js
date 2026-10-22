@@ -3523,6 +3523,30 @@ function classifyIP(input) {
   };
 }
 
+// worker/src/dns-providers.js
+var google = "https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests";
+var DNS_PROVIDERS = Object.freeze([
+  { id: "google", name: "Google", suffix: "googlebot.com", scope: "Common crawler infrastructure", documentationUrl: google },
+  { id: "google", name: "Google", suffix: "google.com", scope: "Google crawler/fetcher infrastructure; subtype unresolved", documentationUrl: google },
+  { id: "google", name: "Google", suffix: "googleusercontent.com", scope: "Google-hosted infrastructure; may be customer-controlled fetching", documentationUrl: google },
+  { id: "microsoft", name: "Microsoft Bing", suffix: "search.msn.com", scope: "Bing crawler infrastructure", documentationUrl: "https://www.bing.com/webmasters/help/how-to-verify-bingbot-3905dc26" },
+  { id: "apple", name: "Apple", suffix: "applebot.apple.com", scope: "Applebot infrastructure; subtype unresolved", documentationUrl: "https://support.apple.com/en-us/119829" },
+  ...["yandex.ru", "yandex.net", "yandex.com"].map((suffix) => ({
+    id: "yandex",
+    name: "Yandex",
+    suffix,
+    scope: "Yandex robot infrastructure; subtype unresolved",
+    documentationUrl: "https://yandex.com/support/webmaster/en/robot-workings/check-yandex-robots"
+  }))
+]);
+function dnsProvider(host, forwardConfirmed) {
+  if (!forwardConfirmed || typeof host !== "string") return null;
+  const name = host.toLowerCase().replace(/\.$/, "");
+  if (name.length > 253 || !name.split(".").every((label) => /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label))) return null;
+  const rule = DNS_PROVIDERS.find((provider) => name.endsWith(`.${provider.suffix}`));
+  return rule ? { ...rule } : null;
+}
+
 // worker/src/dns.js
 function publicAddress(value) {
   const address = parseIP(value);
@@ -3568,15 +3592,17 @@ async function checkDNS(ip, { fetcher = fetch, now = Date.now() } = {}) {
           return [];
         }
       }))];
-      hosts.push({ hostname: name, addresses: addresses2, forwardConfirmed: addresses2.includes(address.normalized) });
+      const forwardConfirmed = addresses2.includes(address.normalized);
+      hosts.push({ hostname: name, addresses: addresses2, forwardConfirmed, provider: dnsProvider(name, forwardConfirmed) });
     }
     return {
       ip: address.normalized,
       checkedAt: new Date(now).toISOString(),
       hosts,
+      providers: [...new Map(hosts.filter((host) => host.provider).map((host) => [host.provider.id, host.provider])).values()],
       status: !names.length ? "no-ptr" : hosts.some((host) => host.forwardConfirmed) ? "forward-confirmed" : "not-confirmed",
       uncheckedHosts: Math.max(0, names.length - 3),
-      limitation: "DNS is current supplementary evidence. A forward-confirmed hostname does not authenticate a crawler, prove benign traffic, or change the IP-range assessment."
+      limitation: "DNS is current supplementary evidence. Provider attribution requires a documented domain suffix and forward confirmation. It does not authenticate an individual request, prove benign traffic, establish the claimed crawler subtype, or change the published IP-range assessment."
     };
   } catch (error2) {
     if (controller.signal.aborted) throw new Error("dns-timeout");
