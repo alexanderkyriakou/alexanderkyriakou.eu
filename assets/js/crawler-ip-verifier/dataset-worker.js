@@ -2712,228 +2712,6 @@ async function authenticate(request, secret, now = Date.now()) {
   return valid ? { nonce, timestamp: Number(timestamp) } : null;
 }
 
-// worker/src/ingest.js
-function normalizePublisher(payload, source) {
-  if (!payload || typeof payload !== "object" || Array.isArray(payload) || Object.keys(payload).some((key) => !["prefixes", "creationTime", "synctoken", "notes"].includes(key)) || !Array.isArray(payload.prefixes) || !payload.prefixes.length || payload.prefixes.length > MAX_PREFIXES) {
-    throw new Error("publisher-schema");
-  }
-  for (const name of ["creationTime", "synctoken", "notes"]) {
-    if (Object.hasOwn(payload, name) && (typeof payload[name] !== "string" || !payload[name].length || payload[name].length > (name === "notes" ? 8192 : 256))) throw new Error("publisher-schema");
-  }
-  if (source.requiresPublisherTimestamp && !payload.creationTime) throw new Error("publisher-timestamp-missing");
-  const unique = /* @__PURE__ */ new Map();
-  const rangeCounts = { ipv4: 0, ipv6: 0 };
-  for (const row of payload.prefixes) {
-    if (!row || typeof row !== "object" || Array.isArray(row) || Object.keys(row).length !== 1) {
-      throw new Error("publisher-schema");
-    }
-    const key = Object.keys(row)[0];
-    if (!["ipv4Prefix", "ipv6Prefix"].includes(key)) throw new Error("publisher-schema");
-    let parsed;
-    try {
-      parsed = parseCIDR(row[key]);
-    } catch {
-      throw new Error("publisher-cidr");
-    }
-    if (parsed.family !== (key === "ipv4Prefix" ? 4 : 6)) throw new Error("publisher-family");
-    if (!unique.has(parsed.canonical)) {
-      unique.set(parsed.canonical, row[key]);
-      rangeCounts[`ipv${parsed.family}`]++;
-    }
-  }
-  return { prefixes: [...unique.values()], rangeCounts, publisherTimestampRaw: payload.creationTime ?? null };
-}
-function checkChange(next, baseline) {
-  const total = (counts) => counts.ipv4 + counts.ipv6;
-  const ratio = total(next) / total(baseline);
-  if (ratio < 0.5 || ratio > 2 || ["ipv4", "ipv6"].some((family) => baseline[family] > 0 && next[family] === 0)) {
-    throw new Error("implausible-range-change");
-  }
-}
-async function ingest(source, { fetcher = fetch, now = Date.now(), baseline } = {}) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 15e3);
-  try {
-    const response = await fetcher(source.feedUrl, {
-      redirect: "manual",
-      signal: controller.signal,
-      headers: { Accept: "application/json", "User-Agent": "Crawler-IP-Verifier-Dataset/1.0" }
-    });
-    if (response.status !== 200) {
-      await response.body?.cancel();
-      throw new Error("publisher-http");
-    }
-    const mime = response.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
-    if (mime !== "application/json" && !(source.id === "openai-chatgpt-user" && mime === "application/octet-stream")) {
-      await response.body?.cancel();
-      throw new Error("publisher-content-type");
-    }
-    const text = await boundedText(response);
-    let payload;
-    try {
-      payload = JSON.parse(text);
-    } catch {
-      throw new Error("publisher-json");
-    }
-    const normalized = normalizePublisher(payload, source);
-    checkChange(normalized.rangeCounts, baseline ?? source.audit.rangeCounts);
-    const snapshot = {
-      schemaVersion: 1,
-      sourceId: source.id,
-      retrievedAt: new Date(now).toISOString(),
-      publisherTimestampRaw: normalized.publisherTimestampRaw,
-      prefixes: normalized.prefixes
-    };
-    const body = JSON.stringify(snapshot);
-    if (byteLength(body) > MAX_BYTES) throw new Error("snapshot-too-large");
-    const version = await sha256(body);
-    return { body, descriptor: {
-      version,
-      bytes: byteLength(body),
-      retrievedAt: snapshot.retrievedAt,
-      rangeCounts: normalized.rangeCounts
-    } };
-  } catch (error2) {
-    if (controller.signal.aborted) throw new Error("publisher-timeout");
-    if (/^[a-z][a-z-]{1,79}$/.test(error2.message)) throw error2;
-    throw new Error("publisher-unavailable");
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-// worker/src/store.js
-var blank = (sourceId) => ({ sourceId, lastAttemptedRefresh: null, lastRefreshError: null, current: null, previous: null });
-var json = (data, status = 200) => Response.json(data, { status });
-var withSources = (manifest) => ({
-  ...manifest ?? { schemaVersion: 1, generatedAt: (/* @__PURE__ */ new Date(0)).toISOString() },
-  sources: sources.map((source) => manifest?.sources.find((entry) => entry.sourceId === source.id) ?? blank(source.id))
-});
-var WEEKLY_CRON = "0 0 * * MON";
-var weeklySlot = (time) => {
-  if (!Number.isFinite(time)) return false;
-  const date = new Date(time);
-  return date.getUTCDay() === 1 && date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
-};
-var bootstrapEligible = (entry, source) => !entry || entry.current === null && (entry.lastAttemptedRefresh === null || entry.lastRefreshError === "implausible-range-change" && Date.parse(source.audit.checkedAt) > Date.parse(entry.lastAttemptedRefresh));
-var scheduledSource = (time) => {
-  const date = new Date(time);
-  if (date.getUTCMinutes() !== 0) return null;
-  if (date.getUTCHours() === 18) return sourceById.get("bing");
-  const weekly = sources.filter((source) => source.id !== "bing");
-  const slot = date.getUTCHours() > 18 ? date.getUTCHours() - 1 : date.getUTCHours();
-  return date.getUTCDay() === 1 ? weekly[slot] ?? null : null;
-};
-var DatasetStore = class {
-  constructor(state) {
-    this.storage = state.storage;
-  }
-  async fetch(request) {
-    const url = new URL(request.url);
-    if (request.method === "POST" && url.pathname === "/internal/dns-budget") {
-      const now = Date.now(), minute = Math.floor(now / 6e4), day = Math.floor(now / 864e5);
-      const accepted = await this.storage.transaction(async (tx) => {
-        const previous = await tx.get("dns:budget") ?? {};
-        const count = previous.minute === minute ? previous.count : 0;
-        const daily = previous.day === day ? previous.daily : 0;
-        if (count >= 5 || daily >= 500) return false;
-        await tx.put("dns:budget", { minute, count: count + 1, day, daily: daily + 1 });
-        return true;
-      });
-      return new Response(null, { status: accepted ? 204 : 429 });
-    }
-    if (request.method === "GET" && url.pathname === "/v1/manifest") {
-      const manifest = withSources(await this.storage.get("manifest"));
-      const body = JSON.stringify(manifest);
-      return new Response(body, { headers: {
-        "Content-Type": "application/json",
-        ETag: `"${await sha256(body)}"`,
-        "Cache-Control": "public, max-age=120, must-revalidate"
-      } });
-    }
-    const snapshot = /^\/v1\/sources\/([a-z0-9-]+)\/([a-f0-9]{64})\.json$/.exec(url.pathname);
-    if (request.method === "GET" && snapshot && sourceById.has(snapshot[1])) {
-      const body = await this.storage.get(`snapshot:${snapshot[1]}:${snapshot[2]}`);
-      return body === void 0 ? json({ error: "snapshot-unavailable" }, 404) : new Response(body, { headers: {
-        "Content-Type": "application/json",
-        ETag: `"${snapshot[2]}"`,
-        "Cache-Control": "public, max-age=31536000, immutable"
-      } });
-    }
-    if (request.method === "POST" && url.pathname === "/internal/bootstrap") {
-      const command2 = await request.json();
-      if (command2.kind !== "bootstrap" || !Number.isFinite(command2.time) || Math.abs(Date.now() - command2.time) > 36e5) return json({ error: "refresh-not-allowed" }, 400);
-      const manifest = await this.storage.get("manifest");
-      const source = sources.find((source2) => {
-        const entry = manifest?.sources.find((entry2) => entry2.sourceId === source2.id);
-        return bootstrapEligible(entry, source2);
-      });
-      return source ? this.refresh(source, command2) : new Response(null, { status: 204 });
-    }
-    const refresh = /^\/internal\/refresh\/([a-z0-9-]+)$/.exec(url.pathname);
-    if (request.method !== "POST" || !refresh || !sourceById.has(refresh[1])) return json({ error: "not-found" }, 404);
-    const command = await request.json();
-    return this.refresh(sourceById.get(refresh[1]), command);
-  }
-  async refresh(source, command) {
-    const now = Date.now();
-    const claim = await this.storage.transaction(async (tx) => {
-      const manifest = withSources(await tx.get("manifest"));
-      const entry = manifest.sources.find((item) => item.sourceId === source.id);
-      if (command.kind === "admin") {
-        const control = await tx.get("admin") ?? { lastAccepted: 0, nonces: {} };
-        control.nonces = Object.fromEntries(Object.entries(control.nonces).filter(([, expiry]) => expiry >= now));
-        if (Math.abs(now - command.timestamp) > 3e5 || control.nonces[command.nonce]) return { status: 409 };
-        if (now - control.lastAccepted < 6e4) return { status: 429 };
-        control.lastAccepted = now;
-        control.nonces[command.nonce] = command.timestamp + 3e5;
-        await tx.put("admin", control);
-      } else if (command.kind === "scheduled") {
-        if (scheduledSource(command.time)?.id !== source.id || Math.abs(now - command.time) > 36e5) return { status: 400 };
-      } else if (command.kind === "weekly") {
-        if (!weeklySlot(command.time) || Math.abs(now - command.time) > 36e5) return { status: 400 };
-      } else if (command.kind === "bootstrap") {
-        if (!Number.isFinite(command.time) || Math.abs(now - command.time) > 36e5) return { status: 400 };
-        if (!bootstrapEligible(entry, source)) return { status: 429 };
-        const lastBootstrap = await tx.get("bootstrap:lastAccepted");
-        if (lastBootstrap !== void 0 && now - lastBootstrap < 6e4) return { status: 429 };
-        await tx.put("bootstrap:lastAccepted", now);
-      } else return { status: 400 };
-      const lastAttempt = Date.parse(entry.lastAttemptedRefresh ?? "");
-      if (Number.isFinite(lastAttempt) && now - lastAttempt < 36e5) return { status: 429 };
-      const attemptedAt = new Date(now).toISOString();
-      entry.lastAttemptedRefresh = attemptedAt;
-      entry.lastRefreshError = "refresh-in-progress";
-      manifest.generatedAt = attemptedAt;
-      await tx.put("manifest", manifest);
-      return { status: 200, attemptedAt, baseline: entry.current?.rangeCounts };
-    });
-    if (claim.status !== 200) return json({ error: claim.status === 409 ? "replay-rejected" : "refresh-not-allowed" }, claim.status);
-    let result;
-    let error2 = null;
-    try {
-      result = await ingest(source, { baseline: claim.baseline });
-    } catch (failure) {
-      error2 = failure.message;
-    }
-    await this.storage.transaction(async (tx) => {
-      const manifest = await tx.get("manifest");
-      const entry = manifest.sources.find((item) => item.sourceId === source.id);
-      if (entry.lastAttemptedRefresh !== claim.attemptedAt) throw new Error("superseded-refresh");
-      if (result) {
-        if (entry.previous) await tx.delete(`snapshot:${source.id}:${entry.previous.version}`);
-        await tx.put(`snapshot:${source.id}:${result.descriptor.version}`, result.body);
-        entry.previous = entry.current;
-        entry.current = result.descriptor;
-      }
-      entry.lastRefreshError = error2;
-      manifest.generatedAt = (/* @__PURE__ */ new Date()).toISOString();
-      await tx.put("manifest", manifest);
-    });
-    return json({ sourceId: source.id, status: error2 ? "retained-last-known-good" : "published", error: error2 }, error2 ? 502 : 200);
-  }
-};
-
 // data/iana/special-purpose.json
 var special_purpose_default = {
   schemaVersion: 1,
@@ -3563,6 +3341,7 @@ async function checkDNS(ip, { fetcher = fetch, now = Date.now() } = {}) {
   const address = publicAddress(ip);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 1e4);
+  let cacheTTLSeconds = 3600;
   const query = async (name, type) => {
     const url = new URL("https://cloudflare-dns.com/dns-query");
     url.searchParams.set("name", name);
@@ -3578,7 +3357,17 @@ async function checkDNS(ip, { fetcher = fetch, now = Date.now() } = {}) {
     }
     const payload = JSON.parse(await boundedText(response, 16384));
     if (!payload || ![0, 3].includes(payload.Status) || payload.TC === true) throw new Error("dns-resolver-error");
-    return payload.Answer ?? [];
+    const answers = payload.Answer ?? [];
+    const ttl = (record) => Number.isFinite(record.TTL) && record.TTL >= 0 ? record.TTL : 0;
+    const negative = (payload.Authority ?? []).filter((record) => record.type === 6).map((record) => {
+      const minimum = Number(String(record.data ?? "").trim().split(/\s+/).at(-1));
+      return Math.min(ttl(record), Number.isFinite(minimum) && minimum >= 0 ? minimum : 0);
+    });
+    if (answers.length) cacheTTLSeconds = Math.min(cacheTTLSeconds, ...answers.map(ttl));
+    else if (type === "PTR" || type === (address.family === 4 ? "A" : "AAAA")) {
+      cacheTTLSeconds = Math.min(cacheTTLSeconds, negative.length ? Math.min(60, ...negative) : 0);
+    }
+    return answers;
   };
   try {
     const names = [...new Set((await query(reverseName(address), "PTR")).filter((record) => record.type === 12).map((record) => hostname(record.data)).filter(Boolean))];
@@ -3601,6 +3390,7 @@ async function checkDNS(ip, { fetcher = fetch, now = Date.now() } = {}) {
       hosts,
       providers: [...new Map(hosts.filter((host) => host.provider).map((host) => [host.provider.id, host.provider])).values()],
       status: !names.length ? "no-ptr" : hosts.some((host) => host.forwardConfirmed) ? "forward-confirmed" : "not-confirmed",
+      cacheTTLSeconds: hosts.some((host) => host.forwardConfirmed) ? cacheTTLSeconds : Math.min(60, cacheTTLSeconds),
       uncheckedHosts: Math.max(0, names.length - 3),
       limitation: "DNS is current supplementary evidence. Provider attribution requires a documented domain suffix and forward confirmation. It does not authenticate an individual request, prove benign traffic, establish the claimed crawler subtype, or change the published IP-range assessment."
     };
@@ -3612,6 +3402,299 @@ async function checkDNS(ip, { fetcher = fetch, now = Date.now() } = {}) {
     clearTimeout(timer);
   }
 }
+
+// worker/src/dns-cache.js
+var INDEX = "dns:cache-index";
+var keyFor = async (ip) => `dns:cache:v1:${await sha256(ip)}`;
+var DNSCache = class {
+  constructor(state, { lookup = checkDNS, clock = Date.now } = {}) {
+    this.state = state;
+    this.storage = state.storage;
+    this.lookup = lookup;
+    this.clock = clock;
+    this.pending = /* @__PURE__ */ new Map();
+  }
+  async check(ip) {
+    ip = publicAddress(ip).normalized;
+    const key = await keyFor(ip);
+    if (this.pending.has(key)) {
+      const result = await this.pending.get(key);
+      return { ...result, cache: { ...result.cache, coalesced: true } };
+    }
+    const task = this.load(ip, key);
+    this.pending.set(key, task);
+    try {
+      return await task;
+    } finally {
+      this.pending.delete(key);
+    }
+  }
+  async load(ip, key) {
+    const now = this.clock(), cached = await this.storage.get(key);
+    if (cached && Date.parse(cached.cache.expiresAt) > now) return { ...cached, cache: { ...cached.cache, hit: true } };
+    const accepted = await this.storage.transaction(async (tx) => {
+      const minute = Math.floor(now / 6e4), day = Math.floor(now / 864e5);
+      const previous = await tx.get("dns:budget") ?? {};
+      const count = previous.minute === minute ? previous.count : 0;
+      const daily = previous.day === day ? previous.daily : 0;
+      if (count >= 5 || daily >= 500) return false;
+      await tx.put("dns:budget", { minute, count: count + 1, day, daily: daily + 1 });
+      return true;
+    });
+    if (!accepted) throw new Error("dns-service-rate-limit");
+    const { cacheTTLSeconds = 0, ...result } = await this.lookup(ip, { now });
+    const ttl = Number.isFinite(cacheTTLSeconds) ? Math.max(0, Math.min(3600, cacheTTLSeconds)) : 0;
+    const expires = now + ttl * 1e3;
+    const body = { ...result, cache: { hit: false, expiresAt: ttl && expires > this.clock() ? new Date(expires).toISOString() : null } };
+    if (ttl && expires > this.clock()) {
+      await this.state.blockConcurrencyWhile(async () => {
+        const index2 = await this.pruneIndex();
+        index2[key] = expires;
+        await this.storage.setAlarm(Math.min(...Object.values(index2)));
+        await this.storage.put({ [key]: body, [INDEX]: index2 });
+      });
+    }
+    return body;
+  }
+  async pruneIndex() {
+    const index2 = await this.storage.get(INDEX) ?? {};
+    const expired = Object.keys(index2).filter((key) => index2[key] <= this.clock());
+    for (let offset = 0; offset < expired.length; offset += 128) await this.storage.delete(expired.slice(offset, offset + 128));
+    for (const key of expired) delete index2[key];
+    return index2;
+  }
+  async alarm() {
+    await this.state.blockConcurrencyWhile(async () => {
+      const index2 = await this.pruneIndex();
+      await this.storage.put(INDEX, index2);
+      const expiries = Object.values(index2);
+      if (expiries.length) await this.storage.setAlarm(Math.min(...expiries));
+      else await this.storage.deleteAlarm();
+    });
+  }
+};
+
+// worker/src/ingest.js
+function normalizePublisher(payload, source) {
+  if (!payload || typeof payload !== "object" || Array.isArray(payload) || Object.keys(payload).some((key) => !["prefixes", "creationTime", "synctoken", "notes"].includes(key)) || !Array.isArray(payload.prefixes) || !payload.prefixes.length || payload.prefixes.length > MAX_PREFIXES) {
+    throw new Error("publisher-schema");
+  }
+  for (const name of ["creationTime", "synctoken", "notes"]) {
+    if (Object.hasOwn(payload, name) && (typeof payload[name] !== "string" || !payload[name].length || payload[name].length > (name === "notes" ? 8192 : 256))) throw new Error("publisher-schema");
+  }
+  if (source.requiresPublisherTimestamp && !payload.creationTime) throw new Error("publisher-timestamp-missing");
+  const unique = /* @__PURE__ */ new Map();
+  const rangeCounts = { ipv4: 0, ipv6: 0 };
+  for (const row of payload.prefixes) {
+    if (!row || typeof row !== "object" || Array.isArray(row) || Object.keys(row).length !== 1) {
+      throw new Error("publisher-schema");
+    }
+    const key = Object.keys(row)[0];
+    if (!["ipv4Prefix", "ipv6Prefix"].includes(key)) throw new Error("publisher-schema");
+    let parsed;
+    try {
+      parsed = parseCIDR(row[key]);
+    } catch {
+      throw new Error("publisher-cidr");
+    }
+    if (parsed.family !== (key === "ipv4Prefix" ? 4 : 6)) throw new Error("publisher-family");
+    if (!unique.has(parsed.canonical)) {
+      unique.set(parsed.canonical, row[key]);
+      rangeCounts[`ipv${parsed.family}`]++;
+    }
+  }
+  return { prefixes: [...unique.values()], rangeCounts, publisherTimestampRaw: payload.creationTime ?? null };
+}
+function checkChange(next, baseline) {
+  const total = (counts) => counts.ipv4 + counts.ipv6;
+  const ratio = total(next) / total(baseline);
+  if (ratio < 0.5 || ratio > 2 || ["ipv4", "ipv6"].some((family) => baseline[family] > 0 && next[family] === 0)) {
+    throw new Error("implausible-range-change");
+  }
+}
+async function ingest(source, { fetcher = fetch, now = Date.now(), baseline } = {}) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 15e3);
+  try {
+    const response = await fetcher(source.feedUrl, {
+      redirect: "manual",
+      signal: controller.signal,
+      headers: { Accept: "application/json", "User-Agent": "Crawler-IP-Verifier-Dataset/1.0" }
+    });
+    if (response.status !== 200) {
+      await response.body?.cancel();
+      throw new Error("publisher-http");
+    }
+    const mime = response.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
+    if (mime !== "application/json" && !(source.id === "openai-chatgpt-user" && mime === "application/octet-stream")) {
+      await response.body?.cancel();
+      throw new Error("publisher-content-type");
+    }
+    const text = await boundedText(response);
+    let payload;
+    try {
+      payload = JSON.parse(text);
+    } catch {
+      throw new Error("publisher-json");
+    }
+    const normalized = normalizePublisher(payload, source);
+    checkChange(normalized.rangeCounts, baseline ?? source.audit.rangeCounts);
+    const snapshot = {
+      schemaVersion: 1,
+      sourceId: source.id,
+      retrievedAt: new Date(now).toISOString(),
+      publisherTimestampRaw: normalized.publisherTimestampRaw,
+      prefixes: normalized.prefixes
+    };
+    const body = JSON.stringify(snapshot);
+    if (byteLength(body) > MAX_BYTES) throw new Error("snapshot-too-large");
+    const version = await sha256(body);
+    return { body, descriptor: {
+      version,
+      bytes: byteLength(body),
+      retrievedAt: snapshot.retrievedAt,
+      rangeCounts: normalized.rangeCounts
+    } };
+  } catch (error2) {
+    if (controller.signal.aborted) throw new Error("publisher-timeout");
+    if (/^[a-z][a-z-]{1,79}$/.test(error2.message)) throw error2;
+    throw new Error("publisher-unavailable");
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// worker/src/store.js
+var blank = (sourceId) => ({ sourceId, lastAttemptedRefresh: null, lastRefreshError: null, current: null, previous: null });
+var json = (data, status = 200) => Response.json(data, { status });
+var withSources = (manifest) => ({
+  ...manifest ?? { schemaVersion: 1, generatedAt: (/* @__PURE__ */ new Date(0)).toISOString() },
+  sources: sources.map((source) => manifest?.sources.find((entry) => entry.sourceId === source.id) ?? blank(source.id))
+});
+var WEEKLY_CRON = "0 0 * * MON";
+var weeklySlot = (time) => {
+  if (!Number.isFinite(time)) return false;
+  const date = new Date(time);
+  return date.getUTCDay() === 1 && date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
+};
+var bootstrapEligible = (entry, source) => !entry || entry.current === null && (entry.lastAttemptedRefresh === null || entry.lastRefreshError === "implausible-range-change" && Date.parse(source.audit.checkedAt) > Date.parse(entry.lastAttemptedRefresh));
+var scheduledSource = (time) => {
+  const date = new Date(time);
+  if (date.getUTCMinutes() !== 0) return null;
+  if (date.getUTCHours() === 18) return sourceById.get("bing");
+  const weekly = sources.filter((source) => source.id !== "bing");
+  const slot = date.getUTCHours() > 18 ? date.getUTCHours() - 1 : date.getUTCHours();
+  return date.getUTCDay() === 1 ? weekly[slot] ?? null : null;
+};
+var DatasetStore = class {
+  constructor(state) {
+    this.storage = state.storage;
+    this.dns = new DNSCache(state);
+  }
+  async alarm() {
+    await this.dns.alarm();
+  }
+  async fetch(request) {
+    const url = new URL(request.url);
+    if (request.method === "POST" && url.pathname === "/internal/dns-check") {
+      try {
+        return json(await this.dns.check((await request.json()).ip));
+      } catch (failure) {
+        const code = /^dns-[a-z-]+$/.test(failure.message) ? failure.message : "dns-resolver-error";
+        return json({ error: code }, code === "dns-service-rate-limit" ? 429 : 502);
+      }
+    }
+    if (request.method === "GET" && url.pathname === "/v1/manifest") {
+      const manifest = withSources(await this.storage.get("manifest"));
+      const body = JSON.stringify(manifest);
+      return new Response(body, { headers: {
+        "Content-Type": "application/json",
+        ETag: `"${await sha256(body)}"`,
+        "Cache-Control": "public, max-age=120, must-revalidate"
+      } });
+    }
+    const snapshot = /^\/v1\/sources\/([a-z0-9-]+)\/([a-f0-9]{64})\.json$/.exec(url.pathname);
+    if (request.method === "GET" && snapshot && sourceById.has(snapshot[1])) {
+      const body = await this.storage.get(`snapshot:${snapshot[1]}:${snapshot[2]}`);
+      return body === void 0 ? json({ error: "snapshot-unavailable" }, 404) : new Response(body, { headers: {
+        "Content-Type": "application/json",
+        ETag: `"${snapshot[2]}"`,
+        "Cache-Control": "public, max-age=31536000, immutable"
+      } });
+    }
+    if (request.method === "POST" && url.pathname === "/internal/bootstrap") {
+      const command2 = await request.json();
+      if (command2.kind !== "bootstrap" || !Number.isFinite(command2.time) || Math.abs(Date.now() - command2.time) > 36e5) return json({ error: "refresh-not-allowed" }, 400);
+      const manifest = await this.storage.get("manifest");
+      const source = sources.find((source2) => {
+        const entry = manifest?.sources.find((entry2) => entry2.sourceId === source2.id);
+        return bootstrapEligible(entry, source2);
+      });
+      return source ? this.refresh(source, command2) : new Response(null, { status: 204 });
+    }
+    const refresh = /^\/internal\/refresh\/([a-z0-9-]+)$/.exec(url.pathname);
+    if (request.method !== "POST" || !refresh || !sourceById.has(refresh[1])) return json({ error: "not-found" }, 404);
+    const command = await request.json();
+    return this.refresh(sourceById.get(refresh[1]), command);
+  }
+  async refresh(source, command) {
+    const now = Date.now();
+    const claim = await this.storage.transaction(async (tx) => {
+      const manifest = withSources(await tx.get("manifest"));
+      const entry = manifest.sources.find((item) => item.sourceId === source.id);
+      if (command.kind === "admin") {
+        const control = await tx.get("admin") ?? { lastAccepted: 0, nonces: {} };
+        control.nonces = Object.fromEntries(Object.entries(control.nonces).filter(([, expiry]) => expiry >= now));
+        if (Math.abs(now - command.timestamp) > 3e5 || control.nonces[command.nonce]) return { status: 409 };
+        if (now - control.lastAccepted < 6e4) return { status: 429 };
+        control.lastAccepted = now;
+        control.nonces[command.nonce] = command.timestamp + 3e5;
+        await tx.put("admin", control);
+      } else if (command.kind === "scheduled") {
+        if (scheduledSource(command.time)?.id !== source.id || Math.abs(now - command.time) > 36e5) return { status: 400 };
+      } else if (command.kind === "weekly") {
+        if (!weeklySlot(command.time) || Math.abs(now - command.time) > 36e5) return { status: 400 };
+      } else if (command.kind === "bootstrap") {
+        if (!Number.isFinite(command.time) || Math.abs(now - command.time) > 36e5) return { status: 400 };
+        if (!bootstrapEligible(entry, source)) return { status: 429 };
+        const lastBootstrap = await tx.get("bootstrap:lastAccepted");
+        if (lastBootstrap !== void 0 && now - lastBootstrap < 6e4) return { status: 429 };
+        await tx.put("bootstrap:lastAccepted", now);
+      } else return { status: 400 };
+      const lastAttempt = Date.parse(entry.lastAttemptedRefresh ?? "");
+      if (Number.isFinite(lastAttempt) && now - lastAttempt < 36e5) return { status: 429 };
+      const attemptedAt = new Date(now).toISOString();
+      entry.lastAttemptedRefresh = attemptedAt;
+      entry.lastRefreshError = "refresh-in-progress";
+      manifest.generatedAt = attemptedAt;
+      await tx.put("manifest", manifest);
+      return { status: 200, attemptedAt, baseline: entry.current?.rangeCounts };
+    });
+    if (claim.status !== 200) return json({ error: claim.status === 409 ? "replay-rejected" : "refresh-not-allowed" }, claim.status);
+    let result;
+    let error2 = null;
+    try {
+      result = await ingest(source, { baseline: claim.baseline });
+    } catch (failure) {
+      error2 = failure.message;
+    }
+    await this.storage.transaction(async (tx) => {
+      const manifest = await tx.get("manifest");
+      const entry = manifest.sources.find((item) => item.sourceId === source.id);
+      if (entry.lastAttemptedRefresh !== claim.attemptedAt) throw new Error("superseded-refresh");
+      if (result) {
+        if (entry.previous) await tx.delete(`snapshot:${source.id}:${entry.previous.version}`);
+        await tx.put(`snapshot:${source.id}:${result.descriptor.version}`, result.body);
+        entry.previous = entry.current;
+        entry.current = result.descriptor;
+      }
+      entry.lastRefreshError = error2;
+      manifest.generatedAt = (/* @__PURE__ */ new Date()).toISOString();
+      await tx.put("manifest", manifest);
+    });
+    return json({ sourceId: source.id, status: error2 ? "retained-last-known-good" : "published", error: error2 }, error2 ? 502 : 200);
+  }
+};
 
 // worker/src/index.js
 var error = (message, status) => Response.json({ error: message }, { status, headers: { "Cache-Control": "no-store" } });
@@ -3657,9 +3740,10 @@ var index_default = {
           const body = JSON.parse(await boundedText(request, 256));
           if (!body || Object.keys(body).length !== 1 || !Object.hasOwn(body, "ip")) throw new Error("dns-invalid-input");
           const address = publicAddress(body.ip);
-          const claim = await store(env).fetch("https://store/internal/dns-budget", { method: "POST" });
-          if (!claim.ok) response = error("dns-service-rate-limit", 429);
-          else response = Response.json(await checkDNS(address.normalized));
+          response = await store(env).fetch("https://store/internal/dns-check", {
+            method: "POST",
+            body: JSON.stringify({ ip: address.normalized })
+          });
         } catch (failure) {
           const code = /^dns-[a-z-]+$/.test(failure.message) ? failure.message : "dns-invalid-input";
           response = error(code, ["dns-invalid-input", "dns-public-ip-required"].includes(code) ? 400 : 502);
