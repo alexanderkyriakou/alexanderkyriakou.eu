@@ -10,7 +10,7 @@
   },
   "triggers": {
     "crons": [
-      "* * * * *" //"0 0 * * MON"
+      "0 4 * * *" //daily 04:00 utc
     ]
   },
   "durable_objects": {

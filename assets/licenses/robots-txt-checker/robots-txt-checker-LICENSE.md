@@ -22,9 +22,9 @@ CPAL permits software use, modification and redistribution under its conditions.
 
 ### Completed Exhibit A and Exhibit B
 
-The applicable full-length project-specific source notice and attribution fields are published in [`robots-txt-checker-NOTICES.md`](https://alexanderkyriakou.eu/ak/robots-txt-checker-NOTICES.md). They identify Alexander Kyriakou as both Initial Developer and Original Developer, with the required Section 14 attribution phrase and URL, including in Larger Works. Include the completed Exhibit A notice in covered source files in the manner required by CPAL Section 3.5.
+The applicable full-length project-specific source notice and attribution fields are published in [`robots-txt-checker-NOTICES.md`](https://alexanderkyriakou.eu/assets/licenses/robots-txt-checker/robots-txt-checker-NOTICES.md). They identify Alexander Kyriakou as both Initial Developer and Original Developer, with the required Section 14 attribution phrase and URL, including in Larger Works. Include the completed Exhibit A notice in covered source files in the manner required by CPAL Section 3.5.
 
-The complete, standard, unmodified license terms and blank exhibit templates are retained in [`CPAL-1-0.txt`](https://alexanderkyriakou.eu/ak/CPAL-1-0.txt). The separate project notices supply the filled-in values; they do not rewrite or replace the underlying license.
+The complete, standard, unmodified license terms and blank exhibit templates are retained in [`CPAL-1-0.txt`](https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt). The separate project notices supply the filled-in values; they do not rewrite or replace the underlying license.
 
 **CPAL-1.0 only for this software:** the Initial Developer does not offer an additional alternative software license in the project-specific source notice. This does not alter permissions CPAL itself grants.
 

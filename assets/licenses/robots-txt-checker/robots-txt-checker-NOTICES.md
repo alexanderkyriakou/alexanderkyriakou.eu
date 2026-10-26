@@ -1,6 +1,6 @@
 # Completed project notices — Robots.txt Checker
 
-The official CPAL-1.0 license template is in `CPAL-1-0.txt`. The following text supplies the project-specific details used for covered source files and Section 14 attribution. The optional alternate-license boilerplate of the official Exhibit A has not been activated for this project.
+The official CPAL-1.0 license template is in `https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt`. The following text supplies the project-specific details used for covered source files and Section 14 attribution. The optional alternate-license boilerplate of the official Exhibit A has not been activated for this project.
 
 ## Exhibit A — completed source notice
 

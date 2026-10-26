@@ -1,5 +1,24 @@
 [
   {
+    "id": "tt29714073",
+    "title": "Bad Apples",
+    "type": "movie",
+    "releaseDate": "2026-09-18",
+    "year": 2026,
+    "runtime": 100,
+    "genres": [
+     "Satire",
+     "Comedy",
+     "Mystery",
+     "Thriller"
+    ],
+    "imdbRating": 6.8,
+    "myRating": 10,
+    "url": "https://www.imdb.com/title/tt29714073",
+    "poster": "/8EbTMbcQP8z8mCbC96rxTBemIPT.jpg",
+    "overview": "A struggling primary school teacher is forced to take drastic action because of a foul-mouthed, violent student, and uncovers how her community will turn a blind eye to the most outrageous events to preserve harmony and their sense of safety."
+  },
+  {
     "id": "tt22084616",
     "title": "Spider-Man: Brand New Day",
     "type": "movie",

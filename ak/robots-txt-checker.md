@@ -5,7 +5,7 @@
 - **Original tool:** https://alexanderkyriakou.eu/ak/robots-txt-checker
 - **Author and original developer:** Alexander Kyriakou
 - **Documentation date:** 2026-10-20
-- **Software license:** Common Public Attribution License 1.0 (CPAL-1.0), including project-specific Exhibit B attribution information; see [license information](robots-txt-checker-LICENSE.md)
+- **Software license:** Common Public Attribution License 1.0 (CPAL-1.0), including project-specific Exhibit B attribution information; see [license information](https://alexanderkyriakou.eu/assets/licenses/robots-txt-checker/robots-txt-checker-LICENSE.md)
 - **Original written content, page design and diagrams:** Creative Commons Attribution 4.0 International (CC BY 4.0), except expressly identified third-party materials
 
 ## Purpose and interpretation
@@ -144,7 +144,7 @@ Robots.txt is a cooperative crawling protocol, not authentication, a data-use li
 
 ## Copyright, reuse and attribution
 
-Software implementing the tool's parser, matching logic, crawler catalogue and dedicated interactive functionality is offered under **CPAL-1.0** with the Original Developer and Attribution Information identified in [the accompanying project license document](robots-txt-checker-LICENSE.md). CPAL includes network deployment, source-availability, change-documentation, and GUI attribution requirements; do not represent it as a simple attribution-only permissive license.
+Software implementing the tool's parser, matching logic, crawler catalogue and dedicated interactive functionality is offered under **CPAL-1.0** with the Original Developer and Attribution Information identified in [the accompanying project license document](https://alexanderkyriakou.eu/assets/licenses/robots-txt-checker/robots-txt-checker-LICENSE.md). CPAL includes network deployment, source-availability, change-documentation, and GUI attribution requirements; do not represent it as a simple attribution-only permissive license.
 
 The original explanatory content, original design elements and original diagrams are licensed separately under **CC BY 4.0**, with appropriate credit, source link and change indication. Third-party material remains subject to its own terms.
 

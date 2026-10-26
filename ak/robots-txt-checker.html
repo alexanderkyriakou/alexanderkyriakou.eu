@@ -12,11 +12,9 @@
   <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/robots-txt-checker.md" title="Robots.txt Checker; Markdown documentation for the fellow AI agents">
   
   <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
-  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
   <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
   <link rel="me" href="https://x.com/alkyriakou">
-
-  <meta name="twitter:dnt" content="on">
 
   <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
   <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
@@ -37,9 +35,10 @@
   <meta name="twitter:title" content="Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO">
   <meta name="twitter:description" content="Fetch, edit and test robots.txt rules against multiple URLs for SEO, AI (GEO/AEO) and other crawlers. Validate rule matching, exceptions and create a correct robots.txt file.">
   <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-checker/og/brighton-museum-art-gallery-2023.jpg">
+  <meta name="twitter:dnt" content="on">
   <!--twitter tags end-->
 
-  <script type="application/ld+json">
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -126,7 +125,7 @@
         "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker#about-checker",
         "headline": "Robots.txt checker and multi-crawler rule tester",
         "datePublished": "2026-10-20",
-        "dateModified": "2026-10-21",
+        "dateModified": "2026-10-26",
         "description": "An in-depth guide to using the Robots.txt Checker, understanding RFC 9309, fetching robots.txt files and handling redirects, evaluating Allow and Disallow rules, identifying search and AI crawlers, inspecting referenced page resources, and avoiding common SEO mistakes.",
         "inLanguage": "en",
         "articleSection": [
@@ -246,24 +245,40 @@
 
 <style>
 @font-face {
-  font-family: "Inter";
-  src: url("/assets/fonts/Inter_24pt-Regular.woff2") format("woff2");
+  font-family: "Commissioner";
+  src: url("/assets/fonts/Commissioner-ExtraLight.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commissioner";
+  src: url("/assets/fonts/Commissioner-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commissioner";
+  src: url("/assets/fonts/Commissioner-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/assets/fonts/Inter_24pt-Medium.woff2") format("woff2");
+  font-family: "Commissioner";
+  src: url("/assets/fonts/Commissioner-Medium.woff2") format("woff2");
   font-style: normal;
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Inter";
-  src: url("/assets/fonts/Inter_24pt-SemiBold.woff2") format("woff2");
+  font-family: "Commissioner";
+  src: url("/assets/fonts/Commissioner-SemiBold.woff2") format("woff2");
   font-style: normal;
   font-weight: 600;
   font-display: swap;
@@ -302,7 +317,7 @@
       transform: rotate(0deg) translateX(0);
     }
   }
-.app-layout { font-family: "Inter", sans-serif; display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 20px; align-items: start; margin: 0 20px 30px;} .app-layout button, .app-layout input, .app-layout textarea { font-family: "Inter", sans-serif; }
+.app-layout { font-family: "Commissioner", sans-serif; display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 20px; align-items: start; margin: 0 20px 30px;} .app-layout button, .app-layout input, .app-layout textarea { font-family: "Commissioner", sans-serif; }
 .app-layout .main-panel, .app-layout .card-container { min-width: 0; }
 .app-layout .form-group { margin-bottom: 1rem; }
 .app-layout .form-group > label, .app-layout .multi-url-body > label { display: block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; color: #64748b; margin-bottom: 8px; }
@@ -343,14 +358,14 @@
 .ua-item input, .ua-item label { cursor: pointer; }
 .ua-item label { flex: 1; user-select: none; text-transform: none; letter-spacing: 0.2px; font-weight: 400; font-size: 0.9rem; color: #0f172a; margin: 0; }
 .bulk-actions { display: flex; flex-direction: column; gap: 0.4rem; }
-.btn-bulk { padding: 0.45rem 0.65rem; border: 1px solid #cbd5e1; background: #fff; color: #0f172a; font-size: 0.9rem; font-weight: 500; border-radius: 6px; cursor: pointer; text-align: left; transition: all 0.2s ease; }
+.btn-bulk { padding: 0.45rem 0.65rem; border: 1px solid #cbd5e1; background: #fff; color: #0f172a; font-size: 0.9rem; font-weight: 400; border-radius: 6px; cursor: pointer; text-align: left; transition: all 0.2s ease; }
 .btn-bulk:hover, .btn-bulk.active { background: #0284c7; color: white; border-color: #0284c7; }
 .btn-group-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
 .sidebar-column { position: sticky; top: 0; display: flex; flex-direction: column; gap: 20px; align-self: start; }
 .sidebar-column .sidebar-card { position: static; flex: none; max-height: calc(100dvh - 40px); overflow-y: auto; }
 .results-legend { flex: none; }
 .results-legend { flex: 0 0 auto; background: #fff; border: 1px solid #cbd5e1; border-radius: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); overflow: hidden; interpolate-size: allow-keywords; }
-.results-legend summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 1rem; color: #64748b; font-family: "Inter", sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; cursor: pointer; user-select: none; list-style: none; transition: color 0.3s ease; }
+.results-legend summary { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 1rem; color: #64748b; font-family: "Commissioner", sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; cursor: pointer; user-select: none; list-style: none; transition: color 0.3s ease; }
 .results-legend summary::-webkit-details-marker { display: none; }
 .results-legend summary:hover, .results-legend[open] summary { color: #0284c7; }
 .results-legend summary:focus-visible { outline: 2px solid #0284c7; outline-offset: -4px; border-radius: 15px; }
@@ -409,7 +424,7 @@ input[type="text"]:focus { border-color: #0284c7; }
 .multi-url-panel[open] .multi-url-body { height: auto; opacity: 1; transform: translateY(0); }
 .multi-url-panel::details-content { height: 0; overflow: hidden; content-visibility: hidden; transition: height 0.3s ease-in-out, content-visibility 0.3s allow-discrete; }
 .multi-url-panel[open]::details-content { height: auto; content-visibility: visible; }
-.multi-url-panel summary { display: flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; margin: 0 auto; padding: 0.4rem 0; cursor: pointer; user-select: none; list-style: none; font-family: "Inter", sans-serif; font-size: 0.9rem; font-weight: 500; color: #55555558; }
+.multi-url-panel summary { display: flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; margin: 0 auto; padding: 0.4rem 0; cursor: pointer; user-select: none; list-style: none; font-family: "Commissioner", sans-serif; font-size: 0.9rem; font-weight: 500; color: #55555558; }
 .multi-url-panel summary::-webkit-details-marker { display: none; }
 .multi-url-panel summary:hover { color: #555555ca; transition: color 0.2s ease;}
 .multi-url-panel summary:focus-visible { outline: 2px solid #555; outline-offset: 3px; border-radius: 3px; }
@@ -424,7 +439,7 @@ input[type="text"]:focus { border-color: #0284c7; }
 .multi-url-footer { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .multi-url-help { margin: 0; font-size: 0.8rem; line-height: 1.5; color: #64748b; }
 .multi-url-actions { display: flex; align-items: center; flex-shrink: 0; margin: 0; }
-.multi-url-clear { padding: 0.25rem 0.1rem; border: 0; background: transparent; color: #64748b; font-family: "Inter", sans-serif; font-size: 0.8rem; font-weight: 500; cursor: pointer; }
+.multi-url-clear { padding: 0.25rem 0.1rem; border: 0; background: transparent; color: #64748b; font-family: "Commissioner", sans-serif; font-size: 0.8rem; font-weight: 500; cursor: pointer; }
 .multi-url-clear:hover { color: #0284c7; text-decoration: none; }
 .multi-url-clear:focus-visible { outline: 2px solid #0284c7; outline-offset: 3px; }
 .results-table-scroll { width: 100%; overflow-x: auto; }
@@ -455,7 +470,7 @@ input[type="text"]:focus { border-color: #0284c7; }
 .check-row { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; }
 .check-row label.chk { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; text-transform: none; letter-spacing: 0; font-weight: 500; cursor: pointer; }
 .check-row .btn-fetch { padding: 0.4rem 0.8rem; }
-.check-row .resource-toggle { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 0.4rem 0; font-family: "Inter", sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: none; letter-spacing: 0; color: #55555558; cursor: pointer; user-select: none; transition: color 0.2s ease; }
+.check-row .resource-toggle { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 0.4rem 0; font-family: "Commissioner", sans-serif; font-size: 0.9rem; font-weight: 500; text-transform: none; letter-spacing: 0; color: #55555558; cursor: pointer; user-select: none; transition: color 0.2s ease; }
 .check-row .resource-toggle:hover, .check-row .resource-toggle:has(input:checked) { color: #555555ca; }
 .check-row .resource-toggle input { margin: 0; accent-color: #555; cursor: pointer; }
 .multi-url-panel.resource-disabled { opacity: 0.35; cursor: not-allowed; transition: opacity 0.2s ease;
@@ -464,7 +479,7 @@ input[type="text"]:focus { border-color: #0284c7; }
 .check-row label.chk:has(input:disabled) { opacity: 0.4; cursor: not-allowed; }
 .check-row label.chk input:disabled { cursor: not-allowed; }
 .app-layout [data-bulk]:disabled { opacity: 0.4; cursor: not-allowed; }
-.bulk-disabled-tooltip { position: fixed; z-index: 9999; max-width: 230px; padding: 7px 10px; border-radius: 5px; background: #222; color: #eee; font-family: "Inter", sans-serif; font-size: 0.9rem; font-weight: 400; line-height: 1.5; text-align: center; pointer-events: none; }
+.bulk-disabled-tooltip { position: fixed; z-index: 9999; max-width: 230px; padding: 7px 10px; border-radius: 5px; background: #222; color: #eee; font-family: "Commissioner", sans-serif; font-size: 0.9rem; font-weight: 400; line-height: 1.5; text-align: center; pointer-events: none; }
 .resource-control { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; margin-left: auto; }
 .resource-progress { display: flex; align-items: center; justify-content: flex-end; gap: 8px; width: 190px; font-size: 0.75rem; color: #555; }
 .resource-progress[hidden] { display: none; }
@@ -562,7 +577,7 @@ to { transform: rotate(360deg); }
 .robots-guide table tbody tr:last-child { border-bottom: none; }
 .robots-guide table tbody th, table tbody td { padding: 8px; vertical-align: middle; }
 .robots-guide table tbody th { width: 25%; font-weight: 500; text-align: center; color: #444; }
-.robots-guide table thead th, .robots-guide table tbody th { font-family: "Inter", sans-serif; }
+.robots-guide table thead th, .robots-guide table tbody th { font-family: "Commissioner", sans-serif; }
 .robots-results-legend { font-size: .78rem; line-height: 1.6; margin: .75rem 0 0; color: #475569; }
 .robots-results-legend span { font-weight: 600; }
 
@@ -620,12 +635,12 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
 @media (max-width: 768px) {
   .robotstxt-header { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin: 15px 15px 12px; }
   .robotstxt-header-text { display: flex; flex-direction: column; }
-  .robotstxt-header h1 { width: 100%; margin: 0; font-weight: 600; line-height: 1.2; text-wrap: balance; }
+  .robotstxt-header h1 { width: 100%; margin: 0; font-weight: 500; line-height: 1.2; text-wrap: balance; }
   .robotstxt-header .robotstxt-subheading { width: 100%; max-width: 100%; margin: 12px 0 0; font-size: 1rem; line-height: 1.5; color: #555; }
   .robotstxt-header img { width: 110px; height: auto; max-width: 100%; align-self: center; margin: 8px 0 -4px; }
   .robotstxt-mobile-notice { display: block; margin: 0 15px 15px; padding: 10px 12px; border-radius: 8px; background: #f1f5f9; color: #64748b; font-size: 0.9rem; line-height: 1.5; text-align: center; font-style: italic; }
   .sidebar-column .sidebar-card { position: static; width: 100%; max-height: none; overflow: visible; padding: 0; }
-  .ua-mobile-toggle { display: flex; width: 100%; min-height: 56px; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border: 0; border-radius: 15px; background: #fff; color: #64748b; font-family: "Inter", sans-serif; text-align: left; cursor: pointer; }
+  .ua-mobile-toggle { display: flex; width: 100%; min-height: 56px; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border: 0; border-radius: 15px; background: #fff; color: #64748b; font-family: "Commissioner", sans-serif; text-align: left; cursor: pointer; }
   .ua-mobile-toggle:focus-visible { outline: 2px solid #0284c7; outline-offset: 2px; }
   .ua-mobile-toggle-text { display: flex; flex-direction: column; gap: 4px; }
   .ua-mobile-toggle-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; }
@@ -707,7 +722,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
   </div>
   <img src="../assets/images/thoughts/robots-txt-checker/small-robot.png" width="360" height="360" title="Don't block me please" alt="Transparent robot illustration" loading="eager" decoding="async">
 </header>
-    <p class="robotstxt-mobile-notice"> This tool is designed for desktop devices. For the best experience, use a larger screen. </p>
+<p class="robotstxt-mobile-notice"> This tool is designed for desktop devices. For the best experience, use a larger screen.</p>
 
   <div class="app-layout">
     <aside class="sidebar-column">
@@ -735,7 +750,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
       <div class="bulk-actions">
         <button class="btn-bulk" data-bulk="top-search" aria-pressed="false" onclick="bulkSelect('top-search')">🔍 Top Search Engines</button>
         <button class="btn-bulk" data-bulk="ai-search" aria-pressed="false" onclick="bulkSelect('ai-search')">🤖 AI & LLM Scrapers</button>
-        <button class="btn-bulk" data-bulk="eu-search" aria-pressed="false" onclick="bulkSelect('eu-search')">🇪🇺 European Search & Open Web</button>
+        <button class="btn-bulk" data-bulk="eu-search" aria-pressed="false" onclick="bulkSelect('eu-search')"><svg id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 294.94 200.41" style="height: 14px; width: auto; vertical-align: -2px;"> <defs> <style> .cls-1 { fill: #fff; } .cls-2 { fill: #039; } .cls-3 { fill: #fc0; } </style> </defs> <rect class="cls-1" x="0" width="294.95" height="200.41"/> <g> <rect class="cls-2" x="5.67" y="5.67" width="283.6" height="189.07"/> <g> <polygon class="cls-3" points="141.53 46.86 147.51 42.5 153.5 46.86 151.22 39.8 157.3 35.44 149.8 35.44 147.51 28.29 145.22 35.44 137.73 35.44 143.8 39.8 141.53 46.86"/> <polygon class="cls-3" points="110.56 55.19 116.54 50.82 122.52 55.19 120.25 48.12 126.32 43.76 118.83 43.76 116.54 36.6 114.25 43.76 106.76 43.76 112.83 48.12 110.56 55.19"/> <polygon class="cls-3" points="93.88 59.31 91.59 66.47 84.1 66.47 90.18 70.83 87.9 77.9 93.88 73.53 99.87 77.9 97.59 70.83 103.66 66.47 96.18 66.47 93.88 59.31"/> <polygon class="cls-3" points="85.57 104.46 91.55 108.83 89.28 101.76 95.35 97.4 87.86 97.4 85.57 90.24 83.28 97.41 75.78 97.4 81.86 101.76 79.59 108.83 85.57 104.46"/> <polygon class="cls-3" points="96.18 128.42 93.88 121.26 91.59 128.43 84.1 128.42 90.18 132.79 87.9 139.85 93.88 135.47 99.87 139.85 97.59 132.79 103.66 128.42 96.18 128.42"/> <polygon class="cls-3" points="118.88 151.12 116.59 143.97 114.3 151.13 106.8 151.12 112.88 155.49 110.61 162.55 116.59 158.19 122.57 162.55 120.3 155.49 126.37 151.12 118.88 151.12"/> <polygon class="cls-3" points="149.81 159.35 147.52 152.19 145.23 159.36 137.73 159.35 143.81 163.72 141.53 170.78 147.52 166.41 153.5 170.78 151.22 163.72 157.3 159.35 149.81 159.35"/> <polygon class="cls-3" points="180.74 151.12 178.45 143.97 176.15 151.13 168.67 151.12 174.74 155.49 172.46 162.55 178.45 158.19 184.43 162.55 182.15 155.49 188.23 151.12 180.74 151.12"/> <polygon class="cls-3" points="203.45 128.42 201.15 121.26 198.86 128.43 191.37 128.42 197.45 132.79 195.17 139.85 201.15 135.47 207.14 139.85 204.86 132.79 210.93 128.42 203.45 128.42"/> <polygon class="cls-3" points="219.16 97.31 211.67 97.31 209.37 90.15 207.08 97.32 199.59 97.31 205.67 101.68 203.39 108.74 209.37 104.36 215.36 108.74 213.08 101.68 219.16 97.31"/> <polygon class="cls-3" points="195.17 77.8 201.15 73.44 207.14 77.8 204.86 70.74 210.93 66.38 203.45 66.38 201.15 59.22 198.86 66.39 191.37 66.38 197.45 70.74 195.17 77.8"/> <polygon class="cls-3" points="178.53 36.61 176.25 43.77 168.75 43.76 174.82 48.13 172.55 55.19 178.54 50.82 184.52 55.19 182.25 48.13 188.32 43.76 180.82 43.76 178.53 36.61"/> </g> </g> </svg> European Search & Open Web</button>
         <button class="btn-bulk" data-bulk="image-bots" aria-pressed="false" onclick="bulkSelect('image-bots')">🖼️ Image Search Bots</button>
         <button class="btn-bulk" data-bulk="news-bots" aria-pressed="false" onclick="bulkSelect('news-bots')">📰 News Bots</button>
         <button class="btn-bulk" data-bulk="social-bots" aria-pressed="false" onclick="bulkSelect('social-bots')">📸 Social Media Preview</button>
@@ -940,7 +955,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
             <span id="resourceResultsAgent" class="resource-results-agent">Googlebot</span>
           </div>
 
-          <p id="resourceResultsInfo" class="resource-results-info"> Enter a target URL and press Check URL to discover and evaluate its resources. </p>
+          <p id="resourceResultsInfo" class="resource-results-info"> Enter a target URL and click Check URL to discover and evaluate its resources. </p>
 
           <div id="resourceSummary" class="resource-summary" hidden>
             <div class="resource-summary-item">
@@ -1075,7 +1090,7 @@ https://blog.yourdomain.eu/robots.txt
 
 <figure>
   <img src="..\assets\images\thoughts\robots-txt-checker\robots-txt-redirect-parse.webp" width="965" height="791" loading="lazy" alt="Diagram illustrating how redirects from a robots.txt URL are followed and how the retrieved rules apply to the original origin.">
-  <figcaption>Robots.txt redirects: the rules apply to the original origin, even when the file is retrieved from somewhere else.<small> © 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Source</a></small></figcaption>
+  <figcaption>Robots.txt redirects: the rules apply to the original origin, even when the file is retrieved from somewhere else.<small> © 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license" target="_blank">CC BY 4.0</a> · <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Source</a></small></figcaption>
 </figure>
 
 <p>Robots.txt is neither authentication nor a confidentiality mechanism. Naming <code>/admin/</code> or <code>/internal-documents/</code> in a public file might even advertise a directory's existence. Use access controls for private resources. And remember: robots.txt regulates crawling by cooperating clients; it does not automatically remove known URLs from search indexes!</p>
@@ -1143,7 +1158,7 @@ Disallow: /</pre>
 
 <figure>
   <img src="..\assets\images\thoughts\robots-txt-checker\why-one-robots.txt-directive-wins.webp" width="901" height="570" loading="lazy" alt="Illustration of how matching robots.txt Allow and Disallow rules are compared to determine the winning directive.">
-  <figcaption style="width: 80%;">When several rules match, specificity determines the winner. For equivalent Allow and Disallow rules, Allow takes precedence under Google's matching model.<small> © 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a> · <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Source</a></small></figcaption>
+  <figcaption style="width: 80%;">When several rules match, specificity determines the winner. For equivalent Allow and Disallow rules, Allow takes precedence under Google's matching model.<small> © 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license" target="_blank">CC BY 4.0</a> · <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Source</a></small></figcaption>
 </figure>
 
 <p>Directive names and user-agent product tokens are matched case-insensitively per RFC 9309 Section 2.2.1, with one experienced exception for <code>LinkedInBot</code> which I addressed in the parser. But URL paths are case-sensitive under Google's robots.txt matching model. Consequently, <code>Disallow: /Images/</code> and <code>Disallow: /images/</code> are not interchangeable(!). In the checker, I've made directive and user-agent matching case-insensitive, so <code>allow</code> and <code>Allow</code> are treated equally, for example. Robots.txt uses UTF-8, and matching gets a little more interesting when percent-encoded characters enter the picture. For example, <code>/c%61t/</code> and <code>/cat/</code> can represent the same path for matching purposes, while encoded reserved characters need more careful treatment. The checker accounts for these distinctions, including encoded characters that might otherwise be mistaken for wildcard operators, and calculates rule specificity accordingly. That doesn't make it a complete reproduction of every crawler's matching implementation, but it avoids treating all percent-encoded characters as interchangeable.</p>
@@ -1183,8 +1198,7 @@ Disallow: /*? # With you serving your core pages with parameters~
 <p>I spent considerable time sorting the user-agent catalogue into useful groups and looking for first-party descriptions. The difficulty isn't always finding a name; it's finding a dependable explanation of what that name does today. Legacy identifiers, user-configurable crawler frameworks, and community-reported names add uncertainty and confusion. Inclusion in my user-agent list therefore isn't a guarantee that a bot is active, official, or even well documented. Well-known operators usually have more detailed public documentation, but that doesn't mean every crawler claiming their identity is genuine.</p>
 
 <h3 id="tokens-vs-headers">A token isn't necessarily the HTTP User-Agent</h3>
-<p>A robots.txt <em>product token</em> is the identifier you can use in a <code>User-agent:</code> group. The full HTTP User-Agent header can contain browser-like information, version numbers, and a URL describing the crawler. It can also be spoofed. When identity matters, verify requests using the operator's documented IP ranges and DNS procedures rather than trusting a string.</p>
-<!-- TODO link the future tool -->
+<p>A robots.txt <em>product token</em> is the identifier you can use in a <code>User-agent:</code> group. The full HTTP User-Agent header can contain browser-like information, version numbers, and a URL describing the crawler. It can also be spoofed. When identity matters, verify requests using the operator's documented IP ranges and DNS procedures rather than trusting a string. I've made a separate <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier.html">Crawler IP Verifier</a> for that purpose, as a companion to this checker. One evaluates the rules you've written for a crawler; the other helps establish whether a request actually came from the operator it claims to represent.</p>
 <p>For the checker I'm storing token names in lowercase for case-insensitive matching and standardization; your robots.txt file does not need to use lowercase. Some user-agent entries have documented fallback tokens. Some special controls return <strong>Inconclusive</strong> when their applicability to a wildcard group is not established. These are modelling choices, not a promise to reproduce every operator's (unknown) internal policy.</p>
 
 <h3 id="ai-controls">Training, discovery, and user-triggered requests</h3>
@@ -1197,7 +1211,7 @@ Disallow: /*? # With you serving your core pages with parameters~
 <h3 id="who-to-block">Who should be allowed?</h3>
 <p>There is no universal answer, and a blocklist without a reason was never much of a strategy. Blocking Googlebot or Bingbot certainly undermines discoverability in their search ecosystems. Blocking social-preview fetchers can affect how shared links appear. Restricting SEO crawlers can reduce third-party data collection but may interfere with an audit you actually want to run. Blocking Common Crawl or AI training crawlers involves a different choice from allowing AI search discovery or on-demand page retrieval.</p>
 <p>I'm personally sympathetic to independent search indexes and the efforts to build a more diverse search ecosystem, including initiatives such as <a href="https://openwebsearch.eu/" target="_blank" rel="noopener">OpenWebSearch.eu</a> and services such as Mojeek and Seznam. Qwant's indexing partnerships also illustrate why "European search engine" and "entirely independent index" are not the same thing. Anti-monopoly and a less concentrated web are worthwhile goals to me, but every website still needs to make its own decision about access, cost, and reuse.</p>
-<p>I've deliberately included a collection of web scrapers in the checker, some of which have rather unclear identities or purposes. For aggressive or unidentified ones, robots.txt may not be enough. Rate limiting, authentication, abuse detection, and server-side controls can be more appropriate. And when something claims to be Googlebot, its name alone is not sufficient evidence.</p>
+<p>I've deliberately included a collection of web scrapers in the checker, some of which have rather unclear identities or purposes. For aggressive or unidentified ones, robots.txt may not be enough. Rate limiting, authentication, abuse detection, and server-side controls can be more appropriate. And when something claims to be Googlebot, its name alone is not sufficient evidence. That's also where the <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier.html">Crawler IP Verifier</a> comes in, helping you check an IP address against the verification methods documented by crawler operators.</p>
 <p>The <a href="https://almanac.httparchive.org/en/2025/seo" target="_blank" rel="noopener">2025 HTTP Archive Web Almanac</a> offers useful perspective: in its desktop sample, <code>GPTBot</code> appeared as a named robots.txt user-agent on 4.5% of sites, a 55% increase from 2024. While the figures don't tell us whether those websites are allowing or restricting GPTBot, they do show that explicit references to AI crawlers are becoming more common.</p>
 
 <h2 id="seo-implications">Crawling, indexing, and the things between them</h2>
@@ -1326,7 +1340,7 @@ Disallow: /static/
 <p>PS: Some related articles might make a useful follow-up to this tool.</br>
 PPS: For any issues you encounter, or suggestions and corrections to the user-agent list, <a href="https://alexanderkyriakou.eu/contact">send me a note</a>.</p>
 
-<p style="font-style: italic;"><strong>License and attribution.</strong> © 2026 Alexander Kyriakou. The Robots.txt Checker's original parser and dedicated JavaScript are licensed under <a href="https://opensource.org/license/CPAL-1.0" target="_blank" rel="license noopener">CPAL 1.0</a>, with applicable attribution under Section 14. Original written content, visual design and diagrams are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">CC BY 4.0</a>, unless otherwise noted. See the <a href="/ak/robots-txt-checker-LICENSE.md">tool-specific license details</a>, <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker-NOTICES.md">attribution notices</a> and <a href="https://alexanderkyriakou.eu/ak/CPAL-1-0.txt">full software license</a>. <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Original tool</a>. Third-party material retains its own license. </p>
+<p style="font-style: italic;"><strong>License and attribution.</strong> © 2026 Alexander Kyriakou. The Robots.txt Checker's original parser and dedicated JavaScript are licensed under <a href="https://opensource.org/license/CPAL-1.0" target="_blank" rel="license noopener">CPAL 1.0</a>, with applicable attribution under Section 14. Original written content, visual design and diagrams are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener">CC BY 4.0</a>, unless otherwise noted. See the <a href="https://alexanderkyriakou.eu/assets/licenses/robots-txt-checker/robots-txt-checker-LICENSE.md">tool-specific license details</a>, <a href="https://alexanderkyriakou.eu/assets/licenses/robots-txt-checker/robots-txt-checker-NOTICES.md">attribution notices</a> and <a href="https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt">full software license</a>. <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Original tool</a>. Third-party material retains its own license. </p>
 
 <section class="tool-changelog">
   <h2 id="changelog-title">Updates</h2>
@@ -1365,7 +1379,7 @@ PPS: For any issues you encounter, or suggestions and corrections to the user-ag
             </span>
             <span>
               <span>Updated</span>
-              <time datetime="2026-10-21">Oct 21, 2026</time>
+              <time datetime="2026-10-26">Oct 26, 2026</time>
             </span>
           </p>
         </div>
