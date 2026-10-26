@@ -1211,66 +1211,6 @@
   window.addEventListener('pageshow', event => { if (event.persisted) resetOnLoad(); });
   resetOnLoad(); updateBulkButtons();
 
-  // Floating Table of Contents
-  function initPageIndex() {
-    const index = document.querySelector('.page-index');
-    const guide = document.querySelector('.robots-guide');
-    const mobileMenu = document.querySelector('.page-index-mobile');
-    if (!index || !guide || !mobileMenu) return;
-    const links = [...index.querySelectorAll('nav a[href^="#"]')];
-    const sections = [...guide.querySelectorAll('h2[id], h3[id]')]
-      .map(heading => ({ heading, links: links.filter(link => decodeURIComponent(link.hash.slice(1)) === heading.id) }))
-      .filter(section => section.links.length);
-    if (!sections.length) return;
-    const firstHeading = sections[0].heading; let ticking = false;
-    function updateIndex() {
-      const viewportHeight = window.innerHeight;
-      const firstTop = firstHeading.getBoundingClientRect().top;
-      const guideBottom = guide.getBoundingClientRect().bottom;
-      const threshold = window.matchMedia('(max-width: 768px)').matches ? viewportHeight : 50;
-      const visible = firstTop <= threshold && guideBottom > 0;
-      index.classList.toggle('index-visible', visible);
-      if (!visible && mobileMenu.open) mobileMenu.open = false;
-      let current = null;
-      for (const section of sections) {
-        const top = section.heading.getBoundingClientRect().top;
-        if (top <= 50) current = section; else break;
-      }
-      for (const section of sections) {
-        const rect = section.heading.getBoundingClientRect();
-        const headingVisible = rect.top < viewportHeight && rect.bottom > 0;
-        const active = visible && (headingVisible || section === current);
-        section.links.forEach(link => {
-          link.classList.toggle('active', active);
-          if (active) link.setAttribute('aria-current', 'location');
-          else link.removeAttribute('aria-current');
-        });
-      }
-      ticking = false;
-    }
-    function scheduleIndexUpdate() {
-      if (ticking) return;
-      ticking = true; requestAnimationFrame(updateIndex);
-    }
-    window.addEventListener('scroll', scheduleIndexUpdate, { passive: true });
-    window.addEventListener('resize', scheduleIndexUpdate);
-    window.addEventListener('pageshow', scheduleIndexUpdate);
-    document.addEventListener('click', event => {
-      if (!mobileMenu.open) return;
-      if (!mobileMenu.contains(event.target)) mobileMenu.open = false;
-    });
-    mobileMenu.querySelectorAll('nav a').forEach(link => {
-      link.addEventListener('click', () => { mobileMenu.open = false; });
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && mobileMenu.open) {
-        mobileMenu.open = false; mobileMenu.querySelector('summary').focus();
-      }
-    });
-    updateIndex();
-  }
-  initPageIndex();
-
 // Mobile user-agent sidebar
 function initMobileUaSidebar() {
   const toggle = $('uaMobileToggle');

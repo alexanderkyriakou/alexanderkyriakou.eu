@@ -635,35 +635,12 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
 /* Mobile layout. */
 @media (max-width: 768px) {
   .crawler-page { padding: 0; }
-
-  .crawler-hero {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-    margin: 15px 15px 0;
-  }
-
-  .crawler-hero h1 {
-    font-size: 2rem;
-  }
-
-  .crawler-hero p {
-    width: auto;
-    margin: 8px 0 0;
-    font-size: 1rem;
-  }
-
-  #hero-figure {
-    width: 50%;
-    height: auto;
-    aspect-ratio: 400 / 320;
-    justify-self: center;
-    margin: -30px 0 -10px 0;
-  }
-
+  .crawler-hero { grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 15px 15px 0; }
+  .crawler-hero h1 { font-size: 2rem; }
+  .crawler-hero p { width: auto; margin: 8px 0 0; font-size: 1rem; }
+  #hero-figure { width: 50%; height: auto; aspect-ratio: 400 / 320; justify-self: center; margin: -30px 0 -10px 0; }
   .mobile-notfriendly-notice { display: block; margin: 0 15px 15px; padding: 10px 12px; border-radius: 8px; background: #f1f5f9; color: #64748b; font-size: 0.9rem; line-height: 1.5; text-align: center; font-style: italic; }
-
   .verifier-app { padding: 0 15px; }
-
   .panel { padding: 16px; }
   .grid, .input-layout, .notes-grid, .mapping { grid-template-columns: minmax(0, 1fr); }
   .input-layout { gap: 16px; }
@@ -785,7 +762,6 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
   </div>
   </div>
 
-
    <section class="import-options" id="import-settings" hidden>
     <div class="settings-format"><label for="format">Format</label><select id="format"><option value="auto">Detect from content</option><option value="txt">TXT — one IP per line</option><option value="csv">CSV</option><option value="tsv">TSV</option><option value="json">JSON / automatic JSONL</option><option value="jsonl">JSONL / NDJSON</option></select></div>
     <div id="mapping-panel" hidden>
@@ -863,7 +839,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
 </div>
 
   <div class="container toc">
-    <!-- floating toc: uses your existing .page-index CSS and script -->
+    <!-- floating toc -->
     <aside id="no-print" class="page-index">
       <details class="page-index-mobile">
         <summary title="Table of contents" aria-label="Table of contents">☰</summary>
@@ -1453,8 +1429,9 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
     </footer>
     </div>
 </main>
+
 <!-- work on footer only from /index -->
-<footer class="site-footer">
+<footer>
   <div class="footer">
       <div class="f-container">
           <div class="f-groups">

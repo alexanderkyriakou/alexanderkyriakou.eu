@@ -51,7 +51,7 @@ document.querySelectorAll('.postfooter-share').forEach(share => {
 // Floating Table of Contents
 function initPageIndex() {
   const desktopMenu = document.querySelector('.page-index-desktop');
-  const siteFooter = document.querySelector('footer.site-footer');
+  const siteFooter = document.querySelector('footer:has(> .footer)');
   const mobileQuery = window.matchMedia('(max-width: 768px)');
   const index = document.querySelector('.page-index');
   const toc = document.querySelector('.toc');
