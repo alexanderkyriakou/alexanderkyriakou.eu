@@ -103,7 +103,7 @@ async function proceed(){
   const postGame=phase==='won'||phase==='dead';
   $('continue').hidden=!postGame;$('continue').disabled=postGame&&session.postGameTicks<30;
   $('continue').textContent=phase==='won'?'Continue · Z':'Retry · Z';
-  $('game-message').textContent=phase==='won'?'The ninja found the way.':phase==='dead'?"The ninja didn't find the way.":'← → move · Z jump · K suicide · P pause · Q episodes';
+  $('game-message').textContent=phase==='won'?'The ninja found the way.':phase==='dead'?"The ninja didn't find the way.":'';
   board.focus();audio.enable();clock.resume();return;
  }
  if((phase!=='dead'&&phase!=='won')||session.postGameTicks<30)return;
@@ -115,7 +115,9 @@ async function proceed(){
   const completed=[...new Set([...old.completed,finishedEpisode])].sort((a,b)=>a-b),bestScores={...old.bestScores,[finishedEpisode]:Math.max(old.bestScores[finishedEpisode]||0,finishedScore)};
   return {...old,completed,bestScores,resume:old.resume?.episode===finishedEpisode?null:old.resume};
  });
- busy=false;showMenu();notice(`Episode ${label(selected)} complete. Score: ${(session.score/60).toFixed(2)} seconds.`);
+  busy=false;
+  showMenu();
+  notice('');
 }
 function fatal(e){console.error(e);clock.pause();phase='error';held.clear();notice(`The game stopped: ${e.message}. Progress has been preserved.`);$('continue').hidden=true;}
 // Keep canvas keyboard focus when activating its round controls with a pointer.
