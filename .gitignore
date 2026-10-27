@@ -5,8 +5,14 @@
 .env.*
 *.local
 ak/article.html
-ak/ngame.html
-assets/games
+
+assets/games/ngame/data/*
+!assets/games/ngame/data/art.json
+!assets/games/ngame/data/levels.json
+assets/games/ngame/src/compare.js
+assets/games/ngame/package.json
+assets/games/ngame/package-lock.json
+assets/games/ngame/playwright.config.mjs
 
 # Tooling
 .wrangler/

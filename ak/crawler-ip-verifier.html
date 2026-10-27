@@ -7,6 +7,7 @@
   <meta name="description" content="Check crawler IPs and User-agent claims against published ranges. Analyze log exports locally and investigate selected IPs with optional DNS checks.">
   <meta name="author" content="Alexander Kyriakou">
   <link rel="canonical" href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier">
+
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="stylesheet" href="/assets/css/thoughts.css">
   <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier.md" title="Crawler IP Verifier - Technical Reference (Markdown)">
@@ -50,6 +51,7 @@
       "description": "Check IPv4 and IPv6 addresses and user-agent claims against published crawler ranges. Analyze inputs locally, inspect source evidence, export findings and optionally investigate selected IPs through DNS.",
       "inLanguage": "en",
       "datePublished": "2026-10-26",
+      "dateModified": "2026-10-27",
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
       },
@@ -132,6 +134,7 @@
       "description": "A practical guide to preparing crawler log exports, interpreting user-agent claims and published IP ranges, investigating unverified claims, checking DNS evidence and making proportionate access-control decisions.",
       "inLanguage": "en",
       "datePublished": "2026-10-26",
+      "dateModified": "2026-10-27",
       "isAccessibleForFree": true,
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
@@ -677,22 +680,9 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
   .verifier-app dialog dl { grid-template-columns: 1fr; }
   .verifier-app dialog dd { margin-bottom: 8px; }
   .dataset-strip { margin: 0; }
-  .verifier-app .dataset-strip > summary {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 4px 12px;
-  }
-
-  .dataset-strip > summary > span:last-of-type {
-    grid-column: 1;
-  }
-
-  .verifier-app .dataset-strip > summary::after {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
-  }
-
+  .verifier-app .dataset-strip > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
+  .dataset-strip > summary > span:last-of-type { grid-column: 1; }
+  .verifier-app .dataset-strip > summary::after { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
   .crawler-guide nav ul { columns: 1; }
   .crawler-guide p, .crawler-guide li { font-size: 1rem; }
 }
@@ -881,7 +871,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
     </aside>
     <!-- end of floating toc -->
 
-    <article>
+  <article>
     <section>
       <h2 id="guide-about">Crawler IPs everywhere</h2>
       <p>Server resources are finite. It makes sense to spend them on people and crawlers that bring something useful to your digital presence, rather than on unknown or disguised crawlers, some of which scrape your content. A client request calling itself <code>Googlebot</code> deserves a check before you treat it as Googlebot. The name is easy to copy; the source IP gives you something more to work with.</p>
@@ -1066,12 +1056,12 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
         <caption>Public finding labels</caption>
         <thead><tr><th scope="col">Finding</th><th scope="col">How to read it</th></tr></thead>
         <tbody>
-          <tr><th scope="row" style="white-space: nowrap; overflow-wrap: normal; word-break: normal;">Official infrastructure match</th><td>A current published IP range match supports the infrastructure association, the crawler claim, or both. Inspect its scope: shared ranges may leave the exact crawler unresolved.</td></tr>
-          <tr><th scope="row" style="white-space: nowrap; overflow-wrap: normal; word-break: normal;">Could not verify</th><td>The available evidence doesn't support a stronger conclusion. Possible reasons include an unmatched supported claim, an ambiguous header, an outdated source or unavailable evidence. An unsupported Googlebot claim belongs in your investigation.</td></tr>
-          <tr><th scope="row" style="white-space: nowrap; overflow-wrap: normal; word-break: normal;">Unverified crawler claim</th><td>The user-agent claims a recognized crawler, but the available published IP-range evidence does not establish its provider. This alone does not indicate impersonation or abuse.</td></tr>
-          <tr><th scope="row" style="white-space: nowrap; overflow-wrap: normal; word-break: normal;">No published range match</th><td>The address isn't inside any included range, and there was no recognised crawler claim to compare it with. Current sources were checked, but this label doesn't claim complete coverage of the internet or identify abuse.</td></tr>
-          <tr><th scope="row" style="white-space: nowrap; overflow-wrap: normal; word-break: normal;">Nonpublic / special-use IP</th><td>The address is syntactically valid but excluded from ordinary public crawler matching. Check whether you imported a local or proxy address.</td></tr>
-          <tr><th scope="row" style="white-space: nowrap; overflow-wrap: normal; word-break: normal;">Invalid input</th><td>The record did not provide a usable address. Inspect the error and original record; no range assessment was performed for it.</td></tr>
+          <tr><th scope="row">Official infrastructure match</th><td>A current published IP range match supports the infrastructure association, the crawler claim, or both. Inspect its scope: shared ranges may leave the exact crawler unresolved.</td></tr>
+          <tr><th scope="row">Could not verify</th><td>The available evidence doesn't support a stronger conclusion. Possible reasons include an unmatched supported claim, an ambiguous header, an outdated source or unavailable evidence. An unsupported Googlebot claim belongs in your investigation.</td></tr>
+          <tr><th scope="row">Unverified crawler claim</th><td>The user-agent claims a recognized crawler, but the available published IP-range evidence does not establish its provider. This alone does not indicate impersonation or abuse.</td></tr>
+          <tr><th scope="row">No published range match</th><td>The address isn't inside any included range, and there was no recognised crawler claim to compare it with. Current sources were checked, but this label doesn't claim complete coverage of the internet or identify abuse.</td></tr>
+          <tr><th scope="row">Nonpublic / special-use IP</th><td>The address is syntactically valid but excluded from ordinary public crawler matching. Check whether you imported a local or proxy address.</td></tr>
+          <tr><th scope="row">Invalid input</th><td>The record did not provide a usable address. Inspect the error and original record; no range assessment was performed for it.</td></tr>
         </tbody>
       </table>
 
@@ -1104,7 +1094,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
 
       <h3 id="guide-filtering">Search, filter and compare</h3>
       <p>Search matches addresses, user-agent text, user-agent type, recognised claims, observed providers, CIDRs, purposes, finding labels and response status. It doesn't search every arbitrary field retained inside valid original records; use Details for paths and other context, or filter those fields in your log source before import.</p>
-      <p>Filters work together. Start with Finding, Published provider or Crawler claim, then use HTTP status when mapped. Additional controls cover purpose, user-agent type, IPv4/IPv6, applicable source health and investigation views for unknown clients and invalid addresses. Use <em>Could not verify</em> and the crawler-claim filter to find unsupported claims worth reviewing. A purpose such as AI training describes a recognised claim or feed; it doesn't prove what that individual request was doing.</p>
+      <p>Filters work together. Start with Finding, Published provider or Crawler claim, then use HTTP status when mapped. Additional controls cover purpose, user-agent type, IPv4/IPv6, applicable source health and investigation views for unknown clients and invalid addresses. Use <em>Could not verify</em> or directly <em>Unverified crawler claim</em> and the crawler-claim filter to find unsupported claims worth reviewing. A purpose such as AI training describes a recognised claim or feed; it doesn't prove what that individual request was doing.</p>
       <p>Sort by input order, numeric IP address, finding, repeated entries or user-agent type, in either direction. Show family, CIDR and evidence columns for a denser view. Pagination offers 25, 50 or 100 rows. View the total number of input entries per page and filtered results, as also the total. Select all filtered results applies across every matching page; selections stay selected when another filter hides them. <em>Clear selection</em> and <em>Clear filters</em> perform different jobs.</p>
 
       <h3 id="guide-http-status">Use response codes as context</h3>
@@ -1183,7 +1173,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
         </table>
 
         <p>At first I read this as a Googlebot impostor. Then I noticed that the same IP also sent other user-agents and requested plugin readme files, which looks more like a generic scanner rotating identities than someone faking a single crawler. Either way, the Googlebot claim had no supporting range or DNS evidence, and the requested paths gave me solid reason to investigate.</p>
-        <p>The tool reports the narrower result, <em>Could not verify</em>, because it doesn't turn missing evidence into an automatic impersonation verdict. That leaves room for you to weigh the actual requests.</p>
+        <p>The tool reports the narrower result, <em>Could not verify</em> or <em>Unverified crawler claim</em>, because it doesn't turn missing evidence into an automatic impersonation verdict. That leaves room for you to weigh the actual requests.</p>
         <figure>
           <img src="\assets\images\thoughts\crawler-ip-verifier\alexander-kyriakou-crawler-ip-verifier-record-details-case.webp" width="1297" height="969" loading="lazy" alt="Original occurance view of a record from Details in Alexander Kyriakou's Crawler IP Verifier tool">
           <figcaption>Inspect your input records in detail.</figcaption>
@@ -1201,7 +1191,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
 
       <h3 id="guide-own-crawl-blocked">When your own crawl gets blocked</h3>
       <p>If you've run an SEO crawl with Screaming Frog or a similar tool, you've probably met this one: the crawl starts, then comes back full of <code>403</code> or <code>429</code> responses, or challenge pages instead of content. The site's firewall or bot protection is treating your crawler as unwanted automation, which, to be fair, is what it is.</p>
-      <p>The usual first workaround is switching the crawler's user-agent to Googlebot or Googlebot Smartphone, which Screaming Frog offers as a preset. Sometimes that works, and what it tells you is that the firewall trusts the name alone. That is the weak rule this page is about: anyone can do exactly what you just did. When it doesn't work, the site is probably also checking the source IP, or limiting your request rate. A Googlebot name arriving from your office or home connection fails a published-range check, and in this tool it would show up as <em>Could not verify</em>. It's also worth saying plainly that impersonating Googlebot to get past protection on a site you don't own isn't a neutral move, even when the intent is harmless.</p>
+      <p>The usual first workaround is switching the crawler's user-agent to Googlebot or Googlebot Smartphone, which Screaming Frog offers as a preset. Sometimes that works, and what it tells you is that the firewall trusts the name alone. That is the weak rule this page is about: anyone can do exactly what you just did. When it doesn't work, the site is probably also checking the source IP, or limiting your request rate. A Googlebot name arriving from your office or home connection fails a published-range check, and in this tool it would show up as <em>Could not verify</em> or <em>Unverified crawler claim</em>. It's also worth saying plainly that impersonating Googlebot to get past protection on a site you don't own isn't a neutral move, even when the intent is harmless.</p>
       <p>The cleaner route is to ask the site owner to allow your crawl. In practice that means allowlisting your IP address or, if your IP changes, a custom HTTP header carrying a secret value that a firewall rule recognises (Screaming Frog can send custom headers). Cloudflare, for example, lets a rule skip its security checks for matching requests. Slow down as well: fewer threads and a lower request rate avoid <code>429</code> responses and unnecessary load. And check what the crawler actually received, because a challenge page can come back as a <code>200</code> without being the real page.</p>
       <p>If you own the site, the same logic works in reverse: give agencies and tools an allowlist entry by IP or token, never by user-agent. Otherwise the rule that lets your SEO in lets everyone else in too.</p>
 
@@ -1391,8 +1381,19 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
       <p>What a total headache. The more I read how the fundamentals work on the matter, the better I undedratand that we're online by sweat & tears, and <em>mere luck</em>.</p>
       <p>PS: If you know of a crawler range or DNS suffix that should belong here, <a href="https://alexanderkyriakou.eu/contact" target="_blank">send me a note</a>.</p>
     </section>
+
     <p style="font-style: italic;"><strong>License and attribution.</strong> © 2026 Alexander Kyriakou. The Crawler IP Verifier's original software, including its dedicated HTML, CSS and JavaScript, is licensed under <a href="https://opensource.org/license/CPAL-1.0" target="_blank" rel="license noopener external">CPAL 1.0</a>, with attribution required where Section 14 applies. Original written content, copyrightable visual design and diagrams are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener external">CC BY 4.0</a>, unless otherwise noted; reuse requires appropriate credit, a license link and an indication of changes. See the <a href="https://alexanderkyriakou.eu/assets/licenses/crawler-ip-verifier/crawler-ip-verifier-LICENSE.md">tool-specific license details</a>, <a href="https://alexanderkyriakou.eu/assets/licenses/crawler-ip-verifier/crawler-ip-verifier-NOTICES.md">attribution notices</a> and <a href="https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt">full software license</a>. <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier">Original tool</a>. Third-party material and source data remain subject to their own applicable terms.</p>
-    </article>
+
+    <section class="tool-changelog">
+      <h2 id="changelog-title">Updates</h2>
+      <ul>
+        <li>
+          <time datetime="2026-10-27">October 27, 2026</time>
+          <span>Public findings table display on mobile fixed and references where applicable to <em>Unverified crawler claim</em> finding.</span>
+        </li>
+      </ul>
+    </section>
+  </article>
 
     <footer class="postfooter">
       <span class="postfooter-mark">ak</span>
@@ -1416,6 +1417,10 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
             <span>
               <span>Published</span>
               <time datetime="2026-10-26">Oct 26, 2026</time>
+            </span>
+            <span>
+              <span>Updated</span>
+              <time datetime="2026-10-27">Oct 27, 2026</time>
             </span>
           </p>
         </div>

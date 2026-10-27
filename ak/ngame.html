@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>N v2.0 Game ~ Browser Port ~ The Way of the Ninja 🥷🏿</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play an unofficial native browser port of Metanet Software's N v2.0. Save time, master your moves, and reach the exit.">
+  <meta name="author" content="Alexander Kyriakou">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/ngame">
+
+  <script type="module" src="/assets/games/ngame/src/app.js"></script>
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="N v2.0 Game ~ Browser Port ~ The Way of the Ninja 🥷🏿">
+  <meta property="og:description" content="Play an unofficial native browser port of Metanet Software's N v2.0. Save time, master your moves, and reach the exit.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Alexander Kyriakou">
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/ngame">
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/ngame/og/warsaw-wall-graffiti-run-to-fill-my-existential-void-2025.jpg">
+  <meta property="og:image:alt" content="Graffiti on a wooden board depicting a stylized, hollow running figure surrounded by hand-painted black text that reads, 'I RUN TO FILL MY EXISTENTIAL VOID.'. Warsaw, Poland 2025">
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="N v2.0 Game ~ Browser Port ~ The Way of the Ninja 🥷🏿">
+  <meta name="twitter:description" content="Play an unofficial native browser port of Metanet Software's N v2.0. Save time, master your moves, and reach the exit.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/ngame/og/warsaw-wall-graffiti-run-to-fill-my-existential-void-2025.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://alexanderkyriakou.eu/ak/ngame#webpage",
+      "url": "https://alexanderkyriakou.eu/ak/ngame",
+      "name": "N v2.0 Game - Browser Port",
+      "description": "Play an unofficial browser adaptation of Metanet Software's N v2.0, with momentum-based platforming, 600 original levels and locally saved progress.",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      },
+      "isPartOf": {
+        "@id": "https://alexanderkyriakou.eu/#website"
+      },
+      "mainEntity": {
+        "@id": "https://alexanderkyriakou.eu/ak/ngame#game"
+      },
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": ["VideoGame", "WebApplication"],
+      "@id": "https://alexanderkyriakou.eu/ak/ngame#game",
+      "url": "https://alexanderkyriakou.eu/ak/ngame",
+      "name": "N v2.0 Game - Browser Port",
+      "description": "An unofficial native JavaScript adaptation of N v2.0. Collect gold, activate the exit switch and reach the door across five-level episodes using running, jumping and wall interactions.",
+      "applicationCategory": "GameApplication",
+      "genre": "Platformer",
+      "gamePlatform": "Web browser",
+      "playMode": "https://schema.org/SinglePlayer",
+      "operatingSystem": "Desktop operating systems with a compatible web browser",
+      "browserRequirements": "Requires JavaScript, Canvas 2D and a keyboard. Encrypted save import and export require Web Crypto.",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR",
+        "url": "https://alexanderkyriakou.eu/ak/ngame"
+      },
+      "author": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      },
+      "isBasedOn": {
+        "@type": "VideoGame",
+        "@id": "https://www.thewayoftheninja.org/nv2.html#game",
+        "name": "N v2.0",
+        "url": "https://www.thewayoftheninja.org/nv2.html",
+        "creator": {
+          "@type": "Organization",
+          "@id": "https://www.metanetsoftware.com/#organization",
+          "name": "Metanet Software",
+          "url": "https://www.metanetsoftware.com/"
+        }
+      },
+      "creditText": "Original N v2.0 game code, levels, artwork, animations and audio © Metanet Software. Browser adaptation by Alexander Kyriakou. Unofficial fan project, not affiliated with or endorsed by Metanet Software. Rights in the original material remain with their respective owners.",
+      "featureList": [
+        "600 original levels organised into 120 five-level episodes.",
+        "Source-derived movement, collision handling and enemy behaviour.",
+        "Episode progression and column arcade challenges.",
+        "Level previews for unlocked and completed episodes.",
+        "Keyboard episode navigation and gameplay controls.",
+        "Local browser saves and password-encrypted backup export and import.",
+        "Native JavaScript and Canvas 2D rendering without a Flash plugin."
+      ],
+      "mainEntityOfPage": {
+        "@id": "https://alexanderkyriakou.eu/ak/ngame#webpage"
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+@font-face {
+  font-family: "Commissioner";
+  src: url("https://alexanderkyriakou.eu/assets/fonts/Commissioner-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commissioner";
+  src: url("https://alexanderkyriakou.eu/assets/fonts/Commissioner-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+body { background: #e9e8ec; }
+.ngame { --ink:#292832; --muted:#696773; --line:#aaa8b1; --gold:#e6bb35; --paper:#e9e8ec; margin:0; background:var(--paper); color:var(--ink); font:15px/1.55 Commissioner,Arial,sans-serif; }
+.ngame * { box-sizing:border-box; }
+.ngame .game-shell { width:min(100% - 64px,1060px); margin:auto; }
+.ngame header { height:116px; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; }
+.ngame a { color:inherit; text-underline-offset:3px; }
+.ngame .wordmark { display:flex; align-items:baseline; gap:9px; text-decoration:none; font-size:78px; line-height:1; font-weight:600; letter-spacing:-8px; }
+.ngame .wordmark span { font-size:15px; letter-spacing:-.3px; }
+.ngame .wordmark i { width:9px; height:9px; background:var(--gold); align-self:center; margin-left:5px; }
+.ngame .header-note { text-align:right; font-size:14px; line-height:1.45; padding-top: 30px; }
+.ngame .header-note span { color:var(--muted); font-size:12px; }
+.ngame .intro { display:flex; justify-content:space-between; align-items:center; gap:40px; padding:56px 0 46px; }
+.ngame h1 { font-size:44px; line-height:1.08; letter-spacing:-1.6px; font-weight:500; margin:0 0 18px; }
+.ngame p { margin:8px 0 16px; }
+.ngame .intro-action { min-width:275px; }
+.ngame .intro-action>button { display:block; width:100%; margin:10px 0; }
+.ngame .intro-action p { font-size:12px; color:var(--muted); text-align: center; }
+.intro > div:nth-child(1) > p:nth-child(2) { padding-left: 8px; }
+.ngame button, .ngame select { font:inherit; color:inherit; background:transparent; border:1px solid var(--line); padding:10px 15px; cursor:pointer; border-radius:2px; }
+.ngame button:hover:not(:disabled) { border-color:var(--ink); background:#d9d7df; }
+.ngame button:disabled { cursor:default; opacity:.38; }
+.ngame button.primary { background:var(--ink); border-color:var(--ink); color:white; }
+.ngame button.primary:hover { background:#47434d; }
+.ngame .primary span { margin-left:35px; }
+.ngame :focus-visible { outline:2px solid #8e6100; outline-offset:2px; }
+.ngame .section-label { display:flex; justify-content:space-between; align-items:baseline; border-top:1px solid var(--line); padding-top:21px; }
+.ngame h2 { font-size:19px; letter-spacing:-.4px; font-weight:500; margin:0; }
+.ngame .section-label span { font-size:12px; color:var(--muted); }
+.ngame .muted { color:var(--muted); font-size:13px; }
+.ngame #episodes { display:grid; grid-template-rows:repeat(10,38px); grid-template-columns:repeat(12,1fr); grid-auto-flow:column; gap:5px; margin:22px 0 30px; }
+.ngame #episodes button { padding:0; font-size:12px; font-variant-numeric:tabular-nums; }
+.ngame #episodes button.complete { background:var(--gold); border-color:var(--gold); }
+.ngame #episodes button.selected { border:2px solid var(--ink); background:#d3d0d9; }
+.ngame .utilities { display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap; padding:18px 0; border-top:1px solid var(--line); }
+.ngame details { flex:1; min-width:250px; }
+.ngame summary { padding:10px 0; cursor:pointer; }
+.ngame .settings { max-width:640px; color:var(--muted); }
+.ngame .settings p { font-size: 1rem; }
+.ngame label { display:block; margin:14px 0; }
+.ngame input { font:inherit; accent-color:#8e6100; }
+.ngame input[type=password], .ngame input[type=file] { display:block; width:100%; padding:10px; margin-top:5px; max-width:100%; }
+.ngame .notice { color:#8d341d; min-height:24px; margin-top:16px; font-size:13px; }
+.ngame footer { display:flex; justify-content:space-between; border-top:1px solid var(--line); padding:18px 0 24px; margin-top:24px; color:var(--muted); font-size:11px; }
+.ngame footer p { font-size:11px; }
+.ngame footer p:last-child { text-align:right; }
+.ngame footer span { color:#8c6d1f; }
+.ngame .game-bar { display:flex; align-items:center; justify-content:space-between; gap:16px; margin:24px 0 20px; }
+.ngame .game-bar h1 { font-size:18px; letter-spacing:-.4px; margin:0; }
+.ngame .game-bar button { font-size:12px; }
+.ngame .hud { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); align-items:baseline; column-gap:1rem; font-size:11px; letter-spacing:1px; padding:6px 0 14px; }
+.ngame .hud strong { font-weight:500; font-size:16px; margin-left:7px; letter-spacing:0; font-variant-numeric:tabular-nums; }
+.ngame #board { display:block; width:100%; max-height:72vh; aspect-ratio:792/600; background:#cbcad0; object-fit:contain; }
+.ngame .game-bottom { display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-top:15px; }
+.ngame #game-message { font-size:13px; }
+.ngame #continue { font-size:12px; }
+.ngame #debug { padding:15px; border:1px solid var(--line); }
+.ngame dialog { border:1px solid var(--line); background:var(--paper); color:var(--ink); padding:28px; width:min(460px,90vw); max-height:85vh; overflow:auto; }
+.ngame dialog:modal { overscroll-behavior:contain; }
+.ngame dialog::backdrop { background:#29283299; overflow:hidden; overscroll-behavior:contain; }
+.ngame dialog h2 { font-size:24px; margin-bottom:12px; }
+.ngame .dialog-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:25px; }
+.ngame #backup-error { color:#8d341d; }
+.ngame [hidden] { display:none!important; }
+.ngame #board:focus-visible { outline: 1px solid var(--line); outline-offset: 2px; }
+.ngame .hud>span{white-space:nowrap}
+.ngame .hud>span:nth-child(2){justify-self:center}
+.ngame .hud>span:last-child{justify-self:end}
+.ngame #time{display:inline-block;inline-size:8ch;text-align:end}
+.ngame #gold{display:inline-block;min-inline-size:4ch;text-align:end}
+.ngame #episode-preview{margin-block:0 28px}
+.ngame #preview-title{font-size:14px;font-weight:500;margin-block:0 12px}
+.ngame #preview-levels{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.ngame #preview-levels figure{margin:0;min-inline-size:0}
+.ngame #preview-levels canvas{display:block;inline-size:100%;block-size:auto;aspect-ratio:792/600;background:#cbcad0;border:1px solid var(--line)}
+.ngame #preview-levels figcaption{margin-block-start:6px;font-size:11px;line-height:1.4;overflow-wrap:anywhere;color:var(--muted)}
+.ngame .utilities details > summary { display: flex; align-items: center; gap: 6px; list-style: none; }
+.ngame .utilities details > summary::marker { content: ""; }
+.ngame .utilities details > summary::-webkit-details-marker { display: none; }
+.ngame .utilities details > summary::after { content: ""; display: inline-block; flex: none; margin-top: 1px; width: 6px; height: 6px; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(-45deg); transition: transform .3s ease; }
+.ngame .utilities details[open] > summary::after { transform: rotate(45deg); }
+.ngame .settings .volume-control { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.ngame .settings .volume-control input[type="range"] { margin: 0; width: 180px; max-width: 65%; }
+.postfooter-mark { background: #e9e8ec; }
+.postfooter::before { border-top: 1px solid #aaa8b1}
+.postfooter-share button { background: #eee; }
+.n-controls { width: 100%; margin: 10px 0 20px; border-collapse: collapse; color: inherit; font: inherit; line-height: 1.5; }
+.n-controls caption { padding-bottom: 10px; text-align: center; font-weight: 600; font-size: 1.4rem; }
+.n-controls th, .n-controls td { padding: 12px 16px; border: 0; border-bottom: 1px solid #d9d9d9; vertical-align: middle; font-size: 1.2rem; }
+.n-controls thead th { background: #f2f2f2; color: #292929; font-weight: 600; border-bottom: 2px solid #ccc; }
+.n-controls thead th:first-child { width: 7rem; }
+.n-controls thead th:last-child { text-align: left; }
+.n-controls tbody th { font-weight: 600; white-space: nowrap; }
+.n-controls tbody tr:last-child > * { border-bottom: 2px solid #ccc; }
+.container kbd { display: inline-block; min-width: 1.7em; box-sizing: border-box; padding: 0.1em 0.4em; border: 1px solid #ccc; border-bottom-width: 2px; border-radius: 4px; background: #fafafa; color: #292929; font-family: ui-monospace, monospace; font-size: 0.9em; line-height: 1.4; text-align: center; }
+.mobile-notfriendly-notice { display: none; }
+
+@media(max-width:768px) {
+  .ngame .game-shell { width:calc(100% - 28px); }
+  .ngame .intro { flex-direction:column; align-items:stretch; padding:32px 0; gap:10px; }
+  .ngame h1 { font-size:36px; }
+  .ngame #episodes { grid-template-rows:repeat(10,32px); gap:3px; }
+  .ngame #episodes button { font-size:10px; }
+  .ngame header { height:90px; }
+  .ngame .game-bar { flex-wrap:wrap; }
+  .ngame footer { gap:20px; }
+  .ngame .header-note { font-size:12px; }
+  .ngame .game-bar h1 { order:3; width:100%; }
+  .ngame #preview-levels{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .n-controls th, .n-controls td { padding: 0.75rem 0.5rem; }
+  .n-controls thead th:first-child { width: 5.5rem; }
+  iframe { width: 100%; height: 280px; }
+  .mobile-notfriendly-notice { display: block; margin: 0 15px 15px; padding: 10px 12px; border-radius: 8px; background: #f1f5f9; color: #64748b; font-size: 0.9rem; line-height: 1.5; text-align: center; font-style: italic; }
+}
+</style>
+</head>
+<body id="top">
+  <header>
+    <div class="nav-border">
+      <nav aria-label="Main navigation">
+<!--mobile menu start-->
+        <div class="mobile-menu">
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
+<!--mobile menu end-->
+
+<!--desktop menu start-->
+        <div class="desktop-menu">
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
+<!--desktop menu end-->
+      </nav>
+    </div>
+  </header>
+<noscript><p class="nojs">Enable JavaScript to learn The Way of the Ninja.</p></noscript>
+<main>
+<div class="ngame" id="ngame">
+  <div class="game-shell">
+    <header>
+      <a class="wordmark" href="/ak/ngame" aria-label="N v2.0 home">
+        n<span>v2.0</span><i aria-hidden="true"></i>
+      </a>
+      <div class="header-note">
+        a game of momentum<br>
+        <span>originally by Metanet Software</span>
+      </div>
+    </header>
+    <p class="mobile-notfriendly-notice"> This game is best played on desktop devices.</p>
+
+    <section id="menu" aria-labelledby="menu-title">
+      <div class="intro">
+        <div>
+          <h1 id="menu-title">The way of the ninja</h1>
+          <p>Complete each episode on time.<br>Your persistance is your greatest asset.</p>
+        </div>
+        <div class="intro-action">
+          <button id="play" class="primary">Play episode 00</button>
+          <button id="resume" hidden>Resume episode</button>
+          <p>← → move &nbsp; Z jump</p>
+        </div>
+      </div>
+
+      <div class="section-label">
+        <h2>Episodes</h2>
+        <span id="progress-count">0 / 120 complete</span>
+      </div>
+      
+      <p class="muted">Each episode contains five levels. Complete an episode to unlock the next.</p>
+      
+      <div id="episodes" aria-label="Episode selection"></div>
+      
+      <section id="episode-preview" hidden aria-labelledby="preview-title">
+        <h3 id="preview-title">Level previews</h3>
+        <div id="preview-levels"></div>
+      </section>
+      
+      <div id="arcades" aria-label="Unlocked arcade challenges"></div>
+      
+      <div class="utilities">
+        <button id="export">Export save</button>
+        <button id="import">Import save</button>
+        <details>
+          <summary>Settings &amp; instructions</summary>
+          <div class="settings">
+            <p>Move with the left and right arrows. Press Z to jump; hold it for a longer jump. Jump from walls to gain height. Collect gold and reach the exit switch before entering the opened door.</p>
+            <p>P pauses. Q returns to the menu. K kills the ninja. After death or completion, press Z to continue.</p>
+            <label class="volume-control">Volume <input id="volume" type="range" min="0" max="1" step="0.05" value="0.3"></label>
+            <button id="reset">Reset progress…</button>
+            <p>Progress belongs to this browser profile. Browser data can be cleared or evicted; export a password-protected backup to keep a portable copy. Forgotten export passwords cannot be recovered.</p>
+            <p>Encrypted backups protect the file; they do not certify that progress was legitimately earned.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="game" hidden aria-labelledby="level-name">
+      <div class="game-bar">
+        <button id="menu-button">← Episodes</button>
+        <h1 id="level-name">Loading…</h1>
+        <button id="pause">Pause · P</button>
+      </div>
+      
+      <div class="hud">
+        <span>EPISODE <strong id="episode-label">00</strong></span>
+        <span>GOLD <strong id="gold">0</strong></span>
+        <span>TIME <strong id="time">90.00</strong></span>
+      </div>
+      
+      <canvas id="board" width="792" height="600" tabindex="0" aria-label="N game. Left and right arrows move, Z jumps, K kills the ninja, P pauses, Q returns to episodes." aria-describedby="game-message">Keyboard controls are required. This game needs Canvas 2D.</canvas>
+      
+      <div class="game-bottom">
+        <p id="game-message" role="status">Press Z to begin.</p>
+        <button id="continue">Begin · Z</button>
+      </div>
+      
+      <div id="debug" hidden>
+        <button id="step">Step tick</button>
+        <button id="recording">Download input/state recording</button>
+        <label><input id="overlay" type="checkbox">Collision outline</label>
+        <label>Inspect level <select id="debug-level"></select></label>
+      </div>
+    </section>
+
+    <p id="notice" role="status" class="notice"></p>
+
+    <footer>
+      <p>Unofficial fan project</p>
+      <p>
+        N © <a href="https://www.metanetsoftware.com/" target="_blank" rel="noopener external">Metanet Software</a> · 
+        <a href="https://www.thewayoftheninja.org/nv2.html" target="_blank" rel="noopener external">Official game</a><br>
+        <a href="/assets/games/ngame/CREDITS.md" target="_blank">Credits &amp; notices</a>
+      </p>
+    </footer>
+  </div><!-- /.game-shell -->
+
+  <dialog id="backup-dialog" aria-labelledby="backup-title">
+    <form id="backup-form">
+      <h2 id="backup-title">Export save</h2>
+      <p id="backup-description">Choose a password for your backup. It cannot be recovered.</p>
+      <label id="file-label" hidden>Backup file <input id="backup-file" type="file" accept=".nv2save,application/json"></label>
+      <label>Password <input id="password" type="password" autocomplete="new-password" maxlength="1024" required autofocus></label>
+      <p id="backup-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button id="backup-cancel" type="button">Cancel</button>
+        <button id="backup-submit" class="primary" type="submit">Export</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+    <form method="dialog">
+      <h2 id="confirm-title">Replace progress?</h2>
+      <p id="confirm-description"></p>
+      <div class="dialog-actions">
+        <button value="cancel" autofocus>Cancel</button>
+        <button value="confirm" id="confirm-action">Replace progress</button>
+      </div>
+    </form>
+  </dialog>
+</div>
+
+  <div class="container">
+  <article>
+    <p>N was one of the first PC games I played, and the one I have kept returning to. Somewhere between running into a mine for the tenth time and finally getting a jump right, it became a fairly permanent part of my life.</p>
+
+    <p>The game above is an unofficial browser adaptation of N v2.0, made to accommodate how I enjoy playing. The initial reason was quite practical: many elements of the Flash game felt too small. I wanted to enjoy it more comfortably. And at the end of the day, an answer to <em>“Is it possible?”</em>.</p>
+
+    <p>If you've already started playing and are wondering which button does what, and haven't opened <em>Settings & instructions</em>, the <a href="#playing-n">controls and player notes</a> are further down.</p>
+
+    <h2>A computer, no internet, and N</h2>
+    <p>I got my first PC around 2007 or 2008. I don't remember the year exactly, but getting it was a big celebratory event for me. It was second-hand, with a white tower already turning yellow, stickers on the case, and a thick screen that somehow seemed thin at the time. Windows XP, so many colours, and no internet. Quite enough to be excited about.</p>
+
+    <p>N probably arrived on one of the CDs bundled with a PC magazine. I'm not sure, although I remember becoming very interested in those magazines once I got the PC. Free CDs and games were a rather convincing reason to pick one up.</p>
+
+    <p>I remember being at school and thinking about levels where I was stuck, working through possible ways to get past them. I'm also quite sure N introduced me to machine-friendly counting, from zero rather than one (the start level of each episode is zero). A small detail, but apparently one that stayed.</p>
+
+    <p>N was created by Metanet Software, Mare Sheppard and Raigan Burns. The original game came out in 2004, followed by N v2.0 in 2013. It was the earlier N that I first knew, with limited number of episodes. During my college years in Kavala, I remembered it again and discovered there were new levels. I was over the clouds! All that excitement for a little platformer. A little after returning from Kavala, I completed all 600 levels.</p>
+
+    <h2>Something about the movement</h2>
+    <p>The movement was what struck me from the beginning. There is something unusually natural about the way this little character moves through a level. Gathering momentum, sliding down a wall, pushing away from it, using a slope to reach somewhere that initially looks out of reach. It seems to follow gravity and evade it at the same time. Mesmerising, and still is in a way.</p>
+
+    <p>A level can look completely unreasonable at first. There's an exit somewhere, a switch I need to reach, and quite a few things determined to make that difficult. I try a route, die, adjust something, and die again. Sometimes I keep attempting the same jump long after I should have reconsidered the whole approach.</p>
+
+    <p>Then, gradually, the level begins to make sense. Where to accelerate, where to wait, how long to hold a jump, which wall to use. What looked like a collection of obstacles starts becoming a route.</p>
+
+    <p>That is my favourite part: finding a solution and managing to carry it through in one uninterrupted movement. The jumps and turns line up, the timing works, and suddenly I'm moving through a place that seemed impossible a few attempts earlier. There's something beautiful about that. And executing it myself is very, very satisfying.</p>
+
+    <p>I mostly chase completed episodes. A beautiful run with as few deaths as possible is closer to my ideal than an optimised time score or a position on a leaderboard. Collecting every piece of gold-time isn't usually the objective either. Gold gets considerably more interesting when time is running out.</p>
+
+    <p>And when an attempt goes wrong, I don't hesitate much before pressing <kbd>K</kbd>. Sometimes I've seen enough.</p>
+
+    <p>N makes me wonder what actually makes a game fun. It doesn't have the visual spectacle of Crysis, the open world of San Andreas, or the systems of an MMORPG, yet it competes with those experiences for me. A small space, a few movement rules, and a challenge I have voluntarily decided to put myself through. Quite enough to occupy my mind even when I'm supposed to be paying attention at school, apparently.</p>
+
+    <p>Difficulty is a large part of that pleasure. I need something to figure out, and enough resistance for finally getting it right to mean something. Whether the repeated failure along the way qualifies as fun-fun is another question.</p>
+
+    <p>Spatial judgement, timing, patience, and a fair amount of stubbornness. A frustratingly beautiful part of my childhood that I still enjoy playing.</p>
+
+    <iframe style="border-radius: 15px;" src="https://player.vimeo.com/video/61194964" width="850" height="638" frameborder="0" allow="encrypted-media;" referrerpolicy="strict-origin-when-cross-origin" title="N v2.0 Official Launch Trailer"></iframe>
+    <p style="text-align: center;"><em>Run · Jump · Die · Repeat</em> <img width="19px" height="14px" src="/assets/images/thoughts/ngame/ninja.svg"> A fairly familiar routine.</p>
+
+    <h2>A version for how I like to play</h2>
+    <p>Making the game more comfortable to look at was the starting point. Preserving the movement was the important part. If that felt wrong, there wouldn't be much point in having it on the website.</p>
+
+    <p>This adaptation uses the original game's custom physics, translated from recovered ActionScript into JavaScript. It doesn't substitute a general-purpose physics engine. Acceleration, drag, wall friction, jump behaviour and contact with the level geometry follow the translated original rules.</p>
+
+    <p>Some of those details are easy to feel while playing. Holding the jump key temporarily reduces gravity under the game's movement rules, allowing a higher jump. Slopes and wall contact influence how you move, while the angle and force of an impact can decide whether you land safely. The movement I remember enjoying comes from these interactions working together.</p>
+
+    <p>The simulation advances in 60 fixed steps per second, independently of the screen's refresh rate. Canvas 2D draws the game in the browser, without Flash or an emulator (e.g. Ruffle). The aim is to preserve the original feel, although I wouldn't claim a perfect reproduction of every detail.</p>
+
+    <p>All 600 levels are included, across 120 five-level episodes, including the secret columns. Around them is a redesigned browser interface and a deliberately narrower set of features.</p>
+
+    <p>The original level editor, online level sharing, accounts, leaderboards, replay viewing and local two-player play aren't included. Neither are configurable key bindings or the ninja colour and flavour settings. These were features I didn't use, so I chose to leave them out.</p>
+
+    <p>Sound was another very personal choice. I used to play N muted because I didn't like the sound effects. Here, only the gold-collection sound remains. A little feedback when picking up more time, without the more intrusive sounds while I listen to something else.</p>
+
+    <p>This is the version I wanted to sit down and play. Making it available here also gives a favourite old game a place in my little corner of the internet.</p>
+
+
+    <h2 id="playing-n">Playing N</h2>
+    <p>Reach the exit alive, before time runs out. You'll need to touch the <img width="19px" height="14px" src="/assets/images/thoughts/ngame/unlock.svg"> exit switch to open it first. Gold adds time, and most of the other objects deserve some suspicion.</p>
+
+    <p>This adaptation is intended for a desktop keyboard. Touch and gamepad controls aren't implemented, and neither is full screen-reader gameplay.</p>
+
+    <table class="n-controls">
+      <caption>Keyboard controls</caption>
+      <thead>
+        <tr>
+          <th scope="col">Key</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row"><kbd>←</kbd> / <kbd>→</kbd></th>
+          <td>Move left or right.</td>
+        </tr>
+        <tr>
+          <th scope="row"><kbd>Z</kbd></th>
+          <td>Jump. Hold it for a higher jump.</td>
+        </tr>
+        <tr>
+          <th scope="row"><kbd>Z</kbd> / <kbd>Space</kbd></th>
+          <td>Start or continue a round, including retrying after death. Space does not jump during gameplay.</td>
+        </tr>
+        <tr>
+          <th scope="row"><kbd>K</kbd></th>
+          <td>Kill the ninja to end the attempt.</td>
+        </tr>
+        <tr>
+          <th scope="row"><kbd>P</kbd></th>
+          <td>Pause.</td>
+        </tr>
+        <tr>
+          <th scope="row"><kbd>Q</kbd></th>
+          <td>Return to the episode selection.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Each episode contains five levels, numbered zero to four, and starts with 90 seconds. Each piece of <img style="width: 14px; height: 14px;" src="/assets/images/thoughts/ngame/gold.svg"> gold adds two seconds to the timer. Complete an episode to unlock the next one in its column.</p>
+
+    <p>Momentum helps, but landing height and surface angle matter too. Reaching the other side doesn't necessarily mean surviving the landing. Holding <kbd>Z</kbd> gives you a higher jump; learning when to release it is useful too.</p>
+
+    <p>In ordinary episode play, dying and retrying restores the time you had at the beginning of that level. You have room to work out a difficult section without every failed attempt consuming more of the episode's remaining time.</p>
+
+    <p>Column Arcade challenges are included as well. In Arcade, time carries through deaths, making repeated mistakes rather more expensive.</p>
+
+    <p>The game pauses automatically when it loses focus or the tab is hidden, and paused time doesn't drain the timer. Focus the game again and resume when you're ready.</p>
+
+    <h3>Keeping your progress</h3>
+    <p>Progress saves automatically in your current browser and profile. There is no account or cloud sync, so opening the page in another browser won't bring your progress along automatically.</p>
+
+    <p>Resume returns you to a saved level boundary, with that level's saved starting time. It won't put you back halfway through a jump.</p>
+
+    <p>Saves have no built-in expiry, but browser storage can still be cleared or lost. Use <strong>Export save</strong> to keep a backup, and <strong>Import save</strong> to restore it or transfer your progress to another browser or computer.</p>
+
+    <p>Exported backups are password-protected; ordinary saves inside the browser are not. The backup is created and opened locally, without the game uploading the file or its password. Keep the file somewhere safe and remember the password, because forgotten passwords cannot be recovered.</p>
+
+    <p>These backups belong to this adaptation and aren't interchangeable with the original game's save files.</p>
+
+    <aside>
+    <h3>Credits</h3>
+    <p>N is Metanet Software's game. Its original code, levels, artwork, animations and audio belong to their respective owners. This browser adaptation is an unofficial fan project by me, Alexander Kyriakou, with no affiliation with or endorsement by Metanet Software.</p>
+
+    <p style="text-align: right;">
+      <a href="https://www.thewayoftheninja.org/" target="_blank" rel="noopener external">Official N website</a> ·
+      <a href="https://www.thewayoftheninja.org/n_history.html" target="_blank" rel="noopener external">N version history</a> ·
+      <a href="/assets/games/ngame/CREDITS.md" target="_blank">Credits and notices</a>
+    </p>
+    </aside>
+  </article>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/games">games</a>
+          </nav>
+        </div>
+
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants">Code assistant, GPT-6.1 Sol</p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-10-27">Oct 27, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied ♥</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+    </div>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+
+                  <div class="f-group-2">
+                      <ul class="f-socials">
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M 32.7812 52.5508 C 34.4687 52.5508 35.6640 51.0977 36.5312 48.8477 L 51.8829 8.7461 C 52.3048 7.6680 52.5626 6.7070 52.5626 5.9102 C 52.5626 4.3867 51.6016 3.4492 50.0781 3.4492 C 49.2813 3.4492 48.3203 3.6836 47.2423 4.1055 L 6.9296 19.5508 C 4.9609 20.3008 3.4374 21.4961 3.4374 23.2070 C 3.4374 25.3633 5.0780 26.0899 7.3280 26.7695 L 20.0077 30.6133 C 21.4843 31.0821 22.3280 31.0352 23.3359 30.0977 L 49.0466 6.0742 C 49.3514 5.7930 49.7032 5.8399 49.9375 6.0508 C 50.1717 6.2852 50.1952 6.6367 49.9139 6.9414 L 25.9843 32.7461 C 25.0937 33.7070 24.9999 34.5039 25.4687 36.0742 L 29.1718 48.4492 C 29.8749 50.8164 30.6015 52.5508 32.7812 52.5508 Z"/></svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+      </div>
+</footer>
+<script defer src="/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+</body>
+</html>
