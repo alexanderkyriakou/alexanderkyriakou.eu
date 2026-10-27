@@ -5,6 +5,8 @@
 .env.*
 *.local
 ak/article.html
+ak/ngame.html
+assets/games
 
 # Tooling
 .wrangler/

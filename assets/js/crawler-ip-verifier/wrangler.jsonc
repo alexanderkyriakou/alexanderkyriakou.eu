@@ -6,11 +6,12 @@
   "vars": {
     "FRONTEND_ORIGIN": "https://alexanderkyriakou.eu",
     "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008",
-    "MANUAL_REFRESH_ID": "refresh-20261022-2"
+    "MANUAL_REFRESH_ID": "refresh-20261022-3"
   },
   "triggers": {
     "crons": [
-      "0 4 * * *" //daily 04:00 utc
+      "0 4 * * *", //daily 04:00 utc
+      "* * * * *"
     ]
   },
   "durable_objects": {
@@ -30,6 +31,6 @@
     }
   ],
   "observability": {
-    "enabled": false
+    "enabled": true
   }
 }

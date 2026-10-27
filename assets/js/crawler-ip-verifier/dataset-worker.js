@@ -3617,7 +3617,7 @@ var DAILY_CRON = "0 4 * * *";
 var dailySlot = (time) => {
   if (!Number.isFinite(time)) return false;
   const date = new Date(time);
-  return date.getUTCHours() === 0 && date.getUTCMinutes() === 0;
+  return date.getUTCHours() === 4 && date.getUTCMinutes() === 0;
 };
 var bootstrapEligible = (entry, source) => !entry || entry.current === null && (entry.lastAttemptedRefresh === null || entry.lastRefreshError === "implausible-range-change" && Date.parse(source.audit.checkedAt) > Date.parse(entry.lastAttemptedRefresh));
 var scheduledSource = (time) => {
