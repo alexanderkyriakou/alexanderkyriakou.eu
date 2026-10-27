@@ -5,13 +5,13 @@
   "workers_dev": true,
   "vars": {
     "FRONTEND_ORIGIN": "https://alexanderkyriakou.eu",
-    "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008",
-    "MANUAL_REFRESH_ID": "refresh-20261022-3"
+    "LOCAL_FRONTEND_ORIGIN": "http://localhost:8008"
+    //"MANUAL_REFRESH_ID": "refresh-20261022-3" //update version -#$ for each manual update
   },
   "triggers": {
     "crons": [
-      "0 4 * * *", //daily 04:00 utc
-      "* * * * *"
+      "0 4 * * *" //daily 04:00 utc
+      //"* * * * *" //every min
     ]
   },
   "durable_objects": {
@@ -31,6 +31,6 @@
     }
   ],
   "observability": {
-    "enabled": true
+    "enabled": false
   }
 }
