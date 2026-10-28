@@ -117,69 +117,6 @@ function initPageIndex() {
 }
 initPageIndex();
 
-// Mobile user-agent sidebar
-function initMobileUaSidebar() {
-  const toggle = $('uaMobileToggle');
-  const content = $('uaSidebarContent');
-  const count = $('uaSelectedCount');
-
-  if (!toggle || !content || !count) return;
-
-  const sidebar = toggle.closest('.sidebar-card');
-  if (!sidebar) return;
-
-  const mobileQuery = window.matchMedia('(max-width: 768px)');
-
-  function setOpen(open) {
-    sidebar.classList.toggle('is-open', open);
-
-    toggle.setAttribute('aria-expanded', String(open));
-
-    content.hidden = !open;
-  }
-
-  function syncViewport() {
-    setOpen(!mobileQuery.matches);
-  }
-
-  function updateCount() {
-    const total = selectedUAs.size;
-
-    count.textContent =
-      `${total} ${total === 1 ? 'agent' : 'agents'} selected`;
-  }
-
-  toggle.addEventListener('click', () => {
-    if (!mobileQuery.matches) return;
-
-    setOpen(content.hidden);
-  });
-
-  mobileQuery.addEventListener('change', syncViewport);
-
-  const list = $('uaCheckboxList');
-
-  if (list) {
-    const observer = new MutationObserver(updateCount);
-
-    observer.observe(list, {
-      childList: true
-    });
-
-    list.addEventListener('change', updateCount);
-  }
-
-  syncViewport();
-  updateCount();
-
-  window.addEventListener('pageshow', () => {
-    syncViewport();
-    updateCount();
-  });
-}
-
-initMobileUaSidebar();
-
 
 // Extras
 console.log("Hi there explorer!");

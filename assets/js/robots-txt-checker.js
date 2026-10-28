@@ -1213,9 +1213,9 @@
 
 // Mobile user-agent sidebar
 function initMobileUaSidebar() {
-  const toggle = $('uaMobileToggle');
-  const content = $('uaSidebarContent');
-  const count = $('uaSelectedCount');
+  const toggle = document.getElementById('uaMobileToggle');
+  const content = document.getElementById('uaSidebarContent');
+  const count = document.getElementById('uaSelectedCount');
 
   if (!toggle || !content || !count) return;
 
@@ -1251,7 +1251,7 @@ function initMobileUaSidebar() {
 
   mobileQuery.addEventListener('change', syncViewport);
 
-  const list = $('uaCheckboxList');
+  const list = document.getElementById('uaCheckboxList');
 
   if (list) {
     const observer = new MutationObserver(updateCount);

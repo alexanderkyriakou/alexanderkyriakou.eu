@@ -12,7 +12,7 @@ Have a look around at [alexanderkyriakou.eu](https://alexanderkyriakou.eu).
 
 ---
 
-### Robots.txt Checker — license and attribution
+### Robots.txt Checker - license and attribution
 
 The [Robots.txt Checker](https://alexanderkyriakou.eu/ak/robots-txt-checker) was developed by Alexander Kyriakou.
 
@@ -20,7 +20,7 @@ Its dedicated software code is licensed under [CPAL-1.0](https://opensource.org/
 
 These licenses cover the identified tool and original creative materials, **not this entire website repository**. Third-party assets have their own terms.
 
-### Crawler IP Verifier — license and attribution
+### Crawler IP Verifier - license and attribution
 
 The [Crawler IP Verifier](https://alexanderkyriakou.eu/ak/crawler-ip-verifier) was developed by Alexander Kyriakou.
 

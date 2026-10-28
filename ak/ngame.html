@@ -293,11 +293,11 @@ body { background: #e9e8ec; }
     </header>
     <p class="mobile-notfriendly-notice"> This game is best played on desktop devices.</p>
 
-    <section id="menu" aria-labelledby="menu-title">
+    <section id="menu">
       <div class="intro">
         <div>
           <h1 id="menu-title">The way of the ninja</h1>
-          <p>Complete each episode on time.<br>Your persistance is your greatest asset.</p>
+          <p>Complete each episode in time.<br>Your persistence is your greatest asset.</p>
         </div>
         <div class="intro-action">
           <button id="play" class="primary">Play episode 00</button>
@@ -313,14 +313,14 @@ body { background: #e9e8ec; }
       
       <p class="muted">Each episode contains five levels. Complete an episode to unlock the next.</p>
       
-      <div id="episodes" aria-label="Episode selection"></div>
+      <div id="episodes"></div>
       
-      <section id="episode-preview" hidden aria-labelledby="preview-title">
+      <section id="episode-preview" hidden>
         <h3 id="preview-title">Level previews</h3>
         <div id="preview-levels"></div>
       </section>
       
-      <div id="arcades" aria-label="Unlocked arcade challenges"></div>
+      <div id="arcades"></div>
       
       <div class="utilities">
         <button id="export">Export save</button>
@@ -339,7 +339,7 @@ body { background: #e9e8ec; }
       </div>
     </section>
 
-    <section id="game" hidden aria-labelledby="level-name">
+    <section id="game" hidden>
       <div class="game-bar">
         <button id="menu-button">← Episodes</button>
         <h1 id="level-name">Loading…</h1>
@@ -352,7 +352,7 @@ body { background: #e9e8ec; }
         <span>TIME <strong id="time">90.00</strong></span>
       </div>
       
-      <canvas id="board" width="792" height="600" tabindex="0" aria-label="N game. Left and right arrows move, Z jumps, K kills the ninja, P pauses, Q returns to episodes." aria-describedby="game-message">Keyboard controls are required. This game needs Canvas 2D.</canvas>
+      <canvas id="board" width="792" height="600" tabindex="0" -arialabel="N game. Left and right arrows move, Z jumps, K kills the ninja, P pauses, Q returns to episodes." aria-describedby="game-message">Keyboard controls are required. This game needs Canvas 2D.</canvas>
       
       <div class="game-bottom">
         <p id="game-message" role="status">Press Z to begin.</p>
@@ -379,7 +379,7 @@ body { background: #e9e8ec; }
     </footer>
   </div><!-- /.game-shell -->
 
-  <dialog id="backup-dialog" aria-labelledby="backup-title">
+  <dialog id="backup-dialog">
     <form id="backup-form">
       <h2 id="backup-title">Export save</h2>
       <p id="backup-description">Choose a password for your backup. It cannot be recovered.</p>
@@ -393,7 +393,7 @@ body { background: #e9e8ec; }
     </form>
   </dialog>
 
-  <dialog id="confirm-dialog" aria-labelledby="confirm-title">
+  <dialog id="confirm-dialog">
     <form method="dialog">
       <h2 id="confirm-title">Replace progress?</h2>
       <p id="confirm-description"></p>
@@ -442,7 +442,7 @@ body { background: #e9e8ec; }
     <p>Spatial judgement, timing, patience, and a fair amount of stubbornness. A frustratingly beautiful part of my childhood that I still enjoy playing.</p>
 
     <iframe style="border-radius: 15px;" src="https://player.vimeo.com/video/61194964" width="850" height="638" frameborder="0" allow="encrypted-media;" referrerpolicy="strict-origin-when-cross-origin" title="N v2.0 Official Launch Trailer"></iframe>
-    <p style="text-align: center;"><em>Run · Jump · Die · Repeat</em> <img width="19px" height="14px" src="/assets/images/thoughts/ngame/ninja.svg"> A fairly familiar routine.</p>
+    <p style="text-align: center;"><em>Run · Jump · Die · Repeat</em> <img width="19px" height="14px" src="/assets/images/thoughts/ngame/ninja.svg" alt=""> A fairly familiar routine.</p>
 
     <h2>A version for how I like to play</h2>
     <p>Making the game more comfortable to look at was the starting point. Preserving the movement was the important part. If that felt wrong, there wouldn't be much point in having it on the website.</p>
@@ -463,7 +463,7 @@ body { background: #e9e8ec; }
 
 
     <h2 id="playing-n">Playing N</h2>
-    <p>Reach the exit alive, before time runs out. You'll need to touch the <img width="19px" height="14px" src="/assets/images/thoughts/ngame/unlock.svg"> exit switch to open it first. Gold adds time, and most of the other objects deserve some suspicion.</p>
+    <p>Reach the exit alive, before time runs out. You'll need to touch the <img width="19px" height="14px" src="/assets/images/thoughts/ngame/unlock.svg" alt=""> exit switch to open it first. Gold adds time, and most of the other objects deserve some suspicion.</p>
 
     <p>This adaptation is intended for a desktop keyboard. Touch and gamepad controls aren't implemented, and neither is full screen-reader gameplay.</p>
 
@@ -503,7 +503,7 @@ body { background: #e9e8ec; }
       </tbody>
     </table>
 
-    <p>Each episode contains five levels, numbered zero to four, and starts with 90 seconds. Each piece of <img style="width: 14px; height: 14px;" src="/assets/images/thoughts/ngame/gold.svg"> gold adds two seconds to the timer. Complete an episode to unlock the next one in its column.</p>
+    <p>Each episode contains five levels, numbered zero to four, and starts with 90 seconds. Each piece of <img style="width: 14px; height: 14px;" src="/assets/images/thoughts/ngame/gold.svg" alt=""> gold adds two seconds to the timer. Complete an episode to unlock the next one in its column.</p>
 
     <p>Momentum helps, but landing height and surface angle matter too. Reaching the other side doesn't necessarily mean surviving the landing. Holding <kbd>Z</kbd> gives you a higher jump; learning when to release it is useful too.</p>
 
@@ -605,7 +605,7 @@ body { background: #e9e8ec; }
       </div>
 
       <div class="copyright">
-         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank">Source code on GitHub</a>
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
       </div>
 </footer>
 <script defer src="/assets/js/main.js"></script>
