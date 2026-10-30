@@ -27,3 +27,11 @@ The [Crawler IP Verifier](https://alexanderkyriakou.eu/ak/crawler-ip-verifier) w
 Its dedicated software code is licensed under [CPAL-1.0](https://opensource.org/license/CPAL-1.0), including the project-specific attribution information in [`crawler-ip-verifier-LICENSE.md`](https://alexanderkyriakou.eu/assets/licenses/crawler-ip-verifier/crawler-ip-verifier-LICENSE.md). Original written content, page design and diagrams are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), unless otherwise noted.
 
 These licenses cover the identified tool and original creative materials, **not this entire website repository**. Third-party assets have their own terms.
+
+### Knowledge Graph Explorer - license and attribution
+
+The [Crawler IP Verifier](https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer) was developed by Alexander Kyriakou.
+
+Its dedicated software code is licensed under [CPAL-1.0](https://opensource.org/license/CPAL-1.0), including the project-specific attribution information in [`crawler-ip-verifier-LICENSE.md`](https://alexanderkyriakou.eu/assets/licenses/google-knowledge-graph-explorer/google-knowledge-graph-explorer-LICENSE.md). Original written content, page design and diagrams are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), unless otherwise noted.
+
+These licenses cover the identified tool and original creative materials, **not this entire website repository**. Third-party assets have their own terms.
