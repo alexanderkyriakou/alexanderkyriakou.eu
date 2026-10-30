@@ -1,4 +1,25 @@
 [
+    {
+    "id": "tt6262770",
+    "title": "Tenzing",
+    "type": "movie",
+    "releaseDate": "2026-10-16",
+    "year": 2026,
+    "runtime": 125,
+    "genres": [
+     "Mountain Adventure",
+     "Adventure",
+     "Biography",
+     "Drama",
+     "History",
+     "Thriller"
+    ],
+    "imdbRating": 7.5,
+    "myRating": 9,
+    "url": "https://www.imdb.com/title/tt6262770",
+    "poster": "/iOVPvNFPYTeVmuef3THqpt9f8VW.jpg",
+    "overview": "The untold and inspiring tale of one of the most important mountain climbers in history who, with Edmund Hillary, became the first person to reach the summit of Mount Everest."
+  },
   {
     "id": "tt29714073",
     "title": "Bad Apples",

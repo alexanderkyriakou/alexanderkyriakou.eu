@@ -592,15 +592,13 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translateX(-12px);
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s allow-discrete;
+  transition: opacity 0.8s ease, visibility 0.8s allow-discrete;
 }
 
 .page-index.index-visible {
   opacity: 1;
   visibility: visible;
-  pointer-events: auto;
-  transform: translateX(0);
+  pointer-events: auto;;
 }
 
 .page-index-desktop {
@@ -612,14 +610,12 @@
   overflow-y: auto;
   font-size: 0.9rem;
   line-height: 1.5;
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  opacity: 0;;
+  transition: opacity 0.8s ease;
 }
 
 .page-index.index-visible .page-index-desktop {
-  opacity: 1;
-  transform: translateX(0);
+  opacity: 1;;
 }
 
 .page-index-desktop a {

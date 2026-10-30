@@ -5,6 +5,9 @@
 .env.*
 *.local
 ak/article.html
+ak/knowledge-graph-explorer.html
+src
+kg-local.mjs
 
 
 # Tooling

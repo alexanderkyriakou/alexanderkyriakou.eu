@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Explore Google's Knowledge Graph • from String to Things</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search Google's Knowledge Graph, inspect entity IDs and compare records across languages. A small tool for looking beyond the name.">
+  <meta name="author" content="Alexander Kyriakou">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/ak/google-knowledge-graph-explorer">
+  
+  <link rel="stylesheet" href="https://alexanderkyriakou.eu/assets/css/main.css">
+  <link rel="stylesheet" href="https://alexanderkyriakou.eu/assets/css/thoughts.css">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/TODO.md" title="TODO">
+  
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="Explore Google's Knowledge Graph • from String to Things"/>
+  <meta property="og:description" content="Search Google's Knowledge Graph, inspect entity IDs and compare records across languages. A small tool for looking beyond the name."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/google-knowledge-graph-explorer/og/wall-art-fuga-restaurant-athens-2025.jpg">
+  <meta property="og:image:alt" content="Wall art featuring vintage portraits of Beethoven on the left wearing a cowboy hat and mustache, and a historical lawman on the right with sunglasses and a sheriff badge.">
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Explore Google's Knowledge Graph • from String to Things">
+  <meta name="twitter:description" content="Search Google's Knowledge Graph, inspect entity IDs and compare records across languages. A small tool for looking beyond the name.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/google-knowledge-graph-explorer/og/wall-art-fuga-restaurant-athens-2025.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer",
+        "name": "Google's Knowledge Graph Explorer",
+        "description": "Search Google's Knowledge Graph, inspect entity IDs and source references, compare records and explore the same entity across languages.",
+        "inLanguage": "en",
+        "datePublished": "2026-10-30",
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#application"
+        },
+        "hasPart": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#guide"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#image-social"
+        },
+        "image": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#image-social"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#application",
+        "url": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer",
+        "name": "Google's Knowledge Graph Explorer",
+        "description": "An independent browser-based tool for exploring entity records returned by Google Enterprise Knowledge Graph Basic. Search names and keywords or look up Google and Cloud machine IDs, inspect available fields and references, compare up to three records, and request the same identifier in two languages. Optional Wikidata investigation keeps user-selected candidates separate from Google's records.",
+        "applicationCategory": "UtilitiesApplication",
+        "applicationSubCategory": "Knowledge Graph exploration and entity research",
+        "operatingSystem": "Any operating system with a supported web browser",
+        "browserRequirements": "Requires JavaScript and an internet connection.",
+        "inLanguage": "en",
+        "datePublished": "2026-10-30",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "url": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer"
+        },
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "featureList": [
+          "Search entity records by name or keyword using Google Enterprise Knowledge Graph Basic.",
+          "Look up recognised Google MIDs and Cloud MIDs directly in the selected language.",
+          "Choose from 39 requested languages and 22 entity-type presets for keyword searches.",
+          "Request up to 50 search results, subject to source availability.",
+          "Inspect available names, descriptions, types, identifiers, associated websites and source references.",
+          "Preserve Google's returned result order and distinguish text-match labels from verified identity matches.",
+          "Compare up to three entity records, including selections from different searches.",
+          "Examine shared values, differences and missing information side by side.",
+          "Compare the same identifier across two requested languages without translating missing source text.",
+          "Inspect a user-selected Wikidata candidate by Q-ID while keeping its information separate from Google's record.",
+          "Display available Google images or retrieve a Wikipedia lead image from an article referenced by the same record, with suitable attribution and licensing metadata.",
+          "Open Google Search using an available Google MID, with a name-based search fallback.",
+          "Copy identifiers and share links containing search settings and an inspected identifier when present.",
+          "Export entity comparisons as CSV, excluding images and detailed descriptions.",
+          "Use the explorer without an account or a personal API key."
+        ],
+        "softwareHelp": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#guide"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#webpage"
+        }
+      },
+      {
+        "@type": "Article",
+        "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#guide",
+        "url": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#kg-why",
+        "headline": "A name, a number, and a bit of curiosity",
+        "description": "A practical guide to using the Knowledge Graph Explorer and understanding entities, types, machine IDs, shared names, multilingual records and Knowledge Panels. Explains identity relationships in JSON-LD, careful use of sameAs, and the connections between knowledge graphs, SEO and language models.",
+        "inLanguage": "en",
+        "datePublished": "2026-10-30",
+        "isAccessibleForFree": true,
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "publisher": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#webpage"
+        },
+        "about": {
+          "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#application"
+        },
+        "articleSection": [
+          "A name, a number, and a bit of curiosity",
+          "Using the explorer",
+          "From strings to things",
+          "What kind of entity are we looking at?",
+          "Making sense of the identifiers",
+          "Same name, different identity",
+          "A few connections make the difference",
+          "The same entity in another language",
+          "A record isn't everything you see in Search",
+          "Making your own identity clearer",
+          "Entities, SEO, and the arrival of more acronyms",
+          "A few practical questions",
+          "Resources worth browsing around"
+        ],
+        "keywords": [
+          "Google Knowledge Graph",
+          "Google Enterprise Knowledge Graph Basic",
+          "entity research",
+          "entity disambiguation",
+          "Google MID",
+          "Cloud MID",
+          "Wikidata",
+          "multilingual entities",
+          "Knowledge Panels",
+          "JSON-LD",
+          "Schema.org",
+          "sameAs",
+          "entity linking",
+          "knowledge graphs and LLMs",
+          "SEO"
+        ]
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer#image-social",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/google-knowledge-graph-explorer/og/wall-art-fuga-restaurant-athens-2025.jpg",
+        "description": "Wall art featuring vintage portraits of Beethoven on the left wearing a cowboy hat and mustache, and a historical lawman on the right with sunglasses and a sheriff badge.",
+        "encodingFormat": "image/jpeg"
+      }
+    ]
+  }
+</script>
+
+<style>
+@font-face{font-family:Commissioner;src:url('https://alexanderkyriakou.eu/assets/fonts/Commissioner-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:Commissioner;src:url('https://alexanderkyriakou.eu/assets/fonts/Commissioner-SemiBold.woff2') format('woff2');font-weight:600;font-display:swap}
+
+.kg-page{max-width:1200px;margin:auto;padding:20px 0;}
+.kg-page>h1{font-size:clamp(1.75rem,3vw,2.5rem);font-weight:500;margin:0 0 8px}
+.kg-page>p{color:#555;margin:0 0 28px}
+.kg-hero{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:20px;padding:0}
+.kg-hero h1{margin:0;font-size:clamp(1.75rem,1.3rem + 2.2vw,2.5rem);font-weight:500;line-height:1.2;letter-spacing:normal;text-wrap:wrap}
+.kg-hero p{margin:8px 0 10px;width:fit-content;max-width:100%;font-size:inherit;line-height:inherit;color:#555}
+#kg-hero-figure{width:150px;height:150px;aspect-ratio:auto;justify-self:end;margin-top:-40px;position:relative;touch-action:pan-y;user-select:none;-webkit-user-select:none;--hairline-plate:#fff;--hairline-hi:#263b4d;--hairline-edge:#516f86;--hairline-mid:#8496a4;--hairline-lo:#dbe3ea}
+#kg-hero-figure>svg{display:block;width:100%;height:100%}
+#kg-hero-figure svg :is(path,polygon,ellipse,line){fill:var(--hairline-plate);stroke:var(--hairline-mid);stroke-width:.9;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+#kg-hero-figure .nf{fill:none}
+#kg-hero-figure .sil{stroke:var(--hairline-edge)}
+#kg-hero-figure .hi{stroke:var(--hairline-hi)}
+#kg-hero-figure .lo{stroke:var(--hairline-lo)}
+
+#kg-app{font:400 1rem/1.6 Commissioner,system-ui,sans-serif;color:#0f172a;letter-spacing:0; margin-bottom: 20px;}
+#kg-app,#kg-app *{box-sizing:border-box}
+#kg-app [hidden]{display:none!important}
+#kg-app :focus-visible{outline:3px solid #0284c7;outline-offset:3px}
+#kg-app p{font-size:inherit;line-height:inherit}
+#kg-app h2{font-size:1.2rem;font-weight:600;margin:0 0 12px}
+#kg-app h3{font-size:1.1rem;font-weight:600;margin:8px 0}
+#kg-app :is(button,input,select){font:inherit;color:inherit;min-height:48px;border:1px solid #94a3b8;border-radius:8px;padding:10px 14px;background:#fff}
+#kg-app button{cursor:pointer}
+#kg-app button:hover:not(:disabled){border-color:#0284c7;background:#eff6ff;color:#0369a1}
+#kg-app button:disabled{opacity:.5;cursor:not-allowed}
+#kg-app .kg-primary{background:#0284c7;border-color:#0284c7;color:white}
+#kg-app .kg-primary:hover:not(:disabled){background:#0369a1;color:#fff}
+#kg-app label{display:block;color:#475569;font-size:.9rem;font-weight:600;margin:0 0 7px}
+#kg-app a{color:#0369a1;text-underline-offset:3px}
+#kg-app .kg-note{font-size:.8rem;color:#555; margin: 0 0 7px;}
+#kg-app .kg-panel{padding:22px;border:1px solid #cbd5e1;border-radius:15px;background:#fff;box-shadow:0 1px 3px #00000008;margin-bottom:20px}
+.kg-search-row{display:flex;gap:10px}
+.kg-search-row input{flex:1;min-width:0}
+.kg-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:10px 0 7px;}
+.kg-options select{width:100%}
+#kg-app summary{cursor:pointer;color:#475569;padding:12px 0;font-size:.9rem}
+#kg-app details+details{border-top:1px solid #e2e8f0;margin-top:12px}
+#kg-app details p{font-size:.9rem}
+.kg-examples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+#kg-app .kg-example{text-align:left;border-color:#cbd5e1;padding:16px}
+.kg-example strong,.kg-example span{display:block}
+.kg-example span{font-size:.8rem;color:#555}
+.kg-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.kg-actions a{padding:10px 0}
+#kg-status{min-height:26px;margin:14px 0}
+.kg-result{display:grid;grid-template-columns:72px minmax(0,1fr);gap:20px;padding:24px 0;border-top:1px solid #e2e8f0}
+.kg-image{width:72px;height:72px;border:1px solid #cbd5e1;background:#f1f5f9;border-radius:8px;display:grid;place-items:center;color:#475569;font-size:1.6rem;overflow:hidden}
+.kg-image img{object-fit:cover;width:100%;height:100%}
+.kg-result p{margin:6px 0 12px}
+.kg-labels{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+#kg-app .kg-badge{font-size:.7rem;font-weight:600;border:1px solid #cbd5e1;border-radius:5px;padding:3px 8px;background:#f8fafc;color:#475569}
+#kg-app .kg-exact{background:#ecfdf5;border-color:#86c6ab;color:#166044}
+#kg-app .kg-error{padding:16px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b}
+.kg-callout{padding:14px;border-left:3px solid #0284c7;background:#f0f9ff}
+.kg-facts{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px}
+.kg-facts dt{font-size:.85rem;color:#526176}
+.kg-facts dd{margin:0;overflow-wrap:anywhere}
+.kg-table-wrap{overflow:auto;max-width:100%;container-type:inline-size}
+#kg-app table{border-collapse:separate;border-spacing:0;width:100%;font-size:.9rem}
+#kg-app caption{text-align:left;font-weight:600;padding:14px 0}
+#kg-app th,#kg-app td{padding:12px;border-bottom:1px solid #cbd5e1;text-align:left;vertical-align:top;overflow-wrap:anywhere}
+#kg-app thead th{background:#f1f5f9}
+#kg-app tbody th{background:#f8fafc;position:sticky;inset-inline-start:0;min-width:100px}
+#kg-app td small{display:block;margin-top:8px}
+.kg-mobile-label{display:none}
+#kg-tray{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+@container (width < 640px){#kg-app table,#kg-app tbody,#kg-app tr,#kg-app td,#kg-app tbody th{display:block}#kg-app thead{display:none}#kg-app tbody th{position:static}#kg-app td .kg-mobile-label{display:block;margin-bottom:6px}#kg-app tr{margin-bottom:20px;border:1px solid #cbd5e1}}
+
+#kg-app button.kg-copy-icon { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; width: 32px; min-height: 32px; padding: 6px; border-color: transparent; background: transparent; }
+#kg-app button.kg-copy-icon[data-copied="true"] { color: #166044; }
+
+/* Tool layout and controls; the website shell remains unchanged. */
+#kg-app .kg-sr-only{position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.kg-search-help{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.kg-search-help p{margin:10px 0}
+#kg-app #kg-advanced-toggle{border:0;background:none;padding:8px 0;min-height:40px;font-size:.8rem;color:#526176;text-decoration:none}
+#kg-app #kg-advanced-toggle:hover,#kg-app #kg-advanced-toggle[aria-expanded="true"]{color:#0284c7}
+.kg-workspace{container-type:inline-size;display:grid;grid-template-columns:minmax(0,1fr);gap:20px;align-items:start}
+.kg-workspace>section{min-width:0}
+.kg-workspace:has(#kg-profile:not([hidden])){grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.kg-workspace .kg-note {font-size: 0.9rem;}
+@media(max-width:900px){.kg-workspace:has(#kg-profile:not([hidden])){grid-template-columns:minmax(0,1fr)}}
+#kg-app summary{display:flex;align-items:center;justify-content:space-between;gap:10px;list-style:none}
+#kg-app summary::-webkit-details-marker{display:none}
+#kg-app summary::marker{content:""}
+#kg-app summary::after{content:"";flex:none;width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);transition:transform .2s}
+#kg-app details[open]>summary::after{transform:rotate(45deg)}
+#kg-app .kg-example{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.kg-example-text{min-width:0}
+.kg-example img{width:56px;height:56px;aspect-ratio:1;flex:none;border-radius:8px;object-fit:cover}
+.kg-example .kg-example-text span{font-size:.8rem}
+.kg-example .kg-example-text strong{font-size:.95rem}
+#kg-app .kg-actions :is(button,a){display:inline-flex;align-items:center;gap:6px}
+.kg-actions svg{flex:none}
+.kg-result{grid-template-columns:48px minmax(0,1fr);gap:14px}
+.kg-image{width:48px;height:48px;aspect-ratio:1;font-size:1.1rem}
+.kg-image img{aspect-ratio:1}
+@container (max-width:640px){.kg-result .kg-actions{gap:6px}.kg-result .kg-actions button{padding:8px 10px}.kg-result .kg-labels{gap:6px}.kg-facts{grid-template-columns:1fr;gap:5px}.kg-facts dd{margin-bottom:10px}}
+
+/* QA: align search controls and keep result actions quiet. */
+#kg-search{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;align-items:start}
+#kg-search>label{grid-column:1/-1}
+.kg-search-row,.kg-search-help{display:contents}
+#kg-query{grid-column:1;grid-row:2;min-width:0;width:100%}
+#kg-submit{grid-column:2;grid-row:2}
+#kg-input-help{grid-column:1;grid-row:3;margin:10px 0 0}
+#kg-app #kg-advanced-toggle{grid-column:2;grid-row:3;justify-self:center;text-align:center}
+#kg-advanced{grid-column:1/-1; margin-bottom: 20px;}
+#kg-status:empty{display:none}
+.kg-result{grid-template-columns:48px minmax(0,1fr) auto;align-items:start}
+.kg-result>div{min-width:0}
+#kg-app .kg-inspect{align-self:center;font-size:.8rem;min-height:40px;padding:8px;border-color:transparent;background:transparent;color:#526176}
+#kg-app .kg-google-search{display:inline-flex;align-items:center;gap:5px;font-size:.78rem;padding:6px 0}
+.kg-google-search img{flex:none;width:14px;height:14px;aspect-ratio:1;object-fit:contain}
+#kg-app .kg-icon-button{display:inline-flex;align-items:center;justify-content:center;width:36px;min-height:36px;padding:8px;border-color:transparent;background:transparent;color:#64748b}
+#kg-app .kg-icon-button:hover{color:#0284c7;background:#f0f9ff}
+#kg-profile{position:relative}
+#kg-profile>h2{padding-inline-end:28px}
+#kg-app .kg-profile-close{position:absolute;inset-block-start:12px;inset-inline-end:12px}
+@container (max-width:560px){.kg-result{grid-template-columns:32px minmax(0,1fr) 70px;gap:8px}.kg-result .kg-image{width:32px;height:32px}.kg-result .kg-inspect{font-size:.75rem;padding:6px}.kg-result h3{overflow-wrap:anywhere}}
+.kg-image-frame{min-width:0}
+.kg-image-credit{display:block;font-size:.65rem;line-height:1.3;margin-top:4px;overflow-wrap:anywhere}
+#kg-app .kg-example-logo,#kg-app .kg-example-character{object-fit:contain}
+#kg-app .kg-example-portrait{object-position:center 35%}
+
+/* Search clearing, grouped result actions, and the active inspector. */
+.kg-query-control{grid-column:1;grid-row:2;min-width:0;position:relative}
+#kg-app #kg-query{padding-inline-end:44px}
+#kg-query::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+#kg-app #kg-clear-query{position:absolute;inset-inline-end:4px;inset-block-start:50%;transform:translateY(-50%);width:36px;min-height:36px}
+.kg-result-controls{display:flex;flex-direction:column;align-items:center;align-self:center;gap:2px}
+.kg-result-secondary{justify-content:center;gap:6px}
+#kg-app .kg-result-secondary .kg-google-search{display:inline-flex;align-items:center;justify-content:center;width:36px;min-height:36px;padding:8px;border-radius:6px}
+#kg-app .kg-result-secondary .kg-google-search:hover{background:#eff6ff}
+.kg-result.kg-is-inspected{background:#f0f9ff;box-shadow:inset 3px 0 #7dd3fc;border-radius:8px}
+#kg-profile{scroll-margin-block-start:16px}
+@media(min-width:901px){#kg-profile:not(:has(.kg-language-comparison[open])){position:sticky;inset-block-start:calc(16px + var(--kg-tray-offset));align-self:start;max-block-size:calc(100dvh - 32px - var(--kg-tray-offset));overflow-y:auto;scrollbar-gutter:stable}}
+
+/* Result media follows its text block; the open inspector keeps compact thumbnails. */
+.kg-results-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+#kg-app .kg-results-heading h2{margin:0}
+.kg-results-heading #kg-share{flex:none}
+#kg-share>svg{transform:rotate(45deg)}
+.kg-result{grid-template-columns:auto minmax(0,1fr) 100px}
+.kg-result-content{display:flow-root;min-width:0}
+#kg-app .kg-api-order{color:#627186; font-size: 0.7rem; margin:0;}
+.kg-api-acronym,.kg-api-number{font-variant-caps:all-small-caps}
+#kg-app .kg-result-types{margin-block-end:0}
+.kg-result>.kg-image-frame{align-self:start;inline-size:var(--kg-result-image-size,96px);max-inline-size:100%}
+.kg-result .kg-image{inline-size:100%;block-size:auto;aspect-ratio:1}
+.kg-result-controls{align-self:stretch;display:grid;grid-template-rows:minmax(0,1fr) var(--kg-result-types-height,21px);gap:0;justify-items:center;align-items:center}
+.kg-result-secondary{align-self:center;flex-wrap:nowrap}
+.kg-result.kg-is-inspected{box-shadow:none}
+.kg-workspace:has(#kg-profile:not([hidden])) .kg-result>.kg-image-frame{inline-size:48px}
+#kg-profile>.kg-image-frame{inline-size:300px;max-inline-size:100%;margin-block:12px 18px}
+#kg-profile>.kg-image-frame .kg-image{inline-size:100%;block-size:auto;aspect-ratio:1;font-size:3rem}
+#kg-profile .kg-image-credit{font-size:.85rem;margin:0;line-height:inherit}
+#kg-app .kg-language-options{grid-template-columns:repeat(2,minmax(0,1fr)) auto;align-items:end;gap:10px}
+.kg-language-options button{align-self:end;white-space:nowrap}
+#kg-comparison{scroll-margin-block-start:16px}
+@container (max-width:560px){.kg-result{grid-template-columns:auto minmax(0,1fr) 70px}.kg-workspace:has(#kg-profile:not([hidden])) .kg-result>.kg-image-frame{inline-size:32px}}
+#kg-profile>.kg-image-frame:not(:has(img)):not(:has(.kg-image[data-wikipedia="requested"])){inline-size:48px}
+#kg-profile>.kg-image-frame .kg-image:not(:has(img)):not([data-wikipedia="requested"]){font-size:1.1rem}
+
+/* Disclosures, copy feedback, and an accessible comparison tray. */
+#kg-app{--kg-tray-offset:0px}
+.kg-share-wrap{position:relative;display:inline-flex;flex:none}
+.kg-share-feedback{position:absolute;inset-inline-end:0;inset-block-end:calc(100% + 5px);padding:3px 8px;border:1px solid #cbd5e1;border-radius:5px;background:#fff;color:#475569;font-size:.75rem;white-space:nowrap;pointer-events:none}
+.kg-share-feedback:empty{opacity:0}
+#kg-profile .kg-image-credit{font-size:inherit;display:inline-flex}
+#kg-app summary::after{content:none}
+.kg-disclosure-icon{flex:none;inline-size:16px;block-size:16px;transition:rotate .18s ease}
+#kg-app details[open]>summary .kg-disclosure-icon{rotate:90deg}
+.kg-workspace:has(#kg-profile:not([hidden])) .kg-result{padding-inline:12px;column-gap:12px}
+.kg-workspace:has(#kg-profile:not([hidden])) .kg-result>.kg-image-frame{inline-size:60px;align-self:center}
+#kg-app #kg-tray{position:sticky;inset-block-start:12px;z-index:20;max-block-size:40dvh;overflow:auto;overscroll-behavior:contain;gap:12px;box-shadow:0 3px 12px #0f172a12}
+.kg-tray-items{display:flex;align-items:center;flex-wrap:wrap;gap:8px;min-inline-size:0}
+.kg-tray-selection{display:inline-flex;align-items:center;gap:4px;min-inline-size:0;border:1px solid #cbd5e1;border-radius:6px;padding-inline-start:10px;background:#f8fafc}
+.kg-tray-selection>span{overflow-wrap:anywhere}
+.kg-tray-separator{flex:none}
+#kg-app .kg-tray-remove{inline-size:32px;min-block-size:32px;padding:6px}
+.kg-tray-compare{margin-inline-start:auto}
+#kg-comparison,#kg-profile,#kg-app h2{scroll-margin-block-start:calc(16px + var(--kg-tray-offset))}
+.kg-identity-form{display:grid;grid-template-columns:minmax(80px,1fr) minmax(0,max-content);gap:7px 18px;margin-block:16px;align-items:stretch}
+#kg-profile .kg-identity-form label{grid-column:1/-1;margin:0}
+#kg-profile .kg-identity-form input{min-inline-size:0;inline-size:100%}
+.kg-identity-form button{min-inline-size:0;max-inline-size:100%;white-space:normal}
+.kg-comparison-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 24px;margin-block-start:16px}
+#kg-app .kg-comparison-footer>p{flex:1 1 340px;margin:0}
+.kg-export-actions{margin-inline-start:auto;gap:8px 18px}
+#kg-app .kg-export-actions button{min-height:32px;padding:4px 0;border:0;border-radius:0;background:transparent;color:#526176;font-size:.8rem;}
+#kg-app .kg-export-actions button:hover{color:#0369a1;background:transparent}
+
+.container table { font-family: 'Commissioner', system-ui, sans-serif; width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 1rem; line-height: 1.5; }
+.container table caption { caption-side: top; text-align: center; font-size: 1.3rem; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
+.container table thead { border-bottom: 1px solid #aaa; }
+.container table thead th { text-align: left; padding: 12px 8px; font-weight: 600; color: #555; }
+.container table tbody tr { text-align: left; border-bottom: 1px solid #e5e5e5; }
+.container table tbody tr:last-child { border-bottom: none; }
+.container table tbody th, table tbody td { padding: 8px; vertical-align: middle; }
+.container table tbody th { width: 25%; font-weight: 500; color: #444; }
+.container ul, .container ol { font-size: 1.2rem; padding-left: 20px; line-height: 1.5; }
+pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+
+#kg-relationship-demo{margin:1.8rem 0;padding:clamp(12px,3vw,24px);border:1px solid #c8ced3;border-radius:15px;background:#fff;color:#26333e;}
+#kg-relationship-demo [hidden]{display:none!important}
+#kg-relationship-demo figcaption{font-size:1.4rem;line-height:1.5}
+#kg-relationship-demo .kg-demo-instruction,#kg-relationship-demo .kg-demo-note {font-size:.9rem;line-height:1.5; margin-bottom: 0;}
+#kg-relationship-demo .kg-demo-instruction{margin:.8rem 0 1.3rem;text-align:center}
+#kg-relationship-demo button{font:inherit;letter-spacing:normal;text-transform:none;cursor:pointer}
+#kg-relationship-demo button:focus-visible{outline:2px solid #0284c7;outline-offset:3px}
+#kg-relationship-demo .kg-demo-canvas{position:relative;height:510px;margin-top:22px}
+#kg-relationship-demo .kg-demo-lines{position:absolute;width:100%;height:100%;inset:0;overflow:visible;pointer-events:none}
+#kg-relationship-demo .kg-demo-node{position:absolute;top:var(--y);left:var(--x);transform:translate(-50%,-50%);width:42%;max-width:180px;min-height:68px;box-sizing:border-box;padding:10px 8px;border:1px solid #78848d;border-radius:8px;background:#fff;color:#26333e;line-height:1.35;text-align:center}
+#kg-relationship-demo .kg-demo-node strong,#kg-relationship-demo .kg-demo-node span{display:block}
+#kg-relationship-demo .kg-demo-node span{margin-top:3px;font-size:.8rem}
+#kg-relationship-demo .kg-demo-node[aria-pressed="true"]{background:#f0f9ff;border:2px solid #0284c7;padding:8px 6px}
+#kg-relationship-demo .kg-demo-status{padding:14px;border-left:3px solid #0284c7;background:#f0f9ff;line-height:1.5; font-size: 1rem;height:calc(3rem + 28px);box-sizing:border-box;overflow-y:auto;display:flex;align-items:safe center; border-radius: 0 8px 8px 0;}
+#kg-relationship-demo .kg-demo-relationships{padding-left:1.3rem}
+#kg-relationship-demo .kg-demo-relationships li{margin:.7rem 0;padding:5px 8px;line-height:1.5;overflow-wrap:anywhere;border-left:3px solid transparent}
+#kg-relationship-demo .kg-demo-relationships li[data-connected]{background:#f0f9ff;border-left-color:#0284c7; border-radius: 0 8px 8px 0;}
+#kg-relationship-demo a{color:#0369a1;text-decoration:underline}
+#kg-relationship-demo .kg-demo-lines line[marker-end="url(#kg-demo-arrow-active)"]{stroke:#0284c7}
+#kg-relationship-demo #kg-demo-arrow-active path{fill:#0284c7}
+
+@media(max-width:768px){
+  .kg-page{padding:20px 15px 0;}
+  .kg-page .container {padding-inline: 0;}
+  .kg-hero{grid-template-columns:minmax(0,1fr);gap:12px;}
+  .kg-hero h1{font-size:2rem}
+  .kg-hero p{width:auto;margin:8px 0 0;font-size:1rem}
+  #kg-hero-figure{width:50%;height:auto;aspect-ratio:400/320;justify-self:center;margin:-15px 0 0px}
+  .kg-options,.kg-examples{grid-template-columns:1fr}
+  .kg-search-row{flex-wrap:wrap}
+  .kg-search-row input{flex-basis:100%}
+  .kg-search-row button{width:100%}
+  #kg-app .kg-panel{padding:16px}
+  .kg-result{grid-template-columns:48px minmax(0,1fr);gap:12px}
+  .kg-image{width:48px;height:48px}
+  .kg-facts{grid-template-columns:1fr;gap:5px}
+  .kg-facts dd{margin-bottom:12px}
+  .kg-result .kg-labels { flex-wrap: nowrap; gap: 6px; }
+  .kg-result .kg-badge { min-inline-size: 0; overflow-wrap: anywhere; }
+  .kg-result .kg-api-order { flex-shrink: 0; white-space: nowrap; }
+  #kg-query {grid-column:1/-1;grid-row:2;}
+  #kg-submit{grid-column:1/-1;grid-row:3;}
+  #kg-app #kg-advanced-toggle{grid-column:1/-1;grid-row:4}
+  #kg-input-help{grid-column:1/-1;grid-row:5}
+  .kg-query-control{grid-column:1/-1;grid-row:2}
+  .kg-search-row .kg-query-control button{width:36px}
+  #kg-app .kg-language-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kg-language-options button{grid-column:1/-1;justify-self:end}
+  .kg-result{grid-template-rows:repeat(4,auto);row-gap:6px}
+  .kg-result>.kg-result-content{display:grid;grid-template-columns:subgrid;grid-template-rows:subgrid;grid-column:1/-1;grid-row:1/span 4}
+  .kg-result .kg-labels{grid-column:1/-1;grid-row:1;flex-wrap:nowrap;gap:6px}
+  #kg-app .kg-labels .kg-badge{flex:none;white-space:nowrap;font-size:.7rem;padding-inline:4px}
+  #kg-app .kg-labels .kg-api-order{flex:none;white-space:nowrap;margin:0}
+  .kg-workspace:has(#kg-profile:not([hidden])) .kg-result .kg-labels{margin-inline:-10px}
+  #kg-app .kg-result-content>h3{grid-column:2;grid-row:2;margin:0}
+  #kg-app .kg-result-content>p:not(.kg-result-types){grid-column:2;grid-row:3;margin:0}
+  #kg-app .kg-result-content>.kg-result-types{grid-column:2;grid-row:4;margin:0}
+  .kg-result>.kg-image-frame{grid-column:1;grid-row:2/span 3}
+  .kg-result>.kg-result-controls{grid-column:3;grid-row:2/span 3}
+}
+</style>
+</head>
+<body>
+  <header>
+    <div class="nav-border">
+      <nav aria-label="Main navigation">
+<!--mobile menu start-->
+        <div class="mobile-menu">
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
+<!--mobile menu end-->
+
+<!--desktop menu start-->
+        <div class="desktop-menu">
+          <ul class="nav-list">
+            <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+            <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+            <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+          </ul>
+        </div>
+<!--desktop menu end-->
+      </nav>
+    </div>
+  </header>
+<noscript><p class="nojs">The page requires JavaScript to be enabled to function properly.</p></noscript>
+
+<main>
+<article class="kg-page">
+<header class="kg-hero">
+<div>
+<h1>Google's Knowledge Graph Explorer</h1>
+<p>Search a keyword. Explore the people, places, organizations and other entities returned by Google.</p>
+</div>
+<div id="kg-hero-figure"></div>
+</header>
+<div id="kg-app">
+<section class="kg-panel" aria-label="Entity search">
+<form id="kg-search" action="/ak/google-knowledge-graph-explorer" method="get">
+<label for="kg-query">Enter a keyword</label>
+<div class="kg-search-row"><div class="kg-query-control"><input id="kg-query" name="q" type="search" maxlength="200" required placeholder="Try a person, place, organization, artwork or Cloud/Google MID" enterkeyhint="search" autocapitalize="off" spellcheck="false"><button id="kg-clear-query" class="kg-icon-button" type="button" aria-label="Clear search input" title="Clear search input" hidden><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-x" data-sketch="" aria-hidden="true" focusable="false"><path d="M5.63 5.62Q11.53 12.22 18.06 18.19" stroke-width="1.696"/><path d="M18.05 5.63Q11.34 11.6 5.59 18.53" stroke-width="1.696"/></svg></button></div><button id="kg-submit" class="kg-primary" type="submit">Search Entities</button></div>
+<div class="kg-search-help"><button id="kg-advanced-toggle" type="button" aria-expanded="false" aria-controls="kg-advanced">Advanced search</button></div>
+<div id="kg-advanced" hidden><div class="kg-options">
+<div><label for="kg-lang">Language</label><select name="language" id="kg-lang"><option value="en">English</option></select></div>
+<div><label for="kg-type">Entity type</label><select name="type" id="kg-type"><option value="">All entities</option></select></div>
+<div><label for="kg-limit">Results</label><select name="limit" id="kg-limit"><option>10</option><option>20</option><option>50</option></select></div>
+</div><p class="kg-note">Language and schema.org type coverage varies by entity. A filter may return no records.</p></div></form>
+<p class="kg-note">A few starting points</p><div class="kg-examples">
+<button type="button" class="kg-example" data-example="Bill Watterson"><span class="kg-example-text"><strong>Bill Watterson</strong><span>American cartoonist</span></span><img src="/assets/images/thoughts/google-knowledge-graph-explorer/bill-watterson.jpg" class="kg-example-portrait" width="64" height="64" alt="Bill Watterson"></button>
+<button type="button" class="kg-example" data-example="LAIKA, LLC"><span class="kg-example-text"><strong>LAIKA, LLC</strong><span>Animation studio</span></span><img src="/assets/images/thoughts/google-knowledge-graph-explorer/laika.webp" class="kg-example-logo" width="64" height="64" alt="LAIKA, LLC"></button>
+<button type="button" class="kg-example" data-example="Dipper Pines"><span class="kg-example-text"><strong>Dipper Pines</strong><span>Fictional character · Gravity Falls</span></span><img src="/assets/images/thoughts/google-knowledge-graph-explorer/dipper-pines.png" class="kg-example-character" width="64" height="64" alt="Dipper Pines"></button>
+</div>
+<p id="kg-status" role="status" aria-live="polite" aria-atomic="true"></p>
+</section>
+<section id="kg-tray" class="kg-panel" aria-label="Comparison selections" hidden></section>
+<div class="kg-workspace">
+<section id="kg-results" class="kg-panel" aria-label="Search results"><div class="kg-results-heading"><h2>Start with a keyword</h2><button id="kg-share" type="button" aria-label="Copy search link" title="Copy search link" class="kg-copy-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-link" data-sketch="" aria-hidden="true" focusable="false"><path d="M10.29 7.31Q8.52 7.58 6.73 7.71" stroke-width="1.376"/><path d="M7.39 7.49C7.08 7.51 6.07 7.4 5.51 7.61C4.95 7.83 4.49 8.35 4.05 8.78C3.61 9.21 3.13 9.65 2.87 10.18C2.6 10.72 2.45 11.4 2.46 12C2.47 12.6 2.66 13.25 2.92 13.79C3.18 14.34 3.58 14.85 4.03 15.25C4.47 15.64 5.02 15.94 5.58 16.18C6.15 16.41 7.1 16.56 7.41 16.64" stroke-width="1.44"/><path d="M6.76 16.65Q8.19 16.53 9.63 16.6" stroke-width="1.456"/><path d="M13.93 7.66Q15.65 7.79 17.37 7.65" stroke-width="1.44"/><path d="M16.4 7.44C16.72 7.47 17.73 7.45 18.32 7.65C18.91 7.85 19.48 8.22 19.95 8.63C20.43 9.04 20.9 9.54 21.18 10.1C21.47 10.67 21.68 11.38 21.66 12C21.64 12.62 21.34 13.28 21.05 13.83C20.75 14.38 20.35 14.88 19.9 15.3C19.44 15.73 18.91 16.16 18.33 16.37C17.74 16.58 16.72 16.54 16.4 16.57" stroke-width="1.744"/><path d="M17.39 16.56Q15.63 16.36 13.87 16.47" stroke-width="1.6"/><path d="M8.06 12.06Q11.99 12.09 15.91 11.98" stroke-width="1.68"/></svg></button></div><p class="kg-note">Results will appear here. Inspect an entity for its identifiers and source references.</p></section>
+<section id="kg-profile" class="kg-panel" aria-label="Entity profile" tabindex="0" hidden></section>
+</div>
+<section id="kg-comparison" class="kg-panel" aria-label="Entity comparison" hidden></section>
+</div>
+
+<div class="container toc">
+<!-- floating toc -->
+<aside id="no-print" class="page-index">
+  <details class="page-index-mobile">
+    <summary title="Table of contents" aria-label="Table of contents">☰</summary>
+    <nav aria-label="Page contents">
+      <a href="#kg-why">The GKG explorer</a>
+      <a href="#kg-use">How to use</a>
+      <a href="#kg-history">From strings to things</a>
+      <a href="#kg-types">Entity types</a>
+      <a href="#kg-identifiers">Identifiers & MIDs</a>
+      <a href="#kg-identity">Shared names</a>
+      <a href="#kg-connections">Explore connections</a>
+      <a href="#kg-languages">Entities & languages</a>
+      <a href="#kg-panels">Knowledge Panels</a>
+      <a href="#kg-jsonld">Identity & JSON-LD</a>
+      <a href="#kg-ai">Entities, SEO & AI</a>
+      <a href="#kg-questions">Practical questions</a>
+      <a href="#kg-reading">Further reading</a>
+    </nav>
+  </details>
+  <nav class="page-index-desktop" aria-label="Page contents">
+    <a href="#kg-why">The GKG explorer</a>
+    <a href="#kg-use">How to use</a>
+    <a href="#kg-history">From strings to things</a>
+    <a href="#kg-types">Entity types</a>
+    <a href="#kg-identifiers">Identifiers & MIDs</a>
+    <a href="#kg-identity">Shared names</a>
+    <a href="#kg-connections">Explore connections</a>
+    <a href="#kg-languages">Entities & languages</a>
+    <a href="#kg-panels">Knowledge Panels</a>
+    <a href="#kg-jsonld">Identity & JSON-LD</a>
+    <a href="#kg-ai">Entities, SEO & AI</a>
+    <a href="#kg-questions">Practical questions</a>
+    <a href="#kg-reading">Further reading</a>
+  </nav>
+</aside>
+<!-- end of floating toc -->
+<article>
+  <section>
+  <h2 id="kg-why">A name, a number, and a bit of curiosity</h2>
+  <p>I've been interested in how entities are represented across the digital space for quite a while. People, organisations, places, fictional characters; all the names we write into search boxes, and the rather less readable identifiers behind some of them. Eventually, looking through other people's tools became a good enough reason to try making my own.</p>
+  <p>Part of it was wanting something I enjoyed using. Most of the Knowledge Graph tools I had come across were made by SEOs, and interface design isn't exactly what we're famous for. Part of it was the familiar question: can I build this? Apparently, a perfectly adequate reason to spend considerably more time with API documentation than originally intended.</p>
+  <p>The explorer above searches records returned by <a href="https://docs.cloud.google.com/enterprise-knowledge-graph/docs/overview" target="_blank" rel="noopener external">Google Enterprise Knowledge Graph Basic</a>. You can inspect identifiers and source references, compare entities, and look at the same record in different languages. I wanted the information to be easy to examine, especially when several results look suspiciously similar.</p>
+  <p>Google supplies the entity records; I built the interface around them. This is an independent project, and the available API fields are only a limited view of the information involved in Google's search systems. Still, there's quite a lot to get curious about within that view.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-use">Using the explorer</h2>
+  <p>Start with a name, keyword or identifier. The example cards run searches too; they're starting points, rather than handpicked sets of results. Advanced search lets you choose a language, narrow the entity type and request up to 50 results. Google can return fewer. When you supply a recognised identifier, the tool performs a direct lookup, with the selected language; the type and result-count filters don't apply to that lookup.</p>
+
+  <ol>
+    <li><strong>Search, then inspect.</strong> Open a result to see its available names, descriptions, types, identifiers, associated website and source references. A blank field remains a blank field; the tool doesn't fill it with a plausible guess.</li>
+    <li><strong>Compare records.</strong> Add up to three entities to the comparison tray, including results from different searches, then choose Compare. Shared values, differences and missing information are shown beside one another.</li>
+    <li><strong>Compare languages.</strong> Inside the inspector, select two languages to request the same identifier in each. This keeps the record fixed while changing the requested language.</li>
+    <li><strong>Follow the evidence.</strong> Visit the supplied sources, open Google Search, or investigate a Wikidata candidate through the separate disclosure.</li>
+    <li><strong>Keep what you need.</strong> Copy an identifier or search link, or export the entity comparison as CSV.</li>
+  </ol>
+
+  <h3 id="kg-read-results">Read the labels for what they measure</h3>
+  <p><strong>API order</strong> preserves Google's returned order. The name-match badges describe text similarity to your query. An exact match means the normalised text matches; it doesn't mean the result is the person or organisation you intended. Normalisation handles details such as capitalisation, punctuation and spacing. It doesn't translate names or establish identity.</p>
+  <p>There is no entity-strength score here. A result appearing first, having a photograph, or containing a longer description doesn't give us a measurement of its authority or SEO value. Those would be rather large conclusions to extract from a small response.</p>
+  <p>Source and retrieval information help you keep track of what you're examining. <strong>Retrieved</strong> records when the tool processed the response, rather than when Google last updated the entity.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-history">From strings to things</h2>
+  <p>A name is a label. An entity is the particular person, place, organisation, work or other thing that label refers to in context. A knowledge graph represents entities and connections between them. Attributes describe them; relationships connect them. The distinction becomes useful as soon as the same word can mean several things, which happens almost immediately.</p>
+  <p>For this website, a simple relationship is that this page has an author, me, Alexander Kyriakou. The page and its author are separate entities. A name alone leaves some interpretation to the reader; an explicit relationship to an identified person makes the intended meaning clearer. We can apply the same approach to an organisation and its founder, a book and its author, or a film and its director.</p>
+  <p><a href="https://blog.google/products-and-platforms/products/search/introducing-knowledge-graph-things-not/" target="_blank" rel="noopener external">Google introduced its Knowledge Graph on 16 May 2012</a>, under the memorable phrase “things, not strings”. Its announcement used <em>Taj Mahal</em> to illustrate the ambiguity: a monument, a musician and other entities can share those words. Identifying the intended subject makes it possible to select relevant facts and help a searcher explore related subjects. There was a bigger ambition behind this: moving from finding information towards recognising what that information describes, and how it connects to other things.</p>
+
+  <figure style="margin-bottom: 20px;">
+    <iframe style="border-radius: 15px; width: 100%; height: 478px;" width="560" height="315" src="https://www.youtube-nocookie.com/embed/mmQl6VGvX-c" title="Itroducing the Knowledge Graph by Google" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <figcaption>From Information Engine to Knowledge Engine</figcaption>
+  </figure>
+
+  <p>Knowledge representation didn't begin with that announcement. Google's launch made a particular application of it highly visible. Freebase was an important earlier component: Google acquired Metaweb, the company behind it, in 2010. The later paper <a href="https://research.google.com/pubs/archive/44818.pdf" target="_blank" rel="noopener external">From Freebase to Wikidata: The Great Migration</a> describes work to transfer Freebase content into Wikidata, including the difficulties of mapping different structures and community requirements. This wasn't simply a database changing its name.</p>
+  <p>That history helps explain why Freebase identifiers still turn up in present-day investigations. It also helps keep three things separate: knowledge graphs as a general approach, Google's Knowledge Graph, and open projects such as Wikidata. They have connections, but they aren't interchangeable databases.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-types">What kind of entity are we looking at?</h2>
+  <p>An entity's type describes what sort of thing it is. <a href="https://schema.org/Thing" target="_blank" rel="noopener external"><code>Thing</code></a> is Schema.org's broadest type, which might feel like the machine has put remarkably little effort into the answer. More specific types supply the useful detail: a person, an organisation, a film, a place.</p>
+  <p>Types have broader parent types and can overlap. A <code>Corporation</code> is a kind of <code>Organization</code>; <code>LocalBusiness</code> sits under both <code>Organization</code> and <code>Place</code> in the <a href="https://schema.org/docs/full.html" target="_blank" rel="noopener external">Schema.org hierarchy</a>. A response can list several types for one entity. <a href="https://docs.cloud.google.com/enterprise-knowledge-graph/docs/search-api" target="_blank" rel="noopener external">Google's API example</a>, for instance, includes both <code>Thing</code> and <code>Person</code>. Multiple labels don't automatically mean the source is confused.</p>
+  <p>The table covers the <strong>22 type presets available in this explorer</strong>. Each name links to its Schema.org definition. The distinctions are examples to help you interpret a record, rather than claims about how Google currently classifies a particular person, business or work. This is a guide to the filter choices, not a complete inventory of Google's internal classifications or the Schema.org vocabulary.</p>
+
+  <table id="kg-type-reference" style="width: 100%; overflow-wrap: anywhere;">
+    <caption>Entity types available in the explorer</caption>
+    <thead>
+      <tr><th scope="col">Entity type</th><th scope="col">What it describes</th><th scope="col">A useful distinction</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Person" target="_blank" rel="noopener external">Person</a></th>
+        <td>An individual person, living, deceased or fictional.</td>
+        <td>An author, their website and their business are distinguishable entities, even when all three carry the same name.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Organization" target="_blank" rel="noopener external">Organization</a></th>
+        <td>An organisation, such as a company, school, charity or club.</td>
+        <td>A broad category. The organisation and the building it occupies needn't be the same entity.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Corporation" target="_blank" rel="noopener external">Corporation</a></th>
+        <td>A business corporation; a more specific kind of organisation.</td>
+        <td>A company can own several brands. A brand name alone doesn't identify which corporate entity is represented.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/EducationalOrganization" target="_blank" rel="noopener external">EducationalOrganization</a></th>
+        <td>An educational organisation, such as a school or university.</td>
+        <td>Distinguish the institution from a course it offers or a particular building on its campus.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/LocalBusiness" target="_blank" rel="noopener external">LocalBusiness</a></th>
+        <td>A particular physical business or branch of an organisation.</td>
+        <td>A restaurant branch and the company operating the chain can require separate records.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/SportsTeam" target="_blank" rel="noopener external">SportsTeam</a></th>
+        <td>A team participating in sport.</td>
+        <td>The team, its players, its home stadium and a match it plays are different subjects.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/MusicGroup" target="_blank" rel="noopener external">MusicGroup</a></th>
+        <td>A musical act, such as a band, orchestra or choir. Schema.org also allows a solo musician.</td>
+        <td>The name is slightly misleading: this type doesn't guarantee that several people are involved.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Place" target="_blank" rel="noopener external">Place</a></th>
+        <td>A place with a relatively fixed physical extent.</td>
+        <td>A broad location category. More specific types can describe cities, countries, landmarks and other places.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/City" target="_blank" rel="noopener external">City</a></th>
+        <td>A city or town; a kind of administrative area.</td>
+        <td>The settlement and its municipal government describe different aspects that shouldn't be conflated automatically.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Country" target="_blank" rel="noopener external">Country</a></th>
+        <td>A country; another kind of administrative area.</td>
+        <td>A country, its government and its national sports team can share a familiar name while representing different entities.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/AdministrativeArea" target="_blank" rel="noopener external">AdministrativeArea</a></th>
+        <td>A geographical area, typically within a government's jurisdiction.</td>
+        <td>Check the geographical level and boundaries. The vocabulary includes countries and cities beneath this broader type.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/LandmarksOrHistoricalBuildings" target="_blank" rel="noopener external">LandmarksOrHistoricalBuildings</a></th>
+        <td>A historical landmark or building.</td>
+        <td>A landmark, the institution managing it and an event held there needn't share an identity.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/CreativeWork" target="_blank" rel="noopener external">CreativeWork</a></th>
+        <td>A broad category for creative works, including books, films, photographs and software.</td>
+        <td>The work and its creator are separate subjects. A more specific type may describe the work further.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Book" target="_blank" rel="noopener external">Book</a></th>
+        <td>A book, with properties that can describe its edition and format.</td>
+        <td>Check whether the record describes the work generally or a particular edition. Matching titles alone don't settle that.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Movie" target="_blank" rel="noopener external">Movie</a></th>
+        <td>A film. /s</td>
+        <td>A remake and an earlier film can have identical titles. Release year, director and references help distinguish them.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/TVSeries" target="_blank" rel="noopener external">TVSeries</a></th>
+        <td>A television series, including its associated online delivery.</td>
+        <td>The whole series, a season and an individual episode are different levels of description.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/MusicAlbum" target="_blank" rel="noopener external">MusicAlbum</a></th>
+        <td>A collection of music tracks.</td>
+        <td>An album, a particular release and a track on it are distinguishable, even when they share a title.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/MusicRecording" target="_blank" rel="noopener external">MusicRecording</a></th>
+        <td>A recorded musical track, usually a song.</td>
+        <td>The recording and the underlying composition are different things; several recordings can perform the same composition.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/VideoGame" target="_blank" rel="noopener external">VideoGame</a></th>
+        <td>An electronic game involving interaction and visual feedback.</td>
+        <td>Check the edition and platform where relevant. A game, its remake and its wider franchise needn't be interchangeable.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Event" target="_blank" rel="noopener external">Event</a></th>
+        <td>An occurrence such as a concert, lecture or festival, associated with a time and location.</td>
+        <td>Repeated editions can be separate events. The same festival name can refer to different years.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/SportsEvent" target="_blank" rel="noopener external">SportsEvent</a></th>
+        <td>A sporting event, such as a match or race.</td>
+        <td>The competition, its venue and the participating teams or athletes have different roles and identities.</td>
+      </tr>
+      <tr>
+        <th scope="row"><a href="https://schema.org/Product" target="_blank" rel="noopener external">Product</a></th>
+        <td>An offered product or service; the vocabulary extends beyond physical goods.</td>
+        <td>A product, its manufacturer and an offer from a particular seller describe different things.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>All entities</strong> removes the type filter; it isn't another entity type. The presets narrow a keyword search, but they don't guarantee results or complete coverage. If a filter returns nothing, try the same query without it and inspect the types actually supplied. These labels describe the returned records, not their eligibility for a Knowledge Panel or a Google rich result.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-identifiers">Making sense of the identifiers</h2>
+  <p>A machine ID, or MID, gives a record an identifier that doesn't depend on how its name happens to be written. Google's <a href="https://docs.cloud.google.com/enterprise-knowledge-graph/docs/mid" target="_blank" rel="noopener external">MID documentation</a> distinguishes existing Google Knowledge Graph identifiers from the newer Cloud format. The explorer keeps them separate too.</p>
+
+  <table>
+    <caption>Identifiers you may encounter</caption>
+    <thead><tr><th scope="col">Identifier</th><th scope="col">Where it belongs</th><th scope="col">How to read it</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Google MID: <code>/m/…</code></th><td>Google / Freebase heritage</td><td>A Google identifier in the Freebase-style namespace.</td></tr>
+      <tr><th scope="row">Google MID: <code>/g/…</code></th><td>Google Knowledge Graph</td><td>Another Google identifier namespace accepted by the explorer.</td></tr>
+      <tr><th scope="row">Cloud MID: <code>c-…</code></th><td>Cloud Knowledge Graph</td><td>The primary identifier used in the returned Cloud record; a Google MID may also be supplied.</td></tr>
+      <tr><th scope="row">Wikidata Q-ID: <code>Q…</code></th><td>Wikidata</td><td>Identifies an item in a separate knowledge base.</td></tr>
+      <tr><th scope="row">Website <code>@id</code></th><td>Your published linked data</td><td>An identifier you use for a node, often a URL under your own domain.</td></tr>
+    </tbody>
+  </table>
+
+  <p>Cloud lookups can accept existing <code>/m/…</code> and <code>/g/…</code> identifiers while returning a Cloud MID as the primary ID and referencing the Google MID separately. Two different strings can therefore identify corresponding records in different namespaces. Keep the namespace with the value when recording your findings.</p>
+  <p>You may also encounter <em>MREID</em>, meaning machine-readable entity ID, in SEO articles. <a href="https://www.upbuild.io/machine-readable-entity-ids-seo/" target="_blank" rel="noopener external nofollow">UpBuild's article on entity IDs</a> is an interesting exploration of identifying entities and connecting them to website markup. Its own qualification deserves to travel with the advice: the proposed SEO benefits were unproven. Identifiers are useful without needing to assign them an imaginary ranking bonus.</p>
+  </section>
+
+  <h3>A unique identifier can still be attached to the wrong thing</h3>
+  <p>There are two separate jobs here: distinguishing records and deciding what those records represent. Unique IDs help with the first. The second still requires evidence. A website can link to the wrong Wikidata item; a source can contain an incorrect statement; two records can describe the same person. Giving those records tidy identifiers doesn't resolve the underlying disagreement.</p>
+  <p>When keeping your own research notes, record the identifier, source, requested language, retrieval time and the particular observation. “This record returned this website” is a much more useful note than “Google knows who this is”. It is also something you can check again.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-identity">Same name, different identity</h2>
+  <p>A search for <a href="https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer.html?q=alexander+kyriakou&language=en&limit=10">Alexander Kyriakou returns four entity records</a> at the time of writing. Apparently, one of me wasn't enough. That doesn't tell us whether they describe different people, overlapping records about the same person, or a mixture of both. The shared name gives us somewhere to start.</p>
+  <p>This is where comparing fields becomes useful. Start with the identifiers, then examine descriptions, types, associated websites and source pages. If two records point to the same website, follow the link and check what the page actually describes. A personal homepage identifies its subject more clearly than an organisation's general staff directory.</p>
+
+  <table>
+    <caption>Questions to keep open when comparing similar records</caption>
+    <thead><tr><th scope="col">Possible explanation</th><th scope="col">What to investigate</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Different people share a name</th><td>Biographies, work, locations, official profiles and independently supported details that distinguish them.</td></tr>
+      <tr><th scope="row">Several records describe one person</th><td>Whether the references consistently converge on the same identity, including matching external identifiers.</td></tr>
+      <tr><th scope="row">The records describe related things</th><td>Whether one represents a person and another a business, brand, work or organisation associated with them.</td></tr>
+      <tr><th scope="row">There isn't enough information</th><td>Which sources or fields would resolve the uncertainty. Leave the match undecided until then.</td></tr>
+    </tbody>
+  </table>
+
+  <p>A business named after its founder is a useful example. The person's name can appear on the business website, and both may share a public address or photograph. That doesn't make the person and the business the same entity. Likewise, a book, its film adaptation and a character in the story can share a name while requiring separate records.</p>
+  <p>Check time as well. Different employers can reflect a career change; a different domain can reflect a move. A missing value supplies no opposing claim at all. Before calling two fields contradictory, make sure they're describing the same attribute, at the same level of detail, for the same period.</p>
+
+  <h3 id="kg-wikidata">Use Wikidata as another source to examine</h3>
+  <p>The optional Wikidata lookup begins with a candidate you choose. Search Wikidata, inspect the item, then enter its Q-ID in the explorer. The candidate stays separate from Google's record. A matching name is a reason to investigate it, not permission to merge its details into the Google result.</p>
+  <p>Wikidata's <a href="https://www.wikidata.org/wiki/Help:Statements" target="_blank" rel="noopener external">statements can include qualifiers, references and ranks</a>. Those details matter when investigating an identity, and the explorer only retrieves selected fields. Open the original item when you need the surrounding evidence.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-connections">A few connections make the difference</h2>
+  <p>Take <em>Coraline</em>, as a <em><a href="https://alexanderkyriakou.eu/ak/movie-suggestion" target="_blank">completely unbiased example</a></em>. One title, a book, a film, and a fairly good demonstration of why names alone don't get us very far. The book was published in 2002; the film followed in 2009. They are related works, with different types and different people involved.</p>
+  <p>Here is a small map of those relationships. Each box represents an entity; each arrow makes a particular claim about its connection to another. Follow the arrow from the subject to the object: the film <em>is based on</em> the book. That direction is part of the meaning.</p>
+
+  <figure id="kg-relationship-demo">
+    <figcaption id="kg-demo-caption"><strong>One title, two works, five entities.</strong></figcaption>
+
+    <div class="kg-demo-interactive" hidden>
+      <div class="kg-demo-canvas" role="group" aria-label="Explore the Coraline relationships" aria-describedby="kg-demo-caption kg-demo-instruction" >
+        <svg class="kg-demo-lines" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" >
+          <defs>
+            <marker id="kg-demo-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" >
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#596570"/>
+            </marker>
+            <marker id="kg-demo-arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" >
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#0284c7"/>
+            </marker>
+          </defs>
+        </svg>
+
+        <button type="button" class="kg-demo-node" data-entity="film" aria-pressed="false" style="--x:50%;--y:180px">
+          <strong>Coraline</strong>
+          <span>Movie · 2009</span>
+        </button>
+
+        <button type="button" class="kg-demo-node" data-entity="book" aria-pressed="false" style="--x:50%;--y:320px">
+          <strong>Coraline</strong>
+          <span>Book · 2002</span>
+        </button>
+
+        <button type="button" class="kg-demo-node" data-entity="director" aria-pressed="false" style="--x:25%;--y:40px">
+          <strong>Henry Selick</strong>
+          <span>Person</span>
+        </button>
+
+        <button type="button" class="kg-demo-node" data-entity="author" aria-pressed="false" style="--x:50%;--y:460px">
+          <strong>Neil Gaiman</strong>
+          <span>Person</span>
+        </button>
+
+        <button type="button" class="kg-demo-node" data-entity="studio" aria-pressed="false" style="--x:75%;--y:40px">
+          <strong>LAIKA</strong>
+          <span>Organization</span>
+        </button>
+      </div>
+
+      <p id="kg-demo-instruction" class="kg-demo-instruction">
+        Select an entity to highlight its connections. Select it again to clear the highlight.
+      </p>
+
+      <p class="kg-demo-status" role="status" aria-live="polite" aria-atomic="true">
+        The two Coraline nodes describe different works, despite sharing a title.
+      </p>
+    </div>
+
+    <ul class="kg-demo-relationships" aria-label="Relationships in the example">
+      <li data-from="film" data-to="book" data-property="isBasedOn" data-label="based on">
+        <strong>Coraline (film)</strong> is based on <strong>Coraline (book)</strong>.
+        Property: <a href="https://schema.org/isBasedOn" target="_blank" rel="noopener external"><code>isBasedOn</code></a>.
+      </li>
+      <li data-from="film" data-to="director" data-property="director" data-label="directed by">
+        <strong>Coraline (film)</strong> was directed by <strong>Henry Selick</strong>.
+        Property: <a href="https://schema.org/director" target="_blank" rel="noopener external"><code>director</code></a>.
+      </li>
+      <li data-from="film" data-to="studio" data-property="productionCompany" data-label="studio">
+        <strong>Coraline (film)</strong> has <strong>LAIKA</strong> as a production company.
+        Property: <a href="https://schema.org/productionCompany" target="_blank" rel="noopener external"><code>productionCompany</code></a>.
+      </li>
+      <li data-from="book" data-to="author" data-property="author" data-label="written by">
+        <strong>Coraline (book)</strong> was written by <strong>Neil Gaiman</strong>.
+        Property: <a href="https://schema.org/author" target="_blank" rel="noopener external"><code>author</code></a>.
+      </li>
+    </ul>
+
+    <p class="kg-demo-note">A curated example, using Schema.org properties. These connections aren't retrieved from Google's API, and this isn't a complete map of either work. Sources: <a href="https://catalog.afi.com/Film/55792-CORALINE" target="_blank" rel="noopener external">AFI's film record and credits</a>; <a href="https://journal.neilgaiman.com/2002/06/this-just-in-from-amy-burton-who-is.asp" target="_blank" rel="noopener external nofollow">the book's 2002 publication announcement</a>.</p>
+  </figure>
+
+  <p>The useful part is the specificity. Neil Gaiman wrote the book; Henry Selick directed the film. “Connected to Coraline” loses that distinction. In a graph, the relationship matters as much as the two things it connects.</p>
+  <p>It also gives us a practical check for structured data. Linking the film to the book with <code>isBasedOn</code> describes an adaptation. Linking them with <code>sameAs</code> would claim that they are the same entity. A familiar title doesn't make that claim correct. And knowing these connections ourselves doesn't tell us which ones Google stores internally, exposes through an API, or uses for a particular search.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-languages">The same entity in another language</h2>
+  <p>Athens and Αθήνα can refer to the same city. The label changes with the language; the subject doesn't. Wikidata makes this distinction particularly visible: an item has a Q-ID, with <a href="https://www.wikidata.org/wiki/Help:Items" target="_blank" rel="noopener external">labels, descriptions and aliases maintained in different languages</a>.</p>
+  <p>For Google, there is also a useful historical example in <a href="https://research.google/blog/improving-photo-search-a-step-across-the-semantic-gap/" target="_blank" rel="noopener external">its 2013 explanation of photo search</a>. The system used Freebase entities as image-class labels, distinguishing subjects through identifiers independent of their language-specific names. Bill Slawski explored this in <a href="https://www.seobythesea.com/2016/01/image-search-trends-freebase-entity-numbers/" target="_blank" rel="noopener external">his article on entity numbers in image search and Trends</a>. These ideas have been around considerably longer than the current excitement about AI search.</p>
+  <p>For a useful test in this explorer, inspect one record and compare its identifier across two languages. Searching two translated names separately asks which candidates match each query. Looking up one identifier twice asks what the source returns for that same record under different language requests. Those are different experiments.</p>
+  <p>The tool offers 39 languages, but available names, descriptions and references vary. It doesn't translate missing text. A failed lookup remains visible, and a same-name result isn't substituted for the requested identifier. Different wording can be ordinary localisation; missing wording can be limited coverage. Neither observation alone establishes a separate entity.</p>
+  <p>On your own multilingual website, I would keep the person's or organisation's identifier consistent across translations and give the translated pages their own page identifiers. Then describe the relevant names and language of each page. A translated biography is another document about someone; translating it doesn't create another person.</p>
+  </section>
+  
+  <section>
+  <h2 id="kg-panels">A record isn't everything you see in Search</h2>
+  <p>The Knowledge Panel is a presentation in Google Search. The underlying entity data and the API response are different layers. Google's <a href="https://support.google.com/knowledgepanel/answer/9163198?hl=en" target="_blank" rel="noopener external">description of Knowledge Panels</a> says they are generated automatically from multiple sources, sometimes incorporating data partners and feedback from verified representatives. Their images can also come from different sources.</p>
+  <p>That helps explain an otherwise frustrating result: a person can have a detailed panel in Search while the API returns a sparse record. A missing image here doesn't establish that Google has no image of the person. A missing Wikipedia reference doesn't establish that Wikipedia has no article. The response gives us the fields available through this request.</p>
+
+  <h3 id="kg-slawski">Bill Slawski, patents, and the questions behind a panel</h3>
+  <p><a href="https://www.seobythesea.com/" target="_blank" rel="noopener external">SEO by the Sea</a> is one of my favourite places to read about how search might work. Bill Slawski's writing makes room for the mechanisms and questions behind the interface, which is considerably more interesting to me than another confident checklist promising a panel.</p>
+  <p>Bill passed away in May 2022. His writing remains a reference I value, particularly for the attention he gave to the questions behind search systems. There's still plenty to learn from following those questions, even as the systems change.</p>
+  <p>His article <a href="https://www.seobythesea.com/2021/02/knowledge-panel/" target="_blank" rel="noopener external">How is a Knowledge Panel for an Entity Triggered?</a> examines Google's <a href="https://patents.google.com/patent/US10922326B2/en" target="_blank" rel="noopener external">Triggering knowledge panels patent</a>. The described process considers entities associated with a query, their topical relationship to returned search results, and whether a panel should be displayed given its content and the search results. It also describes combining content from different resources.</p>
+  <p>The useful distinction is between recognising a possible subject and deciding what to show for a particular search. Finding an entity record doesn't settle the presentation decision. The patent discusses possible conditions involving available content and search-result characteristics; it doesn't give us a public panel-eligibility calculator.</p>
+  <p>A patent documents an invention, not a complete description of today's deployed ranking and display systems. I find these documents useful for understanding problems a search engine has considered and mechanisms it has described. Turning every detail into a current SEO instruction would require evidence we don't have.</p>
+  <p>Slawski's <a href="https://www.seobythesea.com/2014/06/entity-names-in-google/" target="_blank" rel="noopener external">Finding Entity Names in Google's Knowledge Graph</a> offers another relevant thread. The underlying <a href="https://patents.google.com/patent/US8738643B1/en" target="_blank" rel="noopener external">synonymous-name patent</a> describes deriving candidate entity names from anchor text linking to source documents. It is a useful historical example of connecting an entity with several names and the sources describing it. Simply counting how often a name appears misses that question of reference.</p>
+
+  <h3>Images and links in this explorer</h3>
+  <p>The tool first tries an image supplied by Google. If none is usable, it can use a Wikipedia article URL supplied on that same record to retrieve a lead image with suitable attribution and licensing metadata. It doesn't search Wikipedia by name and decide that the first photograph looks close enough. Attribution, when available, appears in the inspector.</p>
+  <p>The Google Search link uses the Google MID when one is available; otherwise it searches by name. A Cloud MID isn't inserted into Google's <code>kgmid</code> parameter. The link opens another place to investigate, without promising a particular panel will appear.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-jsonld">Making your own identity clearer</h2>
+  <p>For a website owner, the practical starting point is information you can maintain. Make it clear who the website represents, who wrote a piece, and which organisation or product is being described. Give people useful context in the visible page, then express the relevant details in structured data.</p>
+  <p>If I want Alexander Kyriakou on this website to be understood as the same person on my official profiles, I can publish consistent information and link those references deliberately. That is a claim about identity which other systems can evaluate. I don't control whether they accept it.</p>
+
+  <h3 id="kg-jsonld-example">JSON-LD gives the relationships a readable structure</h3>
+  <p><a href="https://www.w3.org/TR/json-ld11/" target="_blank" rel="noopener external">JSON-LD</a> is a JSON-based format for linked data. <a href="https://schema.org/" target="_blank" rel="noopener external">Schema.org</a> provides a vocabulary for describing things and their properties. Google supports JSON-LD and generally <a href="https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data" target="_blank" rel="noopener external">recommends it for structured data where possible</a>. The format, the vocabulary and Google's supported search features are related, but each answers a different question.</p>
+  <p>Here is a deliberately reduced example using identifiers already present on <a href="https://alexanderkyriakou.eu/about" target="_blank" rel="me">my About page</a>. It separates the profile page from the person it describes:</p>
+
+  <pre style="overflow-x: auto;">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://alexanderkyriakou.eu/about#profilepage",
+      "url": "https://alexanderkyriakou.eu/about",
+      "name": "About Alexander Kyriakou",
+      "inLanguage": "en",
+      "mainEntity": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://alexanderkyriakou.eu/#person",
+      "name": "Alexander Kyriakou",
+      "alternateName": "Alex Kyriakou",
+      "url": "https://alexanderkyriakou.eu/",
+      "sameAs": [
+        "https://github.com/alexanderkyriakou",
+        "https://www.linkedin.com/in/alexanderkyriakou"
+      ]
+    }
+  ]
+}
+&lt;/script&gt;</pre>
+
+  <p>The profile's <a href="https://schema.org/mainEntity" target="_blank" rel="noopener external"><code>mainEntity</code></a> refers to the person node. The person has a name, an <a href="https://schema.org/alternateName" target="_blank" rel="noopener external">alternative name</a>, a website and links identifying the same person elsewhere. Google's <a href="https://developers.google.com/search/docs/appearance/structured-data/profile-page" target="_blank" rel="noopener external">ProfilePage guidance</a> explains its requirements for that particular search feature; this shortened example is here to explain the relationships.</p>
+  <p><code>https://alexanderkyriakou.eu/#person</code> is an identifier published on my domain. It isn't a Google MID, and adding it doesn't register me in Google's graph. The fragment distinguishes the person from the website. Reusing it allows other statements in my markup to refer to that same node instead of repeatedly introducing an unidentified person.</p>
+  <p>The <code>@graph</code> groups the node descriptions; the properties referring to them express the connections. Putting unrelated objects into the same array doesn't, by itself, tell a reader or machine what relationship you intended.</p>
+
+  <h3 id="kg-sameas">Be quite literal about <code>sameAs</code></h3>
+  <p><a href="https://schema.org/sameAs" target="_blank" rel="noopener external"><code>sameAs</code></a> points to a reference page that unambiguously identifies the item. Use it for a verified identity match. An employer, a favourite publication, a loosely related Wikipedia article or another person with the same name doesn't belong there merely because the URL looks authoritative.</p>
+  <p>For an article's subject, consider <a href="https://schema.org/about" target="_blank" rel="noopener external"><code>about</code></a>; for something referenced within it, <a href="https://schema.org/mentions" target="_blank" rel="noopener external"><code>mentions</code></a> may describe the relationship. Use the property that says what you mean. A page discussing an organisation isn't necessarily that organisation's official page.</p>
+  <p>Before adding a reference, open it and check the identity. Keep existing identifiers consistent where they already represent the correct things. If a CMS and several plugins generate structured data, inspect their combined output for competing person or organisation records. More markup is not automatically more clarity.</p>
+  <p>Validate the syntax and vocabulary with the <a href="https://validator.schema.org/" target="_blank" rel="noopener external">Schema Markup Validator</a>, and use Google's <a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener external">Rich Results Test</a> for its supported search features. Validation cannot establish that a biography is true or a linked profile belongs to the right person. Google's <a href="https://developers.google.com/search/docs/appearance/structured-data/sd-policies" target="_blank" rel="noopener external">structured-data guidelines</a> also require the markup to represent the page accurately. A green result is useful; it doesn't finish the job.</p>
+
+  <h3 id="kg-case-study">A case study worth inspecting, with the evidence kept in view</h3>
+  <p><a href="https://schemantra.com/blog/2022/12/22/entity-based-seo-case-study/" target="_blank" rel="noopener external nofollow">Schemantra's entity-based SEO case study</a> describes work on a real-estate website, concentrating on choosing types and expressing relationships between listings and other entities. It reports roughly doubled organic traffic and leads, alongside increased impressions.</p>
+  <p>The useful prompt for your own work is to examine what each page represents and whether its markup communicates the relationships accurately. The reported growth is an observation from the publisher's case study. The published account doesn't isolate the contribution of the markup from other possible influences, so I wouldn't turn it into an expected uplift.</p>
+  <p>I would also examine the modelling rather than copy it wholesale. A physical apartment, the listing page advertising it and an offer to sell it are distinguishable things. Choosing how to represent them deserves more thought than finding the longest possible list of types to attach to one object.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-ai">Entities, SEO, and the arrival of more acronyms</h2>
+  <p>For SEO, the practical interest is fairly direct: search systems need to interpret queries and content, and ambiguity can get in the way. The explorer gives you a way to investigate some of the returned records and their references. It can't measure how strongly a search engine associates your website with an entity, or how that association affects a ranking.</p>
+  <p>Now we have AEO, answer engine optimisation, and GEO, generative engine optimisation, alongside SEO. The labels reflect real changes in how answers are presented, although the boundaries of the services sold under them can be rather flexible. I still want the same useful question answered: what did you change, what did you observe, and what evidence connects the two?</p>
+
+  <h3 id="kg-llms">How knowledge graphs and LLMs can work together</h3>
+  <p>A language model can generate an answer about an entity without performing a live lookup in Google's Knowledge Graph. Conversely, an application can retrieve structured records and give them to a model as context. Knowing that a product uses an LLM doesn't tell us which databases, search services or retrieval methods it uses for a particular answer.</p>
+  <p>A concrete example is Microsoft's <a href="https://arxiv.org/abs/2404.16130" target="_blank" rel="noopener external">GraphRAG research</a>. It describes using an LLM to extract an entity graph from source documents, build summaries of related groups, and use those summaries to answer questions about the collection. The graph is constructed from the supplied material. It isn't a requirement to fetch Google MIDs before those documents can be understood.</p>
+  <p>The connection also runs in the other direction: models can help decide which entity a mention refers to. <em>Entity linking</em> connects a mention in context to a knowledge-base entry; <em>entity alignment</em> concerns matching corresponding entities across knowledge graphs. Both involve more than finding similar strings.</p>
+  <p>Retrieval gives an application additional evidence to work with. It doesn't make the evidence correct by definition. A mistaken identity link can supply facts about the wrong person and still produce a very fluent answer. The interesting engineering questions include candidate selection, source quality, the ability to leave a match unresolved, and how an answer can be traced back to its supporting material.</p>
+
+  <h3 id="kg-research">Recent research worth following</h3>
+  <p>For this subject, searching only for “MID” misses much of the relevant research. Entity linking, multilingual disambiguation, entity alignment and graph-based retrieval are more useful terms. A few papers illustrate the work:</p>
+
+  <ul>
+    <li><a href="https://arxiv.org/abs/2510.20098" target="_blank" rel="noopener external">ARTER: Adaptive Routing and Targeted Entity Reasoning</a> (2025) combines candidate generation and scoring with selective LLM reasoning. It investigates when the more expensive reasoning step is useful, rather than applying it indiscriminately to every mention.</li>
+    <li><a href="https://aclanthology.org/2026.eacl-long.184/" target="_blank" rel="noopener external">It's All About the Confidence</a> (EACL 2026) studies multilingual historical entity linking. Its approach retrieves candidates, routes harder cases to an LLM and includes the possibility that no matching entry is available. Old spelling and limited context make useful tests of how easily names can mislead.</li>
+    <li><a href="https://aclanthology.org/2026.tacl-1.19/" target="_blank" rel="noopener external">MERLIN</a> (TACL 2026) provides a multilingual, multimodal entity-linking testbed using news titles and images linked to Wikidata entities. It investigates the contribution of visual context when text alone is ambiguous.</li>
+  </ul>
+
+  <p>These papers investigate particular systems and benchmarks. They don't establish how Google ranks this website or how every assistant selects citations. What they do show is that identifying the right subject remains an active technical problem, even when a language model is involved.</p>
+
+  <h3 id="kg-practical-seo">What I would actually do with this</h3>
+  <p>Start with a specific uncertainty: two records with the same name, an outdated source reference, a missing association, or different information across languages. Record what you find, inspect the sources, and correct what you control. Keep the visible information and structured data consistent. Revisit the same identifiers later if you want to observe changes.</p>
+  <p>Google's <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener external">guidance for AI Overviews and AI Mode</a> says existing SEO fundamentals remain relevant and no special Schema.org markup is required for those features. It also describes the possibility of issuing several related searches while developing a response. That is more involved than checking whether your business has a MID.</p>
+  <p>Evaluate outcomes at the level you can observe. An updated record, a changed Knowledge Panel, a citation in a generated answer and a useful visit to your website are different observations. Record the query, language, date and relevant conditions, and avoid treating one favourable answer as evidence of a general improvement.</p>
+  <p>Sometimes the uncertainty is more basic: can a crawler access the page, and has it actually visited? My <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">robots.txt checker</a> helps examine the rules you've published, while the <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier">Crawler IP Verifier</a> helps check whether requests in your logs came from the crawlers they claim to be. A verified visit still doesn't tell you how the page was interpreted or whether it contributed to an answer, but it gives you one less thing to guess about.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-questions">A few practical questions</h2>
+
+  <h3>Why can't I find myself or my organisation?</h3>
+  <p>Try an alternative name, remove the type filter and change the requested language. If you already have a Google or Cloud MID, try a direct lookup. An empty response tells you that this request returned no records. It isn't a verdict on your existence, your website's indexing, or every other Google system. Quite a lot to ask of an empty array.</p>
+
+  <h3>Can I create, claim, edit or merge an entity here?</h3>
+  <p>No. This explorer reads records and helps you investigate them. For a Knowledge Panel, Google provides <a href="https://support.google.com/knowledgepanel/answer/9163198?hl=en" target="_blank" rel="noopener external">feedback and verification routes</a>. A claim to represent an entity is different from creating a new record, and this page doesn't perform either action.</p>
+
+  <h3>Do I need a Wikipedia article or a Wikidata item?</h3>
+  <p>Neither is a prerequisite for describing yourself accurately on your own website. If you contribute to Wikidata, follow its <a href="https://www.wikidata.org/wiki/Wikidata:Notability" target="_blank" rel="noopener external">inclusion criteria</a> and documentation practices. A database item should have a legitimate reason to exist within that project. Creating one solely to complete an SEO checklist is a poor starting point.</p>
+
+  <h3>Does the copied link preserve my research?</h3>
+  <p>It preserves the search settings and, when present, the inspected identifier. Opening an entity link performs a new lookup; it doesn't restore the original result list, comparison selections or a historical snapshot. The source data may have changed. Comparison selections and in-memory results disappear when the page reloads.</p>
+
+  <h3>What leaves my browser, and what can I export?</h3>
+  <p>Searches and lookups use server-side routes to request source data; this isn't an offline tool. The optional Wikidata and Wikipedia retrievals use separate routes. You don't need an account or your own API key. CSV comparison exports omit images and detailed descriptions. Review the applicable source terms before reusing the exported information.</p>
+  </section>
+
+  <section>
+  <h2 id="kg-reading">Resources worth browsing around</h2>
+  <p>The documentation and research links above sit beside the subjects they support. For broader orientation, Wikipedia's separate articles on <a href="https://en.wikipedia.org/wiki/Knowledge_graph" target="_blank" rel="noopener external">knowledge graphs</a> and <a href="https://en.wikipedia.org/wiki/Knowledge_Graph_(Google)" target="_blank" rel="noopener external">Google's Knowledge Graph</a> are useful starting points. Keeping those two subjects separate already clears up some of the terminology.</p>
+  <p>For a longer afternoon, follow the references through Bill Slawski's writing and into the original patents and papers. His article on <a href="https://www.seobythesea.com/2020/09/personalized-knowledge-graphs/" target="_blank" rel="noopener external">personalised knowledge graphs</a> opens another question: how useful entities can be represented even when they aren't globally prominent. That subject deserves more room than a paragraph at the end of this tool.</p>
+  <p>I started with the relatively small ambition of making entity records easier to look through. Somewhere along the way, that became a much larger question about how our names, work and relationships get represented by systems we only partly get to inspect. Fairly typical outcome for a small web project.</p>
+
+  <p>Anyway. Pick a name and see where it takes you.</p>
+
+  <p>PS: If you find something the explorer handles badly, or an explanation here that needs correcting, <a href="https://alexanderkyriakou.eu/contact">drop me a few lines</a>.</p>
+  </section>
+
+  <p style="font-style: italic;"><strong>License and attribution.</strong> © 2026 Alexander Kyriakou. The Google's Knowledge Graph Explorer original software, including its dedicated HTML, CSS and JavaScript, is licensed under <a href="https://opensource.org/license/CPAL-1.0" target="_blank" rel="license noopener external">CPAL 1.0</a>, with attribution required where Section 14 applies. Original written content, copyrightable visual design and diagrams are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener external">CC BY 4.0</a>, unless otherwise noted; reuse requires appropriate credit, a license link and an indication of changes. See the <a href="https://alexanderkyriakou.eu/assets/licenses/google-knowledge-graph-explorer/google-knowledge-graph-explorer-LICENSE.md">tool-specific license details</a>, <a href="https://alexanderkyriakou.eu/assets/licenses/google-knowledge-graph-explorer/google-knowledge-graph-explorer-NOTICES.md">attribution notices</a> and <a href="https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt">full software license</a>. <a href="https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer">Original tool</a>. Third-party material and source data remain subject to their own applicable terms.</p>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/tools">tools</a>
+            <a href="https://alexanderkyriakou.eu/thoughts/movies">seo</a>
+            <a href="https://alexanderkyriakou.eu/thoughts/data">data</a>
+          </nav>
+        </div>
+
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants">Code assistant, GPT-6.1 Sol</p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-10-29">Oct 30, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied ♥</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+</article>
+
+</div>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M100.3 448H7.4V148.9h92.9zM53.8 108.1C24.1 108.1 0 83.5 0 53.8a53.8 53.8 0 0 1 107.6 0c0 29.7-24.1 54.3-53.8 54.3zM447.9 448h-92.7V302.4c0-34.7-.7-79.2-48.3-79.2-48.3 0-55.7 37.7-55.7 76.7V448h-92.8V148.9h89.1v40.8h1.3c12.4-23.5 42.7-48.3 87.9-48.3 94 0 111.3 61.9 111.3 142.3V448z"/></svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg"><path d="M 32.7812 52.5508 C 34.4687 52.5508 35.6640 51.0977 36.5312 48.8477 L 51.8829 8.7461 C 52.3048 7.6680 52.5626 6.7070 52.5626 5.9102 C 52.5626 4.3867 51.6016 3.4492 50.0781 3.4492 C 49.2813 3.4492 48.3203 3.6836 47.2423 4.1055 L 6.9296 19.5508 C 4.9609 20.3008 3.4374 21.4961 3.4374 23.2070 C 3.4374 25.3633 5.0780 26.0899 7.3280 26.7695 L 20.0077 30.6133 C 21.4843 31.0821 22.3280 31.0352 23.3359 30.0977 L 49.0466 6.0742 C 49.3514 5.7930 49.7032 5.8399 49.9375 6.0508 C 50.1717 6.2852 50.1952 6.6367 49.9139 6.9414 L 25.9843 32.7461 C 25.0937 33.7070 24.9999 34.5039 25.4687 36.0742 L 29.1718 48.4492 C 29.8749 50.8164 30.6015 52.5508 32.7812 52.5508 Z"/></svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
+      </div>
+</footer>
+
+  <script type="module" src="/assets/js/google-knowledge-graph-explorer/tool.js"></script>
+  <script type="module" src="/assets/js/google-knowledge-graph-explorer/header-visual.js"></script>
+  <script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+  <script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+
+  <script>
+  (() => {
+    const root = document.getElementById('kg-relationship-demo');
+    if (!root) return;
+
+    const interactive = root.querySelector('.kg-demo-interactive');
+    const canvas = root.querySelector('.kg-demo-canvas');
+    const svg = root.querySelector('svg');
+    const status = root.querySelector('.kg-demo-status');
+    const buttons = [...root.querySelectorAll('[data-entity]')];
+    const rows = [...root.querySelectorAll('[data-from]')];
+
+    const entities = Object.fromEntries(
+      buttons.map(button => [button.dataset.entity, button])
+    );
+
+    const defaultStatus =
+      'The two Coraline nodes describe different works, despite sharing a title.';
+
+    const explanations = {
+      film: 'Coraline (Movie, 2009): three connections in this example. It is based on the book, was directed by Henry Selick, and has LAIKA as a production company.',
+      book: 'Coraline (Book, 2002): two connections in this example. Neil Gaiman is its author, and the film is based on it. The book and film are separate entities.',
+      director: 'Henry Selick (Person): the director of the film. The director property points from the film to the person.',
+      author: 'Neil Gaiman (Person): the author of the book. That relationship belongs to the book, rather than to everything titled Coraline.',
+      studio: 'LAIKA (Organization): a production company for the film. This example shows one company, not the complete production credits.'
+    };
+
+    let selected = null;
+
+    const namespace = 'http://www.w3.org/2000/svg';
+
+    const make = (tag, attributes) => {
+      const element = document.createElementNS(namespace, tag);
+
+      Object.entries(attributes).forEach(([key, value]) => {
+        element.setAttribute(key, value);
+      });
+
+      return element;
+    };
+
+    const edges = rows.map(row => {
+      const group = make('g', {});
+      const line = make('line', { 'stroke-width': '2' });
+      const background = make('rect', {
+        fill: '#fff',
+        rx: '4',
+        height: '24'
+      });
+      const label = make('text', {
+        'text-anchor': 'middle',
+        'font-size': '13',
+        'font-family': 'sans-serif',
+        fill: '#26333e'
+      });
+
+      label.textContent = row.dataset.label;
+      group.append(line, background, label);
+      svg.append(group);
+
+      return { row, line, background, label };
+    });
+
+    const draw = () => {
+      const bounds = canvas.getBoundingClientRect();
+
+      edges.forEach(({ row, line, background, label }) => {
+        const from = entities[row.dataset.from].getBoundingClientRect();
+        const to = entities[row.dataset.to].getBoundingClientRect();
+        const downward = to.top > from.top;
+
+        const x1 = from.left + from.width / 2 - bounds.left;
+        const x2 = to.left + to.width / 2 - bounds.left;
+        const y1 = (downward ? from.bottom : from.top) - bounds.top;
+        const y2 = (downward ? to.top - 4 : to.bottom + 4) - bounds.top;
+
+        Object.entries({ x1, y1, x2, y2 }).forEach(([key, value]) => {
+          line.setAttribute(key, value);
+        });
+
+        const fraction = x1 === x2 ? 0.5 : 0.65;
+        const x = x1 + (x2 - x1) * fraction;
+        const y = y1 + (y2 - y1) * fraction;
+
+        label.setAttribute('x', x);
+        label.setAttribute('y', y + 4);
+
+        const width = label.getComputedTextLength() + 12;
+
+        background.setAttribute('x', x - width / 2);
+        background.setAttribute('y', y - 12);
+        background.setAttribute('width', width);
+      });
+    };
+
+    const select = id => {
+      selected = id;
+
+      buttons.forEach(button => {
+        button.setAttribute(
+          'aria-pressed',
+          String(button.dataset.entity === id)
+        );
+      });
+
+      edges.forEach(({ row, line }) => {
+        const connected =
+          id !== null &&
+          [row.dataset.from, row.dataset.to].includes(id);
+
+        row.toggleAttribute('data-connected', connected);
+        line.setAttribute('stroke', connected ? '#6b315d' : '#596570');
+        line.setAttribute('stroke-width', connected ? '3' : '2');
+        line.setAttribute(
+          'marker-end',
+          connected
+            ? 'url(#kg-demo-arrow-active)'
+            : 'url(#kg-demo-arrow)'
+        );
+      });
+
+      status.textContent = id ? explanations[id] : defaultStatus;
+      draw();
+    };
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.dataset.entity;
+        select(selected === id ? null : id);
+      });
+    });
+
+    interactive.hidden = false;
+    select(null);
+
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(draw);
+      observer.observe(canvas);
+      buttons.forEach(button => observer.observe(button));
+    } else {
+      window.addEventListener('resize', draw);
+    }
+
+    if (document.fonts) {
+      document.fonts.ready.then(draw);
+    }
+  })();
+  </script>
+</body>
+</html>

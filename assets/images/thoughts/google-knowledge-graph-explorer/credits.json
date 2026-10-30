@@ -1,0 +1,29 @@
+[
+  {
+    "name": "Bill Watterson",
+    "file": "assets/images/thoughts/google-knowledge-graph-explorer/bill-watterson.jpg",
+    "article": "https://en.wikipedia.org/wiki/Bill_Watterson",
+    "providedBy": "User upload in commit b3c22f64da23550c4e2ef4f10e30e2f1d3f8634c",
+    "sha256": "9f9d773c19b2033bb253cb607e210c025bf7e33dee880b3e4f2b4ee65dbf6c0a",
+    "license": null,
+    "attributionNote": "Exact Wikipedia file-page attribution and license metadata were not supplied with these uploads."
+  },
+  {
+    "name": "LAIKA, LLC",
+    "file": "assets/images/thoughts/google-knowledge-graph-explorer/laika.webp",
+    "article": "https://en.wikipedia.org/wiki/Laika_(company)",
+    "providedBy": "User upload in commit b3c22f64da23550c4e2ef4f10e30e2f1d3f8634c",
+    "sha256": "26df3c59dd186fd3cd28820428d25fb474d6b707b8b1b90640807b24cf85501b",
+    "license": null,
+    "attributionNote": "Exact Wikipedia file-page attribution and license metadata were not supplied with these uploads."
+  },
+  {
+    "name": "Dipper Pines",
+    "file": "assets/images/thoughts/google-knowledge-graph-explorer/dipper-pines.png",
+    "article": "https://en.wikipedia.org/wiki/Dipper_Pines",
+    "providedBy": "User upload in commit b3c22f64da23550c4e2ef4f10e30e2f1d3f8634c",
+    "sha256": "2d6d135166c233651e51ada8d736a652e38323decd38572f298d7bf2f82e4c88",
+    "license": null,
+    "attributionNote": "Exact Wikipedia file-page attribution and license metadata were not supplied with these uploads."
+  }
+]
