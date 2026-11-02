@@ -424,6 +424,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
   .kg-options,.kg-examples{grid-template-columns:1fr}
   .kg-search-row{flex-wrap:wrap}
   .kg-search-row input{flex-basis:100%}
+  #kg-app .kg-primary{ margin-top: 10px; } 
   .kg-search-row button{width:100%}
   #kg-app .kg-panel{padding:16px}
   .kg-result{grid-template-columns:48px minmax(0,1fr);gap:12px}
@@ -561,7 +562,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
   <h2 id="kg-why">A name, a number, and a bit of curiosity</h2>
   <p>I've been interested in how entities are represented across the digital space for quite a while. People, organisations, places, fictional characters; all the names we write into search boxes, and the rather less readable identifiers behind some of them. Eventually, looking through other people's tools became a good enough reason to try making my own.</p>
   <p>Part of it was wanting something I enjoyed using. Most of the Knowledge Graph tools I had come across were made by SEOs, and interface design isn't exactly what we're famous for. Part of it was the familiar question: can I build this? Apparently, a perfectly adequate reason to spend considerably more time with API documentation than originally intended.</p>
-  <p>The explorer above searches records returned by <a href="https://docs.cloud.google.com/enterprise-knowledge-graph/docs/overview" target="_blank" rel="noopener external">Google Enterprise Knowledge Graph Basic</a>. You can inspect identifiers and source references, compare entities, and look at the same record in different languages. I wanted the information to be easy to examine, especially when several results look suspiciously similar.</p>
+  <p>The explorer above searches records returned by <a href="https://docs.cloud.google.com/enterprise-knowledge-graph/docs/overview" target="_blank" rel="noopener external">Google Enterprise Knowledge Graph Basic API</a>. You can inspect identifiers and source references, compare entities, and look at the same record in different languages. I wanted the information to be easy to examine, especially when several results look suspiciously similar.</p>
   <p>Google supplies the entity records; I built the interface around them. This is an independent project, and the available API fields are only a limited view of the information involved in Google's search systems. Still, there's quite a lot to get curious about within that view.</p>
   </section>
 
@@ -577,7 +578,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
     <li><strong>Keep what you need.</strong> Copy an identifier or search link, or export the entity comparison as CSV.</li>
   </ol>
 
-  <h3 id="kg-read-results">Read the labels for what they measure</h3>
+  <h3 id="kg-read-results">What the labels do and don't mean</h3>
   <p><strong>API order</strong> preserves Google's returned order. The name-match badges describe text similarity to your query. An exact match means the normalised text matches; it doesn't mean the result is the person or organisation you intended. Normalisation handles details such as capitalisation, punctuation and spacing. It doesn't translate names or establish identity.</p>
   <p>There is no entity-strength score here. A result appearing first, having a photograph, or containing a longer description doesn't give us a measurement of its authority or SEO value. Those would be rather large conclusions to extract from a small response.</p>
   <p>Source and retrieval information help you keep track of what you're examining. <strong>Retrieved</strong> records when the tool processed the response, rather than when Google last updated the entity.</p>
@@ -958,7 +959,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
     <li><a href="https://aclanthology.org/2026.tacl-1.19/" target="_blank" rel="noopener external">MERLIN</a> (TACL 2026) provides a multilingual, multimodal entity-linking testbed using news titles and images linked to Wikidata entities. It investigates the contribution of visual context when text alone is ambiguous.</li>
   </ul>
 
-  <p>These papers investigate particular systems and benchmarks. They don't establish how Google ranks this website or how every assistant selects citations. What they do show is that identifying the right subject remains an active technical problem, even when a language model is involved.</p>
+  <p>These papers investigate particular systems and benchmarks. They don't establish how Google ranks a website or how every LLM platform selects citations. What they do show is that identifying the right subject remains an active technical problem, even when a language model is involved.</p>
 
   <h3 id="kg-practical-seo">What I would actually do with this</h3>
   <p>Start with a specific uncertainty: two records with the same name, an outdated source reference, a missing association, or different information across languages. Record what you find, inspect the sources, and correct what you control. Keep the visible information and structured data consistent. Revisit the same identifiers later if you want to observe changes.</p>
@@ -1006,7 +1007,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
           <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
           <nav class="postfooter-tags">
             <a href="https://alexanderkyriakou.eu/thoughts/tools">tools</a>
-            <a href="https://alexanderkyriakou.eu/thoughts/movies">seo</a>
+            <a href="https://alexanderkyriakou.eu/thoughts/seo">seo</a>
             <a href="https://alexanderkyriakou.eu/thoughts/data">data</a>
           </nav>
         </div>

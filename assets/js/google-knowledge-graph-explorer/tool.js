@@ -23,6 +23,7 @@
  * SPDX-License-Identifier: CPAL-1.0
  */
 import {wikipediaArticle,types,languages,googleLink,matchLabel,identifier,findings,identityFinding,csv,safeURL} from './entities.js';
+import {browserArticleImage} from './wikipedia.js';
 const $ = id => document.getElementById(id);
 const form = $('kg-search'), results = $('kg-results'), profile = $('kg-profile'), tray = $('kg-tray'), share=$('kg-share');
 let current = [], selected = [], controller, profileController, generation = 0, profileGeneration = 0, activeEntity;
@@ -118,7 +119,7 @@ function image(entity,source=null) {
     try {
       if(!articleImages.has(article.url)) {
         if(articleImages.size>60) articleImages.clear();
-        articleImages.set(article.url,request('image',{article:article.url}));
+        articleImages.set(article.url,browserArticleImage(article.url));
       }
       const data=await articleImages.get(article.url);
       if(data.image) { show(data.image.image,data.image); wrap.dataset.wikipedia='loaded'; wrap.removeAttribute('title'); }

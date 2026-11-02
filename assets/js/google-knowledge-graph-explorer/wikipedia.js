@@ -1,5 +1,7 @@
-import {ApiError} from './api.js';
 import {safeURL,wikipediaArticle} from './entities.js';
+
+// Keep this module browser-safe: Google API/authentication modules stay server-side.
+class ApiError extends Error { constructor(status,message) { super(message); this.status=status; } }
 
 const plain=value=>typeof value==='string' ? value.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,1000) : '';
 const mediaURL=value=>{ const u=safeURL(value); return u && new URL(u).protocol==='https:' && ['upload.wikimedia.org','thumb.wikimedia.org'].includes(new URL(u).hostname) ? u : ''; };
@@ -49,4 +51,15 @@ export async function wikipediaImage({request},fetcher=fetch) {
     const image=await articleImage(url.searchParams.get('article'),fetcher,{onUnavailable:value=>{reason=value;}});
     return reply({image,...(!image && {reason})});
   } catch(error) { return reply({error:error instanceof ApiError ? error.message : 'Wikipedia image unavailable.'},error instanceof ApiError ? error.status : 502); }
+}
+
+// Anonymous MediaWiki CORS requests use the browser's own User-Agent.
+// Reuse the same article, media-host, attribution and license validation as the Function.
+export async function browserArticleImage(article,fetcher=fetch) {
+  let reason;
+  const image=await articleImage(article,(url,options)=>{
+    url.searchParams.set('origin','*');
+    return fetcher(url,{...options,headers:{Accept:'application/json'},mode:'cors',credentials:'omit',referrerPolicy:'no-referrer'});
+  },{onUnavailable:value=>{reason=value;}});
+  return {image,...(!image && {reason})};
 }
