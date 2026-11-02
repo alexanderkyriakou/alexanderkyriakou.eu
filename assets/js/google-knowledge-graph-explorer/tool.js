@@ -47,8 +47,10 @@ function icon(name) {
   return svg;
 }
 const shareGroup=el('div',undefined,'kg-share-wrap'), shareFeedback=el('span',undefined,'kg-share-feedback');
+shareGroup.hidden=true;
 shareFeedback.id='kg-share-feedback'; shareFeedback.setAttribute('role','status'); shareFeedback.setAttribute('aria-live','polite'); shareFeedback.setAttribute('aria-atomic','true');
 share.replaceWith(shareGroup); shareGroup.append(share,shareFeedback); share.setAttribute('aria-describedby',shareFeedback.id);
+share.hidden=false;
 $('kg-clear-query').replaceChildren(icon('close'));
 function disclosure(label) { const d=el('details'), summary=el('summary',label); const arrow=icon('chevron'); arrow.classList.add('kg-disclosure-icon'); summary.append(arrow); d.append(summary); return d; }
 function actionIcon(control,name) { control.prepend(icon(name)); return control; }
@@ -69,7 +71,7 @@ for(const [id,options] of [['kg-lang',Object.entries(languages)],['kg-type',type
 }
 form.elements.language.value='en';
 function heading(target,title) { const h=el('h2',title); h.tabIndex=-1; target.append(h); return h; }
-function focus(e) { e.focus({preventScroll:true}); e.scrollIntoView({block:'nearest'}); }
+function focus(e,block='nearest') { e.focus({preventScroll:true}); e.scrollIntoView({block}); }
 async function request(mode,params,signal) {
   const key=mode+'?'+new URLSearchParams(params);
   if (memo.has(key)) return structuredClone(memo.get(key));
@@ -175,8 +177,9 @@ const resultSizing=new ResizeObserver(entries=>{
     }
   });
 });
-function resultHeader(label) {
+function resultHeader(label,populated=false) {
   const row=el('div',undefined,'kg-results-heading'); const h=heading(row,label);
+  shareGroup.hidden=!populated;
   row.append(shareGroup); results.append(row); return h;
 }
 function romanOrder(position) {
@@ -187,7 +190,7 @@ function romanOrder(position) {
   return result;
 }
 function renderResults(query) {
-  results.replaceChildren(); resultSizing.disconnect(); resultCards.clear(); resultHeader(`${current.length} ${current.length===1?'entity':'entities'} returned`);
+  results.replaceChildren(); resultSizing.disconnect(); resultCards.clear(); resultHeader(`${current.length} ${current.length===1?'entity':'entities'} returned`,current.length>0);
   results.append(el('p','Google API order is not a measure of popularity, authority or entity strength. Match labels describe name similarity.','kg-note'));
   if(!current.length) {
     results.append(el('p','No matching entities were returned for these terms and filters. This does not establish whether an entity or Knowledge Panel exists.'));
@@ -318,7 +321,7 @@ function renderProfile(entity) {
     } catch(e) { if(run===profileGeneration && e.name!=='AbortError') wikiResult.replaceChildren(el('p',e.message,'kg-error')); }
     finally { if(run===profileGeneration) wikiSubmit.disabled=false; }
   });
-  profile.append(wiki); focus(title);
+  profile.append(wiki); focus(title,matchMedia('(max-width:900px)').matches?'start':'nearest');
 }
 const fields=[['Name','name'],['Description','description'],['Types','types'],['Google MID','googleMid'],['Cloud MID','cloudMid'],['Associated website','website'],['Description reference','reference'],['Detailed description','detail'],['Source','source'],['Retrieved','retrievedAt']];
 function value(entity,key) { const v=entity?.[key]; return Array.isArray(v)?v.join(', '):v || ''; }
