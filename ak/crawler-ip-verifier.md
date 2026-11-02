@@ -5,7 +5,7 @@ author: "Alexander Kyriakou"
 canonical_url: "https://alexanderkyriakou.eu/ak/crawler-ip-verifier"
 markdown_url: "https://alexanderkyriakou.eu/ak/crawler-ip-verifier.md"
 date_published: "2026-10-26"
-date_modified: "2026-10-26"
+date_modified: "2026-11-02"
 language: "en"
 ---
 
@@ -161,9 +161,11 @@ Yandex is supported separately by the DNS service; it is not one of the 11 range
 
 ## Source freshness and historical limitations
 
-Publisher retrieval is scheduled daily. Feeds are validated before publication. A failed refresh can leave previous validated ranges available as noncurrent evidence.
+Publisher retrieval is scheduled daily. Feeds are validated before publication. A failed publisher refresh leaves the previous validated ranges available and does not immediately make them noncurrent.
 
-**Fresh** means the feed passed the tool's validation checks, remains within its configured freshness interval and has no disqualifying refresh or timestamp error. Freshness does not establish completeness of a publisher's list.
+**Current** means the source passed validation, was successfully fetched within the past 72 hours, and has no disqualifying validation or timestamp error. After more than 72 hours without a successful validated fetch, it is marked **Refresh overdue**; retained ranges remain available as noncurrent evidence. Sources without usable validated data are unavailable.
+
+The latest publisher refresh outcome is shown separately in source details. Failed attempts do not reset the last successful fetch time. An old or missing publisher timestamp does not itself make recently fetched data outdated. Current status does not establish completeness of a publisher's list.
 
 **Reload published dataset** checks the saved dataset served to the page. It does not trigger direct retrieval from every publisher or repair a failed refresh. Analyze again to apply the newly loaded evidence. The latest retrieval timestamp for the dataset does not imply that every feed refreshed successfully at that time.
 
