@@ -132,7 +132,7 @@ strong {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 0.5px;
+  height: 1px;
   background: linear-gradient(to left, transparent, #858da8, transparent);
   pointer-events: none;
 }

@@ -51,7 +51,7 @@
       "description": "Check IPv4 and IPv6 addresses and user-agent claims against published crawler ranges. Analyze inputs locally, inspect source evidence, export findings and optionally investigate selected IPs through DNS.",
       "inLanguage": "en",
       "datePublished": "2026-10-26",
-      "dateModified": "2026-10-27",
+      "dateModified": "2026-11-02",
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
       },
@@ -135,7 +135,7 @@
       "description": "A practical guide to preparing crawler log exports, interpreting user-agent claims and published IP ranges, investigating unverified claims, checking DNS evidence and making proportionate access-control decisions.",
       "inLanguage": "en",
       "datePublished": "2026-10-26",
-      "dateModified": "2026-10-27",
+      "dateModified": "2026-11-02",
       "isAccessibleForFree": true,
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
@@ -687,7 +687,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
   .verifier-app dialog { padding: 16px; }
   .verifier-app dialog dl { grid-template-columns: 1fr; }
   .verifier-app dialog dd { margin-bottom: 8px; }
-  .dataset-strip { margin: 0; }
+  .dataset-strip { margin: 20px 0 0; }
   .verifier-app .dataset-strip > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; }
   .dataset-strip > summary > span:last-of-type { grid-column: 1; }
   .verifier-app .dataset-strip > summary::after { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
@@ -782,7 +782,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
  <p class="note" id="dataset-latest" hidden></p>
  <p class="note">Publisher updates run every day. Reload checks the saved dataset.</p>
  <details id="source-health"><summary>Source health and versions</summary><ul id="dataset-sources" class="source-list"></ul></details>
- <details class="dataset-about"><summary>About source updates</summary><p id="dataset-note" class="note">Only the shared crawler dataset is downloaded. Imported traffic stays in your browser.</p><p class="note">Reload does not fetch from publishers or repair failed updates. Previous validated ranges remain available as noncurrent evidence.</p><p id="dataset-evaluated" class="note"></p></details>
+ <details class="dataset-about"><summary>About source updates</summary><p id="dataset-note" class="note">Only the shared crawler dataset is downloaded. Imported traffic stays in your browser.</p><p class="note">Reload does not fetch from publishers or repair failed updates. Validated ranges remain current for 72 hours after their last successful fetch, even if a later publisher refresh fails. After 72 hours, they are marked Refresh overdue.</p><p id="dataset-evaluated" class="note"></p></details>
  </div></details>
 </div>
 <section id="results" class="panel results-panel" hidden><div class="results-heading"><div><h2 id="report-title" tabindex="-1">Traffic results</h2></div><div class="controls"><button id="quick-export-csv" type="button" title="Export the whole batch">Export CSV</button><button id="quick-export-json" type="button" title="Export the whole batch">Export JSON</button></div></div><div class="result-toolbar"><div><label for="search-results">Search this analysis</label><input id="search-results" type="search" placeholder="IP, claim, provider or CIDR"></div><div class="filter-field"><label for="filter-status">Finding</label><select id="filter-status"></select></div>
@@ -1173,7 +1173,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
           <tbody>
             <tr><th scope="row">Declared identity</th><td><code>Googlebot/2.1</code>; one recognised, unambiguous crawler claim.</td></tr>
             <tr><th scope="row">Published ranges</th><td>No applicable range matched. No published provider was established.</td></tr>
-            <tr><th scope="row">Applicable source</th><td>Google common-crawler source marked Fresh at assessment time.</td></tr>
+            <tr><th scope="row">Applicable source</th><td>Google common-crawler source marked Current at assessment time.</td></tr>
             <tr><th scope="row">Optional DNS check</th><td>No PTR record returned.</td></tr>
             <tr><th scope="row">Imported responses</th><td>Six entries with HTTP status <code>404</code>.</td></tr>
             <tr><th scope="row">Crawler IP verifier's finding</th><td>Could not verify.</td></tr>
@@ -1246,8 +1246,8 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
       <p>Claims and feed categories cover web indexing, AI search, potential training collection, user-triggered fetching, SEO analysis, advertising-related crawling, site verification, link previews, open web data and other documented automation. One provider or identity can have more than one purpose. More matching feeds don't necessarily mean more independent confirmation.</p>
 
       <h3 id="guide-freshness">Updates, source health and older requests</h3>
-      <p>Source retrieval runs daily for all included providers. Each feed is validated before publication, and a failed update can leave the previous validated ranges available, clearly marked as noncurrent evidence. Source health is the tool's label for whether a feed is current, outdated or unavailable.</p>
-      <p>“Fresh” means the source data passed the tool's format, IP-range and update-consistency checks, remains within its configured freshness interval, and has no disqualifying refresh or timestamp error. It doesn't mean the publisher's list is exhaustive. Older validated ranges may remain available as evidence when a source is no longer current.</p>
+      <p>Source retrieval runs daily for all included providers. Each feed is validated before publication. Validated ranges remain current for 72 hours after their last successful fetch, even if a later publisher refresh fails. The latest refresh outcome is shown separately in source details. After 72 hours without a successful fetch, the source is marked <em>Refresh overdue</em>, and its retained ranges remain available as noncurrent evidence. A source with no usable validated data is unavailable.</p>
+      <p>“Current” means the source data passed the tool's format, IP-range and update-consistency checks, was successfully fetched within the past 72 hours, and has no disqualifying validation or timestamp error. A failed publisher refresh does not reset the last successful fetch time or immediately make the retained data noncurrent. The publisher's timestamp is shown for reference; an old or missing publisher timestamp does not itself make recently fetched data outdated. Current status doesn't mean the publisher's list is exhaustive.</p>
       <p><strong>Reload published dataset</strong> checks the saved dataset served to the page. It doesn't contact every publisher or repair a failed publisher update. Analyze again after reloading. The most recent retrieval timestamp shown for the dataset doesn't mean every included feed was successfully refreshed at that time.</p>
       <p>Request timestamps remain available in the imported records, but verification uses the dataset evaluated for that analysis. The tool doesn't maintain a historical ownership archive or reconstruct DNS at the time of an old request. Save the evidence with an investigation when the observation time matters.</p>
       <p>Validated public datasets can be cached in your browser for reuse. If the service can't be reached, a retained bundle may be available as explicitly noncurrent fallback evidence. Imported traffic is never written to that dataset cache. Clearing the workflow removes the active input and report.</p>
@@ -1396,6 +1396,10 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
       <h2 id="changelog-title">Updates</h2>
       <ul style="padding-left:0;">
         <li>
+          <time datetime="2026-11-02">November 02, 2026</time>
+          <span>An IP source range is considered as current when latest refresh was within past 72h, instead of strict 24h. After 72 hours without a successful fetch, it is marked <em>Refresh overdue</em>, even if publisher's timestamp is way older.</span>
+        </li>
+        <li>
           <time datetime="2026-10-27">October 27, 2026</time>
           <span>Public findings table display on mobile fixed and references where applicable to <em>Unverified crawler claim</em> finding.</span>
         </li>
@@ -1428,7 +1432,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
             </span>
             <span>
               <span>Updated</span>
-              <time datetime="2026-10-27">Oct 27, 2026</time>
+              <time datetime="2026-11-02">Nov 02, 2026</time>
             </span>
           </p>
         </div>
