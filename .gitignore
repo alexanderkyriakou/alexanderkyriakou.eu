@@ -4,8 +4,8 @@
 .env
 .env.*
 *.local
-ak/article.html
-
+ak/article-landscape.html
+ak/article-portrait.html
 
 # Tooling
 .wrangler/
