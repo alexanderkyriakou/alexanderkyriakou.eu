@@ -15,7 +15,7 @@
 }
 /* end of standarizations */
 
-/* Append these shared article hero rules to your current thoughts.css. */
+/* article hero */
 .article-page {
   overflow-x: clip;
 }
@@ -74,9 +74,6 @@
   border-radius: 15px;
 }
 
-/* Two nested fades give independent horizontal and vertical falloff.
-   The outer bounds are exactly 60px at the sides/bottom and 30px above.
-   The halo image uses the same crop and position as the sharp photograph. */
 .article-halo {
   position: absolute;
   inset: calc(0px - var(--halo-top)) calc(0px - var(--halo-side)) calc(0px - var(--halo-bottom));
@@ -127,8 +124,7 @@
   display: block;
 }
 
-
-/* Portrait desktop: text centred against the photograph, excluding its caption. */
+/* article portrait hero pic */
 .article-hero-portrait {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
@@ -178,13 +174,10 @@
   }
 }
 
-@media (width <= 768px) {
-
-}
-
 @media print {
   .article-halo { display: none; }
 }
+/* end article hero */
 
 /* thought page changelog section */
 .changelog {
@@ -420,93 +413,93 @@
 }
 
 .thoughts-animated {
-    width: 50vw;
-    height: 50vh;
-    display: block;
-    overflow: hidden;
-    height: 0;
+  width: 50vw;
+  height: 50vh;
+  display: block;
+  overflow: hidden;
+  height: 0;
 }
 
 .thoughts-animated li {
-    position: absolute;
-    display: block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background: rgba(0, 0, 0, 0.4);
-    animation: animate 42s linear infinite;
-    z-index: -1;
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  animation: animate 42s linear infinite;
+  z-index: -1;
 }
 
 .thoughts-animated li:nth-child(0) {
-    left: 85%;
-    width: 148px;
-    height: 148px;
-    top: -148px;
-    animation-delay: 1s;
+  left: 85%;
+  width: 148px;
+  height: 148px;
+  top: -148px;
+  animation-delay: 1s;
 }
 .thoughts-animated li:nth-child(1) {
-    left: 8%;
-    width: 167px;
-    height: 167px;
-    top: -167px;
-    animation-delay: 4s;
+  left: 8%;
+  width: 167px;
+  height: 167px;
+  top: -167px;
+  animation-delay: 4s;
 }
 .thoughts-animated li:nth-child(2) {
-    left: 76%;
-    width: 179px;
-    height: 179px;
-    top: -179px;
-    animation-delay: 4s;
+  left: 76%;
+  width: 179px;
+  height: 179px;
+  top: -179px;
+  animation-delay: 4s;
 }
 .thoughts-animated li:nth-child(3) {
-    left: 69%;
-    width: 175px;
-    height: 175px;
-    top: -175px;
-    animation-delay: 14s;
+  left: 69%;
+  width: 175px;
+  height: 175px;
+  top: -175px;
+  animation-delay: 14s;
 }
 .thoughts-animated li:nth-child(4) {
-    left: 89%;
-    width: 139px;
-    height: 139px;
-    top: -139px;
-    animation-delay: 18s;
+  left: 89%;
+  width: 139px;
+  height: 139px;
+  top: -139px;
+  animation-delay: 18s;
 }
 .thoughts-animated li:nth-child(5) {
-    left: 49%;
-    width: 186px;
-    height: 186px;
-    top: -186px;
-    animation-delay: 17s;
+  left: 49%;
+  width: 186px;
+  height: 186px;
+  top: -186px;
+  animation-delay: 17s;
 }
 .thoughts-animated li:nth-child(6) {
-    left: 88%;
-    width: 142px;
-    height: 142px;
-    top: -142px;
-    animation-delay: 28s;
+  left: 88%;
+  width: 142px;
+  height: 142px;
+  top: -142px;
+  animation-delay: 28s;
 }
 .thoughts-animated li:nth-child(7) {
-    left: 5%;
-    width: 122px;
-    height: 122px;
-    top: -122px;
-    animation-delay: 3s;
+  left: 5%;
+  width: 122px;
+  height: 122px;
+  top: -122px;
+  animation-delay: 3s;
 }
 .thoughts-animated li:nth-child(8) {
-    left: 63%;
-    width: 117px;
-    height: 117px;
-    top: -117px;
-    animation-delay: 11s;
+  left: 63%;
+  width: 117px;
+  height: 117px;
+  top: -117px;
+  animation-delay: 11s;
 }
 .thoughts-animated li:nth-child(9) {
-    left: 41%;
-    width: 106px;
-    height: 106px;
-    top: -106px;
-    animation-delay: 6s;
+  left: 41%;
+  width: 106px;
+  height: 106px;
+  top: -106px;
+  animation-delay: 6s;
 }
 /*end of animated background*/
 
@@ -836,6 +829,7 @@
 /* mobile devices */
 @media (max-width: 768px) {
 
+/* article hero */
   .article-hero {
   --halo-side: 30px;
   --halo-top: 15px;
@@ -866,6 +860,7 @@
 
   .article-hero-portrait .article-heading { margin-bottom: 24px; }
   .article-hero-portrait .article-caption { margin-top: 8px; }
+ /* end article hero */
 
   .thoughts-animated li {
       position: absolute;
