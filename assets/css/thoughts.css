@@ -1,3 +1,43 @@
+@font-face {
+  font-family: "Commissioner";
+  src: url("/assets/fonts/commissioner-extralight-200.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commissioner";
+  src: url("/assets/fonts/commissioner-light-300.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commissioner";
+  src: url("/assets/fonts/commissioner-regular-400.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commissioner";
+  src: url("/assets/fonts/commissioner-medium-500.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Commissioner";
+  src: url("/assets/fonts/commissioner-semibold-600.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
 /* standarizations */
 .container p {
   margin: 0 0 20px 0;
@@ -1157,6 +1197,3 @@
   }
 
 }
-
-
-
