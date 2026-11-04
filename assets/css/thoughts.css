@@ -850,6 +850,13 @@
 
   .article-hero-portrait { display: block; }
 
+  /* reusing the landscape image; but mobile friendly ar */
+  .article-hero:not(.article-hero-portrait) {
+    --article-image-aspect: 3 / 4;
+    --article-image-position: 10% 40%;
+    --article-image-fit: cover;
+  }
+
   .article-hero-portrait .article-heading,
   .article-hero-portrait .article-figure {
     display: block;

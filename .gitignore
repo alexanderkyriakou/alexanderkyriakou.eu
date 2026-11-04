@@ -4,6 +4,7 @@
 .env
 .env.*
 *.local
+_headers
 ak/article-landscape.html
 ak/article-portrait.html
 
