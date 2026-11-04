@@ -1,8 +1,56 @@
+/*
+ * License notice for the original Bookmarklets software.
+ *
+ * The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt. The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 have been added to cover use of software over a computer network and provide for limited attribution for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B.
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific language governing rights and limitations under the License.
+ *
+ * The Original Code is the original Bookmarklets collection software authored by Alexander Kyriakou, including its catalogue, configuration and installation controls, original bookmarklet implementations and generated JavaScript, report and overlay interfaces, and dedicated HTML, CSS and JavaScript implementation in ak/bookmarklets.html and assets/js/bookmarklets.js, originally published at https://alexanderkyriakou.eu/ak/bookmarklets.
+ *
+ * The Original Developer is not the Initial Developer and is __________. If left blank, the Original Developer is the Initial Developer.
+ *
+ * The Initial Developer of the Original Code is Alexander Kyriakou. All portions of the code written by Alexander Kyriakou are Copyright (c) 2026 Alexander Kyriakou. All Rights Reserved.
+ *
+ * Contributor ______________________.
+ *
+ * No alternative license is offered by the Initial Developer for the Original Code under this source notice.
+ *
+ * Project scope and attribution: https://alexanderkyriakou.eu/assets/licenses/bookmarklets-LICENSE.md
+ * SPDX-License-Identifier: CPAL-1.0
+ */
+
+/*
+ * Third-party Matita SVG paths (@matita/icons 0.4.0), separately licensed under MIT.
+ *
+ * MIT License
+ *
+ * Copyright (c) 2026 matita.dev
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 /* Alexander Kyriakou - browser-local bookmarklet collection.
  * Matita copy/check SVG paths: @matita/icons 0.4.0, MIT.
  * No code is fetched when installing a bookmarklet. Screenshot capture alone
  * optionally loads pinned html2canvas 1.4.1 after an explicit confirmation.
  */
+
 (function () {
   'use strict';
 

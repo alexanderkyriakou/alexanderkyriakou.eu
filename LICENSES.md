@@ -1,23 +1,24 @@
 # Licenses and copyright
 
-© 2026 Alexander Kyriakou. Different parts of this website may have different
-licenses. Publication in this public repository does not, by itself, grant
-permission to reuse material lacking an explicit license.
+© 2026 Alexander Kyriakou.
 
-## Personal photographs and portraits
+Different parts of this website and repository have different licenses. The applicable license and scope are identified in the relevant page, project, source-file or asset notice.
 
-Personal photographs and portraits are excluded from the CC BY 4.0 license unless explicitly stated otherwise.
+## Licensed material
 
-Where owned by Alexander Kyriakou, all rights are reserved. Third-party photographs remain subject to their respective copyright holders' terms.
+- Original software expressly identified as CPAL-1.0 is governed by the [Common Public Attribution License 1.0](assets/licenses/CPAL-1-0.txt).
+- Original creative material expressly identified as CC BY 4.0 is governed by [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/).
 
-See [Licensing & Copyright](https://alexanderkyriakou.eu/licensing) for further information.
+Project-specific scope, exclusions and completed CPAL attribution notices are provided in [assets/licenses/](assets/licenses/) and the applicable source files. These grants apply only to material owned by Alexander Kyriakou. Shared website assets are included only when expressly identified.
 
-## Web tools
+Include the full CPAL text and applicable project notices when redistributing covered source code, and retain required source-file notices.
 
-The dedicated [Robots.txt Checker](https://alexanderkyriakou.eu/ak/robots-txt-checker)
-uses CPAL-1.0 for its original software and CC BY 4.0 for its original prose,
-design and diagrams. See its page-specific [robots-txt-checker-LICENSE.md](https://alexanderkyriakou.eu/assets/licenses/robots-txt-checker/robots-txt-checker-LICENSE.md) forscope and attribution information. Third-party material retains its own terms.
+## Other website material
 
-The dedicated [Crawler IP Verifier](https://alexanderkyriakou.eu/ak/crawler-ip-verifier)
-uses CPAL-1.0 for its original software and CC BY 4.0 for its original prose,
-design and diagrams. See its page-specific [crawler-ip-verifier-LICENSE.md](https://alexanderkyriakou.eu/assets/licenses/crawler-ip-verifier/crawler-ip-verifier-LICENSE.md) forscope and attribution information. Third-party material retains its own terms.
+Personal photographs and portraits are excluded from CC BY 4.0 unless explicitly stated otherwise. Where owned by Alexander Kyriakou, all rights are reserved.
+
+Other writing, code and assets are covered only where an explicit license identifies them. Public visibility does not, by itself, grant a general reuse license. Applicable legal exceptions remain unaffected.
+
+Third-party code, fonts, images, logos, dependencies and source data retain their respective rights and terms. They are not relicensed by the declarations above.
+
+For the public-facing explanation, see [Licensing and copyright](https://alexanderkyriakou.eu/licensing).

@@ -2,6 +2,7 @@
 .container p {
   margin: 0 0 20px 0;
   line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .container :is(h1, h2, h3, h4) {
@@ -42,7 +43,7 @@
   font-size: clamp(2rem, 1.35rem + 2.2vw, 3.2rem);
   font-weight: 500;
   line-height: 1;
-  text-wrap: balance;
+  text-wrap: pretty;
   overflow-wrap: anywhere;
 }
 
@@ -51,6 +52,8 @@
   color: #555;
   font-size: 1.3rem;
   line-height: 1.5;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
 }
 
 .article-hero .article-figure {
@@ -118,6 +121,7 @@
   line-height: 1.2;
   text-align: right;
   overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 .article-hero .article-credit-portrait {

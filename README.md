@@ -12,26 +12,6 @@ Have a look around at [alexanderkyriakou.eu](https://alexanderkyriakou.eu).
 
 ---
 
-### Robots.txt Checker - license and attribution
+## Licensing
 
-The [Robots.txt Checker](https://alexanderkyriakou.eu/ak/robots-txt-checker) was developed by Alexander Kyriakou.
-
-Its dedicated software code is licensed under [CPAL-1.0](https://opensource.org/license/CPAL-1.0), including the project-specific attribution information in [`robots-txt-checker-LICENSE.md`](https://alexanderkyriakou.eu/assets/licenses/robots-txt-checker/robots-txt-checker-LICENSE.md). Original written content, page design and diagrams are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), unless otherwise noted.
-
-These licenses cover the identified tool and original creative materials, **not this entire website repository**. Third-party assets have their own terms.
-
-### Crawler IP Verifier - license and attribution
-
-The [Crawler IP Verifier](https://alexanderkyriakou.eu/ak/crawler-ip-verifier) was developed by Alexander Kyriakou.
-
-Its dedicated software code is licensed under [CPAL-1.0](https://opensource.org/license/CPAL-1.0), including the project-specific attribution information in [`crawler-ip-verifier-LICENSE.md`](https://alexanderkyriakou.eu/assets/licenses/crawler-ip-verifier/crawler-ip-verifier-LICENSE.md). Original written content, page design and diagrams are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), unless otherwise noted.
-
-These licenses cover the identified tool and original creative materials, **not this entire website repository**. Third-party assets have their own terms.
-
-### Knowledge Graph Explorer - license and attribution
-
-The [Google's Knowledge Graph Explorer](https://alexanderkyriakou.eu/ak/google-knowledge-graph-explorer) was developed by Alexander Kyriakou.
-
-Its dedicated software code is licensed under [CPAL-1.0](https://opensource.org/license/CPAL-1.0), including the project-specific attribution information in [`google-knowledge-graph-explorer-LICENSE.md`](https://alexanderkyriakou.eu/assets/licenses/google-knowledge-graph-explorer/google-knowledge-graph-explorer-LICENSE.md). Original written content, page design and diagrams are licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), unless otherwise noted.
-
-These licenses cover the identified tool and original creative materials, **not this entire website repository**. Third-party assets have their own terms.
+Different parts of this repository have different terms. See the website's [Licensing and copyright](https://alexanderkyriakou.eu/licensing) page for an overview, and [LICENSES.md](LICENSES.md) for repository licensing details and links to project notices.
