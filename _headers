@@ -1,4 +1,5 @@
 # edge serving http headers via cf
+# Link: <https://alexanderkyriakou.eu/:splat>; rel="canonical" -- consider in the future for .md files
 
 /*.txt
   X-Robots-Tag: noindex

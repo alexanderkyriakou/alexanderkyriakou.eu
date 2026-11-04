@@ -3652,7 +3652,7 @@ var DatasetStore = class {
       return new Response(body, { headers: {
         "Content-Type": "application/json",
         ETag: `"${await sha256(body)}"`,
-        "Cache-Control": "public, max-age=120, must-revalidate"
+        "Cache-Control": "public, max-age=120, must-revalidate",
       } });
     }
     const snapshot = /^\/v1\/sources\/([a-z0-9-]+)\/([a-f0-9]{64})\.json$/.exec(url.pathname);
@@ -3840,6 +3840,7 @@ var index_default = {
     const headers = new Headers(response.headers);
     headers.set("X-Content-Type-Options", "nosniff");
     headers.set("Referrer-Policy", "no-referrer");
+    headers.set("X-Robots-Tag", "noindex");
     if (!publicPath(url.pathname) || !response.ok && response.status !== 304) headers.set("Cache-Control", "no-store");
     if ((publicPath(url.pathname) || url.pathname === "/v1/dns/check") && (!origin || allowedOrigins.has(origin))) {
       headers.set("Access-Control-Allow-Origin", origin || env.FRONTEND_ORIGIN);
