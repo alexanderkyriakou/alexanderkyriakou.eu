@@ -319,7 +319,7 @@
 #bookmarklets-app .bm-config .bm-hint { grid-column:1/-1; margin:0; }
 #bookmarklets-app .bm-install-row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:18px 0; }
 #bookmarklets-app .bm-install { display:inline-flex; align-items:center; justify-content:center; gap:9px; min-height:46px; max-width:100%; padding:11px 18px; line-height:1.4; background:#e5f0fa; border:1px solid #8daed0; border-radius:4px 4px 10px 4px; color:#244d73; text-decoration:none; font-size:.95rem; font-weight:500; cursor:grab; box-shadow:0 3px 0 #cadced; overflow-wrap:anywhere; }
-#bookmarklets-app .bm-install::before { content:''; width:11px; height:17px; flex:none; background:var(--bm-accent); clip-path:polygon(0 0,100% 0,100% 100%,50% 73%,0 100%); }
+#bookmarklets-app .bm-install::before { --bm-bookmark-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6.13 3.3Q12.06 3.81 18.01 3.69Q18.17 12 18.11 20.32Q15 18.19 11.98 15.93Q9.06 18.43 5.8 20.48Q6.19 11.9 6.13 3.3Q6.75 3.29 7.36 3.34' stroke-width='1.776'/%3E%3C/svg%3E"); content: ""; width: 24px; height: 24px; flex: none; background: var(--bm-accent); clip-path: none; -webkit-mask: var(--bm-bookmark-icon) center / contain no-repeat; mask: var(--bm-bookmark-icon) center / contain no-repeat; }
 #bookmarklets-app .bm-install:hover { background:#d9e9f8; color:#1d4264; }
 #bookmarklets-app .bm-install[aria-disabled=true] { opacity:.5; cursor:default; }
 #bookmarklets-app .bm-drag-note { font-size:.8rem; color:var(--bm-muted); font-family:system-ui,sans-serif; }
@@ -687,7 +687,7 @@ Source URL: {url}
 
   <p>Too many bookmarks is a familiar problem. Folders and shorter names help. Ordinary website bookmarks can often be recognisable by their icon alone; for these tools, keeping just the emoji in the bookmark's name is another option.</p>
 
-  <p>For notes saved as Markdown, use whichever online or local viewer or editor suits you. <a href="https://marktext.me/" target="_blank" rel="noopener external">MarkText</a> is a handy open-source option for working with them locally. Quick notes don't save automatically, so download anything you want to keep.</p>
+  <p>For notes saved as Markdown, use whichever online or local viewer or editor suits you. <a href="https://marktext.me/" target="_blank" rel="noopener external">MarkText</a> is a handy open-source option for working with them locally. <a href="#bookmarklet-notes">Quick notes</a> don't save automatically, so download anything you want to keep.</p>
 
   <p><strong>Two ways to copy the code.</strong> The main copy icon copies an encoded bookmarklet URL for installation, preserving spaces and special characters. Expand a code block to find the readable-source copy icon at its bottom right. Both versions run the same JavaScript. Previously saved bookmarklets don't update automatically, so save them again after changing their settings or applying an updated version.</p>
 
