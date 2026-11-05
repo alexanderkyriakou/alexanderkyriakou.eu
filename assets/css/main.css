@@ -247,7 +247,7 @@ strong {
 }
 
 .hp-cycle {
-  font-weight: 500;
+  font-weight: 400;
   color: #555;
 }
 
@@ -259,7 +259,7 @@ strong {
   margin: 0 0 0.4em;
   font-size: clamp(1.6rem, 7.2vw, 3.5rem);
   font-size: clamp(1.6rem, 10cqw, 5rem);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: 2px;
 }
@@ -526,7 +526,7 @@ figcaption {
 
 .wcities p {
   font-size: 1.3rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.5;
   padding-right: 150px;
   font-style: italic;
