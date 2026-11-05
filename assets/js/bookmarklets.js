@@ -620,6 +620,398 @@
     {id:'screenshot',title:'Experimental page capture',category:'utilities',desc:'Render the loaded page to a downloadable PNG.',note:'Loads html2canvas 1.4.1 from cdnjs only after confirmation. This is a visual approximation; CORS, CSP, unsupported CSS, video, frames, and page size can limit results. Native browser screenshots are more faithful.',run:screenshot,deps:[toolkit],badge:'Experimental'}
   ];
 
+  function bmPanel(id, title) {
+    const previous = document.querySelector('[data-ak-bm-tool="' + id + '"]');
+    if (previous) { previous._akFocus?.(); return null; }
+    const el = (tag, text) => { const n = document.createElement(tag); if (text !== undefined) n.textContent = String(text); return n; };
+    const host = el('div'), oldFocus = document.activeElement, cleanups = [];
+    host.dataset.akBmTool = id; host.setAttribute('data-ak-bookmarklet-overlay', '');
+    host.style.cssText = 'all:initial!important;display:block!important;position:fixed!important;left:16px!important;top:24px!important;width:min(740px,calc(100vw - 32px))!important;z-index:2147483647!important';
+    const shadow = host.attachShadow({mode:'open'}), style = el('style');
+    style.textContent = `:host{all:initial}*{box-sizing:border-box}section{font:14px/1.5 system-ui,sans-serif;color:#243449;background:#fff;border:1px solid #a4b8cc;border-radius:10px;box-shadow:0 12px 45px #0003;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);overflow:auto;color-scheme:light}header{display:flex;align-items:center;gap:8px;padding:10px 14px;background:#e9f1f9;cursor:move;touch-action:none;user-select:none}header h2{font:500 21px/1.2 Georgia,serif;margin:0;flex:1}main{padding:16px}h3{font-size:16px;margin:20px 0 8px}p{margin:8px 0}small,.note{font-size:12px;color:#526579}a{color:#245b88}button,input,select,textarea{font:inherit;color:inherit}button{display:inline-flex;align-items:center;gap:6px;border:1px solid #9fb1c4;border-radius:5px;padding:7px 10px;background:#fff;cursor:pointer}button:hover{background:#edf4fb}button.primary{background:#2d6594;border-color:#2d6594;color:#fff}button.primary:hover{background:#234f75;border-color:#234f75}button:disabled{opacity:.55;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,header:focus-visible{outline:3px solid #2d6594;outline-offset:2px}label{display:block;margin:10px 0 4px}input,select,textarea{padding:8px;border:1px solid #a9b8c9;border-radius:4px;background:#fff;max-width:100%}input:not([type=checkbox]),textarea{width:100%}textarea{min-height:150px;resize:vertical;line-height:1.6}input[type=checkbox]{margin-right:8px}label.check{display:flex;align-items:flex-start;gap:4px}label.check input{margin-top:5px;flex:none}.word-link{display:inline;padding:0;border:0;border-radius:2px;background:none;color:#245b88;text-decoration:none;text-align:left;overflow-wrap:anywhere}.word-link:hover,.word-link[aria-pressed=true]{background:#e1edf8;color:#153f65}.tools{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:12px 0}.cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}.scroll{overflow:auto;margin:10px 0}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;vertical-align:top;padding:8px;border-bottom:1px solid #d7e0e8;overflow-wrap:anywhere}th{background:#eef3f8}th:first-child{min-width:115px}th.status-cell,td.status-cell{min-width:125px;overflow-wrap:normal;word-break:normal;hyphens:none;white-space:normal}.page-checks td:nth-child(3){white-space:pre-line}.stats{font-weight:600;padding:10px;background:#edf4fb;border-radius:5px}.warn{color:#8a4700}.bad{color:#a52222}.good{color:#24603c}details{margin:12px 0;padding:8px;border:1px solid #d7e0e8;border-radius:5px}summary{cursor:pointer;font-weight:600}pre,.excerpt{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.6 ui-monospace,monospace;max-height:280px;overflow:auto}mark{background:#ffde9f;color:#442d00}.result{padding:10px 0;border-bottom:1px solid #d7e0e8}.result p{margin:4px 0}.serp{font:14px/1.5 Arial,sans-serif;border:1px solid #ccd7e1;border-radius:8px;padding:16px;margin:12px 0;max-width:100%;width:600px}.serp.mobile{width:360px}.serp .url{font-size:12px;color:#3c4043;overflow-wrap:anywhere}.serp .title{font-size:20px;line-height:1.3;color:#1a0dab;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;margin:6px 0}.serp .description{color:#4d5156;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}.serp .site-identity{display:flex;align-items:center;gap:12px;margin-bottom:8px}.serp .site-info{min-width:0}.serp .site-name{font-size:14px;line-height:20px;color:#202124;overflow-wrap:break-word}.serp .favicon{display:grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:#f1f3f4;color:#5f6368;font-size:24px}.serp .favicon img{display:block;width:100%;height:100%;object-fit:contain;border-radius:50%}.serp .product-thumbnail{width:90px;height:90px;object-fit:contain;float:right;margin:8px;border-radius:5px}.serp .rich{color:#3c4043;margin-top:7px}.credit{display:block;margin-top:16px;padding:10px 12px;border-top:1px solid #d7e0e8;font-size:12px;text-align:center}[hidden]{display:none!important}@media(max-width:520px){.cols{grid-template-columns:1fr}main{padding:12px}header h2{font-size:18px}}`;
+    const panel = el('section'), bar = el('header'), heading = el('h2',title), main = el('main'), status = el('p');
+    heading.id = 'ak-bm-title'; panel.setAttribute('role','dialog'); panel.setAttribute('aria-labelledby',heading.id); panel.setAttribute('aria-modal','false');
+    bar.tabIndex = 0; bar.title = 'Drag to move, or focus this heading and use arrow keys.'; bar.setAttribute('aria-label',title + '. Drag or use arrow keys to move.');
+    status.setAttribute('role','status'); status.className = 'note';
+    function button(label, action) { const b = el('button',label); b.type = 'button'; b.addEventListener('click',action); return b; }
+    let closed = false;
+    function close() { if (closed) return; closed = true; cleanups.forEach(fn=>fn()); host.remove(); oldFocus?.focus?.({preventScroll:true}); }
+    const minimise = button('−',()=>{ main.hidden = !main.hidden; minimise.setAttribute('aria-expanded',String(!main.hidden)); minimise.textContent = main.hidden ? '+' : '−'; clamp(); });
+    minimise.setAttribute('aria-label','Minimise or expand panel'); minimise.setAttribute('aria-expanded','true');
+    const dismiss = button('×',close); dismiss.setAttribute('aria-label','Close ' + title);
+    bar.append(heading,minimise,dismiss); panel.append(bar,main); main.append(status);
+    const credit = el('a','Alexander Kyriakou’s bookmarklet collection'); credit.href = 'https://alexanderkyriakou.eu/ak/bookmarklets'; credit.target = '_blank'; credit.rel = 'noopener noreferrer'; credit.className = 'credit';
+    panel.append(credit); shadow.append(style,panel); document.documentElement.append(host);
+    let x = Math.max(16,innerWidth - host.getBoundingClientRect().width - 24), y = 24, drag = null;
+    function clamp() { const r = host.getBoundingClientRect(); x = Math.max(8,Math.min(x,innerWidth-r.width-8)); y = Math.max(8,Math.min(y,innerHeight-r.height-8)); host.style.setProperty('left',x+'px','important'); host.style.setProperty('top',y+'px','important'); }
+    bar.addEventListener('pointerdown',e=>{if(e.target.closest('button')||e.button!==0)return;drag={id:e.pointerId,x:e.clientX-x,y:e.clientY-y};bar.setPointerCapture(e.pointerId);e.preventDefault();});
+    bar.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;x=e.clientX-drag.x;y=e.clientY-drag.y;clamp();});
+    for (const name of ['pointerup','pointercancel','lostpointercapture']) bar.addEventListener(name,()=>{drag=null;});
+    bar.addEventListener('keydown',e=>{if(e.target!==bar)return;const n=e.shiftKey?20:5;if(e.key==='ArrowLeft')x-=n;else if(e.key==='ArrowRight')x+=n;else if(e.key==='ArrowUp')y-=n;else if(e.key==='ArrowDown')y+=n;else return;e.preventDefault();clamp();});
+    shadow.addEventListener('keydown',e=>{if(e.key==='Escape'){e.stopPropagation();close();}});
+    window.addEventListener('resize',clamp); cleanups.push(()=>window.removeEventListener('resize',clamp));
+    const observer = new ResizeObserver(clamp); observer.observe(panel); cleanups.push(()=>observer.disconnect());
+    function field(label, node, parent=main) { const l=el('label',label); l.append(' ',node); parent.append(l); return node; }
+    function select(options) { const s=el('select'); for(const[value,label]of options){const o=el('option',label);o.value=value;s.append(o);}return s; }
+    function table(headers,rows,parent=main) {
+      const wrap=el('div'),t=el('table'),head=el('thead'),tr=el('tr'),body=el('tbody');wrap.className='scroll';
+      const isStatus=i=>/^(Result|Basic check)$/i.test(headers[i]||'');
+      for(const [i,h]of headers.entries()){const th=el('th',h);th.scope='col';if(isStatus(i))th.className='status-cell';tr.append(th);}
+      head.append(tr);
+      for(const row of rows){const r=el('tr');for(const [i,value]of row.entries()){const td=el('td');if(value&&typeof value==='object'&&value.nodeType)td.append(value);else td.textContent=String(value??'');if(isStatus(i))td.className='status-cell';r.append(td);}body.append(r);}
+      t.append(head,body);wrap.append(t);parent.append(wrap);return t;
+    }
+    function download(data,name,type='application/json') { const blob=new Blob([typeof data==='string'?data:JSON.stringify(data,null,2)],{type:type+';charset=utf-8'}),url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download=name;shadow.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000); }
+    async function copy(text) { try { await navigator.clipboard.writeText(text); } catch { const a=el('textarea');a.value=text;main.append(a);a.focus();a.select();status.textContent='Copy the selected report with Ctrl/Cmd+C.'; } }
+    host._akFocus=()=>bar.focus({preventScroll:true}); clamp(); bar.focus({preventScroll:true});
+    return {el,host,shadow,main,status,button,field,select,table,download,copy,cleanups,close,isClosed:()=>closed};
+  }
+
+  // Text is read from the live document: excluded or CSS-hidden subtrees do not
+  // become visible just because a clone lost the original styles.
+  function bmText(scope, selected='', withMap=false, bounds=[]) {
+    if(scope==='selection'&&!withMap)return {text:selected,label:'Selected text (snapshot)',root:null};
+    const root=scope==='selection'||scope==='page'?document.body:(document.querySelector('main article,article main,main,[role="main"],article')||document.body);
+    const explicitSelection=scope==='selection';
+    const excluded='script,style,noscript,template,form,button,input,textarea,select,[hidden],[inert],[aria-hidden="true"],[data-ak-bookmarklet-overlay]'+(explicitSelection?'':',nav,footer,aside');
+    const spans=[];let length=0;
+    const parts=[], block=/^(ADDRESS|ARTICLE|BLOCKQUOTE|DD|DIV|DL|DT|FIGCAPTION|FIGURE|H[1-6]|LI|MAIN|OL|P|PRE|SECTION|TABLE|TD|TH|TR|UL)$/;
+    function add(value,node=null,offset=0){parts.push(value);if(withMap&&node&&value.length)spans.push({node,start:length,end:length+value.length,offset});length+=value.length;}
+    function walk(n) {
+      if(explicitSelection&&!bounds.some(r=>{try{return r.intersectsNode(n);}catch{return false;}}))return;
+      if(n.nodeType===3){
+        if(!explicitSelection){add(n.nodeValue,n);return;}
+        const intervals=bounds.filter(r=>{try{return r.intersectsNode(n);}catch{return false;}}).map(r=>[r.startContainer===n?r.startOffset:0,r.endContainer===n?r.endOffset:n.nodeValue.length]).filter(([a,b])=>b>a).sort((a,b)=>a[0]-b[0]);
+        const merged=[];for(const [a,b]of intervals){const last=merged.at(-1);if(last&&a<=last[1])last[1]=Math.max(last[1],b);else merged.push([a,b]);}
+        for(const [i,[a,b]]of merged.entries()){if(i)add('\n\n');add(n.nodeValue.slice(a,b),n,a);}return;
+      }
+      if(n.nodeType!==1)return;
+      const articleHeader=n.tagName==='HEADER'&&(explicitSelection||(root!==document.body&&Boolean(n.querySelector('h1,h2'))));
+      if(n.matches(excluded)||(n.tagName==='HEADER'&&!articleHeader))return;
+      const s=getComputedStyle(n);if(s.display==='none'||s.contentVisibility==='hidden'||s.opacity==='0')return;
+      if(s.visibility==='hidden'||s.visibility==='collapse'){for(const c of n.children)walk(c);return;}
+      if(n.tagName==='BR'){add('\n');return;}
+      if(n.tagName==='DETAILS'&&!n.open){const summary=[...n.children].find(c=>c.tagName==='SUMMARY');if(summary)walk(summary);return;}
+      if(block.test(n.tagName)||s.display==='block'||s.display==='flex'||s.display==='grid')add('\n');
+      for(const c of n.childNodes)walk(c);
+      if(block.test(n.tagName)||s.display==='block'||s.display==='flex'||s.display==='grid')add('\n');
+    }
+    // Article headings in main-content headers are retained; site chrome is not.
+    if(root){
+      let hidden=false;
+      for(let a=root.parentElement;a;a=a.parentElement){const s=getComputedStyle(a);if(a.matches('[hidden],[inert],[aria-hidden="true"],[data-ak-bookmarklet-overlay]')||s.display==='none'||s.opacity==='0'||s.contentVisibility==='hidden'){hidden=true;break;}}
+      if(!hidden)walk(root);
+    }
+    return {text:parts.join('').replace(/[\t\f\v ]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim(),label:explicitSelection?'Selected text (snapshot)':root===document.body?'Page text (navigation, forms and chrome excluded)':'Main content · '+root.tagName.toLowerCase(),root,...(withMap?{sourceText:parts.join(''),spans}:{})};
+  }
+
+  function bmWords(text,foldAccents=false) {
+    const normalize=s=>{s=s.normalize('NFC').toLocaleLowerCase('el').replace(/ς/g,'σ');return foldAccents?s.normalize('NFD').replace(/\p{M}/gu,'').normalize('NFC'):s;};
+    return (String(text).match(/[\p{L}\p{N}][\p{L}\p{M}\p{N}]*(?:['’][\p{L}\p{M}]+)*/gu)||[]).map(normalize);
+  }
+
+  async function bmGreek(cfg={}) {
+    const selection=window.getSelection()?.toString().trim()||'',initial=bmText(selection?'selection':'main',selection);
+    const p=bmPanel('greek','Greek orthography');if(!p)return;
+    const {el,main,button,field,status}=p;
+    main.append(el('p','Review the text below. Checking sends this exact text to the displayed service, with language set to Greek. Greek spelling, punctuation and grammar coverage depends on the service; names and specialist terms may be flagged.'));
+    const links=el('p');links.className='note';
+    for(const[label,url]of [['LanguageTool','https://languagetool.org'],['Privacy','https://languagetool.org/legal/privacy'],['Public API limits','https://dev.languagetool.org/public-http-api']]){const a=el('a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';links.append(a,' · ');}main.append(links);
+    const scope=field('Extract from',p.select([['selection','Selected text at launch'],['main','Main content'],['page','Page text']]));scope.value=selection?'selection':'main';
+    const area=field('Text to check · editable snapshot',el('textarea'));area.lang='el';area.spellcheck=true;area.value=initial.text;
+    const count=el('p');count.className='note';main.append(count);
+    const settings=el('details');settings.append(el('summary','API endpoint'));
+    const endpoint=field('LanguageTool-compatible /v2/check URL',el('input'),settings);endpoint.type='url';endpoint.value=cfg.endpoint||'https://api.languagetool.org/v2/check';
+    settings.append(el('p','Custom servers must support Greek and CORS. No API secret is stored in this bookmarklet. For paid credentials, use your own authenticated service rather than embedding a key in a bookmark URL.'));main.append(settings);
+    const consent=el('input');consent.type='checkbox';const consentLabel=el('label');consentLabel.className='check';consentLabel.append(consent,'I agree to send the text above to '+endpoint.value+'.');main.append(consentLabel);
+    const actions=el('div');actions.className='tools';const results=el('div');let controller=null,timer=null,generation=0,lastSent=0,resultData=null;
+    function invalidate(){generation++;controller?.abort();controller=null;clearTimeout(timer);results.replaceChildren();resultData=null;downloadResults.hidden=true;consent.checked=false;send.disabled=false;status.textContent='Text or service changed. Review and approve this version before checking.';updateCount();}
+    function updateCount(){count.textContent=bmWords(area.value).length+' words · '+new TextEncoder().encode(area.value).length.toLocaleString()+' UTF-8 bytes · maximum 20,000 bytes per manual check. Longer pages: select a passage or shorten this snapshot.';}
+    const load=button('Extract again',()=>{area.value=bmText(scope.value,selection).text;invalidate();});
+    const send=button('Send text & check Greek',async()=>{
+      const text=area.value;let url;
+      try{url=new URL(endpoint.value);if(url.protocol!=='https:'||url.username||url.password||url.search||url.hash)throw new Error();}catch{status.textContent='Enter an HTTPS API endpoint without credentials, query parameters or a fragment.';return;}
+      if(!consent.checked){status.textContent='Approve sending this text to the displayed service first.';return;}
+      if(!text.trim()){status.textContent='No text to check.';return;}
+      if(new TextEncoder().encode(text).length>20000){status.textContent='This snapshot exceeds 20,000 UTF-8 bytes. Select a smaller passage or edit it. Nothing was sent.';return;}
+      if(!/\p{Script=Greek}/u.test(text)){status.textContent='No Greek characters found. Edit the text or extract a Greek passage.';return;}
+      if(Date.now()-lastSent<10000){status.textContent='Wait at least 10 seconds between manual checks. There are no automatic retries or batches.';return;}
+      lastSent=Date.now();const version=++generation;controller=new AbortController();timer=setTimeout(()=>controller?.abort(),30000);send.disabled=true;status.textContent='Checking Greek…';results.replaceChildren();resultData=null;downloadResults.hidden=true;
+      try{
+        const response=await fetch(url.href,{method:'POST',credentials:'omit',referrerPolicy:'no-referrer',signal:controller.signal,body:new URLSearchParams({text,language:'el'})});
+        if(!response.ok)throw new Error(response.status===429?'Service rate limit reached. Wait before a new manual check.':'API returned HTTP '+response.status+'.');
+        const data=await response.json();if(!Array.isArray(data.matches))throw new Error('The API did not return LanguageTool matches.');
+        if(version!==generation||p.isClosed())return;
+        const matches=data.matches.filter(m=>Number.isInteger(m.offset)&&Number.isInteger(m.length)&&m.offset>=0&&m.length>=0&&m.offset+m.length<=text.length);
+        status.textContent=matches.length+' possible issues returned. '+(data.warnings?.incompleteResults?'The service reports incomplete results. ':'')+'No findings does not establish that the text is error-free.';
+        resultData={url:location.href,language:'el',endpoint:url.href,text,matches,warnings:data.warnings||{},checkedAt:new Date().toISOString()};
+        downloadResults.hidden=false;
+        for(const m of matches){const row=el('div');row.className='result';row.append(el('strong',m.message||'Possible issue'),el('p',(m.rule?.issueType||m.rule?.category?.name||'Review')+' · '+(m.rule?.id||'')+' · position '+m.offset));const excerpt=el('p'),start=Math.max(0,m.offset-65),end=Math.min(text.length,m.offset+m.length+65);excerpt.className='excerpt';excerpt.lang='el';excerpt.append((start?'…':'')+text.slice(start,m.offset),el('mark',text.slice(m.offset,m.offset+m.length)||'∣'),text.slice(m.offset+m.length,end)+(end<text.length?'…':''));row.append(excerpt,el('p','Suggestions: '+((m.replacements||[]).slice(0,8).map(r=>r.value).join(' · ')||'None returned.')));results.append(row);}
+      }catch(e){if(version===generation&&!p.isClosed())status.textContent=e.name==='AbortError'?'Request timed out or was cancelled. No automatic retry.':e.message+' The site may block the API through CSP, or the server may not permit CORS.';}
+      finally{if(version===generation){clearTimeout(timer);send.disabled=false;controller=null;}}
+    });
+    send.className='primary';
+    const downloadResults=button('Download results',()=>{if(resultData)p.download(resultData,'greek-orthography.json');});downloadResults.hidden=true;
+    actions.append(load,send,downloadResults);main.append(actions,results);
+    area.addEventListener('input',invalidate);scope.addEventListener('change',()=>{area.value=bmText(scope.value,selection).text;invalidate();});endpoint.addEventListener('input',()=>{consentLabel.lastChild.textContent='I agree to send the text above to '+endpoint.value+'.';invalidate();});
+    p.cleanups.push(()=>{generation++;controller?.abort();clearTimeout(timer);});updateCount();status.textContent=initial.label+' · no text has been sent.';
+  }
+
+  function bmKeywordStats(text,keyword,fold=false) {
+    const words=bmWords(text,fold),phrase=bmWords(keyword,fold),counts=new Map(),positions=[],tokens=[...text.matchAll(/[\p{L}\p{N}][\p{L}\p{M}\p{N}]*(?:['’][\p{L}\p{M}]+)*/gu)];
+    for(const w of words)counts.set(w,(counts.get(w)||0)+1);
+    if(phrase.length)for(let i=0;i<=words.length-phrase.length;i++){if(!phrase.every((w,j)=>w===words[i+j]))continue;let contiguous=true;for(let j=1;j<phrase.length;j++){const previous=tokens[i+j-1],next=tokens[i+j],gap=text.slice(previous.index+previous[0].length,next.index);if(!/^[ \t\n\r]+$/.test(gap)||/\n\s*\n/.test(gap)){contiguous=false;break;}}if(contiguous)positions.push(i);}
+    const coverage=new Set();for(const i of positions)for(let j=0;j<phrase.length;j++)coverage.add(i+j);
+    const repeated=[];for(let i=1;i<words.length;i++)if(words[i]===words[i-1])repeated.push(words[i]);
+    const grams=n=>{const map=new Map();for(const line of text.split(/\n|[.!?;··]+/u)){const a=bmWords(line,fold);for(let i=0;i<=a.length-n;i++){const k=a.slice(i,i+n).join(' ');map.set(k,(map.get(k)||0)+1);}}return [...map].filter(([,n])=>n>1).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,15);};
+    const paragraphs=text.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean);
+    const duplicateMap=new Map();for(const s of paragraphs){const a=bmWords(s,fold);if(a.length>=8){const key=a.join(' ');const item=duplicateMap.get(key)||{text:s,count:0};item.count++;duplicateMap.set(key,item);}}
+    let localMax=0,left=0,right=0;const windowSize=Math.min(100,words.length);for(let start=0;start<=words.length-windowSize&&windowSize;start++){const end=start+windowSize;while(left<positions.length&&positions[left]<start)left++;right=Math.max(right,left);while(right<positions.length&&positions[right]+phrase.length<=end)right++;localMax=Math.max(localMax,right-left);}
+    return {wordCount:words.length,uniqueWords:counts.size,phraseWords:phrase.length,occurrences:positions.length,occurrencesPer100:words.length?positions.length/words.length*100:0,coveragePercent:words.length?coverage.size/words.length*100:0,localMax,consecutiveRepeats:repeated,topWords:[...counts].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])),bigrams:grams(2),trigrams:grams(3),duplicateParagraphs:[...duplicateMap.values()].filter(x=>x.count>1)};
+  }
+
+  function bmKeywords() {
+    const initialSelection=window.getSelection(),selection=initialSelection?.toString().trim()||'',selectionRanges=[];
+    if(initialSelection)for(let i=0;i<initialSelection.rangeCount;i++)selectionRanges.push(initialSelection.getRangeAt(i).cloneRange());
+    const p=bmPanel('keywords','Keyword repetition review');if(!p)return;
+    const {el,main,button,field,status}=p;
+    main.append(el('p','Review signals, not an SEO verdict. There is no universal safe keyword density. Product names, specifications, menus and stopwords can repeat naturally. Counts use Unicode word tokens, case-insensitively; target phrase words must be separated by whitespace within one paragraph. No stemming or synonym expansion.'));
+    const scope=field('Text scope',p.select([['main','Main content'],['page','Page text without navigation/forms'],['selection','Selected text at launch']]));scope.value=selection?'selection':'main';
+    const keyword=field('Target word or phrase · optional',el('input'));keyword.placeholder='e.g. δερμάτινα παπούτσια';
+    const fold=el('input');fold.type='checkbox';const foldLabel=el('label');foldLabel.className='check';foldLabel.append(fold,'Ignore Greek tonos/other accents when comparing words.');main.append(foldLabel);
+    const options=el('details');options.append(el('summary','Review thresholds (your heuristics, not Google rules)'));
+    const density=field('Flag target occurrences per 100 words above',el('input'),options);density.type='number';density.min='0';density.step='0.5';density.value='3';
+    const cluster=field('Flag target occurrences in any 100-word window at or above',el('input'),options);cluster.type='number';cluster.min='2';cluster.step='1';cluster.value='5';main.append(options);
+    const actions=el('div');actions.className='tools';const output=el('div');let report=null,debounce;
+    actions.append(button('Refresh analysis',analyse),button('Download report',()=>{if(report)p.download(report,'keyword-review.json');}));main.append(actions,output);
+    // Store only page highlight data, so closing/reopening the panel preserves it
+    // without retaining the panel or its event handlers. Navigation discards it.
+    const highlightTools=el('div'),highlightStatus=el('p');highlightTools.className='tools';highlightStatus.className='note';highlightStatus.setAttribute('role','status');
+    const persistenceKey=Symbol.for('alexanderkyriakou.bookmarklets.keywordHighlights'),savedHighlights=window[persistenceKey];
+    let mappedText=null,ranges=savedHighlights?.ranges||[],current=savedHighlights?.current??-1,activeTerm=savedHighlights?.activeTerm||'',styleNode=savedHighlights?.styleNode||null,wordButtons=[],fallbackOwned=savedHighlights?.fallbackOwned||null,fallbackSaved=savedHighlights?.fallbackSaved||[];
+    const highlightID=savedHighlights?.highlightID||'ak-keyword-'+Math.random().toString(36).slice(2),activeID=highlightID+'-active';
+    let custom=Boolean(window.CSS?.highlights&&typeof window.Highlight==='function'&&window.CSS.supports?.('selector(::highlight(ak-keyword-test))')&&(savedHighlights?.custom??true));
+    function saveHighlights(){
+      if(ranges.length)window[persistenceKey]={ranges,current,activeTerm,styleNode,highlightID,custom,fallbackOwned,fallbackSaved};
+      else delete window[persistenceKey];
+    }
+    function updateHighlightControls(){previous.disabled=next.disabled=clear.disabled=!ranges.length;}
+    function describeHighlights(){highlightStatus.textContent=ranges.length?'“'+activeTerm+'” · match '+(current+1)+' of '+ranges.length+(custom?' · bright yellow highlights remain when this panel closes; current match underlined.':' · showing one selected match at a time (highlight styling unavailable).'):'Click a word or phrase below to highlight its occurrences on the page.';}
+    function sameRange(a,b){return a&&b&&a.startContainer===b.startContainer&&a.startOffset===b.startOffset&&a.endContainer===b.endContainer&&a.endOffset===b.endOffset;}
+    function releaseSelection(){
+      if(fallbackOwned){const sel=window.getSelection();if(sel?.rangeCount===1&&sameRange(sel.getRangeAt(0),fallbackOwned)){sel.removeAllRanges();for(const r of fallbackSaved){try{sel.addRange(r);}catch{}}}}
+      fallbackOwned=null;fallbackSaved=[];
+    }
+    function clearHighlights(message=true){
+      window.CSS?.highlights?.delete(highlightID);window.CSS?.highlights?.delete(activeID);styleNode?.remove();styleNode=null;releaseSelection();
+      ranges=[];current=-1;activeTerm='';updateHighlightControls();saveHighlights();for(const b of wordButtons)b.setAttribute('aria-pressed','false');
+      if(message)highlightStatus.textContent='Click a word or phrase below to highlight its occurrences on the page.';
+    }
+    function paint(){
+      if(!custom)return;
+      if(!styleNode){styleNode=el('style');styleNode.setAttribute('data-ak-keyword-highlight','');styleNode.textContent='::highlight('+highlightID+'){background-color:#ffff00;color:#000000}::highlight('+activeID+'){background-color:#ffff00;color:#000000;text-decoration:underline}';(document.head||document.documentElement).append(styleNode);if(!styleNode.sheet){styleNode.remove();styleNode=null;custom=false;return;}}
+      const all=new window.Highlight();for(const r of ranges)all.add(r);all.priority=0;window.CSS.highlights.set(highlightID,all);
+      const active=new window.Highlight(ranges[current]);active.priority=1;window.CSS.highlights.set(activeID,active);
+    }
+    function visit(delta=0){
+      if(!ranges.length)return;
+      current=(current+delta+ranges.length)%ranges.length;const r=ranges[current];
+      if(!r.startContainer.isConnected||!r.endContainer.isConnected){mappedText=null;highlight(activeTerm);return;}
+      paint();
+      if(!custom){const sel=window.getSelection();if(sel){if(!fallbackOwned){fallbackSaved=[];for(let i=0;i<sel.rangeCount;i++)fallbackSaved.push(sel.getRangeAt(i).cloneRange());}sel.removeAllRanges();sel.addRange(r);fallbackOwned=r.cloneRange();}}
+      r.startContainer.parentElement?.scrollIntoView?.({block:'center',inline:'nearest',behavior:'instant'});
+      const rect=r.getBoundingClientRect();if(rect.height)window.scrollBy({top:rect.top-innerHeight*0.42,left:0,behavior:'instant'});
+      saveHighlights();describeHighlights();
+    }
+    function highlight(term){
+      const chosenTerm=term.trim();if(!chosenTerm||!bmWords(chosenTerm,fold.checked).length){highlightStatus.textContent='Enter a target word or phrase, or click one in the tables.';return;}
+      clearHighlights(false);activeTerm=chosenTerm;
+      if(pageChanges?.takeRecords().length)mappedText=null;
+      if(!mappedText)mappedText=bmText(scope.value,selection,true,selectionRanges);
+      const raw=mappedText.sourceText||'',spans=mappedText.spans||[],tokens=[...raw.matchAll(/[\p{L}\p{N}][\p{L}\p{M}\p{N}]*(?:['’][\p{L}\p{M}]+)*/gu)],words=bmWords(raw,fold.checked),phrase=bmWords(activeTerm,fold.checked);
+      if(!phrase.length){highlightStatus.textContent='Choose a word or phrase containing letters or numbers.';return;}
+      let spanIndex=0;
+      for(let i=0;i<=words.length-phrase.length;i++){
+        if(!phrase.every((word,j)=>words[i+j]===word))continue;
+        let contiguous=true;for(let j=1;j<phrase.length;j++){const before=tokens[i+j-1],after=tokens[i+j],gap=raw.slice(before.index+before[0].length,after.index);if(!/^[ \t\n\r]+$/.test(gap)||/\n\s*\n/.test(gap)){contiguous=false;break;}}if(!contiguous)continue;
+        const start=tokens[i].index,last=tokens[i+phrase.length-1],end=last.index+last[0].length;
+        while(spanIndex<spans.length&&spans[spanIndex].end<=start)spanIndex++;
+        const first=spans[spanIndex];let endIndex=spanIndex;while(endIndex<spans.length&&spans[endIndex].end<end)endIndex++;const final=spans[endIndex];
+        if(!first||!final||first.start>start||final.start>=end)continue;
+        const range=document.createRange();range.setStart(first.node,first.offset+start-first.start);range.setEnd(final.node,final.offset+end-final.start);ranges.push(range);
+      }
+      if(!ranges.length){highlightStatus.textContent='No current page matches for “'+activeTerm+'” in this scope. Refresh the analysis if page content changed.';return;}
+      previous.disabled=next.disabled=clear.disabled=false;current=0;for(const b of wordButtons)b.setAttribute('aria-pressed',String(b._akTerm===term));visit();
+    }
+    const previous=button('Previous match',()=>visit(-1)),next=button('Next match',()=>visit(1)),clear=button('Clear highlights',()=>clearHighlights());
+    highlightTools.append(button('Highlight target',()=>highlight(keyword.value)),previous,next,clear);main.insertBefore(highlightTools,output);main.insertBefore(highlightStatus,output);updateHighlightControls();describeHighlights();
+    function wordLink(term,label){const b=button(label,()=>highlight(term));b.className='word-link';b._akTerm=term;b.setAttribute('aria-label','Highlight '+label+' on the page');b.setAttribute('aria-pressed',String(bmWords(term,fold.checked).join(' ')===bmWords(activeTerm,fold.checked).join(' ')));wordButtons.push(b);return b;}
+    const pageChanges=typeof MutationObserver==='function'&&document.body?new MutationObserver(()=>{mappedText=null;}):null;
+    pageChanges?.observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class','style','hidden','aria-hidden','open']});
+    p.cleanups.push(()=>{pageChanges?.disconnect();saveHighlights();mappedText=null;});
+    function analyse(){
+      mappedText=null;wordButtons=[];
+      if(!Number.isFinite(Number(density.value))||density.value.trim()===''||Number(density.value)<0||!Number.isInteger(Number(cluster.value))||Number(cluster.value)<2){status.textContent='Use a non-negative density threshold and a whole-number cluster threshold of at least 2.';return;}
+      const sample=bmText(scope.value,selection),stats=bmKeywordStats(sample.text,keyword.value,fold.checked),n=stats.wordCount;
+      report={url:location.href,scope:sample.label,keyword:keyword.value,foldAccents:fold.checked,thresholds:{occurrencesPer100:Number(density.value),windowCount:Number(cluster.value)},...stats,analysedAt:new Date().toISOString()};
+      output.replaceChildren();status.textContent=sample.label+' · refresh after page content changes. Cross-origin frames, shadow trees and unloaded content are excluded.';
+      const summary=el('p',n.toLocaleString()+' words · '+stats.uniqueWords.toLocaleString()+' unique tokens');summary.className='stats';output.append(summary);
+      const signals=[];
+      if(n<100)signals.push('Short sample: percentages and local clusters are especially unstable.');
+      if(stats.phraseWords){p.table(['Target metric','Value'],[['Exact phrase occurrences',stats.occurrences+' (overlapping matches included)'],['Occurrences / total words × 100',stats.occurrencesPer100.toFixed(2)+'%'],['Words covered by the target / total words',stats.coveragePercent.toFixed(2)+'% (overlap counted once)'],['Most occurrences in a '+Math.min(n,100)+'-word window',stats.localMax]],output);if(stats.occurrences>=3&&stats.occurrencesPer100>Number(density.value))signals.push('Target repetition exceeds your density threshold. Read the copy for unnatural phrasing.');if(stats.localMax>=Number(cluster.value))signals.push('The target is clustered within a short passage. Review that passage in context.');}
+      if(stats.consecutiveRepeats.length)signals.push(stats.consecutiveRepeats.length+' consecutive repeated-token pairs. Check for accidental repetition.');
+      if(stats.duplicateParagraphs.length)signals.push(stats.duplicateParagraphs.length+' duplicated paragraphs of at least eight words.');
+      output.append(el('h3','Review signals'));for(const s of signals.length?signals:['No selected heuristic triggered. This does not rule out keyword stuffing.'])output.append(el('p',s));
+      const stop=new Set(bmWords('the a an and or of to in on for is are with this that it as by from be at your you we our και το η ο τα τη την τον των του της σε με για από στο στη στην στον στα στις στους ένα μια ένας είναι που ως να δεν θα αν ότι μας σας τους τις',true));
+      const displayToken=s=>s.replace(/σ(?=$|[ ’'])/gu,'ς');
+      const rows=stats.topWords.filter(([word])=>!stop.has(bmWords(word,true)[0])&&word.length>1).slice(0,25).map(([word,count])=>[displayToken(word),count,n?(count/n*100).toFixed(2)+'%':'0%']);
+      output.append(el('h3','Most frequent words'));output.append(el('p','Click a word or phrase to highlight it on the page. Common Greek/English stopwords are hidden here only. Totals and target counts include every word. Inflected forms remain separate.'));p.table(['Word','Count','Share of all words'],rows.map(([word,...values])=>[wordLink(word,word),...values]),output);
+      for(const[label,data]of [['Repeated two-word phrases',stats.bigrams],['Repeated three-word phrases',stats.trigrams]]){output.append(el('h3',label));p.table(['Phrase','Occurrences'],data.map(([phrase,n])=>[wordLink(phrase,displayToken(phrase)),n]),output);}
+      if(stats.duplicateParagraphs.length){const d=el('details');d.append(el('summary','Duplicated paragraph excerpts'));for(const item of stats.duplicateParagraphs)d.append(el('p',item.count+' × '+item.text.slice(0,300)));output.append(d);}
+      const preview=el('details');preview.append(el('summary','Text included in these counts'));preview.append(el('pre',sample.text));output.append(preview);
+    }
+    for(const input of [keyword,scope,fold,density,cluster])input.addEventListener('input',()=>{mappedText=null;clearTimeout(debounce);debounce=setTimeout(analyse,220);});
+    p.cleanups.push(()=>clearTimeout(debounce));analyse();
+  }
+
+  function bmSchema() {
+    const nodes=[],errors=[],types=new Set(),byID=new Map();
+    const key=id=>{try{return new URL(id,document.baseURI).href;}catch{return String(id);}};
+    const term=s=>String(s).replace(/^https?:\/\/schema\.org\//i,'').replace(/^schema:/,'');
+    function visit(value){if(Array.isArray(value)){value.forEach(visit);return;}if(!value||typeof value!=='object')return;nodes.push(value);for(const type of [].concat(value['@type']||[]))types.add(term(type));if(typeof value['@id']==='string'){const id=key(value['@id']);byID.set(id,{...(byID.get(id)||{}),...value});}for(const child of Object.values(value))if(child&&typeof child==='object')visit(child);}
+    const scripts=[...document.querySelectorAll('script')].filter(s=>(s.type||'').trim().toLowerCase()==='application/ld+json');
+    scripts.forEach((s,i)=>{try{visit(JSON.parse(s.textContent));}catch(e){errors.push('JSON-LD block '+(i+1)+': '+e.message);}});
+    const resolve=v=>v&&typeof v==='object'&&!Array.isArray(v)&&typeof v['@id']==='string'?{...(byID.get(key(v['@id']))||{}),...v}:v;
+    const hasType=(v,name)=>[].concat(resolve(v)?.['@type']||[]).some(x=>term(x)===name);
+    const seen=new Set(),products=[];
+    for(const n of nodes){const v=resolve(n);if(!hasType(v,'Product'))continue;const id=v['@id']?key(v['@id']):n;if(seen.has(id))continue;seen.add(id);products.push(v);}
+    return {scripts:scripts.length,nodes,errors,types:[...types],products,resolve,hasType};
+  }
+
+  function bmProduct() {
+    const p=bmPanel('product','Page SEO snapshot');if(!p)return;
+    const {el,main,button,status}=p;let latest=null,currentProduct=null,controller=null,timeout=null,auditVersion=0;
+    main.append(el('p','A snapshot of the rendered page, not a crawl or a full validator. Indexing, Google-selected canonical, robots.txt access, rich-result eligibility and server-rendered HTML require external verification.'));
+    const tools=el('div');tools.className='tools';
+    tools.append(button('Refresh audit',audit),button('Download audit',()=>{if(latest)p.download(latest,'product-seo-audit.json');}));
+    for(const[label,url]of [['Rich Results Test','https://search.google.com/test/rich-results?url='],['Schema Validator','https://validator.schema.org/#url=']]){const a=el('a',label);a.href=url+encodeURIComponent(location.href);a.target='_blank';a.rel='noopener noreferrer';tools.append(a);}main.append(tools);
+    const output=el('div'),headersBox=el('details');headersBox.append(el('summary','Optional: fetch fresh response headers'));
+    headersBox.append(el('p','Sends one same-origin HEAD request, using your current session. HEAD responses can differ from GET and Googlebot responses. These are not the original navigation headers. HTTP status, X-Robots-Tag and HTTP Link canonicals are shown separately.'));
+    const headerStatus=el('p');headerStatus.setAttribute('role','status');const headerOutput=el('div');
+    const headerButton=button('Fetch response headers',async()=>{
+      if(!/^https?:$/.test(location.protocol)){headerStatus.textContent='Only HTTP(S) pages can be checked.';return;}
+      const version=auditVersion,requestController=new AbortController();controller=requestController;headerButton.disabled=true;timeout=setTimeout(()=>requestController.abort(),10000);headerStatus.textContent='Fetching HEAD response…';headerOutput.replaceChildren();
+      try{
+        const requestedURL=location.href,r=await fetch(requestedURL,{method:'HEAD',credentials:'same-origin',cache:'no-store',signal:requestController.signal});if(p.isClosed()||version!==auditVersion)return;
+        const x=r.headers.get('x-robots-tag')||'',link=r.headers.get('link')||'';
+        const info={method:'HEAD',requestedURL,url:r.url,status:r.status,redirected:r.redirected,xRobotsTag:x,link,checkedAt:new Date().toISOString()};if(latest)latest.responseHeaders=info;
+        headerStatus.textContent=r.status===405||r.status===501?'HEAD is not supported. Check the document GET response in browser developer tools.':'Fresh HEAD response only. Inspect agent-scoped X-Robots-Tag rules below; no index-status claim is made.';
+        p.table(['Header / response','Value'],[['HTTP status',r.status],['Final URL',r.url],['Redirect followed',r.redirected?'Yes':'No'],['X-Robots-Tag',x||'Not present on this HEAD response'],['Link',link||'Not present on this HEAD response']],headerOutput);
+      }catch(e){if(!p.isClosed()&&version===auditVersion)headerStatus.textContent=e.name==='AbortError'?'Request timed out or was cancelled.':'Unable to read headers: '+e.message+'. Check the original document response in developer tools.';}
+      finally{if(version===auditVersion){clearTimeout(timeout);controller=null;headerButton.disabled=false;}}
+    });headersBox.append(headerButton,headerStatus,headerOutput);main.append(output,headersBox);
+    function safeURL(value){if(typeof value!=='string'||!value.trim())return '';try{const u=new URL(value,document.baseURI);return /^https?:$/.test(u.protocol)?u.href:'';}catch{return '';}}
+    function scalar(value){if(value===null||value===undefined)return '';if(typeof value==='string'||typeof value==='number'||typeof value==='boolean')return String(value);return value?.['@value']!==undefined?String(value['@value']):'';}
+    function audit(){
+      auditVersion++;controller?.abort();controller=null;clearTimeout(timeout);headerButton.disabled=false;
+      output.replaceChildren();headerOutput.replaceChildren();headerStatus.textContent='Not requested for this audit.';
+      const metas=[...document.querySelectorAll('meta')],titles=[...document.querySelectorAll('head title')],meta=name=>metas.filter(m=>(m.getAttribute('name')||m.getAttribute('property')||'').toLowerCase()===name.toLowerCase()),value=name=>meta(name).map(m=>m.content).filter(Boolean).join(' | '),title=document.title.trim(),description=value('description');
+      const canonicalNodes=[...document.querySelectorAll('link[rel]')].filter(n=>n.rel.toLowerCase().split(/\s+/).includes('canonical'));
+      const canonicals=canonicalNodes.map(n=>({raw:n.getAttribute('href')||'',resolved:safeURL(n.getAttribute('href')),inHead:Boolean(n.closest('head'))}));
+      const robots=metas.filter(m=>/^(robots|googlebot|googlebot-news|bingbot)$/i.test(m.name)).map(m=>({agent:m.name.toLowerCase(),content:m.content,inHead:Boolean(m.closest('head'))}));
+      const blocking=robots.filter(m=>['robots','googlebot'].includes(m.agent)&&/(?:^|[\s,])(noindex|none)(?=$|[\s,])/i.test(m.content));
+      const h1=[...document.querySelectorAll('h1')].filter(n=>!n.closest('[data-ak-bookmarklet-overlay]')).map(n=>(n.innerText||n.textContent||'').trim());
+      const sample=bmText('main'),images=[...document.images].filter(n=>!n.closest('[data-ak-bookmarklet-overlay]')),missingAlt=images.filter(i=>!i.hasAttribute('alt')).length;
+      const schema=bmSchema(),checks=[];
+      const check=(name,state,detail)=>checks.push({name,state,detail});
+      check('Title',!title?'Issue':titles.length!==1?'Review':'Observed',title?title+' · '+Array.from(title).length+' characters · '+titles.length+' title elements':'Missing or empty.');
+      check('Meta description',!description?'Review':meta('description').length>1?'Review':'Observed',description?description+' · '+Array.from(description).length+' characters · '+meta('description').length+' tags':'Not found. Search engines may generate snippets from page content.');
+      check('Canonical',canonicals.length!==1?'Review':!canonicals[0].resolved||!canonicals[0].inHead?'Issue':'Observed',!canonicals.length?'No HTML canonical found.':canonicals.map(c=>(c.raw||'(empty href)')+' → '+(c.resolved||'invalid HTTP(S) URL')+(c.inHead?'':' · outside head')).join('\n'));
+      if(canonicals.length===1&&canonicals[0].resolved){const a=new URL(canonicals[0].resolved),b=new URL(location.href);a.hash='';b.hash='';check('Canonical relationship',a.href===b.href?'Observed':'Review',a.href===b.href?'Self-referencing after fragment removal.':a.origin!==b.origin?'Canonical points to another origin. Check whether intentional.':'Canonical points to a different URL, including its query string. Check variant/duplicate strategy.');if(new URL(canonicals[0].resolved).hash)check('Canonical fragment','Review','Canonical includes a fragment. Review the intended canonical URL.');}
+      check('Google robots meta',blocking.length?'Blocking directive observed':'No blocking meta observed',blocking.length?blocking.map(m=>m.agent+': '+m.content).join(' | '):'No noindex/none found in robots or googlebot meta. This does not establish indexability or index status.');
+      if(robots.some(m=>!m.inHead))check('Robots placement','Review','At least one robots meta is outside head.');
+      check('H1',h1.length===1&&h1[0]?'Observed':'Review',h1.length+' H1 elements. '+h1.join(' | ')+' · H1 count is a review signal, not a ranking rule.');
+      check('Main content','Info',bmWords(sample.text).length+' words. No universal minimum product-description word count is imposed.');
+      check('Language',document.documentElement.lang?'Observed':'Review',document.documentElement.lang||'No html lang attribute.');
+      check('Images',missingAlt?'Review':'Observed',images.length+' images · '+missingAlt+' missing alt attributes. Empty alt may be intentional for decorative images; image loading and product relevance need manual review.');
+      check('JSON-LD parsing',schema.errors.length?'Issue':'Observed',schema.scripts+' blocks · types: '+(schema.types.join(', ')||'none')+(schema.errors.length?'\n'+schema.errors.join('\n'):''));
+      const microdata=[...document.querySelectorAll('[itemscope][itemtype]')].filter(n=>n.getAttribute('itemtype').split(/\s+/).some(t=>/^https?:\/\/schema\.org\/(Product|ProductGroup)\/?$/i.test(t))).length;
+      const rdfa=[...document.querySelectorAll('[typeof]')].filter(n=>n.getAttribute('typeof').split(/\s+/).some(t=>/^(?:(?:https?:\/\/schema\.org\/)|schema:)?(Product|ProductGroup)$/i.test(t))).length;
+      check('Product markup',schema.products.length?'Observed':microdata||rdfa?'Manual validation needed':'Review',schema.products.length+' JSON-LD Product nodes · '+microdata+' microdata product/group scopes · '+rdfa+' RDFa product/group scopes. Microdata/RDFa fields and expanded JSON-LD contexts are not validated here. ProductGroup is reported separately from individual Product variants.');
+      check('Open Graph','Info',['og:title','og:description','og:image','og:type','og:url'].map(n=>n+': '+(value(n)||'missing')).join('\n'));
+      check('Twitter card','Info',['twitter:card','twitter:title','twitter:description','twitter:image'].map(n=>n+': '+(value(n)||'missing')).join('\n'));
+      const hreflangs=[...document.querySelectorAll('link[hreflang][href]')].map(n=>({lang:n.hreflang,url:n.href}));
+      if(hreflangs.length)check('Hreflang','Info',hreflangs.map(n=>n.lang+' → '+n.url).join('\n')+'\nReciprocal links and destination responses not checked.');
+      latest={url:location.href,checkedAt:new Date().toISOString(),checks,robots,canonicals,h1,hreflangs,products:schema.products,productChecks:[],schemaErrors:schema.errors,limitations:['Rendered DOM only','No actual index-status verification','No original navigation headers','No robots.txt parser','Basic JSON-LD field checks only; no complete rich-result validation']};
+      status.textContent=checks.filter(c=>/Issue|Blocking/.test(c.state)).length+' issues/blocking signals · '+checks.filter(c=>c.state==='Review').length+' review items · no numerical SEO score.';
+      output.append(el('h3','Page checks'));const checksTable=p.table(['Check','Result','Observed detail'],checks.map(c=>[c.name,c.state,c.detail]),output);checksTable.className='page-checks';
+      if(robots.length){output.append(el('h3','Robots directives (all observed agents)'));p.table(['Agent','Content','Placement'],robots.map(r=>[r.agent,r.content,r.inHead?'head':'outside head']),output);}
+      const metaDetails=el('details');metaDetails.append(el('summary','All meta tags ('+metas.length+')'));p.table(['Name / property / http-equiv','Content'],metas.map(m=>[m.name||m.getAttribute('property')||m.httpEquiv||(m.charset?'charset':'(unnamed)'),m.content||m.charset||'']),metaDetails);output.append(metaDetails);
+      function list(value){return [].concat(value||[]).map(schema.resolve).filter(v=>v&&typeof v==='object');}
+      function imageURL(product){for(const image of [].concat(product?.image||[])){const v=schema.resolve(image),raw=typeof v==='string'?v:v?.contentUrl||v?.url||v?.['@id'];const url=safeURL(raw);if(url)return url;}return '';}
+      function offerInfo(offer){
+        const v=schema.resolve(offer),spec=list(v.priceSpecification)[0]||{},aggregate=schema.hasType(v,'AggregateOffer');
+        const raw=scalar(aggregate?v.lowPrice:(v.price??spec.price)),currency=scalar(v.priceCurrency||spec.priceCurrency),priceOK=raw!==''&&Number.isFinite(Number(raw))&&Number(raw)>=0;
+        return {offer:v,aggregate,raw,currency,priceOK,currencyOK:/^[A-Z]{3}$/.test(currency),high:scalar(v.highPrice),availability:scalar(v.availability)};
+      }
+      const productDetails=el('div');output.append(productDetails);
+      for(const [i,product]of schema.products.entries()){
+        const d=el('details');d.append(el('summary','Product '+(i+1)+': '+(scalar(product.name)||'(missing name)')));const offers=list(product.offers),rating=schema.resolve(product.aggregateRating),rows=[];
+        const row=(name,state,detail)=>rows.push([name,state,detail]);
+        row('name',scalar(product.name).trim()?'Observed':'Missing',scalar(product.name));
+        row('Product snippet route',offers.length||product.review||product.aggregateRating?'Fields present':'Review','Basic presence check: name plus offers, review or aggregateRating. Nested requirements and content-policy compliance still need validation.');
+        row('image',imageURL(product)?'Observed':'Review',imageURL(product)||'No HTTP(S) image found. Important for merchant listings.');
+        for(const name of ['description','sku','mpn','gtin','gtin8','gtin12','gtin13','gtin14'])if(product[name]!==undefined||['description','sku'].includes(name))row(name,product[name]!==undefined?'Observed':'Review',scalar(product[name])||'Not present. These fields are not all universally required.');
+        const brand=schema.resolve(product.brand);row('brand',brand?'Observed':'Review',scalar(brand?.name)||scalar(brand)||'Not present.');
+        row('Offers',offers.length?'Observed':'Review',offers.length+' offer objects. Direct product sales generally need Offer data; reviews can use other product-snippet routes.');
+        offers.forEach((o,j)=>{const f=offerInfo(o);row('Offer '+(j+1)+' type',schema.hasType(o,'Offer')||f.aggregate?'Observed':'Review',[].concat(o['@type']||[]).join(', ')||'Missing @type');row('Offer '+(j+1)+' '+(f.aggregate?'lowPrice':'price'),f.priceOK?'Observed':'Review',f.raw||'Missing. Nested priceSpecification is also checked for Offer.');row('Offer '+(j+1)+' currency',f.currencyOK?'Observed':'Review',f.currency||'Missing. Expect a three-letter uppercase currency code; validity is not fully checked.');row('Offer '+(j+1)+' availability',f.availability?'Observed':'Review',f.availability||'Not present.');if(f.aggregate)row('Offer '+(j+1)+' highPrice','Info',f.high||'Not present.');if(o.url)row('Offer '+(j+1)+' URL',safeURL(o.url)?'Observed':'Review',safeURL(o.url)||scalar(o.url));if(o.priceValidUntil){const raw=scalar(o.priceValidUntil),date=Date.parse(raw),today=new Date().toISOString().slice(0,10);row('Offer '+(j+1)+' priceValidUntil',!Number.isFinite(date)?'Review':raw.slice(0,10)<today?'Expired':'Observed',raw);}});
+        if(rating){const val=Number(rating.ratingValue),min=Number(rating.worstRating??1),max=Number(rating.bestRating??5),count=Number(rating.reviewCount??rating.ratingCount),valid=scalar(rating.ratingValue)!==''&&Number.isFinite(val)&&Number.isFinite(min)&&Number.isFinite(max)&&max>min&&val>=min&&val<=max;row('Aggregate rating',valid?'Observed':'Review',scalar(rating.ratingValue)+' on '+min+'–'+max+' scale');row('Rating/review count',Number.isInteger(count)&&count>0?'Observed':'Review',scalar(rating.reviewCount??rating.ratingCount)||'Missing.');}
+        latest.productChecks.push({product:i+1,name:scalar(product.name),checks:rows});p.table(['Product field','Basic check','Value / note'],rows,d);productDetails.append(d);
+      }
+      const rawDetails=el('details');rawDetails.append(el('summary','Product JSON-LD (resolved local @id definitions)'));rawDetails.append(el('pre',JSON.stringify(schema.products,null,2)));output.append(rawDetails);
+      output.append(el('h3','Illustrative search result'));
+      output.append(el('p','Approximation using this page’s metadata and the selected JSON-LD Product. Google may rewrite the title/description, choose another canonical, or show no rich result. Character counts are informational, not fixed limits. Select the actual product; related products may also be marked up.'));
+      const previewControls=el('div');previewControls.className='tools';
+      const picker=p.select(schema.products.length?schema.products.map((v,i)=>[String(i),'Product '+(i+1)+': '+(scalar(v.name)||'(unnamed)')]):[['','No JSON-LD Product available']]);picker.setAttribute('aria-label','Product for search preview');
+      const device=p.select([['desktop','Desktop width'],['mobile','Mobile width']]);device.setAttribute('aria-label','Preview width');previewControls.append(picker,device);
+      const preview=el('div');preview.className='serp';
+      const website=schema.nodes.map(schema.resolve).find(n=>{
+        if(!schema.hasType(n,'WebSite'))return false;
+        const url=safeURL(scalar(n.url)||scalar(n['@id']));
+        return url&&new URL(url).origin===location.origin;
+      });
+      const siteName=scalar(website?.name).trim()||value('og:site_name')||value('application-name')||location.hostname;
+      const identity=el('div'),faviconBox=el('span'),favicon=el('img'),siteInfo=el('div'),siteLabel=el('div',siteName);
+      identity.className='site-identity';faviconBox.className='favicon';siteInfo.className='site-info';siteLabel.className='site-name';
+      favicon.alt='';favicon.width=28;favicon.height=28;favicon.referrerPolicy='no-referrer';
+      favicon.addEventListener('error',()=>{faviconBox.textContent='◎';},{once:true});
+      const iconLinks=[...document.querySelectorAll('link[rel]')].filter(n=>n.rel.toLowerCase().split(/\s+/).some(v=>v==='icon'||v==='apple-touch-icon'));
+      const iconURL=iconLinks.map(n=>safeURL(n.getAttribute('href'))).find(Boolean)||new URL('/favicon.ico',location.href).href;
+      faviconBox.append(favicon);favicon.src=iconURL;
+      const previewURL=el('div',location.hostname+' › '+location.pathname.split('/').filter(Boolean).join(' › '));previewURL.className='url';
+      siteInfo.append(siteLabel,previewURL);identity.append(faviconBox,siteInfo);
+      const previewTitle=el('div',title||'(No page title)'),previewDescription=el('div',description||'(No meta description. A search engine may select page text.)'),rich=el('div');
+      previewTitle.className='title';previewDescription.className='description';rich.className='rich';preview.append(identity,previewTitle,previewDescription,rich);
+      const loadImage=button('Load selected product thumbnail',()=>{const url=imageURL(currentProduct);if(!url){status.textContent='No usable image URL on this selected Product.';return;}const img=el('img');img.className='product-thumbnail';img.alt=scalar(currentProduct?.name)||'Product';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{img.remove();status.textContent='Thumbnail could not be loaded; it may be blocked by CSP or unavailable.';},{once:true});img.src=url;preview.querySelector('.product-thumbnail')?.remove();preview.insertBefore(img,previewTitle);});
+      previewControls.append(loadImage);output.append(previewControls,preview);
+      function renderPreview(){
+        currentProduct=schema.products[Number(picker.value)]||null;preview.querySelector('.product-thumbnail')?.remove();preview.className='serp'+(device.value==='mobile'?' mobile':'');rich.replaceChildren();loadImage.disabled=!imageURL(currentProduct);
+        const offers=list(currentProduct?.offers),info=offers.map(offerInfo).find(f=>f.priceOK&&f.currencyOK);
+        if(info){let price;try{price=new Intl.NumberFormat(document.documentElement.lang||'en',{style:'currency',currency:info.currency}).format(Number(info.raw));}catch{price=info.raw+' '+info.currency;}rich.append(el('div',(info.aggregate?'From ':'')+price+(info.availability?' · '+info.availability.replace(/^https?:\/\/schema\.org\//,''):'')));}
+        const rating=schema.resolve(currentProduct?.aggregateRating);if(rating){const v=Number(rating.ratingValue),best=Number(rating.bestRating??5),worst=Number(rating.worstRating??1),n=Number(rating.reviewCount??rating.ratingCount);if(scalar(rating.ratingValue)!==''&&Number.isFinite(v)&&best>worst&&v>=worst&&v<=best&&Number.isInteger(n)&&n>0)rich.append(el('div','Rating: '+v+' / '+best+' · '+n+' ratings/reviews (from markup)'));}
+      }
+      picker.addEventListener('change',renderPreview);device.addEventListener('change',renderPreview);renderPreview();
+    }
+    p.cleanups.push(()=>{controller?.abort();clearTimeout(timeout);});audit();
+  }
+
+  // The existing generator serialises every dependency into the saved bookmark.
+  catalog.push(
+    {id:'greek-orthography',title:'Greek orthography',category:'writing',desc:'Review Greek page text and check possible spelling, punctuation and grammar issues in a floating panel.',note:'Sends only the text you review and approve to a LanguageTool-compatible API, on a manual button click. Default: LanguageTool public API, 20,000 UTF-8 bytes per check. Service availability, limits, CORS and site CSP apply.',run:bmGreek,deps:[bmPanel,bmText,bmWords]},
+    {id:'keyword-review',title:'Keyword repetition & stuffing review',category:'writing',desc:'Count words, inspect repeated words and phrases, and review local keyword clusters.',note:'Floating, browser-local report with exact target counts, adjustable heuristics, repeated tokens and duplicate paragraphs. Heuristics are review prompts, not Google thresholds or proof of spam.',run:bmKeywords,deps:[bmPanel,bmText,bmWords,bmKeywordStats]},
+    {id:'product-seo',title:'Page SEO snapshot',category:'seo',desc:'Inspect metadata, canonicals, robots directives, product JSON-LD and an illustrative search result.',note:'Floating rendered-page audit. Optional fresh HEAD response check; actual index status and Google-selected canonical remain unverified. JSON-LD field checks do not replace the Rich Results Test.',run:bmProduct,deps:[bmPanel,bmText,bmWords,bmSchema]}
+  );
+
   function bookmarkCode(entry, cfg = {}) {
     const settings = {...cfg,...entry.fixed}; delete settings.destination;
     const body = "void(async function(){\n'use strict';\ntry {\n" + entry.deps.map(fn => fn.toString()).join('\n\n') + '\nawait (' + entry.run.toString() + ')(' + JSON.stringify(settings).replace(/</g,'\\u003c') + ');\n} catch(error) { alert("Bookmarklet: " + (error.message || error)); }\n})();';

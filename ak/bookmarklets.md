@@ -1,11 +1,11 @@
 ---
 title: "Bookmarklets for SEO, Writing & Everyday Browsing — Technical Reference"
-description: "Technical Markdown alternate covering bookmarklet installation, configuration, 20 active tools, four paused entries, browser restrictions, data handling and exports."
+description: "Technical Markdown alternate covering bookmarklet installation, configuration, 23 active tools, four paused entries, Greek proofreading, keyword repetition, product SEO checks, browser restrictions, data handling and exports."
 author: "Alexander Kyriakou"
 canonical_url: "https://alexanderkyriakou.eu/ak/bookmarklets"
 markdown_url: "https://alexanderkyriakou.eu/ak/bookmarklets.md"
 date_published: "2026-11-04"
-date_modified: "2026-11-04"
+date_modified: "2026-11-05"
 language: "en"
 ---
 
@@ -22,7 +22,7 @@ A collection of small browser tools by [Alexander Kyriakou](https://alexanderkyr
 - [Licensing and copyright](https://alexanderkyriakou.eu/licensing)
 - [Contact the author](https://alexanderkyriakou.eu/contact)
 
-This document describes the collection as of November 4, 2026. It is a technical alternate of the page. Use the interactive collection for draggable bookmarks, current generated code and configuration controls.
+This document describes the collection as of November 5, 2026. It is a technical alternate of the page. Use the interactive collection for draggable bookmarks, current generated code and configuration controls.
 
 ## Useful little shortcuts, one bookmark away
 
@@ -32,15 +32,15 @@ Quirky little time-savers, in much the same spirit as searching selected text fr
 
 ## Collection and availability
 
-There are **24 entries: 20 active and four paused**. Paused entries are greyed out and disabled on the interactive page. They are not working search-query extraction tools.
+There are **27 entries: 23 active and four paused**. Paused entries are greyed out and disabled on the interactive page. They are not working search-query extraction tools.
 
 | Group | Active | Paused | Total |
 | --- | ---: | ---: | ---: |
-| SEO & page inspection | 8 | 0 | 8 |
-| Writing & digital marketing | 4 | 0 | 4 |
+| SEO & page inspection | 9 | 0 | 9 |
+| Writing & digital marketing | 6 | 0 | 6 |
 | LLM research & prompts | 2 | 4 | 6 |
 | Everyday browser utilities | 6 | 0 | 6 |
-| **Total** | **20** | **4** | **24** |
+| **Total** | **23** | **4** | **27** |
 
 Active does not mean universally supported. Some entries depend on browser APIs, site structure, account access or external services. Experimental and limited-support labels remain relevant.
 
@@ -66,7 +66,7 @@ Mobile installation and feature support vary. Use the browser's manual bookmark 
 
 ### Changing settings
 
-Configuration controls update the displayed code and draggable bookmark immediately. Previously saved bookmarks do not update automatically. After changing settings on the collection page, save the bookmarklet again.
+Configuration controls update the displayed code and draggable bookmark immediately. Previously saved bookmarks do not update automatically. After changing settings on the collection page, save the bookmarklet again. Updates to a tool's implementation also require re-saving its bookmarklet; an existing bookmark retains the code saved into it.
 
 Some tools also expose controls in their result page or floating panel. Those controls are described with the relevant tool below.
 
@@ -147,6 +147,29 @@ Start checks from the report. CORS, timeouts and policy blocks are “Unable to 
 
 The tool checks links from the current page; it does not crawl the entire site. An unverifiable response does not automatically establish a broken destination.
 
+### [Product page SEO auditor](https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-product-seo)
+
+Inspect the current product page in a floating panel, with a downloadable JSON audit and an illustrative search result.
+
+| Area | Checks and observations |
+| --- | --- |
+| Page metadata | Title, meta description, duplicate tags, Open Graph and Twitter card fields, plus an expandable list of all meta tags. Character counts are informational, not fixed search-result limits. |
+| Canonical | HTML canonical presence, empty or invalid URLs, multiple tags, placement and whether the resolved URL points to the current page or another URL. |
+| Robots directives | Observed robots, Googlebot, Googlebot News and Bingbot meta directives. Google blocking signals use `robots` and `googlebot` noindex/none directives; other agents are listed separately. |
+| Page content | H1 elements, main-content word count, document language, images missing alt attributes and any hreflang links. No universal description word count or H1-count ranking rule is imposed. |
+| JSON-LD | Parse errors, observed types and basic Product fields, including locally defined `@id` references, offers, prices, currency, availability, price-expiry dates, images and aggregate ratings. |
+| Other schema formats | Product/ProductGroup scopes in microdata and RDFa are detected. Their individual fields are not validated. ProductGroup is distinguished from individual Product variants. |
+
+Open Graph and Twitter fields appear on separate lines. Result labels wrap between words so they remain readable in a narrow panel.
+
+The preview places the favicon to the left of the site name and URL. It uses available same-origin WebSite JSON-LD, `og:site_name`, application-name metadata or the hostname to approximate the site name. Desktop/mobile widths and a Product selector help inspect the available markup. Price, availability and ratings are shown from the selected Product where usable data exists. Loading its thumbnail is optional.
+
+The favicon is requested from a declared icon URL or the page origin's `/favicon.ico`, with a generic fallback if it cannot load. Clicking **Load selected product thumbnail** requests that image from its source. Google may choose a different site name, favicon, title, description or result treatment; this preview does not reproduce a live Google result.
+
+**Fetch response headers** sends one fresh same-origin `HEAD` request using the current session. It reports HTTP status, the final URL, redirects, `X-Robots-Tag` and `Link` headers. These are not the original navigation headers. HEAD and GET responses, or browser and crawler responses, may differ. The request has a ten-second timeout; a failed or unsupported HEAD request does not establish a broken page.
+
+The audit does not verify actual index status, Google's selected canonical, robots.txt access, hreflang reciprocity or full rich-result eligibility. It reads the rendered document rather than comparing it with the original server HTML. JSON-LD context expansion and complete nested schema requirements are outside its basic field checks. Use the linked [Rich Results Test](https://search.google.com/test/rich-results) and [Schema Validator](https://validator.schema.org/), and Search Console where appropriate, for further verification. External test links send the current URL when opened.
+
 ## Writing & digital marketing
 
 ### [Quick notes](https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-notes)
@@ -192,6 +215,52 @@ The saved bookmarklet applies the campaign to the page open when you run it. Bla
 | Content | Optional `utm_content`. |
 
 The copyable URL and reusable bookmarklet serve different purposes. The former tags a supplied destination; the latter retains campaign settings and applies them to whichever page is open when run.
+
+### [Greek orthography](https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-greek-orthography)
+
+Review Greek text in a floating panel and check possible spelling, punctuation and grammar issues through a LanguageTool-compatible API.
+
+Select main content, page text without navigation/forms, or the text selected when the bookmarklet launched. The extracted text is an editable snapshot. Review it and approve the displayed destination before clicking **Send text & check Greek**. Nothing is sent automatically when the panel opens. Changing the text or endpoint resets approval and invalidates earlier results.
+
+The default endpoint is `https://api.languagetool.org/v2/check`, using a POST request with language fixed to Greek (`el`). The request omits browser credentials and the referrer. A custom HTTPS endpoint must accept LanguageTool's parameters, support Greek and allow requests from the page through CORS. No API key is embedded in the bookmarklet.
+
+| Tool behaviour | Limit or detail |
+| --- | --- |
+| Text per manual check | Maximum 20,000 UTF-8 bytes. This is a byte limit, not 20,000 Greek characters. |
+| Checks | At least ten seconds between submissions within the same panel. The service can impose additional limits. |
+| Request timeout | 30 seconds. |
+| Long text | Select a shorter passage or edit the snapshot. Text is not silently truncated or automatically split into batches. |
+| Results | Possible issues with highlighted excerpts, messages, available suggestions and a JSON download. |
+| Editing | Suggestions do not automatically change the original page. |
+
+The [public API documentation](https://dev.languagetool.org/public-http-api) currently lists limits of 20 requests per IP per minute, 75 KB of text per IP per minute, and 20 KB per request. Suggestions are limited to up to 30 misspelled words. Its availability, behaviour and limits can change; the bookmarklet does not override those service limits or automatically retry failed checks.
+
+Greek coverage depends on the service's dictionaries and rules. Names and specialist terms may be flagged, and a result with no issues does not establish error-free text. Page CSP, CORS or network restrictions may prevent the request. This implementation uses the API; it does not download a local Greek dictionary.
+
+The exact reviewed text is sent to the displayed endpoint. See [LanguageTool's privacy policy](https://languagetool.org/legal/privacy) when using the default service, or the relevant policy for a custom endpoint. Downloaded results include the submitted text, matches, endpoint and source-page URL.
+
+### [Keyword repetition & stuffing review](https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-keyword-review)
+
+Count words and review repetition in a floating, browser-local report. Choose main content, page text without navigation/forms, or the text selected at launch. Add an optional target word or phrase and optionally ignore Greek tonos/other accents during matching.
+
+The report includes total words, unique tokens, frequent words, repeated two- and three-word phrases, consecutive repeated-token pairs and duplicated paragraphs of at least eight words. Unicode word tokens include numbers. Matching is case-insensitive, treats Greek sigma variants as equivalent and does not stem words or expand synonyms. Inflected forms remain separate. The word-frequency table hides a small list of common Greek/English stopwords; totals and target counts still include them.
+
+| Target metric | Meaning |
+| --- | --- |
+| Exact phrase occurrences | Matching token sequences; overlapping matches are included. Target phrase words must be separated by whitespace within one paragraph. |
+| Occurrences per 100 words | Target occurrences divided by all words, multiplied by 100. A multiword target still counts as one occurrence each time it appears. |
+| Target word coverage | Share of all word positions covered by the target. Overlapping positions count once. |
+| Local cluster | Most target occurrences within any 100-word window, or the whole sample when shorter. |
+
+The default density review signal requires at least three target occurrences and a rate above 3 occurrences per 100 words. The default cluster signal starts at five occurrences in a window. Both thresholds are adjustable heuristics, not Google rules or proof of keyword stuffing. Samples under 100 words receive a short-sample note. Repeated product names, specifications and natural language need contextual review.
+
+Click a word or phrase in the tables, or use **Highlight target**, to highlight its occurrences on the page in bright yellow. **Previous match** and **Next match** move between occurrences; the current match is underlined on the page. The words in the report's lists are clickable without underlines.
+
+Highlights remain after closing/reopening the panel, changing report settings or refreshing the analysis. Choosing another word or phrase replaces them. **Clear highlights**, a full page reload or closing the page removes them. They are temporary document state, not saved annotations or changes to the website's source. Page scripts that replace or alter the matched text can affect the ranges.
+
+Browsers with CSS custom highlight support highlight matches without wrapping or replacing the page's text nodes. Where that styling is unavailable, navigation selects one match at a time instead; ordinary browser selection can change when the user selects other text. This fallback does not guarantee persistent yellow highlights.
+
+Refresh the analysis after page content changes. Hidden or excluded text, shadow trees, cross-origin frames and unloaded content are outside the main/page scope. The JSON download contains the analysis settings and metrics, including any detected duplicate paragraphs. No page text is sent to a proofreading or SEO service by this tool.
 
 ## LLM research & prompts
 
@@ -304,6 +373,9 @@ Most processing happens locally, but the collection does not make a blanket clai
 | Action | Data handling |
 | --- | --- |
 | Local inspection, editing, text extraction and URL construction | Processing takes place in the current browser. Saved files and copied results can include page content or URLs. |
+| Greek orthography | Sends only the reviewed, approved text to the displayed LanguageTool-compatible endpoint on a manual check. The result export includes that text and the source URL. |
+| Keyword repetition & stuffing review | Counts, analysis and page highlights run locally. The JSON export can include detected duplicate paragraphs. |
+| Product page SEO auditor | Inspects the rendered document locally. Optional HEAD checks request the current page using the existing session; the preview loads a favicon and optionally a product thumbnail. External test links pass the current URL when opened. |
 | Schema Validator, PageSpeed Insights, Search Console and Wayback shortcuts | Pass the current page URL to the named external service. |
 | Custom shortcuts made with Bookmarklet builder | Pass the current page URL to the configured destination. |
 | Link health checks | Make requests to checked URLs. Same-host responses can use the existing signed-in session. |
@@ -324,8 +396,8 @@ For notes saved as Markdown, use whichever online or local viewer or editor suit
 
 © 2026 Alexander Kyriakou. Original bookmarklet software is available under [CPAL-1.0](https://opensource.org/license/cpal-1.0). See the website's [licensing and copyright page](https://alexanderkyriakou.eu/licensing) for applicable scope and attribution information.
 
-Result pages use this collection credit, linked to the original page:
+Result pages and floating panels link back to the original collection. The new panels display this credit:
 
-> [Bookmarklet from Alexander Kyriakou’s bookmarklet collection](https://alexanderkyriakou.eu/ak/bookmarklets)
+> [Alexander Kyriakou’s bookmarklet collection](https://alexanderkyriakou.eu/ak/bookmarklets)
 
 Third-party software, icons, fonts, photographs and other outside material retain their own rights and licence terms. Third-party notices are maintained centrally; this Markdown alternate does not replace the applicable licence texts or source notices.

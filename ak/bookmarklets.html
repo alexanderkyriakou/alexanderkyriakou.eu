@@ -6,12 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="	Small browser shortcuts for SEO, writing and everyday tasks. Inspect pages, collect links, save notes and build campaign URLs from your bookmarks bar.">
   <meta name="author" content="Alexander Kyriakou">
+  <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="https://alexanderkyriakou.eu/ak/bookmarklets">
   <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/bookmarklets.md" title="Bookmarklets for SEO, Writing & Digital Marketing - Technical Reference (Markdown)">
-  <link rel="stylesheet" href="../assets/css/main.css">
-  <link rel="stylesheet" href="../assets/css/thoughts.css">
-  <link rel="preload" href="../assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
-  <meta name="robots" content="max-image-preview:large">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   
   <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
   <link rel="me" href="https://www.facebook.com/kyriakoualexander/">    
@@ -50,10 +51,10 @@
       "url": "https://alexanderkyriakou.eu/ak/bookmarklets",
       "name": "Bookmarklets for SEO, Writing & Everyday Browsing",
       "headline": "Bookmarklets for SEO, writing & digital marketing",
-      "description": "Small browser shortcuts for SEO, writing and everyday tasks. The collection contains 20 active bookmarklets and four paused entries.",
+      "description": "Small browser shortcuts for SEO, writing and everyday tasks. The collection contains 23 active bookmarklets and four paused entries.",
       "inLanguage": "en",
       "datePublished": "2026-11-04",
-      "dateModified": "2026-11-04",
+      "dateModified": "2026-11-05",
       "isAccessibleForFree": true,
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
@@ -79,8 +80,8 @@
       "@type": "ItemList",
       "@id": "https://alexanderkyriakou.eu/ak/bookmarklets#active-bookmarklets",
       "name": "Active bookmarklets",
-      "description": "20 active bookmarklets for SEO and page inspection, writing and digital marketing, LLM research and prompts, and everyday browser utilities. Paused entries are excluded from this list.",
-      "numberOfItems": 20,
+      "description": "23 active bookmarklets for SEO and page inspection, writing and digital marketing, LLM research and prompts, and everyday browser utilities. Paused entries are excluded from this list.",
+      "numberOfItems": 23,
       "mainEntityOfPage": {
         "@id": "https://alexanderkyriakou.eu/ak/bookmarklets#webpage"
       },
@@ -224,6 +225,27 @@
           "name": "Experimental page capture",
           "url": "https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-screenshot",
           "description": "Render the loaded page to a downloadable PNG."
+        },
+        {
+          "@type": "ListItem",
+          "position": 21,
+          "name": "Greek orthography",
+          "url": "https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-greek-orthography",
+          "description": "Review Greek page text and check possible spelling, punctuation and grammar issues through a LanguageTool-compatible API."
+        },
+        {
+          "@type": "ListItem",
+          "position": 22,
+          "name": "Keyword repetition review",
+          "url": "https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-keyword-review",
+          "description": "Count words, inspect repeated words and phrases, and highlight their occurrences on the page."
+        },
+        {
+          "@type": "ListItem",
+          "position": 23,
+          "name": "Page SEO snapshot",
+          "url": "https://alexanderkyriakou.eu/ak/bookmarklets#bookmarklet-product-seo",
+          "description": "Inspect metadata, canonicals, robots directives and basic product JSON-LD fields, with an illustrative search-result preview."
         }
       ]
     },
@@ -259,7 +281,7 @@
 #bookmarklets-app *, #bookmarklets-app *::before, #bookmarklets-app *::after { box-sizing:border-box; }
 #bookmarklets-app [hidden] { display:none !important; }
 #bookmarklets-app :is(h3,h4) { color:var(--bm-ink); font-weight:600; line-height:1.3; }
-#bookmarklets-app .bm-intro { padding:0 0 20px; margin-bottom:20px; font-family:'STIX TWO Text', sans-serif; color: #000; }
+#bookmarklets-app .bm-intro { padding:0 0 20px; margin-bottom:20px; font-family:'STIX TWO Text', Georgia; color: #000; }
 #bookmarklets-app .bm-how { font-size: 1.2rem; padding:18px 20px; border:1px solid var(--bm-line); border-radius:15px; background:#fbfaf7; margin:20px 0 0; color: #000; }
 #bookmarklets-app .bm-how ol { padding-left:22px; margin:10px 0; }
 #bookmarklets-app .bm-how li { padding-left:3px; margin:7px 0; }
@@ -365,7 +387,7 @@
       </figcaption>
     </figure>
   </header>
-  <div class="container toc">
+<div class="container toc">
 <div id="bookmarklets-app">
 <section class="bm-intro">
   <h2 id="bm-collection-title">Useful little shortcuts, one bookmark away.</h2>
@@ -382,9 +404,10 @@
   </div>
 </section>
 <noscript><p>Enable JavaScript to generate the bookmarklet code and use configuration, copying, and filtering.</p></noscript>
-<div class="bm-filters"><div><label for="bm-search">Find a bookmarklet</label><input id="bm-search" type="search" data-bm-search placeholder="Try links, copy, campaign…"></div><div><select id="bm-category" data-bm-category><option value="all" aria-label="Filter bookmarklets by category">All categories</option><option value="seo">SEO & inspection</option><option value="writing">Writing & marketing</option><option value="ai">LLM research</option><option value="utilities">Browser utilities</option></select></div><button type="button" data-bm-reset>Clear filters</button></div>
-<p class="bm-status" data-bm-status role="status"></p><p class="bm-count" data-bm-count>24 bookmarklets</p><p data-bm-empty hidden>No matches. Try another word or clear the filters.</p>
-<section class="bm-group" data-bm-group="seo"><div class="bm-group-heading"><span class="bm-group-number">01</span><h2 id="bm-group-seo">SEO & page inspection</h2></div><div class="bm-grid"><article class="bm-card" id="bookmarklet-schema" data-bm-card="schema">
+<div class="bm-filters"><div><label for="bm-search">Find a bookmarklet</label><input id="bm-search" type="search" data-bm-search placeholder="Try links, copy, campaign…"></div><div><select id="bm-category" aria-label="Filter bookmarklets by category" data-bm-category><option value="all">All categories</option><option value="seo">SEO & inspection</option><option value="writing">Writing & marketing</option><option value="ai">LLM research</option><option value="utilities">Browser utilities</option></select></div><button type="button" data-bm-reset>Clear filters</button></div>
+<p class="bm-status" data-bm-status role="status"></p><p class="bm-count" data-bm-count>27 bookmarklets</p><p data-bm-empty hidden>No matches. Try another word or clear the filters.</p>
+<section class="bm-group" data-bm-group="seo"><div class="bm-group-heading"><span class="bm-group-number">01</span><h2 id="bm-group-seo">SEO & page inspection</h2></div><div class="bm-grid">
+  <article class="bm-card" id="bookmarklet-schema" data-bm-card="schema">
   <div class="bm-card-header"><h3 id="bm-title-schema">Schema Validator</h3></div>
   <p class="bm-desc">Send the open page to Schema.org's markup validator.</p><p class="bm-note">Opens an external service with the current URL. Private pages may not be fetchable.</p>
   <p class="bm-error" data-bm-error role="status" hidden></p>
@@ -392,7 +415,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-pagespeed" data-bm-card="pagespeed">
+  </article>
+  <article class="bm-card" id="bookmarklet-pagespeed" data-bm-card="pagespeed">
   <div class="bm-card-header"><h3 id="bm-title-pagespeed">PageSpeed Insights</h3></div>
   <p class="bm-desc">Start a performance check for the page you are viewing.</p><p class="bm-note">Opens Google PageSpeed Insights with the current URL. Publicly reachable pages work best.</p>
   <p class="bm-error" data-bm-error role="status" hidden></p>
@@ -400,7 +424,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-gsc" data-bm-card="gsc">
+  </article>
+  <article class="bm-card" id="bookmarklet-gsc" data-bm-card="gsc">
   <div class="bm-card-header"><h3 id="bm-title-gsc">Google Search Console</h3></div>
   <p class="bm-desc">Open the Performance report for the active page over the past 12 months.</p><p class="bm-note">Uses the current page as a contains filter. Requires access to the configured property.</p>
   <form class="bm-config"><div class="bm-field bm-wide"><label for="bm-gsc-property">Search Console property</label><input id="bm-gsc-property" name="property" type="text" value="" autocomplete="off" placeholder="sc-domain:yourdomain.eu"></div><p class="bm-hint">Optional: sc-domain:yourdomain.eu or https://yourdomain.eu/. Blank uses the current hostname as a Domain property, removing www. Enter the parent domain explicitly for other subdomains.</p></form><p class="bm-error" data-bm-error role="status" hidden></p>
@@ -408,7 +433,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-wayback" data-bm-card="wayback">
+  </article>
+  <article class="bm-card" id="bookmarklet-wayback" data-bm-card="wayback">
   <div class="bm-card-header"><h3 id="bm-title-wayback">Wayback history</h3></div>
   <p class="bm-desc">See archived versions of the current URL.</p><p class="bm-note">Opens the Internet Archive. A page may have no saved captures.</p>
   <p class="bm-error" data-bm-error role="status" hidden></p>
@@ -416,7 +442,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-links" data-bm-card="links">
+  </article>
+  <article class="bm-card" id="bookmarklet-links" data-bm-card="links">
   <div class="bm-card-header"><h3 id="bm-title-links">Export page links</h3></div>
   <p class="bm-desc">A new-tab report of URLs, anchor texts, and their relationships.</p><p class="bm-note">Includes URL + anchor pairs, plain anchor texts, unique URL lists, internal/external filters, and CSV export. Internal means the same hostname.</p>
   <p class="bm-error" data-bm-error role="status" hidden></p>
@@ -424,7 +451,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-attributes" data-bm-card="attributes">
+  </article>
+  <article class="bm-card" id="bookmarklet-attributes" data-bm-card="attributes">
   <div class="bm-card-header"><h3 id="bm-title-attributes">Colour link attributes</h3></div>
   <p class="bm-desc">See nofollow, sponsored, ugc, external, and new-tab links in place.</p><p class="bm-note">A floating legend controls colours and labels. Stripes show overlapping attributes. Close it, press Escape, or run again to restore the page.</p>
   <p class="bm-error" data-bm-error role="status" hidden></p>
@@ -432,15 +460,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-images" data-bm-card="images">
-  <div class="bm-card-header"><h3 id="bm-title-images">Image inspector</h3></div>
-  <p class="bm-desc">Check alt text, dimensions, sources, and current image load states.</p><p class="bm-note">Reports &lt;img&gt; elements in the current document, including srcset and sizes. Empty alt can be intentional. Pending lazy images are not marked broken.</p>
-  <p class="bm-error" data-bm-error role="status" hidden></p>
-  <div class="bm-install-row"><a class="bm-install" data-bm-install draggable="true" title="🖼️ Image inspector">🖼️ Image inspector</a><span class="bm-drag-note">Drag to bookmarks ↗</span></div>
-  <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
-  <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
-  <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-link-health" data-bm-card="link-health">
+  </article>
+  <article class="bm-card" id="bookmarklet-link-health" data-bm-card="link-health">
   <div class="bm-card-header"><h3 id="bm-title-link-health">Link health checker</h3><span class="bm-badge">Browser limits</span></div>
   <p class="bm-desc">Check page links and distinguish broken URLs from unreadable responses.</p><p class="bm-note">Start checks from the report. CORS, timeouts and policy blocks are “Unable to verify”, not broken. Same-host responses can use your signed-in session.</p>
   <form class="bm-config"><div class="bm-field bm-wide"><label for="bm-link-health-limit">Maximum unique URLs</label><input id="bm-link-health-limit" name="limit" type="number" value="100" autocomplete="off" min="1" max="500" step="1" inputmode="numeric"></div><p class="bm-hint">1-500 URLs per run. Three requests at a time; eight-second timeout.</p></form><p class="bm-error" data-bm-error role="status" hidden></p>
@@ -448,8 +469,40 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article></div></section>
-<section class="bm-group" data-bm-group="writing"><div class="bm-group-heading"><span class="bm-group-number">02</span><h2 id="bm-group-writing">Writing & digital marketing</h2></div><div class="bm-grid"><article class="bm-card" id="bookmarklet-notes" data-bm-card="notes">
+  </article>
+  <article class="bm-card" id="bookmarklet-product-seo" data-bm-card="product-seo">
+  <div class="bm-card-header"><h3 id="bm-title-product-seo">Page SEO snapshot</h3></div>
+  <p class="bm-desc">Inspect metadata, canonicals, robots directives, product JSON-LD and an illustrative search result.</p>
+  <p class="bm-note">Rendered-page checks in a floating panel, with an optional fresh HEAD response check. Actual index status is unverified. Basic JSON-LD checks do not replace the Rich Results Test.</p>
+  <p class="bm-error" data-bm-error role="status" hidden></p>
+  <div class="bm-install-row">
+    <a class="bm-install" data-bm-install draggable="true" title="🕵️ Page SEO snapshot">🕵️ Page SEO snapshot</a>
+    <span class="bm-drag-note">Drag to bookmarks ↗</span>
+  </div>
+  <div class="bm-code-toolbar">
+    <span class="bm-code-label">Bookmarklet code</span>
+    <button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation" aria-label="Copy Page SEO snapshot bookmarklet"></button>
+  </div>
+  <div class="bm-code-wrap">
+    <pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre>
+    <button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" aria-label="Copy Page SEO snapshot JavaScript" hidden></button>
+  </div>
+  <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
+</article>
+  <article class="bm-card" id="bookmarklet-images" data-bm-card="images">
+  <div class="bm-card-header"><h3 id="bm-title-images">Image inspector</h3></div>
+  <p class="bm-desc">Check alt text, dimensions, sources, and current image load states.</p><p class="bm-note">Reports &lt;img&gt; elements in the current document, including srcset and sizes. Empty alt can be intentional. Pending lazy images are not marked broken.</p>
+  <p class="bm-error" data-bm-error role="status" hidden></p>
+  <div class="bm-install-row"><a class="bm-install" data-bm-install draggable="true" title="🖼️ Image inspector">🖼️ Image inspector</a><span class="bm-drag-note">Drag to bookmarks ↗</span></div>
+  <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
+  <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
+  <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
+  </article>
+
+</div>
+</section>
+<section class="bm-group" data-bm-group="writing"><div class="bm-group-heading"><span class="bm-group-number">02</span><h2 id="bm-group-writing">Writing & digital marketing</h2></div><div class="bm-grid">
+  <article class="bm-card" id="bookmarklet-notes" data-bm-card="notes">
   <div class="bm-card-header"><h3 id="bm-title-notes">Quick notes</h3></div>
   <p class="bm-desc">Keep draggable Markdown notes on the page you are viewing.</p><p class="bm-note">A floating panel stays in the active tab. Drag its heading or focus it and use arrow keys. Ctrl/Cmd+S while editing saves an .md file with the source page appended. Notes are not stored automatically.</p>
   <p class="bm-error" data-bm-error role="status" hidden></p>
@@ -457,7 +510,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-design" data-bm-card="design">
+  </article>
+  <article class="bm-card" id="bookmarklet-design" data-bm-card="design">
   <div class="bm-card-header"><h3 id="bm-title-design">Edit page copy</h3></div>
   <p class="bm-desc">Toggle design mode to try new headlines and copy on a live layout.</p><p class="bm-note">Edits are local to the tab. Run again to stop editing; refresh to discard changes.</p>
   <p class="bm-error" data-bm-error role="status" hidden></p>
@@ -465,7 +519,46 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-content" data-bm-card="content">
+  </article>
+  <article class="bm-card" id="bookmarklet-greek-orthography" data-bm-card="greek-orthography">
+  <div class="bm-card-header"><h3 id="bm-title-greek-orthography">Greek orthography</h3></div>
+  <p class="bm-desc">Review Greek page text and check possible spelling, punctuation and grammar issues in a floating panel.</p>
+  <p class="bm-note">Only the reviewed text is sent, after approval, to a LanguageTool-compatible API. The default public API allows up to 20,000 UTF-8 bytes per manual check; service limits, CORS and site CSP apply.</p>
+  <p class="bm-error" data-bm-error role="status" hidden></p>
+  <div class="bm-install-row">
+    <a class="bm-install" data-bm-install draggable="true" title="🇬🇷 Greek orthography">🇬🇷 Greek orthography</a>
+    <span class="bm-drag-note">Drag to bookmarks ↗</span>
+  </div>
+  <div class="bm-code-toolbar">
+    <span class="bm-code-label">Bookmarklet code</span>
+    <button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation" aria-label="Copy Greek orthography bookmarklet"></button>
+  </div>
+  <div class="bm-code-wrap">
+    <pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre>
+    <button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" aria-label="Copy Greek orthography JavaScript" hidden></button>
+  </div>
+  <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
+  </article>
+  <article class="bm-card" id="bookmarklet-keyword-review" data-bm-card="keyword-review">
+    <div class="bm-card-header"><h3 id="bm-title-keyword-review">Keyword repetition review</h3></div>
+    <p class="bm-desc">Count words, inspect repeated words and phrases, and review local keyword clusters.</p>
+    <p class="bm-note">Browser-local floating report: target occurrences, word coverage, repeated tokens, duplicate paragraphs and adjustable review heuristics. No universal keyword-density threshold or automatic spam verdict.</p>
+    <p class="bm-error" data-bm-error role="status" hidden></p>
+    <div class="bm-install-row">
+      <a class="bm-install" data-bm-install draggable="true" title="🔎 Keyword repetition review">🔎 Keyword repetition review</a>
+      <span class="bm-drag-note">Drag to bookmarks ↗</span>
+    </div>
+    <div class="bm-code-toolbar">
+      <span class="bm-code-label">Bookmarklet code</span>
+      <button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation" aria-label="Copy Keyword repetition review bookmarklet"></button>
+    </div>
+    <div class="bm-code-wrap">
+      <pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre>
+      <button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" aria-label="Copy Keyword repetition review JavaScript" hidden></button>
+    </div>
+    <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
+  </article>
+  <article class="bm-card" id="bookmarklet-content" data-bm-card="content">
   <div class="bm-card-header"><h3 id="bm-title-content">Copy clean page content</h3></div>
   <p class="bm-desc">Extract selected text or main content as plain text or Markdown.</p><p class="bm-note">A new tab lets you review and copy the result. Complex layouts may need cleanup; unloaded content and cross-origin frames are outside scope.</p>
   <form class="bm-config bm-config-list"><div class="bm-field"><label for="bm-content-format">Output format</label><select id="bm-content-format" name="format"><option value="markdown" selected>Markdown</option><option value="plain">Plain text</option></select></div><div class="bm-field"><label for="bm-content-source">Include title and source URL</label><select id="bm-content-source" name="source"><option value="yes" selected>Yes</option><option value="no">No</option></select></div></form><p class="bm-error" data-bm-error role="status" hidden></p>
@@ -473,7 +566,8 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article><article class="bm-card" id="bookmarklet-utm" data-bm-card="utm">
+  </article>
+  <article class="bm-card" id="bookmarklet-utm" data-bm-card="utm">
   <div class="bm-card-header"><h3 id="bm-title-utm">UTM campaign builder</h3></div>
   <p class="bm-desc">Build a campaign URL here, or save a bookmarklet with your campaign settings.</p><p class="bm-note">The saved bookmarklet applies the campaign to the page open when you run it. Blank fields remove the matching UTM parameter. Other parameters and fragments stay intact.</p>
   <form class="bm-config bm-config-stack"><div class="bm-field bm-wide"><label for="bm-utm-destination">Destination URL · for the URL below</label><input id="bm-utm-destination" name="destination" type="url" value="" autocomplete="off" placeholder="https://yourdomain.eu/your-page"></div><div class="bm-field"><label for="bm-utm-source">Source · utm_source</label><input id="bm-utm-source" name="source" type="text" value="" autocomplete="off" placeholder="newsletter"></div><div class="bm-field"><label for="bm-utm-medium">Medium · utm_medium</label><input id="bm-utm-medium" name="medium" type="text" value="" autocomplete="off" placeholder="email"></div><div class="bm-field"><label for="bm-utm-campaign">Campaign · utm_campaign</label><input id="bm-utm-campaign" name="campaign" type="text" value="" autocomplete="off" placeholder="winter-launch"></div><div class="bm-field"><label for="bm-utm-term">Term · optional</label><input id="bm-utm-term" name="term" type="text" value="" autocomplete="off"></div><div class="bm-field"><label for="bm-utm-content">Content · optional</label><input id="bm-utm-content" name="content" type="text" value="" autocomplete="off"></div><p class="bm-hint">Source, medium, and campaign are required to create a campaign bookmarklet. The destination is used for the copyable URL, not fixed into the bookmarklet.</p></form><p class="bm-error" data-bm-error role="status" hidden></p><div class="bm-utm-result"><label for="bm-utm-output">Your campaign URL</label><input id="bm-utm-output" data-bm-utm-url readonly placeholder="Add a destination and campaign settings"><button type="button" data-bm-copy-url data-default-label="Copy URL" disabled>Copy URL</button><p class="bm-error" data-bm-url-error role="status"></p></div>
@@ -481,7 +575,9 @@
   <div class="bm-code-toolbar"><span class="bm-code-label">Bookmarklet code</span><button type="button" class="bm-icon-button" data-bm-copy title="Copy encoded bookmark URL; recommended for installation"></button></div>
   <div class="bm-code-wrap"><pre tabindex="0"><code data-bm-code>Loading bookmarklet source…</code></pre><button type="button" class="bm-icon-button bm-source-copy" data-bm-copy-source title="Copy human-readable JavaScript" hidden></button></div>
   <div class="bm-source-actions"><button type="button" data-bm-expand aria-expanded="false">Expand code</button></div>
-  </article></div></section>
+  </article>
+</div>
+</section>
 <section class="bm-group" data-bm-group="ai"><div class="bm-group-heading"><span class="bm-group-number">03</span><h2 id="bm-group-ai">LLM research & prompts</h2></div><div class="bm-grid"><article class="bm-card bm-card-paused" id="bookmarklet-chatgpt-queries" data-bm-card="chatgpt-queries">
   <div class="bm-card-header"><h3 id="bm-title-chatgpt-queries">ChatGPT search queries</h3><span class="bm-badge">Paused</span></div>
   <p class="bm-desc">Inspect search metadata exposed by a saved ChatGPT conversation.</p><p class="bm-note">Experimental. Handles nested query formats, tool-call JSON and active/all-branch selection. Extraction details distinguish endpoint failures from absent metadata. Local JSON import is available.</p>
@@ -593,15 +689,27 @@ Source URL: {url}
 
   <p>For notes saved as Markdown, use whichever online or local viewer or editor suits you. <a href="https://marktext.me/" target="_blank" rel="noopener external">MarkText</a> is a handy open-source option for working with them locally. Quick notes don't save automatically, so download anything you want to keep.</p>
 
-  <p><strong>Two ways to copy the code.</strong> The main copy icon copies an encoded bookmarklet URL for installation, preserving spaces and special characters. Expand a code block to find the readable-source copy icon at its bottom right. Both versions run the same JavaScript.</p>
+  <p><strong>Two ways to copy the code.</strong> The main copy icon copies an encoded bookmarklet URL for installation, preserving spaces and special characters. Expand a code block to find the readable-source copy icon at its bottom right. Both versions run the same JavaScript. Previously saved bookmarklets don't update automatically, so save them again after changing their settings or applying an updated version.</p>
 
   <p><strong>A few practical limits.</strong> Page inspection covers the loaded document, rather than an entire website. Browser pages, PDF viewers, content inside frames, site policies and permissions can limit what runs or appears in a report. Mobile installation and feature support vary; use your browser's bookmark editor where available.</p>
 
-  <p>Most processing happens locally. External-service shortcuts pass the current URL to their destination, link checks make requests, and the citation exporter reads the current AI service using your existing session. Experimental capture loads an external renderer after confirmation.</p>
+  <p><strong>Processing and privacy.</strong> Most tools work in your browser. External shortcuts share the current URL, link checks request their destinations, and citation export uses your existing session. Page capture loads an external renderer after confirmation. <a href="#bookmarklet-keyword-review">Keyword repetition review</a> counts and highlights text locally; its flags are suggestions to review the copy, not proof of keyword stuffing.</p>
+
+  <p><a href="#bookmarklet-greek-orthography">Greek orthography</a> sends your reviewed text to the displayed service after you approve and click <em>Send text & check Greek</em>. By default, it uses <a href="https://languagetool.org/" target="_blank" rel="noopener noreferrer external">LanguageTool</a>. Opening the panel sends nothing. Downloaded results include the checked text and source-page URL.</p>
+
+  <p><a href="#bookmarklet-product-seo">Page SEO snapshot</a> checks the loaded page in your browser. The optional header check sends a fresh HEAD request using your current session. The preview loads the site's favicon; product thumbnails load only when requested. Opening an external validator shares the page URL. The preview is an approximation, and the checks don't confirm indexing or rich-result eligibility.</p>
 
   <p style="font-style: italic;">For reuse and attribution, see the <a href="https://alexanderkyriakou.eu/licensing" target="_blank">licensing page</a>.</p>
 
-    
+  <section class="changelog">
+    <h2>Updates</h2>
+    <ul>
+      <li>
+        <time datetime="2026-11-05">November 05, 2026</time>
+        <span>Added three bookmarklets: <a href="#bookmarklet-greek-orthography">Greek orthography</a> for API-based spelling and grammar checks; <a href="#bookmarklet-keyword-review">Keyword repetition review</a> for word counts, repetition analysis and on-page highlights; and <a href="#bookmarklet-product-seo">Page SEO snapshot</a> for metadata, canonical, robots directives and basic schema checks, with an illustrative search-result preview.</span>
+      </li>
+    </ul>
+  </section>
 </div>
 
     <footer class="postfooter">
@@ -625,6 +733,10 @@ Source URL: {url}
             <span>
               <span>Published</span>
               <time datetime="2026-11-04">Nov 4, 2026</time>
+            </span>
+            <span>
+              <span>Updated</span>
+              <time datetime="2026-11-05">Nov 05, 2026</time>
             </span>
           </p>
         </div>
@@ -678,16 +790,16 @@ Source URL: {url}
       </div>
 </footer>
 
-  <script defer src="../assets/js/bookmarklets.js"></script>
-  <script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
-  <script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+<script defer src="/assets/js/bookmarklets.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
 
 <!--
 The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt. The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 have been added to cover use of software over a computer network and provide for limited attribution for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B.
 
 Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific language governing rights and limitations under the License.
 
-The Original Code is Google's Knowledge Graph Explorer, including its original entity-search and identifier-lookup interface, entity and language comparison logic, source-integration and CSV export logic, dedicated JavaScript and CSS implementation, and any original server-side routes distributed as part of this project, originally published at https://alexanderkyriakou.eu/ak/bookmarklets.
+The Original Code is the Bookmarklets collection software authored by Alexander Kyriakou, including its catalogue, configuration and installation controls, original bookmarklet implementations and generated JavaScript, report and overlay interfaces, and dedicated HTML, CSS and JavaScript implementation in ak/bookmarklets.html and assets/js/bookmarklets.js, originally published at https://alexanderkyriakou.eu/ak/bookmarklets.
 
 The Original Developer is not the Initial Developer and is __________. If left blank, the Original Developer is the Initial Developer.
 
