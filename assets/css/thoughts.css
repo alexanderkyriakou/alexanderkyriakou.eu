@@ -111,7 +111,6 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: var(--article-image-aspect, auto);
   object-fit: var(--article-image-fit, cover);
   object-position: var(--article-image-position, center);
   border-radius: 15px;
@@ -896,9 +895,12 @@
 
   /* reusing the landscape image; but mobile friendly ar */
   .article-hero:not(.article-hero-portrait) {
-    --article-image-aspect: 3 / 4;
     --article-image-position: 10% 40%;
     --article-image-fit: cover;
+  }
+
+  .article-hero:not(.article-hero-portrait) .article-image {
+    aspect-ratio: 3 / 4;
   }
 
   .article-hero-portrait .article-heading,

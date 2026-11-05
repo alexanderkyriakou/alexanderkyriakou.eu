@@ -117,6 +117,32 @@ function initPageIndex() {
 }
 initPageIndex();
 
-
 // Extras
 console.log("Hi there explorer!");
+
+// Prefetch core pages after the page finishes loading
+(() => {
+  function prefetchPages() {
+    const pages = [
+      'https://alexanderkyriakou.eu/',
+      'https://alexanderkyriakou.eu/about',
+      'https://alexanderkyriakou.eu/thoughts',
+      'https://alexanderkyriakou.eu/contact'
+    ];
+
+    for (const href of pages) {
+      if (href === window.location.href) continue;
+
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = href;
+      document.head.appendChild(link);
+    }
+  }
+
+  if (document.readyState === 'complete') {
+    prefetchPages();
+  } else {
+    window.addEventListener('load', prefetchPages, { once: true });
+  }
+})();
