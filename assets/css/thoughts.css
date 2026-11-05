@@ -426,9 +426,16 @@
   opacity: 1;
 }
 
-.link-copied {
+.postfooter-share .link-copied {
   opacity: 0;
   pointer-events: none;
+  font-size: 1.1rem;
+}
+
+.postfooter-share .link-copied svg {
+  width: 18px;
+  height: 18px;
+  vertical-align: -3px;
 }
 
 .postfooter-share button.copied .postfooter-share-label {
