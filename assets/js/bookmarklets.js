@@ -888,12 +888,93 @@
     return {scripts:scripts.length,nodes,errors,types:[...types],products,resolve,hasType};
   }
 
+  function bmSchema() {
+    const nodes=[],errors=[],blocks=[],findings=[],byID=new Map(),definitions=new Map(),origins=new WeakMap(),nodePaths=new WeakMap(),nodeContexts=new WeakMap();
+    const schemaURL=/^https?:\/\/schema\.org\//i;
+    function key(id){if(id.startsWith('_:'))return id;try{return new URL(id,document.baseURI).href;}catch{return id;}}
+    const term=value=>String(value).replace(schemaURL,'').replace(/^schema:/,'');
+    function merge(a,b){const value=Object.assign(Object.create(null),a,b);if(a['@type']!==undefined&&b['@type']!==undefined)value['@type']=[...new Set([].concat(a['@type'],b['@type']))];return value;}
+    const typeList=n=>[].concat(n?.['@type']||[]).filter(v=>typeof v==='string'&&v.trim()).map(term);
+    const meaningful=n=>Object.keys(n).some(k=>!['@context','@id','@graph','@included','@index'].includes(k));
+    const finding=(block,path,state,message)=>findings.push({block,path,state,message});
+    function checkContext(value,block,path){
+      if(value===null||typeof value==='string')return;
+      if(Array.isArray(value)){value.forEach((v,i)=>checkContext(v,block,path+'['+i+']'));return;}
+      if(value&&typeof value==='object')return;
+      finding(block,path,'Review','@context must be a string, object, array or null.');
+    }
+    function visit(value,block,path,contextSeen=false,level=0){
+      if(level>150){finding(block,path,'Review','Nested data exceeds this checker’s depth limit.');return;}
+      if(Array.isArray(value)){value.forEach((v,i)=>visit(v,block,path+'['+i+']',contextSeen,level+1));return;}
+      if(!value||typeof value!=='object')return;
+      const hasContext=Object.prototype.hasOwnProperty.call(value,'@context'),context=contextSeen||hasContext;
+      if(hasContext)checkContext(value['@context'],block,path+'.@context');
+      for(const name of ['@graph','@included'])if(name in value){const v=value[name],items=Array.isArray(v)?v:[v];if(items.some(n=>!n||typeof n!=='object'||Array.isArray(n)))finding(block,path+'.'+name,'Review',name+' should contain node objects.');}
+      if('@value' in value)return; // A value object is not an entity.
+      if('@list' in value||'@set' in value){for(const name of ['@list','@set'])if(name in value)visit(value[name],block,path+'.'+name,context,level+1);return;}
+      const wrapper=Object.keys(value).every(k=>['@context','@graph','@included','@index'].includes(k));
+      if(!wrapper){
+        nodes.push(value);origins.set(value,block);nodePaths.set(value,path);nodeContexts.set(value,context);
+        if('@type' in value){const ts=Array.isArray(value['@type'])?value['@type']:[value['@type']];if(!ts.length||ts.some(t=>typeof t!=='string'||!t.trim()))finding(block,path+'.@type','Review','Expected a non-empty type string or array of type strings.');}
+        if('@id' in value&&typeof value['@id']!=='string')finding(block,path+'.@id','Review','Expected @id to be a string.');
+        if(typeof value['@id']==='string'){
+          const id=key(value['@id']),previous=byID.get(id)||{};
+          byID.set(id,merge(previous,value));
+          if(meaningful(value)){const ds=definitions.get(id)||[];ds.push({block,path,node:value});definitions.set(id,ds);}
+        }
+      }
+      for(const [name,child]of Object.entries(value)){
+        if(name==='@context'||name==='@value')continue;
+        if(name==='@reverse'&&child&&typeof child==='object'){for(const [property,v]of Object.entries(child))visit(v,block,path+'.@reverse.'+property,context,level+1);continue;}
+        if(child&&typeof child==='object')visit(child,block,path+'.'+name,context,level+1);
+      }
+    }
+    const scripts=[...document.querySelectorAll('script')].filter(s=>(s.type||'').trim().toLowerCase()==='application/ld+json');
+    scripts.forEach((s,i)=>{
+      const block={block:i+1,raw:s.textContent,parsed:null,parseOK:false,topLevel:'',entityCount:0,types:[]};blocks.push(block);
+      try{
+        block.parsed=JSON.parse(s.textContent);block.parseOK=true;block.topLevel=Array.isArray(block.parsed)?'Array':block.parsed===null?'null':typeof block.parsed;
+        const data=block.parsed;
+        if(!data||typeof data!=='object'){finding(i+1,'$','Review','JSON parses, but JSON-LD needs an object or array of node objects.');return;}
+        if(Array.isArray(data)&&data.some(v=>!v||typeof v!=='object'||Array.isArray(v)))finding(i+1,'$','Review','Top-level array contains a value that is not a node object.');
+        visit(data,i+1,'$');
+      }catch(e){const message='JSON-LD block '+(i+1)+': '+e.message;errors.push(message);finding(i+1,'$','Issue',message);}
+    });
+    for(const n of nodes){
+      if(!Object.prototype.hasOwnProperty.call(n,'@id')||typeof n['@id']!=='string'||meaningful(n))continue;
+      const id=key(n['@id']);
+      if((n['@id'].startsWith('#')||n['@id'].startsWith('_:'))&&!definitions.has(id))finding(origins.get(n),nodePaths.get(n),'Review','No definition for this local @id was found in the parsed JSON-LD: '+n['@id']+'. It may be intentional.');
+    }
+    for(const b of blocks){const ns=nodes.filter(n=>origins.get(n)===b.block);b.entityCount=ns.filter(meaningful).length;b.types=[...new Set(ns.flatMap(typeList))];if(b.parseOK&&ns.some(n=>!nodeContexts.get(n)&&([].concat(n['@type']||[]).some(t=>typeof t==='string'&&!/^[a-z][a-z0-9+.-]*:/i.test(t))||Object.keys(n).some(k=>!k.startsWith('@')&&!/^[a-z][a-z0-9+.-]*:/i.test(k)))))finding(b.block,'$','Review','Some objects use unexpanded terms without an @context in this block or their ancestors. Check the vocabulary/context; this checker does not expand contexts.');}
+    const resolve=v=>v&&typeof v==='object'&&!Array.isArray(v)&&typeof v['@id']==='string'?merge(byID.get(key(v['@id']))||{},v):v;
+    const hasType=(v,name)=>typeList(resolve(v)).includes(name);
+    const seen=new Set(),products=[],entities=[];
+    for(const n of nodes){
+      if(!meaningful(n))continue;
+      const identity=typeof n['@id']==='string'?key(n['@id']):n;if(seen.has(identity))continue;seen.add(identity);
+      const value=resolve(n);entities.push({types:typeList(value),id:typeof value['@id']==='string'?value['@id']:'',name:typeof value.name==='string'?value.name:typeof value.headline==='string'?value.headline:'',block:origins.get(n),path:nodePaths.get(n),properties:Object.keys(value).filter(k=>!k.startsWith('@')),value});
+      if(hasType(value,'Product'))products.push(value);
+    }
+    const label=n=>n.tagName.toLowerCase()+(n.id?'#'+n.id:'');
+    function markup(selector,typeAttr,idAttr,propertySelector){
+      return [...document.querySelectorAll(selector)].filter(n=>!n.closest('[data-ak-bookmarklet-overlay]')).map((n,i)=>({item:i+1,types:(n.getAttribute(typeAttr)||'').trim().split(/\s+/).filter(Boolean).map(term),id:n.getAttribute(idAttr)||'',element:label(n),properties:[...new Set([...n.querySelectorAll(propertySelector)].flatMap(p=>(p.getAttribute(propertySelector==='[itemprop]'?'itemprop':'property')||'').split(/\s+/)).filter(Boolean))],html:n.outerHTML}));
+    }
+    const microdata=markup('[itemscope]','itemtype','itemid','[itemprop]'),rdfa=markup('[typeof]','typeof','resource','[property]');
+    const inventory=new Map();
+    function count(type,format){const row=inventory.get(type)||{type,jsonLD:0,microdata:0,rdfa:0};row[format]++;inventory.set(type,row);}
+    for(const e of entities)for(const t of e.types)count(t,'jsonLD');
+    for(const e of microdata)for(const t of e.types)count(t,'microdata');
+    for(const e of rdfa)for(const t of e.types)count(t,'rdfa');
+    const splitDefinitions=[...definitions].filter(([,ds])=>ds.length>1).map(([id,ds])=>({id,definitions:ds.map(d=>({block:d.block,path:d.path}))}));
+    const types=[...new Set(nodes.flatMap(typeList))];
+    return {scripts:scripts.length,nodes,errors,types,products,resolve,hasType,blocks,entities,microdata,rdfa,findings,inventory:[...inventory.values()].sort((a,b)=>a.type.localeCompare(b.type)),splitDefinitions};
+  }
   function bmProduct() {
     const p=bmPanel('product','Page SEO snapshot');if(!p)return;
     const {el,main,button,status}=p;let latest=null,currentProduct=null,controller=null,timeout=null,auditVersion=0;
     main.append(el('p','A snapshot of the rendered page, not a crawl or a full validator. Indexing, Google-selected canonical, robots.txt access, rich-result eligibility and server-rendered HTML require external verification.'));
     const tools=el('div');tools.className='tools';
-    tools.append(button('Refresh audit',audit),button('Download audit',()=>{if(latest)p.download(latest,'product-seo-audit.json');}));
+    tools.append(button('Refresh audit',audit),button('Download audit',()=>{if(latest)p.download(latest,'page-seo-snapshot.json');}));
     for(const[label,url]of [['Rich Results Test','https://search.google.com/test/rich-results?url='],['Schema Validator','https://validator.schema.org/#url=']]){const a=el('a',label);a.href=url+encodeURIComponent(location.href);a.target='_blank';a.rel='noopener noreferrer';tools.append(a);}main.append(tools);
     const output=el('div'),headersBox=el('details');headersBox.append(el('summary','Optional: fetch fresh response headers'));
     headersBox.append(el('p','Sends one same-origin HEAD request, using your current session. HEAD responses can differ from GET and Googlebot responses. These are not the original navigation headers. HTTP status, X-Robots-Tag and HTTP Link canonicals are shown separately.'));
@@ -931,18 +1012,17 @@
       check('Google robots meta',blocking.length?'Blocking directive observed':'No blocking meta observed',blocking.length?blocking.map(m=>m.agent+': '+m.content).join(' | '):'No noindex/none found in robots or googlebot meta. This does not establish indexability or index status.');
       if(robots.some(m=>!m.inHead))check('Robots placement','Review','At least one robots meta is outside head.');
       check('H1',h1.length===1&&h1[0]?'Observed':'Review',h1.length+' H1 elements. '+h1.join(' | ')+' · H1 count is a review signal, not a ranking rule.');
-      check('Main content','Info',bmWords(sample.text).length+' words. No universal minimum product-description word count is imposed.');
+      check('Main content','Info',bmWords(sample.text).length+' words. No universal minimum word count is imposed.');
       check('Language',document.documentElement.lang?'Observed':'Review',document.documentElement.lang||'No html lang attribute.');
-      check('Images',missingAlt?'Review':'Observed',images.length+' images · '+missingAlt+' missing alt attributes. Empty alt may be intentional for decorative images; image loading and product relevance need manual review.');
-      check('JSON-LD parsing',schema.errors.length?'Issue':'Observed',schema.scripts+' blocks · types: '+(schema.types.join(', ')||'none')+(schema.errors.length?'\n'+schema.errors.join('\n'):''));
-      const microdata=[...document.querySelectorAll('[itemscope][itemtype]')].filter(n=>n.getAttribute('itemtype').split(/\s+/).some(t=>/^https?:\/\/schema\.org\/(Product|ProductGroup)\/?$/i.test(t))).length;
-      const rdfa=[...document.querySelectorAll('[typeof]')].filter(n=>n.getAttribute('typeof').split(/\s+/).some(t=>/^(?:(?:https?:\/\/schema\.org\/)|schema:)?(Product|ProductGroup)$/i.test(t))).length;
-      check('Product markup',schema.products.length?'Observed':microdata||rdfa?'Manual validation needed':'Review',schema.products.length+' JSON-LD Product nodes · '+microdata+' microdata product/group scopes · '+rdfa+' RDFa product/group scopes. Microdata/RDFa fields and expanded JSON-LD contexts are not validated here. ProductGroup is reported separately from individual Product variants.');
+      check('Images',missingAlt?'Review':'Observed',images.length+' images · '+missingAlt+' missing alt attributes. Empty alt may be intentional for decorative images; image loading and relevance need manual review.');
+      const microdata=schema.microdata.filter(n=>n.types.some(t=>['Product','ProductGroup'].includes(t))).length;
+      const rdfa=schema.rdfa.filter(n=>n.types.some(t=>['Product','ProductGroup'].includes(t))).length;
+      check('Structured data',schema.errors.length?'Issue':schema.findings.length?'Review':'Info',schema.scripts+' JSON-LD blocks · '+schema.microdata.length+' microdata scopes · '+schema.rdfa.length+' RDFa typed elements. See the separate overall and Product sections below.');
       check('Open Graph','Info',['og:title','og:description','og:image','og:type','og:url'].map(n=>n+': '+(value(n)||'missing')).join('\n'));
       check('Twitter card','Info',['twitter:card','twitter:title','twitter:description','twitter:image'].map(n=>n+': '+(value(n)||'missing')).join('\n'));
       const hreflangs=[...document.querySelectorAll('link[hreflang][href]')].map(n=>({lang:n.hreflang,url:n.href}));
       if(hreflangs.length)check('Hreflang','Info',hreflangs.map(n=>n.lang+' → '+n.url).join('\n')+'\nReciprocal links and destination responses not checked.');
-      latest={url:location.href,checkedAt:new Date().toISOString(),checks,robots,canonicals,h1,hreflangs,products:schema.products,productChecks:[],schemaErrors:schema.errors,limitations:['Rendered DOM only','No actual index-status verification','No original navigation headers','No robots.txt parser','Basic JSON-LD field checks only; no complete rich-result validation']};
+      latest={url:location.href,checkedAt:new Date().toISOString(),checks,robots,canonicals,h1,hreflangs,products:schema.products,productChecks:[],schemaErrors:schema.errors,structuredData:{inventory:schema.inventory,findings:schema.findings,blocks:schema.blocks,entities:schema.entities,microdata:schema.microdata,rdfa:schema.rdfa,splitDefinitions:schema.splitDefinitions},limitations:['Rendered DOM only','No actual index-status verification','No original navigation headers','No robots.txt parser','Basic JSON-LD structure and Product field checks only; no complete vocabulary or rich-result validation','Microdata/RDFa inventory only','No remote context expansion or linked-entity fetches']};
       status.textContent=checks.filter(c=>/Issue|Blocking/.test(c.state)).length+' issues/blocking signals · '+checks.filter(c=>c.state==='Review').length+' review items · no numerical SEO score.';
       output.append(el('h3','Page checks'));const checksTable=p.table(['Check','Result','Observed detail'],checks.map(c=>[c.name,c.state,c.detail]),output);checksTable.className='page-checks';
       if(robots.length){output.append(el('h3','Robots directives (all observed agents)'));p.table(['Agent','Content','Placement'],robots.map(r=>[r.agent,r.content,r.inHead?'head':'outside head']),output);}
@@ -954,6 +1034,40 @@
         const raw=scalar(aggregate?v.lowPrice:(v.price??spec.price)),currency=scalar(v.priceCurrency||spec.priceCurrency),priceOK=raw!==''&&Number.isFinite(Number(raw))&&Number(raw)>=0;
         return {offer:v,aggregate,raw,currency,priceOK,currencyOK:/^[A-Z]{3}$/.test(currency),high:scalar(v.highPrice),availability:scalar(v.availability)};
       }
+      output.append(el('h3','Structured data · overall'));
+      output.append(el('p','All detected types are listed below. JSON-LD gets parsing and basic structure/reference checks; microdata and RDFa are inventoried. This is not a full Schema.org or rich-result validator. Remote contexts and linked entities are not fetched.'));
+      const overallRows=[
+        ['JSON-LD',schema.scripts+' blocks; '+schema.entities.length+' distinct entity definitions'],
+        ['Microdata',schema.microdata.length+' item scopes'],
+        ['RDFa',schema.rdfa.length+' typed elements'],
+        ['Basic findings',schema.findings.filter(f=>f.state==='Issue').length+' parsing issues; '+schema.findings.filter(f=>f.state==='Review').length+' structure/reference review items']
+      ];
+      p.table(['Format / check','Observed'],overallRows,output);
+      if(schema.inventory.length)p.table(['Detected type','JSON-LD entities','Microdata scopes','RDFa typed elements'],schema.inventory.map(v=>[v.type,v.jsonLD,v.microdata,v.rdfa]),output);
+      else output.append(el('p','No types were detected. Untyped JSON-LD objects and microdata scopes can still be valid; missing markup is not automatically an SEO error.'));
+      if(schema.blocks.length){
+        p.table(['JSON-LD block','Parsing','Shape','Entity definitions','Types'],schema.blocks.map(b=>[b.block,b.parseOK?'JSON parses':'Parse issue',b.topLevel||'—',b.entityCount,b.types.join(', ')||'—']),output);
+        if(schema.findings.length)p.table(['Block','Location','Result','Detail'],schema.findings.map(f=>[f.block,f.path,f.state,f.message]),output);
+        else output.append(el('p','No basic JSON-LD parsing or structure/reference flags found. Vocabulary terms, property ranges and search-feature requirements still need full validation.'));
+      }
+      const entityDetails=el('details');entityDetails.append(el('summary','JSON-LD entities ('+schema.entities.length+')'));
+      for(const [i,entity]of schema.entities.entries()){
+        const d=el('details');d.append(el('summary',(i+1)+'. '+(entity.types.join(', ')||'Untyped object')+(entity.name?' · '+entity.name:'')));
+        p.table(['Entity field','Observed'],[['@id',entity.id||'Not declared'],['Source','Block '+entity.block+' · '+entity.path],['Properties',entity.properties.join(', ')||'No non-keyword properties']],d);
+        d.append(el('pre',JSON.stringify(entity.value,null,2)));entityDetails.append(d);
+      }
+      if(schema.entities.length)output.append(entityDetails);
+      if(schema.splitDefinitions.length){const d=el('details');d.append(el('summary','IDs defined in multiple places ('+schema.splitDefinitions.length+')'));d.append(el('p','JSON-LD can split a definition across blocks or objects. These are not automatically duplicates or errors. This lightweight view merges local properties for display; compare the original blocks where values overlap.'));p.table(['@id','Definitions'],schema.splitDefinitions.map(v=>[v.id,v.definitions.map(d=>'Block '+d.block+' '+d.path).join(' | ')]),d);output.append(d);}
+      for(const [name,items]of [['Microdata',schema.microdata],['RDFa',schema.rdfa]])if(items.length){
+        const d=el('details');d.append(el('summary',name+' markup ('+items.length+')'));d.append(el('p','Observed attributes only. Property lists include nested elements. RDFa vocabulary/prefix inheritance, relationships and full field validation are outside this inventory.'));
+        p.table(['Item','Types','Identifier','Element','Properties (including nested)'],items.map(v=>[v.item,v.types.join(', ')||'Untyped',v.id||'—',v.element,v.properties.join(', ')||'—']),d);
+        for(const item of items){const raw=el('details');raw.append(el('summary','Raw '+name+' item '+item.item),el('pre',item.html));d.append(raw);}output.append(d);
+      }
+      if(schema.blocks.length){const raw=el('details');raw.append(el('summary','All original JSON-LD blocks'));for(const b of schema.blocks){const d=el('details');d.append(el('summary','Block '+b.block+(b.parseOK?'':' · parse issue')),el('pre',b.raw));raw.append(d);}output.append(raw);}
+      output.append(el('h3','Product · additional checks'));
+      if(!schema.products.length)output.append(el('p',microdata||rdfa?'Product/ProductGroup markup is present outside JSON-LD. Use the markup inventory above and a full validator to inspect its fields.':'No JSON-LD Product entities found. Product-specific fields are checked when present; they are not required for every page.'));
+      const groupCount=schema.entities.filter(e=>e.types.includes('ProductGroup')).length;
+      if(groupCount)output.append(el('p',groupCount+' JSON-LD ProductGroup entities are listed in the overall inventory. Individual Product variants get the additional field checks below.'));
       const productDetails=el('div');output.append(productDetails);
       for(const [i,product]of schema.products.entries()){
         const d=el('details');d.append(el('summary','Product '+(i+1)+': '+(scalar(product.name)||'(missing name)')));const offers=list(product.offers),rating=schema.resolve(product.aggregateRating),rows=[];
@@ -968,12 +1082,12 @@
         if(rating){const val=Number(rating.ratingValue),min=Number(rating.worstRating??1),max=Number(rating.bestRating??5),count=Number(rating.reviewCount??rating.ratingCount),valid=scalar(rating.ratingValue)!==''&&Number.isFinite(val)&&Number.isFinite(min)&&Number.isFinite(max)&&max>min&&val>=min&&val<=max;row('Aggregate rating',valid?'Observed':'Review',scalar(rating.ratingValue)+' on '+min+'–'+max+' scale');row('Rating/review count',Number.isInteger(count)&&count>0?'Observed':'Review',scalar(rating.reviewCount??rating.ratingCount)||'Missing.');}
         latest.productChecks.push({product:i+1,name:scalar(product.name),checks:rows});p.table(['Product field','Basic check','Value / note'],rows,d);productDetails.append(d);
       }
-      const rawDetails=el('details');rawDetails.append(el('summary','Product JSON-LD (resolved local @id definitions)'));rawDetails.append(el('pre',JSON.stringify(schema.products,null,2)));output.append(rawDetails);
+      if(schema.products.length){const rawDetails=el('details');rawDetails.append(el('summary','Product JSON-LD (resolved local @id definitions)'));rawDetails.append(el('pre',JSON.stringify(schema.products,null,2)));output.append(rawDetails);}
       output.append(el('h3','Illustrative search result'));
-      output.append(el('p','Approximation using this page’s metadata and the selected JSON-LD Product. Google may rewrite the title/description, choose another canonical, or show no rich result. Character counts are informational, not fixed limits. Select the actual product; related products may also be marked up.'));
+      output.append(el('p','Approximation using this page’s metadata'+(schema.products.length?' and the selected JSON-LD Product':'')+'. Google may rewrite the title/description, choose another canonical, or show no rich result. Character counts are informational, not fixed limits.'+(schema.products.length?' Select the actual product; related products may also be marked up.':'')));
       const previewControls=el('div');previewControls.className='tools';
       const picker=p.select(schema.products.length?schema.products.map((v,i)=>[String(i),'Product '+(i+1)+': '+(scalar(v.name)||'(unnamed)')]):[['','No JSON-LD Product available']]);picker.setAttribute('aria-label','Product for search preview');
-      const device=p.select([['desktop','Desktop width'],['mobile','Mobile width']]);device.setAttribute('aria-label','Preview width');previewControls.append(picker,device);
+      const device=p.select([['desktop','Desktop width'],['mobile','Mobile width']]);device.setAttribute('aria-label','Preview width');if(schema.products.length)previewControls.append(picker);previewControls.append(device);
       const preview=el('div');preview.className='serp';
       const website=schema.nodes.map(schema.resolve).find(n=>{
         if(!schema.hasType(n,'WebSite'))return false;
@@ -993,7 +1107,7 @@
       const previewTitle=el('div',title||'(No page title)'),previewDescription=el('div',description||'(No meta description. A search engine may select page text.)'),rich=el('div');
       previewTitle.className='title';previewDescription.className='description';rich.className='rich';preview.append(identity,previewTitle,previewDescription,rich);
       const loadImage=button('Load selected product thumbnail',()=>{const url=imageURL(currentProduct);if(!url){status.textContent='No usable image URL on this selected Product.';return;}const img=el('img');img.className='product-thumbnail';img.alt=scalar(currentProduct?.name)||'Product';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{img.remove();status.textContent='Thumbnail could not be loaded; it may be blocked by CSP or unavailable.';},{once:true});img.src=url;preview.querySelector('.product-thumbnail')?.remove();preview.insertBefore(img,previewTitle);});
-      previewControls.append(loadImage);output.append(previewControls,preview);
+      if(schema.products.length)previewControls.append(loadImage);output.append(previewControls,preview);
       function renderPreview(){
         currentProduct=schema.products[Number(picker.value)]||null;preview.querySelector('.product-thumbnail')?.remove();preview.className='serp'+(device.value==='mobile'?' mobile':'');rich.replaceChildren();loadImage.disabled=!imageURL(currentProduct);
         const offers=list(currentProduct?.offers),info=offers.map(offerInfo).find(f=>f.priceOK&&f.currencyOK);

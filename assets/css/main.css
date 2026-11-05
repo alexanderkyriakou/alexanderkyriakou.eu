@@ -528,7 +528,7 @@ figcaption {
   font-size: 1.3rem;
   font-weight: 500;
   line-height: 1.5;
-  margin-right: 150px;
+  padding-right: 150px;
   font-style: italic;
   text-align: left;
   color: #3e4353;
@@ -549,32 +549,33 @@ figcaption {
   display: flex;
   flex-direction: row;
   padding-top: 15px;
+  padding-right: 8px;
 }
 
 .footer .f-socials a {
   width: 44px;
   height: 44px;
-  fill: #3e4353;
+  color: #3e4353;
+  fill: currentColor;
 }
 
 .f-socials svg {
-  width: 1.7rem;
-  height: 1.7rem;
+  width: 1.6rem;
+  height: 1.6rem;
 }
-
+/* stroke="currentColor" */
 .f-socials a {
-  border-radius: 50%;
+  border-radius: 15px;
   cursor: pointer;
   display: flex;
-  background: #ebeef5;
   justify-content: center;
   align-items: center;
-  transition: all 0.3s linear;
+  transition: background 0.3s linear, color 0.3s linear;
 }
 
 .f-socials li a:hover {
-  background: #555;
-  fill:#eee;
+  background: #eee;
+  color: black;
 }
 
 .f-socials li + li {
