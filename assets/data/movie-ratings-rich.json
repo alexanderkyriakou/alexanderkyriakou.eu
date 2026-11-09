@@ -1,5 +1,55 @@
 [
   {
+    "id": "tt0348333",
+    "title": "Waiting...",
+    "type": "movie",
+    "releaseDate": "2005-10-07",
+    "year": 2005,
+    "runtime": 94,
+    "genres": [
+     "Raunchy Comedy",
+     "Comedy"
+    ],
+    "imdbRating": 6.7,
+    "myRating": 9,
+    "url": "https://www.imdb.com/title/tt0348333",
+    "poster": "/kYg1kgpqYNY4oItS7MKo6tXez0H.jpg",
+    "overview": "Young employees at ShenaniganZ restaurant collectively stave off boredom and adulthood with their antics."
+  },
+  {
+    "id": "tt7526136",
+    "title": "Heart of the Beast",
+    "type": "movie",
+    "releaseDate": "2026-09-24",
+    "year": 2026,
+    "runtime": 101,
+    "genres": [
+     "Survival"
+    ],
+    "imdbRating": 7.1,
+    "myRating": 8,
+    "url": "https://www.imdb.com/title/tt7526136",
+    "poster": "/6sYemVUn79UPKz1ZsSG6kPU4RVy.jpg",
+    "overview": "After a harrowing plane crash, Special Forces veteran James Belmont and his combat dog, Odin, find themselves stranded deep in the Alaskan wilderness. Together, they are forced into a brutal fight for survival against the elements."
+  },
+  {
+    "id": "tt38589433",
+    "title": "Never After Dark",
+    "type": "movie",
+    "releaseDate": "2026-06-05",
+    "year": 2026,
+    "runtime": 104,
+    "genres": [
+     "Japanese",
+     "Horror"
+    ],
+    "imdbRating": 6.6,
+    "myRating": 9,
+    "url": "https://www.imdb.com/title/tt38589433",
+    "poster": "/mkqCzIeHgnTSyF1fW6Pkq8kfdJE.jpg",
+    "overview": "A traveling psychic who helps lost souls cross over encounters a powerful entity at a remote house. While investigating its origins, she uncovers dark secrets and faces a deadly threat from an unexpected source."
+  },
+  {
     "id": "tt36841161",
     "title": "Shaun the Sheep: The Beast of Mossy Bottom",
     "type": "movie",

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>How to Verify Googlebot, Bingbot and AI Crawler Identity</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Learn how to verify Googlebot, Bingbot and AI crawler claims using published IP ranges, CIDR matching and DNS, with practical examples and log checks.">
+  <meta name="author" content="Alexander Kyriakou">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/verify-crawler-identity">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/TODO.md" title="Verify Crawler Identity">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="How to Verify Googlebot, Bingbot and AI Crawler Identity"/>
+  <meta property="og:description" content="Learn how to verify Googlebot, Bingbot and AI crawler claims using published IP ranges, CIDR matching and DNS, with practical examples and log checks."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/verify-crawler-identity"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/verify-crawler-identity/og/training-sailboats-sunset-athens.jpg"/>
+  <meta property="og:image:alt" content="Photo by Alexander Kyriakou (2025) capturing a golden sunset over the sea at Kallithea Marina, Athens. A small motorboat leads a single-file line of small training sailboats across shimmering water illuminated by bright sunlight reflecting off the calm sea, framed by a large multi-deck yacht on the harbor horizon">
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Verify Googlebot, Bingbot and AI Crawler Identity">
+  <meta name="twitter:description" content="Learn how to verify Googlebot, Bingbot and AI crawler claims using published IP ranges, CIDR matching and DNS, with practical examples and log checks.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/verify-crawler-identity/og/training-sailboats-sunset-athens.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/verify-crawler-identity",
+        "name": "Is that really Googlebot? How to verify web crawler identity",
+        "description": "Check crawler identity using published IP ranges, CIDR matching and reverse and forward DNS. Understand proxy logs, uncertain results and access decisions.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-09",
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#article"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#image-hero"
+        }
+      },
+      {
+        "@type": "Article",
+        "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#article",
+        "url": "https://alexanderkyriakou.eu/ak/verify-crawler-identity",
+        "headline": "Is that really Googlebot? How to verify web crawler identity",
+        "alternativeHeadline": "Checking crawler claims, tracing source IP, and deciding what evidence is enough to act on.",
+        "description": "A practical explanation of crawler verification through published IPv4 and IPv6 ranges, CIDR matching and forward-confirmed reverse DNS. Covers Google, Bing, OpenAI and other operators, trusted proxies, log analysis, allowlisting and signed requests.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-09",
+        "dateModified": "2026-11-09",
+        "isAccessibleForFree": true,
+        "author": {
+          "@type": "Person",
+          "@id": "https://alexanderkyriakou.eu/#person",
+          "name": "Alexander Kyriakou",
+          "url": "https://alexanderkyriakou.eu/"
+        },
+        "publisher": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#webpage"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#webpage"
+        },
+        "articleSection": [
+          "SEO",
+          "Data"
+        ],
+        "keywords": [
+          "crawler identity verification",
+          "Googlebot verification",
+          "user-agent spoofing",
+          "published crawler IP ranges",
+          "CIDR matching",
+          "forward-confirmed reverse DNS",
+          "trusted proxies",
+          "crawler allowlisting",
+          "HTTP Message Signatures"
+        ],
+        "mentions": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://alexanderkyriakou.eu/ak/crawler-ip-verifier#application",
+            "name": "Crawler IP Verifier",
+            "url": "https://alexanderkyriakou.eu/ak/crawler-ip-verifier"
+          },
+          {
+            "@type": "WebApplication",
+            "name": "Robots.txt Checker",
+            "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker"
+          }
+        ],
+        "image": [
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#image-hero"
+          },
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/crawler-ip-verifier#image-client-ip"
+          },
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/crawler-ip-verifier#image-dns-verification"
+          }
+        ],
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#image-hero",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/verify-crawler-identity/training-sailboats-sunset-athens.webp",
+        "caption": "Well-behaved sloops. A photograph of small sailboats during a sunset at Kallithea Marina, Athens, Greece.",
+        "encodingFormat": "image/jpeg",
+        "width": 2600,
+        "height": 1345,
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2025,
+        "copyrightNotice": "© Alexander Kyriakou · Athens · 2025",
+        "creditText": "Alexander Kyriakou",
+        "license": "https://alexanderkyriakou.eu/licensing",
+        "acquireLicensePage": "https://alexanderkyriakou.eu/licensing",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/verify-crawler-identity#article"
+        }
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/crawler-ip-verifier#image-client-ip",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/crawler-ip-verifier/client-ip-behind-a-proxy.webp",
+        "name": "Identifying the client IP behind a proxy",
+        "caption": "Checking the proxy's address answers a different question from checking its client.",
+        "encodingFormat": "image/webp",
+        "width": 910,
+        "height": 612,
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "copyrightNotice": "© 2026 Alexander Kyriakou",
+        "creditText": "Alexander Kyriakou",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "acquireLicensePage": "https://alexanderkyriakou.eu/assets/licenses/crawler-ip-verifier/crawler-ip-verifier-LICENSE.md"
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/crawler-ip-verifier#image-dns-verification",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/crawler-ip-verifier/dns-verification.webp",
+        "name": "Crawler DNS verification",
+        "caption": "The hostname's domain and the return address both matter.",
+        "encodingFormat": "image/webp",
+        "width": 900,
+        "height": 719,
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "copyrightNotice": "© 2026 Alexander Kyriakou",
+        "creditText": "Alexander Kyriakou",
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "acquireLicensePage": "https://alexanderkyriakou.eu/assets/licenses/crawler-ip-verifier/crawler-ip-verifier-LICENSE.md"
+      }
+    ]
+  }
+  </script>
+
+<style>
+/* empty if no custom styling */
+
+/* custom positioning of the article hero image on mobile, if needed
+ @media (max-width: 768px) {
+  .article-hero:not(.article-hero-portrait) {
+    --article-image-position: 10% 40%; /* width and height 
+  }
+} */
+
+/* Summary */
+.identity-summary { padding: 10px; border: 0; margin-bottom: 20px; border-radius: 15px; background: linear-gradient(125deg, #faf2df, #f5eddf 65%, #efeee4); color: #403b32; }
+.identity-summary a { color: #795a2b; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+/* Code */
+pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+pre code { font: inherit; padding: 0; border-radius: 0; background: none; }
+.identity-code-wrap { position: relative; min-width: 0; margin: 0 0 20px; }
+.identity-code-copy { position: absolute; top: 8px; right: 8px; z-index: 1; appearance: none; display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff; color: #555; cursor: pointer; }
+.identity-code-copy:hover { border-color: #a5adb5; background: #f1f5f9; }
+.identity-code-copy:focus-visible { outline: 2px solid #36c; outline-offset: 3px; }
+.identity-code-copy:disabled { cursor: progress; }
+.identity-code-copy .ico, .identity-code-copy .done { grid-area: 1 / 1; display: grid; place-items: center; }
+.identity-code-copy .ico { opacity: 1; }
+.identity-code-copy .done { opacity: 0; }
+.identity-code-copy.copied .ico { opacity: 0; }
+.identity-code-copy.copied .done { opacity: 1; }
+.identity-code-copy .ico svg { width: 17px; height: 17px; }
+.identity-code-copy .done svg { width: 24px; height: 24px; }
+
+/* Tables */
+.identity-table-wrap { max-width: 100%; overflow-x: auto; }
+.identity-table-wrap:focus-visible { outline: 2px solid #36c; outline-offset: 3px; }
+.container table { font-family: 'Commissioner', system-ui, sans-serif; width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 1rem; line-height: 1.5; }
+.container table caption { caption-side: top; text-align: center; font-size: 1.3rem; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
+.container table thead { border-bottom: 1px solid #aaa; }
+.container table thead th { text-align: left; padding: 12px 8px; font-weight: 600; color: #555; }
+.container table tbody tr { text-align: left; border-bottom: 1px solid #e5e5e5; }
+.container table tbody tr:last-child { border-bottom: none; }
+.container table tbody th, .container table tbody td { padding: 8px; vertical-align: middle; }
+.container table tbody th { width: 25%; font-weight: 500; color: #444; }
+
+/* Lists and figures */
+.container ul, .container ol { font-size: 1.2rem; padding-left: 20px; line-height: 1.5; }
+.container figure { margin-bottom: 20px; text-align: center; }
+.container figure img { display: block; width: 100%; height: auto; border-radius: 15px; }
+.container figcaption { color: #555; }
+.container figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4px; }
+
+/* Checklist */
+.identity-checklist fieldset { min-width: 0; border: 0; padding: 0; margin: 0; }
+.identity-check-row { position: relative; display: grid; grid-template-columns: 30px minmax(0, 1fr); align-items: center; column-gap: 15px; min-height: 40px; padding: 12px 0; border-bottom: 1px solid #e7e9eb; cursor: pointer; font-size: 1.15rem; line-height: 1.5; }
+.identity-check-row input { appearance: none; grid-column: 1; grid-row: 1; align-self: center; justify-self: center; box-sizing: border-box; width: 28px; height: 28px; margin: 0; border: 1.5px solid #727b80; border-radius: 50%; background: none; cursor: pointer; }
+.identity-check-row input:checked { border-color: #008040; }
+.identity-check-row input:focus-visible { outline: 2px solid #36c; outline-offset: 4px; }
+.identity-check-row svg { grid-column: 1; grid-row: 1; align-self: center; justify-self: center; width: 24px; height: 24px; margin: 0; opacity: 0; pointer-events: none; }
+.identity-check-row input:checked ~ svg { opacity: 1; }
+.identity-check-row .identity-check-text { grid-column: 2; grid-row: 1; color: #222; }
+.identity-check-row input:checked ~ .identity-check-text { opacity: .7; }
+.identity-checklist-footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 20px; margin: 15px 0 20px; }
+.identity-checklist-footer p { margin: 0; color: #555; font-size: 1rem; }
+.identity-checklist #checklist-reset { appearance: none; min-height: 0; border: 0; border-radius: 0; padding: 5px; margin: -5px -5px -5px auto; background: none; color: #555; font: inherit; font-size: 0.9rem; text-decoration: none; cursor: pointer; }
+.identity-checklist #checklist-reset:focus-visible { outline: 2px solid #36c; outline-offset: 3px; }
+.identity-checklist [hidden] { display: none; }
+.identity-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+</style>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+        <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+        <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<main>
+<article class="article-page">
+  <header class="article-hero">
+    <div class="article-heading">
+      <h1 class="article-title">Is that really Googlebot? How to verify web crawler identity</h1>
+      <p class="article-subheading">Checking crawler claims, tracing source IP, and deciding what evidence is enough to act on.</p>
+    </div>
+    <figure class="article-figure">
+      <div class="article-media">
+        <img class="article-image" src="/assets/images/thoughts/verify-crawler-identity/training-sailboats-sunset-athens.webp" width="2600" height="1345" fetchpriority="high" alt="Photo by Alexander Kyriakou (2025) capturing a golden sunset over the sea at Kallithea Marina, Athens. A small motorboat leads a single-file line of small training sailboats across shimmering water illuminated by bright sunlight reflecting off the calm sea, framed by a large multi-deck yacht on the harbor horizon">
+        <span class="article-halo">
+          <span class="article-halo-fade">
+            <img class="article-halo-image" src="/assets/images/thoughts/verify-crawler-identity/training-sailboats-sunset-athens.webp" width="2600" height="1345" alt="" decoding="async">
+          </span>
+        </span>
+      </div>
+      <figcaption class="article-caption">Well-behaved sloops.
+        <span class="article-credit">© Alexander Kyriakou · Athens · 2025</span>
+      </figcaption>
+    </figure>
+  </header>
+  <div class="container toc">
+  <!-- floating toc -->
+  <aside id="no-print" class="page-index">
+    <details class="page-index-mobile">
+      <summary title="Table of contents" aria-label="Table of contents">☰</summary>
+      <nav aria-label="Page contents">
+        <a href="#borrowed-name">Borrowed crawler name</a>
+        <a href="#client-ip">Find the client IP</a>
+        <a href="#published-ranges">IP ranges & CIDR</a>
+        <a href="#dns-verification">DNS verification</a>
+        <a href="#operators">Operator differences</a>
+        <a href="#unresolved">Uncertain results</a>
+        <a href="#request-context">Read the request context</a>
+        <a href="#access-decisions">Deciding what to allow</a>
+        <a href="#signed-requests">Signed requests</a>
+        <a href="#checklist-title">Investigation checklist</a>
+      </nav>
+    </details>
+
+    <nav class="page-index-desktop" aria-label="Page contents">
+      <a href="#borrowed-name">Borrowed crawler name</a>
+      <a href="#client-ip">Find the client IP</a>
+      <a href="#published-ranges">IP ranges & CIDR</a>
+      <a href="#dns-verification">DNS verification</a>
+      <a href="#operators">Operator differences</a>
+      <a href="#unresolved">Uncertain results</a>
+      <a href="#request-context">Read the request context</a>
+      <a href="#access-decisions">Deciding what to allow</a>
+      <a href="#signed-requests">Signed requests</a>
+      <a href="#checklist-title">Investigation checklist</a>
+    </nav>
+  </aside>
+<!-- End of floating ToC -->
+
+<section class="identity-summary">
+  <h2>The short answer</h2>
+  <p>A request calling itself Googlebot hasn't proved where it came from. Start with the client IP in your logs, check it against the operator's published crawler ranges, and use reverse and forward DNS where the operator documents that method. Then examine what the client requested and what your website returned. Identifying the infrastructure and deciding whether to allow access are separate steps.</p>
+  <p style="margin-bottom: 0;">If you already have an IP address or a log export, my <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier" target="_blank">Crawler IP Verifier</a> can help you examine the range evidence and run supported DNS checks.</p>
+</section>
+
+<section>
+  <h2 id="borrowed-name">A crawler name is easy to borrow</h2>
+  <p>There's a slightly uncomfortable moment when a request in your logs stops being “Googlebot visited this page” and becomes “something wrote Googlebot in a header.” The request hasn't changed. Your confidence in what you're looking at has.</p>
+  <p>Working on my robots.txt checker and its companion IP verifier brought me back to that distinction repeatedly. We spend time deciding which crawlers should visit, writing their rules and explaining those decisions to others. Then the first piece of identification we encounter is text that the requester chose for itself. A rather fragile starting point.</p>
+  <p>The HTTP <code>User-agent</code> field describes the requesting software through product names, versions and comments; <a href="https://www.rfc-editor.org/rfc/rfc9110.html#section-10.1.5" target="_blank" rel="noopener external">HTTP's specification</a> defines that syntax. It doesn't turn the field into a credential. A copied version number, browser description or documentation URL adds no independent evidence of who sent it.</p>
+  <p>On a site you control, you can send Googlebot's name from your own machine:</p>
+
+  <pre>curl --user-agent 'Googlebot/2.1 (+http://www.google.com/bot.html)' https://yourdomain.eu/</pre>
+
+  <p>That is an ordinary <a href="https://curl.se/docs/manpage.html#-A" target="_blank" rel="noopener external">curl option</a>. It changes the user-agent text, without turning curl into Googlebot or reproducing how Google fetches and renders your page. If changing the name gets you a different response, you've learned something about how the website handles that header.</p>
+  <p>Nor does changing a header change the source IP of an established connection. The server still sees the connection's source address, subject to any proxies in the path. HTTPS protects the connection; it doesn't verify the name you've put in the user-agent.</p>
+  <p>Even an honest user-agent can be copied. My own robots.txt fetcher declares <code>RobotsTxtChecker/1.0</code>, with a link explaining what it does. That's useful information for someone reading their logs, but it is still text supplied by the sender. The <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier#guide-tool-user-agent">fetcher example</a> shows the complete value.</p>
+</section>
+
+<section>
+  <h2 id="client-ip">Before checking an IP, establish where it came from</h2>
+  <p>Start one step earlier than the lookup. Where did the address in your report come from?</p>
+  <p>For a direct connection, the web server sees its network peer. Put a CDN or reverse proxy in front, and the origin's peer may be that intermediary. Checking that address against Googlebot ranges would tell you about the proxy while leaving the original requester unexamined.</p>
+  <p><a href="https://developers.cloudflare.com/support/troubleshooting/restoring-visitor-ips/restoring-original-visitor-ips/" target="_blank" rel="noopener external">Cloudflare documents this explicitly</a>: its proxying changes which address an origin normally records, and the original client address can be restored through the appropriate server configuration.</p>
+
+  <figure>
+    <img src="https://alexanderkyriakou.eu/assets/images/thoughts/crawler-ip-verifier/client-ip-behind-a-proxy.webp" width="910" height="612" loading="lazy" decoding="async" alt="A client connects through a proxy to an origin; the address recorded depends on the observation point and trusted forwarding configuration.">
+    <figcaption>Checking the proxy's address answers a different question from checking its client. Diagram from the <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier#guide-client-ip" target="_blank">Crawler IP Verifier guide</a>. <small>© 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license" target="_blank">CC BY 4.0</a></small></figcaption>
+  </figure>
+
+  <p>A header named <code>X-Forwarded-For</code> isn't trustworthy just because it has a familiar name. First check that the connection to your origin came through a proxy you trust. Otherwise, a visitor could connect directly and supply their own header.</p>
+  <p>With a configured list of trusted proxies, read the complete address chain from right to left, skipping addresses belonging to those proxies. The first address outside that list is the one to use for security decisions. Stop there: addresses further left may have been supplied by that untrusted client or proxy. Your server or framework should handle this through its trusted-proxy configuration; nginx's <a href="https://nginx.org/en/docs/http/ngx_http_realip_module.html#real_ip_recursive" target="_blank" rel="noopener external">recursive client-IP handling</a> follows this approach. The resulting address may still belong to an upstream proxy rather than the original visitor.</p>
+  <p>For Cloudflare, <code>CF-Connecting-IP</code> is useful, but <a href="https://developers.cloudflare.com/fundamentals/reference/http-headers/" target="_blank" rel="noopener external">Worker subrequests and Pseudo IPv4 need extra care</a>. When Pseudo IPv4 overwrites headers, the original IPv6 address is retained in <code>CF-Connecting-IPv6</code>. A convenient column name isn't a substitute for checking the request path.</p>
+  <p>There is another proxy problem on the other side. Your CDN may correctly report the address connecting to it, while that client is itself a proxy used by somebody else. Restoring the client field doesn't reveal the person or software behind every upstream intermediary. Shared cloud hosting, NAT and rotating proxies are reasons to describe what you established carefully.</p>
+  <p>For an SEO, this means asking for the right export. For a developer or DevOps engineer, it means checking the logging and proxy configuration. For a product owner, it means not treating a chart labelled “Googlebot traffic” as a settled fact before somebody has checked its definition.</p>
+</section>
+
+<section>
+  <h2 id="published-ranges">What published IP ranges establish</h2>
+  <p>Some operators publish machine-readable lists of addresses used by their crawlers. You obtain the appropriate list, parse the client address and test whether it belongs to one of the listed networks. The result should identify the source and the matching prefix, not merely display a reassuring green label.</p>
+
+  <h3 id="cidr-matching">A CIDR is an address range, not a text pattern</h3>
+  <p>In IPv4, <code>192.0.2.0/24</code> fixes the first 24 of the address's 32 bits. It contains 256 addresses, from <code>192.0.2.0</code> through <code>192.0.2.255</code>. <code>192.0.2.128/25</code> fixes one more bit and covers only the upper half: <code>192.0.2.128</code> through <code>192.0.2.255</code>. These are documentation addresses, not crawler infrastructure.</p>
+  <p>That extra bit is why matching the first three decimal groups is insufficient. CIDR matching compares the address bits selected by the prefix length. The <a href="https://www.rfc-editor.org/rfc/rfc4632.html" target="_blank" rel="noopener external">IPv4 CIDR specification</a> supplies the underlying notation.</p>
+  <p>IPv6 applies prefixes to 128-bit addresses. <code>2001:db8::/32</code> is another documentation example. The same IPv6 address can be written in several valid ways, so compare parsed addresses rather than their spelling. See the <a href="https://www.rfc-editor.org/rfc/rfc4291.html" target="_blank" rel="noopener external">IPv6 addressing specification</a>. A feed containing only IPv4 prefixes doesn't establish IPv6 coverage.</p>
+
+  <h3 id="range-example">A small check you can inspect</h3>
+  <p>You can run the code below in the accompanying <a href="https://colab.research.google.com/drive/1TWdxssCkDFfFWKWB3T-G-c5TW5WL_h2E" target="_blank" rel="noopener external nofollow">Colab notebook</a>. It uses Python's <a href="https://docs.python.org/3/library/ipaddress.html" target="_blank" rel="noopener external">ipaddress module</a> to check an IPv4 or IPv6 address against Google's published common-crawler ranges. The default address comes from Google's verification documentation.</p>
+
+<pre class="identity-code">
+import ipaddress
+import json
+import urllib.request
+from datetime import datetime, timezone
+
+source = (
+    "https://developers.google.com/static/crawling/"
+    "ipranges/common-crawlers.json"
+)
+address = ipaddress.ip_address(ip_to_check.strip())
+with urllib.request.urlopen(source, timeout=15) as response:
+    snapshot = response.read()
+data = json.loads(snapshot)
+prefixes = data["prefixes"]
+if not isinstance(prefixes, list) or not prefixes:
+    raise ValueError("No usable prefix list")
+
+matches = []
+for entry in prefixes:
+    value = entry.get("ipv4Prefix") or entry.get("ipv6Prefix")
+    network = ipaddress.ip_network(value, strict=True)
+    if address.version == network.version and address in network:
+        matches.append(str(network))
+
+print("IP address:", address)
+print("Source:", source)
+print("Checked:", datetime.now(timezone.utc).isoformat())
+print("Publisher timestamp:", data.get("creationTime", "not supplied"))
+print("Matching prefixes:", ", ".join(matches) or "none in this snapshot")
+</pre>
+
+  <p>The example stops if it can't retrieve or process the published ranges, so a failed check isn't reported as “no match”. For a code-free check, add your IP addresses, preferably with their full user-agent headers, to the <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier" target="_blank">Crawler IP Verifier</a> and run an analysis.</p>
+
+  <figure>
+    <img src="\assets\images\thoughts\verify-crawler-identity\crawler-ip-verifier-results-screenshot.webp" width="1429" height="1315" loading="lazy" alt="Screenshot of the Crawler IP Verifier results page, displaying the crawler claim, published provider, finding and http status for selected IP addresses">
+    <figcaption>Crawler IP addresses matched against the operators' published ranges.</figcaption>
+  </figure>
+
+  <h3 id="range-scope">Check the crawler's ranges, not just who owns the IP</h3>
+  <p>A request can come from Google's network without coming from Googlebot. Someone renting a server on Google Cloud could send it. Finding “Google” in an IP ownership lookup therefore isn't enough: compare the address with the ranges Google specifically publishes for its crawlers.</p>
+  <p>Check which crawlers the list covers, too. Some operators publish a separate list for each bot; others publish one list shared by several bots. A match against a shared list can support “this came from the operator's published infrastructure” without confirming the particular bot named in the user-agent.</p>
+  <p>IP ranges can change. If you're investigating a request from three months ago, today's list cannot prove which ranges the crawler used then. Keep a copy of the list and the date of your check so you can explain which evidence supported your conclusion.</p>
+</section>
+
+<section>
+  <h2 id="dns-verification">Check the hostname, then check its IP</h2>
+  <p>DNS verification initially confused me a bit. If an IP returns a Googlebot hostname, isn't that enough? The problem is that a reverse DNS record can name a domain without proving that the domain points back to that IP. That's why the check needs both directions.</p>
+  <p>A <strong>reverse lookup</strong> starts with an IP address and asks for its hostname through a PTR record. A <strong>forward lookup</strong> starts with that hostname and asks for its IP addresses: A records for IPv4, or AAAA records for IPv6. These records are defined in the <a href="https://www.rfc-editor.org/rfc/rfc1035.html" target="_blank" rel="noopener external">DNS specification</a> and its <a href="https://www.rfc-editor.org/rfc/rfc3596.html" target="_blank" rel="noopener external">IPv6 extension</a>.</p>
+
+  <p>To verify a crawler using DNS, follow three steps:</p>
+  <ol>
+    <li>Look up the client IP to find its hostname.</li>
+    <li>Check that the hostname belongs to a domain the crawler operator tells you to expect.</li>
+    <li>Look up that hostname and check that its returned addresses include the original IP.</li>
+  </ol>
+
+  <p>The reverse and forward lookups together are called <strong>forward-confirmed reverse DNS, or FCrDNS</strong>. The domain check matters just as much: a hostname on somebody else's domain can resolve back correctly without having any connection to Googlebot.</p>
+
+  <h3 id="dns-example">Checking Google's documented example</h3>
+  <p><a href="https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests" target="_blank" rel="noopener external">Google's verification guide</a> uses <code>66.249.66.1</code> as an example. Its reverse lookup returns <code>crawl-66-249-66-1.googlebot.com</code>, and the forward lookup returns the original IP.</p>
+  <p>On macOS or Linux, with <code>host</code> available, start with the reverse lookup:</p>
+
+  <pre>host 66.249.66.1</pre>
+
+  <p>Check the returned hostname. In Google's example, it ends in <code>.googlebot.com</code>. Then look up that hostname's IPv4 addresses:</p>
+
+  <pre>host -t A crawl-66-249-66-1.googlebot.com</pre>
+
+  <p>The returned addresses should include <code>66.249.66.1</code>. When checking another IP, use the hostname your own reverse lookup returned. The values above illustrate Google's documented example; live DNS answers can change.</p>
+  <p>On Windows, the equivalent commands use <code>nslookup</code>:</p>
+
+<pre>
+nslookup 66.249.66.1
+nslookup -type=A crawl-66-249-66-1.googlebot.com</pre>
+
+  <p>The initial <code>Server</code> and <code>Address</code> lines identify the DNS resolver answering your query. Look below those for the hostname and address returned by the lookup.</p>
+  <p>For an IPv6 address, check the hostname's AAAA records instead: use <code>host -t AAAA</code> or <code>nslookup -type=AAAA</code>. You don't need both record types to pass: check for the original address in the relevant answers.</p>
+  <p>Finally, read the whole hostname. <code>crawler.googlebot.com.example.net</code> belongs under <code>example.net</code>, not <code>googlebot.com</code>. Likewise, <code>notgooglebot.com</code> is a different domain. Finding the word “googlebot” somewhere in a hostname isn't the domain check.</p>
+
+  <figure>
+    <img src="https://alexanderkyriakou.eu/assets/images/thoughts/crawler-ip-verifier/dns-verification.webp" width="900" height="719" loading="lazy" decoding="async" alt="DNS verification checks the reverse hostname, its documented provider domain and forward resolution back to the submitted IP.">
+    <figcaption>The hostname's domain and the return address both matter. Diagram from the <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier#guide-dns">Crawler IP Verifier guide</a>. <small>© 2026 Alexander Kyriakou · <a href="https://creativecommons.org/licenses/by/4.0/" rel="license" target="_blank">CC BY 4.0</a></small></figcaption>
+  </figure>
+
+  <h3 id="dns-confidence">What the DNS check tells you</h3>
+  <p>If the IP resolves to a hostname under the operator's documented domain, and that hostname resolves back to the same IP, it passes the operator's DNS verification procedure. That supports identifying the address with the operator. You still need to examine its requests before deciding what access to allow.</p>
+  <p>An unsuccessful check needs a more specific explanation. A timeout means the lookup couldn't finish. No PTR record means it returned no hostname to check. A hostname that doesn't resolve back to the original IP fails forward confirmation. These outcomes shouldn't all be reported as “fake crawler”. Also, checking an old log entry today tells you about today's DNS records, not necessarily those in place when the request happened.</p>
+  <p>Not every operator offers DNS verification. If it publishes crawler IP ranges but no hostname-checking instructions, use those ranges. Don't invent an expected hostname and reject a request because it doesn't match.</p>
+
+  <figure>
+      <img src="\assets\images\thoughts\verify-crawler-identity\nslookup-results.webp" width="997" height="407" loading="lazy" alt="Windows nslookup results showing reverse and forward DNS lookups linking 34.83.129.165 with 165.129.83.34.bc.googleusercontent.com.">
+    <figcaption>The IP resolves to a Google Cloud hostname, and that hostname resolves back to the original IP.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2 id="operators">Different operators publish different evidence</h2>
+  <p>There isn't one crawler-verification recipe with a few brand names swapped in. Start with the operator's documentation, and check which client or infrastructure category it actually covers.</p>
+
+    <figure>
+    <table style="margin-bottom: 10px;">
+      <caption id="operator-table-caption">Published verification routes</caption>
+      <thead><tr><th scope="col">Operator</th><th scope="col">Public evidence</th><th scope="col">What needs care</th></tr></thead>
+      <tbody>
+        <tr><th style="width: 15%" scope="row"><a href="https://developers.google.com/crawling/docs/crawlers-fetchers/verify-google-requests" target="_blank" rel="noopener external">Google</a></th><td>Category-specific range feeds and documented reverse/forward DNS.</td><td>Common crawlers, special crawlers and user-triggered traffic have different scopes. A Google-hosted customer fetcher is not automatically Googlebot.</td></tr>
+        <tr><th style="width: 15%" scope="row"><a href="https://www.bing.com/webmasters/help/how-to-verify-bingbot-3905dc26" target="_blank" rel="noopener external">Bing</a></th><td><a href="https://www.bing.com/toolbox/bingbot.json" target="_blank" rel="noopener external">Bingbot ranges</a>, forward-confirmed hostnames beneath <code>search.msn.com</code>, and Microsoft's <a href="https://www.bing.com/toolbox/verifybingbot" target="_blank" rel="noopener external">verification tool</a>.</td><td>Microsoft recommends refreshing the published list daily.</td></tr>
+        <tr><th style="width: 15%" scope="row"><a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener external">OpenAI</a></th><td>Separate feeds for <a href="https://openai.com/gptbot.json" target="_blank" rel="noopener external">GPTBot</a>, <a href="https://openai.com/searchbot.json" target="_blank" rel="noopener external">OAI-SearchBot</a>, <a href="https://openai.com/chatgpt-user.json" target="_blank" rel="noopener external">ChatGPT-User</a> and <a href="https://openai.com/adsbot.json" target="_blank" rel="noopener external">OAI-AdsBot</a>.</td><td>Training-related collection, search, user actions and ad validation are different purposes. The crawler documentation does not prescribe a provider-specific FCrDNS test.</td></tr>
+        <tr><th style="width: 15%" scope="row"><a href="https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler" target="_blank" rel="noopener external">Anthropic</a></th><td>A public <a href="https://claude.com/crawling/bots.json" target="_blank" rel="noopener external">crawler IP list</a>.</td><td>Older claims that no ranges are published are outdated. The shared list alone doesn't distinguish every Claude crawler identity or establish exhaustive coverage.</td></tr>
+        <tr><th style="width: 15%" scope="row"><a href="https://yandex.com/support/webmaster/en/robot-workings/check-yandex-robots" target="_blank" rel="noopener external nofollow">Yandex</a></th><td>Forward-confirmed hostnames beneath <code>yandex.ru</code>, <code>yandex.net</code> or <code>yandex.com</code>.</td><td>Yandex says its changing IP list is not disclosed. No published range list does not mean no documented verification method.</td></tr>
+      </tbody>
+    </table>
+    <figcaption>Documentation checked November 6, 2026</figcaption>
+    </figure>
+
+  <p>Google's common-crawler feed is currently named <code>common-crawlers.json</code>; use the link in its verification documentation rather than copying an old endpoint from somewhere else. The <a href="https://developers.google.com/crawling/docs/changelog" target="_blank" rel="noopener external">crawling documentation changelog</a> records the February 2026 move to the crawling IP-ranges directory and the March addition of user-triggered agent coverage.</p>
+  <p>For OpenAI, <code>ChatGPT-User</code> represents certain user-initiated actions and is not its automatic search crawler. OpenAI says robots.txt may not apply to those user actions. Applying one provider's rules to another provider's similarly named fetcher is an easy way to reach the wrong conclusion.</p>
+
+  <h3 id="no-public-method">When there is no public verification route</h3>
+  <p>Some operators don't publish crawler IP ranges or explain how to verify their hostnames. In those cases, the user-agent tells you who the client claims to be, but gives you no independent way to confirm it.</p>
+  <p>A self-hosted crawler can run from an office connection, a cloud server or a customer's network. Recognising the software's name doesn't tell you who is running it. For a crawl you've agreed to, you can arrange access using a known IP or a secret request header. For an unsolicited request, you may have to leave its identity unverified.</p>
+  <p>Don't treat every address belonging to a cloud provider as evidence of a particular crawler. Equally, an identity you can't verify isn't automatically abusive. Examine what they request and how they behave before deciding whether to allow them.</p>
+</section>
+
+<section>
+  <h2 id="unresolved">When the evidence doesn't settle the claim</h2>
+  <p>When verification doesn't give you a clear answer, record where it stopped. An address missing from a published list is a different finding from a list you couldn't download. The distinction matters when deciding what to do next.</p>
+
+    <table>
+      <caption id="outcome-table-caption">What each verification result tells you</caption>
+      <thead><tr><th scope="col">What you found</th><th scope="col">What it tells you</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">The IP matches the crawler's published ranges</th><td>The address is in the operator's list. Record the matching CIDR and check which crawlers that list covers.</td></tr>
+        <tr><th scope="row">The IP matches a list shared by several crawlers</th><td>The match supports identifying the operator, but doesn't tell you which of its crawlers sent the request.</td></tr>
+        <tr><th scope="row">The IP doesn't match any listed range</th><td>The address wasn't in the list you checked. Before questioning the claimed identity, confirm that the list is current and covers that crawler and its address type: IPv4 or IPv6.</td></tr>
+        <tr><th scope="row">The list couldn't be downloaded or processed</th><td>The check couldn't finish. Don't report this as an IP that was checked and found missing.</td></tr>
+        <tr><th scope="row">The hostname matches the documented domain and resolves back to the IP</th><td>The address passed the operator's documented DNS check when you looked it up.</td></tr>
+        <tr><th scope="row">The DNS check didn't verify the address</th><td>Record why: no PTR record, an unexpected hostname, no matching return address or a lookup error. These are different findings.</td></tr>
+      </tbody>
+    </table>
+  
+  <p>My verifier reports findings such as <em>Official infrastructure match</em>, <em>Unverified crawler claim</em> and <em>Could not verify</em>, based on the information it can check. The <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier#guide-results" target="_blank">finding explanations</a> describe what each result means.</p>
+  <p>If a request claims to be Googlebot but its IP and hostname don't support that claim, record what you checked and what didn't match. Other requests from the same address may help explain what's happening. These clues can give you reason to question the claim without telling you who actually sent the request.</p>
+  <p>You don't need to identify the sender before limiting unwanted traffic. If requests overload your search, filters or API, you can restrict them based on that behaviour.</p>
+</section>
+
+<section>
+  <h2 id="request-context">Put the request back into the logs</h2>
+  <p>An IP list lets you check published ranges, but leaves out what those addresses requested and how your website responded.</p>
+  <p>Retain the full user-agent, timestamp and timezone, hostname, method, path, response status and useful request identifiers. Where your infrastructure exposes them, keep edge and origin responses distinct. Record whether the export is sampled or aggregated. One IP is not one visitor, and one grouped result is not necessarily one request.</p>
+  <p>Cache hits may be served without reaching the origin. A firewall may stop a request before the application logs it. Absence from an origin log therefore needs to be read alongside the edge's observation point. Equally, a successful status code doesn't tell you whether the response was the intended page, a challenge or some other fallback. Inspect the relevant response evidence when diagnosing access.</p>
+  <p>For an SEO investigation, keep fetching separate from indexing and visibility. A verified crawler request can support “this infrastructure requested this URL”. It doesn't establish that the response was indexed, shown in an answer or used for training.</p>
+
+  <h3 id="supporting-case">One small example, rather than a universal verdict</h3>
+  <p>In the <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier#guide-googlebot-case" target="_blank">case documented on my verifier page</a>, an address sent six requests with a Googlebot header. At the October 24, 2026 assessment, the applicable current range source provided no match and the DNS lookup returned no PTR record. Other requests from the address used different user-agents and asked for plugin-related paths.</p>
+  <p>The missing PTR record was evidence against the Googlebot claim: Google's documented verification procedure expects a Googlebot address to resolve to one of its crawler hostnames. Combined with the absent range match and the requests for plugin-related paths, it gave me reason to restrict the traffic. None of that identified who actually sent it, though.</p>
+
+  <figure>
+      <img src="\assets\images\thoughts\verify-crawler-identity\crawler-ip-verifier-screenshot-fake-googlebot.webp" width="1297" height="972" loading="lazy" alt="Screenshot from the Crawler IP Verifier displaying Details for a selected IP address.">
+    <figcaption>“Googlebot” requested my non-existent <code style="font-size: 0.8rem;">web.config</code> file.</figcaption>
+  </figure>
+
+  <figure>
+      <img src="\assets\images\thoughts\verify-crawler-identity\crawler-ip-verifier-dns-lookup-result.webp" width="1864" height="598" loading="lazy" alt="Screenshot of a DNS lookup for two selected IP addresses, with one returning no PTR record and the other returning a Google Cloud hostname.">
+    <figcaption>After a quick DNS check, doesn't smell like Google.</figcaption>
+  </figure>
+
+  <p>Request patterns can justify action without proving attribution. Paths associated with a CMS you don't use, repeated expensive queries or sudden bursts deserve examination. A single unfamiliar path, a 404 or a missing robots.txt request in a short log window is not enough to settle the story. Crawlers can know stale links and cache policies; your observation window may also be incomplete.</p>
+  <p>Those copied names can also distort your traffic reports. In its <a href="https://www.cequence.ai/blog/ai-agent-impersonation" target="_blank" rel="noopener external nofollow">October 28, 2026 investigation</a>, Cequence described a scanner rotating through roughly 32 AI-bot identities while probing for credential files. That is Cequence's finding from the traffic it studied, not a measurement of the whole web. It illustrates how a user-agent-only “AI traffic” category can count an impersonating scanner as several recognised services.</p>
+</section>
+
+<section>
+  <h2 id="access-decisions">Deciding what to allow</h2>
+  <p>Identification and access are separate decisions. Once you've checked a crawler's identity, you still decide what it may fetch and how much traffic to accept. A recognised crawler can be unwanted on a particular path, while an audit you've agreed to may need an exception.</p>
+  <p>Robots.txt still has a useful job: communicating crawl preferences to clients that follow them. Its <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-3" target="_blank" rel="noopener external">specification explicitly separates those rules from access authorisation</a>. Publishing a restriction and making the server refuse a request are different actions. When cooperation fails, the preference file has no enforcement mechanism to fall back on.</p>
+  <p>My <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">Robots.txt Checker</a> helps test which rules apply to a URL for the crawler(s) you've selected. Use it to check your crawl rules, network evidence and logs to investigate the requester, and firewall or application controls to refuse or limit access.</p>
+
+  <figure>
+      <img src="\assets\images\thoughts\verify-crawler-identity\robots-txt-results-selected-top-user-agents.webp" width="1407" height="916" loading="lazy" alt="Robots.txt checker results for a URL, showing the selected user-agents and whether they are allowed or disallowed by the rules.">
+    <figcaption>Robots.txt ruling results for <a href="https://alexanderkyriakou.eu/robots.txt" target="_blank">my /robots.txt</a> against top selected user-agents, on November 9, 2026</figcaption>
+  </figure>
+
+  <h3 id="allowlisting">Allowlisting can be the right choice</h3>
+  <p>If your firewall or bot protection blocks a crawler you want to let through, an allowlist rule can make an exception. Be specific about what qualifies, where the exception applies and which checks it skips.</p>
+  <p>For a public crawler, use its documented verification method or your security provider's verified-bot classification, after checking what that classification means. Keep published IP lists updated and monitor failed refreshes. A rule that accepts the user-agent alone gives anyone who copies the name the same exception.</p>
+  <p>For an <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier#guide-own-crawl-blocked" target="_blank">SEO audit you've agreed to</a>, allow the expected source IPs or arrange a secret request header that your rule checks. That identifies an authorised crawl without asking the crawler to pretend to be Googlebot.</p>
+  <p>Treat a secret header like a password for that exception: someone who obtains it may be able to use it. Keep it out of public code and logs, limit the rule to the agreed hosts, paths and period, and revoke the credential when the crawl is finished.</p>
+  <p>Check what the exception actually bypasses. Cloudflare's <a href="https://developers.cloudflare.com/waf/custom-rules/skip/" target="_blank" rel="noopener external">Skip rules</a>, for example, let you select particular security checks. Allowing a crawler through bot protection shouldn't also grant access to private pages or remove the permissions required by your API.</p>
+  <p>Wanted traffic can still need rate limits. Fetching public articles is different from repeatedly running expensive catalogue filters or API queries. Apply the exception where it's needed, check that the wanted crawl works, and watch for unintended access elsewhere. Keep a way to reverse the change.</p>
+</section>
+
+<section>
+  <h2 id="signed-requests">Signed requests add another verification method</h2>
+  <p>IP ranges and DNS help you check where a request came from. A cryptographic signature lets you check whether the signed parts of a request match a signature made with a particular key. To identify the operator, you also need a trusted way to establish whose key it is.</p>
+  <p><a href="https://www.rfc-editor.org/rfc/rfc9421.html" target="_blank" rel="noopener external">HTTP Message Signatures, RFC 9421</a>, defines the signing mechanism. Web Bot Auth builds a bot-identification approach around signatures and key discovery; its work is still developing in the <a href="https://datatracker.ietf.org/wg/webbotauth/about/" target="_blank" rel="noopener external">IETF working group</a>.</p>
+  <p>As of this article's November 2026 review, <a href="https://developers.google.com/crawling/docs/crawlers-fetchers/web-bot-auth" target="_blank" rel="noopener external">Google documents an experimental implementation</a> for some AI-agent traffic and warns that not every request is signed. <a href="https://help.openai.com/en/articles/11845367-chatgpt-works-cloud-browser-allowlisting" target="_blank" rel="noopener external">OpenAI documents signed requests for ChatGPT Work's Cloud browser</a>. Neither statement means all Googlebot, GPTBot or ChatGPT-User requests carry those signatures.</p>
+  <p>A signature header still needs to be checked. The verifier must establish whose key it is, validate the signature against the required parts of the request, and apply the scheme's time and replay checks, which help prevent captured requests from being reused. Proxies that change signed parts of a request can affect that verification. A copied <code>Signature-Agent</code> value proves no more than a copied user-agent.</p>
+  <p>Check which requests the service says it signs before treating a missing signature as suspicious. A valid signature still doesn't give the sender permission to access every resource. My Crawler IP Verifier doesn't check message signatures; you need a separate implementation or infrastructure that supports them.</p>
+
+</section>
+
+  <p>A useful result is being able to explain what you checked and why you allowed or restricted the requests. Keep that evidence with your decision so you can revisit it when the traffic, published ranges or your own rules change. Where the sender's identity remains unknown, record that too.</p>
+
+<section class="identity-checklist" id="investigation-checklist">
+  <h2 id="checklist-title">A checklist for the next crawler investigation</h2>
+  <p id="checklist-help">Use this for one IP or a group of related requests. Tick each step after completing it. If the operator doesn't provide a particular verification method, note that in your investigation and move on.</p>
+  <fieldset aria-describedby="checklist-help">
+    <legend class="identity-sr-only">Investigation steps</legend>
+
+    <label class="identity-check-row" for="identity-step-1">
+      <input type="checkbox" id="identity-step-1" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">Check that the logged IP belongs to the client you're investigating. If a proxy supplied it, confirm the trusted-proxy settings.</span>
+    </label>
+
+    <label class="identity-check-row" for="identity-step-2">
+      <input type="checkbox" id="identity-step-2" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">Keep the original requests, including the full user-agent, requested URL, method, timestamp, timezone and response status.</span>
+    </label>
+
+    <label class="identity-check-row" for="identity-step-3">
+      <input type="checkbox" id="identity-step-3" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">Open the claimed operator's verification instructions. Identify which IP list, hostname rules or signature checks apply to this crawler.</span>
+    </label>
+
+    <label class="identity-check-row" for="identity-step-4">
+      <input type="checkbox" id="identity-step-4" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">If an applicable IP list is available, compare the address with it. Record the result, matching CIDR where present, source and retrieval date.</span>
+    </label>
+
+    <label class="identity-check-row" for="identity-step-5">
+      <input type="checkbox" id="identity-step-5" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">Where supported, run the documented DNS or signature check. Record whether it passed, failed or couldn't finish, and when you checked.</span>
+    </label>
+
+    <label class="identity-check-row" for="identity-step-6">
+      <input type="checkbox" id="identity-step-6" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">Review the requested paths, request rate and responses. Check CDN or firewall records alongside origin logs where available.</span>
+    </label>
+
+    <label class="identity-check-row" for="identity-step-7">
+      <input type="checkbox" id="identity-step-7" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">Decide whether to allow, limit or block the requests. If you change a rule, check that it affects the intended traffic and preserves wanted access.</span>
+    </label>
+
+    <label class="identity-check-row" for="identity-step-8">
+      <input type="checkbox" id="identity-step-8" autocomplete="off">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#008040" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-check" data-sketch="" aria-hidden="true"><path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27" stroke-width="1.616"/></svg>
+      <span class="identity-check-text">Save the log sample, verification results, dates and reason for your decision, including anything you couldn't establish.</span>
+    </label>
+  </fieldset>
+
+  <div class="identity-checklist-footer">
+    <p id="checklist-progress" role="status" hidden></p>
+    <button type="button" id="checklist-reset" hidden>Clear</button>
+  </div>
+
+  <p>Crawler documentation and verification methods change. If you find a broken reference or a published verification method I've missed, <a href="https://alexanderkyriakou.eu/contact">let me know</a>. A link to the operator's documentation would help me check it.</p>
+</section>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/seo">seo</a>
+            <a href="https://alexanderkyriakou.eu/thoughts/data">data</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants">Proofreader, GPT-6.1 Sol</p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-11-09">Nov 9, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-heart" data-sketch="" aria-hidden="true"><path d="M5.9 12.16C5.7 11.96 4.99 11.46 4.69 11C4.39 10.54 4.17 9.94 4.1 9.39C4.04 8.83 4.08 8.17 4.29 7.66C4.49 7.15 4.93 6.69 5.33 6.3C5.73 5.92 6.19 5.57 6.69 5.35C7.19 5.12 7.79 4.92 8.33 4.93C8.87 4.95 9.44 5.21 9.93 5.46C10.42 5.72 10.95 6.03 11.28 6.45C11.61 6.87 11.79 7.46 11.91 7.98C12.04 8.51 12.03 9.34 12.05 9.61" stroke-width="1.68"/><path d="M11.7 9.5C11.75 9.22 11.78 8.34 11.98 7.83C12.17 7.33 12.5 6.85 12.86 6.46C13.22 6.06 13.66 5.69 14.13 5.47C14.61 5.25 15.18 5.13 15.71 5.13C16.23 5.12 16.79 5.25 17.27 5.45C17.75 5.65 18.2 5.98 18.59 6.34C18.98 6.71 19.43 7.14 19.61 7.63C19.79 8.12 19.71 8.73 19.68 9.28C19.65 9.83 19.65 10.44 19.42 10.93C19.19 11.41 18.49 11.98 18.3 12.19" stroke-width="1.536"/><path d="M5.25 11.68Q8.32 15.78 11.98 19.36Q15.21 15.38 18.68 11.6" stroke-width="1.424"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</article>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M12 9.55C12.917 8.613 14.111 8 15.5 8a5.5 5.5 0 0 1 5.5 5.5V21h-2v-7.5a3.5 3.5 0 0 0-7 0V21h-2V8.5h2v1.05zM5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-1 2h2V21H4V8.5z"/> </g> </svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M13 9h4.5l-.5 2h-4v9h-2v-9H7V9h4V7.128c0-1.783.186-2.43.534-3.082a3.635 3.635 0 0 1 1.512-1.512C13.698 2.186 14.345 2 16.128 2c.522 0 .98.05 1.372.15V4h-1.372c-1.324 0-1.727.078-2.138.298-.304.162-.53.388-.692.692-.22.411-.298.814-.298 2.138V9z"/> </g> </svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M5.455 15L1 18.5V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v12H5.455zm-.692-2H16V4H3v10.385L4.763 13zM8 17h10.237L20 18.385V8h1a1 1 0 0 1 1 1v13.5L17.545 19H9a1 1 0 0 1-1-1v-1z"/> </g> </svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
+      </div>
+</footer>
+
+<script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+
+<!-- Add before </body>.
+     Keep class="identity-code" on the Python <pre>.
+     This adds the copy button without changing the Python code. -->
+<script>
+(() => {
+  function initialiseCodeCopy() {
+    document.querySelectorAll('pre.identity-code').forEach(pre => {
+      if (pre.parentElement.classList.contains('identity-code-wrap')) return;
+
+      const code = pre.querySelector('code') || pre;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'identity-code-wrap';
+
+      pre.before(wrapper);
+      wrapper.append(pre);
+
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'identity-code-copy';
+      button.title = 'Copy Python code';
+      button.setAttribute('aria-label', 'Copy Python code');
+
+      button.innerHTML = `
+        <span class="ico" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <rect x="8" y="8" width="13" height="13" rx="2"/>
+            <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
+          </svg>
+        </span>
+        <span class="done" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               width="24" height="24" fill="none" stroke="#008040"
+               stroke-width="1.6" stroke-linecap="round"
+               stroke-linejoin="round" overflow="visible"
+               class="sketch-icon sketch-icon-check"
+               data-sketch="" aria-hidden="true">
+            <path d="M4.21 11.97Q7.04 14.59 9.37 17.64Q14.91 12.25 19.8 6.27"
+                  stroke-width="1.616"/>
+          </svg>
+        </span>
+      `;
+
+      const status = document.createElement('span');
+      status.className = 'identity-sr-only';
+      status.setAttribute('role', 'status');
+
+      wrapper.append(button, status);
+
+      let resetTimer;
+
+      button.addEventListener('click', async () => {
+        clearTimeout(resetTimer);
+        button.classList.remove('copied');
+        status.textContent = '';
+        button.disabled = true;
+
+        try {
+          if (!window.isSecureContext || !navigator.clipboard?.writeText) {
+            throw new Error('Clipboard unavailable');
+          }
+
+          await navigator.clipboard.writeText(code.textContent);
+
+          button.classList.add('copied');
+          button.title = 'Copied';
+          status.textContent = 'Python code copied.';
+
+          resetTimer = setTimeout(() => {
+            button.classList.remove('copied');
+            button.title = 'Copy Python code';
+            status.textContent = '';
+          }, 2000);
+        } catch {
+          const selection = window.getSelection();
+          const range = document.createRange();
+
+          range.selectNodeContents(code);
+          selection?.removeAllRanges();
+          selection?.addRange(range);
+
+          button.title = 'Copy Python code';
+          status.textContent =
+            'Automatic copying was unavailable. The code is selected; copy it manually.';
+        } finally {
+          button.disabled = false;
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialiseCodeCopy, { once: true });
+  } else {
+    initialiseCodeCopy();
+  }
+})();
+
+(() => {
+  const checklist = document.getElementById('investigation-checklist');
+  if (!checklist) return;
+  const inputs = [...checklist.querySelectorAll('input[type="checkbox"]')];
+  const progress = document.getElementById('checklist-progress');
+  const reset = document.getElementById('checklist-reset');
+  function update() {
+    const done = inputs.filter(input => input.checked).length;
+    progress.textContent = `${done} of ${inputs.length} steps reviewed`;
+    progress.hidden = false;
+    reset.hidden = done === 0;
+  }
+  checklist.addEventListener('change', update);
+  reset.addEventListener('click', () => {
+    inputs.forEach(input => { input.checked = false; });
+    update();
+    inputs[0]?.focus();
+  });
+  window.addEventListener('pageshow', update);
+  update();
+})();
+</script>
+
+</body>
+</html>
