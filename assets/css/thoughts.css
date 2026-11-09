@@ -326,7 +326,7 @@
 }
 
 .postfooter-tags a {
-  padding: 3px 0;
+  padding: 3px 5px;
   text-decoration-color: transparent;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -1051,6 +1051,7 @@
   }
 
   .postfooter-tags a {
+    padding: 3px 0;
     white-space: nowrap;
   }
 
