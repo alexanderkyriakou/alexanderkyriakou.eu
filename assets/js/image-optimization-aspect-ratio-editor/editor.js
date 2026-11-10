@@ -663,6 +663,8 @@ document.querySelectorAll('[data-example]').forEach((button) => button.addEventL
     const loaded = await loadImage(new File([blob], filename, { type: blob.type }));
     if (!loaded || request !== exampleRequest) return;
     $('format').value = 'webp'; $('quality').value = '80'; $('effort').value = '1'; updateFormat();
+    if (button.dataset.example === 'cropping') setOptimizationOpen(false);
+    if (button.dataset.example === 'optimization') setOptimizationOpen(true);
     if (button.dataset.example === 'optimization') $('optimize').click();
     else {
       $('aspect-tools').open = true;
