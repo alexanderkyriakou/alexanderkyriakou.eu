@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Image Optimizer & Aspect Ratio Editor • Free and Secure</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Crop, resize and optimize JPEG, PNG, WebP and AVIF images in your browser. Prepare images for websites and social posts, with no image uploads.">
+  <meta name="author" content="Alexander Kyriakou">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor.md" title="Free and Secure Image Optimizer & Aspect Ratio Editor - Technical Reference (Markdown)">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+  <link rel="stylesheet" href="/assets/js/image-optimization-aspect-ratio-editor/editor.css">
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <script type="module" src="/assets/js/image-optimization-aspect-ratio-editor/editor.js"></script>
+
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="Crop, resize and optimize your 🖼️"/>
+  <meta property="og:description" content="Keep the whole image or choose the part you need. Adjust the format and quality, compare the result, and download. Your images stay on your device."/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/image-optimization-aspect-ratio-editor/og/seagulls-family-chicks-blue-ocean.jpg"/>
+  <meta property="og:image:alt" content="Two adult seagulls stand watch on either side of two fluffy, speckled grey chicks perched on a rocky ledge against a background of bright blue ocean and sky.">
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Crop, resize and optimize your 🖼️">
+  <meta name="twitter:description" content="Keep the whole image or choose the part you need. Adjust the format and quality, compare the result, and download. Your images stay on your device.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/image-optimization-aspect-ratio-editor/og/seagulls-family-chicks-blue-ocean.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor",
+        "name": "Image optimizer and aspect ratio editor",
+        "description": "Crop, resize and optimize JPEG, PNG, WebP and AVIF images locally in your browser. Choose an aspect ratio, resize the selected crop, compare the result and download without uploading your images.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-10",
+        "dateModified": "2026-11-10",
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#application"
+        },
+        "hasPart": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#guide"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#application",
+        "url": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor",
+        "name": "Image optimizer and aspect ratio editor",
+        "description": "A free browser-based tool for optimizing a whole image, exporting a crop in its source format, or cropping at given aspect ratio, resizing and optimizing together. Image processing takes place locally on the visitor's device.",
+        "applicationCategory": "MultimediaApplication",
+        "applicationSubCategory": "Image cropping, resizing and optimization",
+        "operatingSystem": "Any operating system with a supported web browser",
+        "browserRequirements": "Requires JavaScript, Canvas, module Web Workers, WebAssembly and browser support for decoding the selected image format.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-10",
+        "isAccessibleForFree": true,
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "url": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor"
+        },
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "usageInfo": "https://alexanderkyriakou.eu/licensing",
+        "featureList": [
+          "Process one image at a time locally in the browser without uploading it.",
+          "Open JPEG, PNG, WebP and AVIF images within the supported file-size and dimension limits.",
+          "Optimize an image while keeping its original framing.",
+          "Crop using common aspect ratios, platform presets or a custom ratio.",
+          "Move and resize the crop frame using composition guides.",
+          "Resize the selected crop or the complete image without intentional upscaling.",
+          "Export the current crop in its source format using separate encoding settings.",
+          "Optimize as WebP, AVIF or JPEG through MozJPEG, or export lossless PNG.",
+          "Adjust quality and choose Fast, Balanced or Thorough encoding effort for lossy formats.",
+          "Compare before and after images at the same frame and dimensions and inspect actual encoded sizes.",
+          "Preserve transparency in PNG, WebP and AVIF, or choose a replacement background colour for JPEG."
+        ],
+        "softwareHelp": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#guide"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#webpage"
+        }
+      },
+      {
+        "@type": "Article",
+        "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#guide",
+        "url": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#idle-guide",
+        "headline": "Crop, optimize and publish.",
+        "description": "A practical guide to cropping and resizing images, choosing formats and compression settings, interpreting file-size savings, and preparing images for websites, search results, Google Discover and social previews.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-10",
+        "dateModified": "2026-11-10",
+        "isAccessibleForFree": true,
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "publisher": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#webpage"
+        },
+        "about": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#application"
+        },
+        "articleSection": [
+          "Examples and measured optimization results",
+          "Cropping and resizing workflow",
+          "Aspect ratio presets by platform",
+          "WebP, AVIF, JPEG and PNG",
+          "On-page images and Core Web Vitals",
+          "SERP thumbnails and Open Graph previews",
+          "Google Discover",
+          "Images in the agentic web",
+          "Practical questions and troubleshooting",
+          "Squoosh and jSquash acknowledgments"
+        ],
+        "keywords": [
+          "image optimization",
+          "image cropping",
+          "aspect ratio editor",
+          "image aspect ratio checker",
+          "image aspect ratio changer",
+          "image resizing",
+          "WebP",
+          "AVIF",
+          "MozJPEG",
+          "image SEO"
+        ],
+        "video": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#video-demo"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "usageInfo": "https://alexanderkyriakou.eu/licensing"
+      },
+      {
+        "@type": "VideoObject",
+        "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#video-demo",
+        "name": "Cropping and optimizing an image at once",
+        "description": "A demonstration of cropping and optimizing an image with the Image optimizer and aspect ratio editor. Recorded in Firefox. Not sped up.",
+        "caption": "Cropping and optimizing an image at once. Recorded in Firefox. Not sped up.",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/image-optimization-aspect-ratio-editor/cropping-optimizing-at-once-demo.mp4",
+        "thumbnailUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/image-optimization-aspect-ratio-editor/cropping-optimizing-at-once-demo.webp",
+        "uploadDate": "2026-11-10",
+        "encodingFormat": "video/mp4",
+        "inLanguage": "en",
+        "width": {
+          "@type": "QuantitativeValue",
+          "value": 2512,
+          "unitText": "px"
+        },
+        "height": {
+          "@type": "QuantitativeValue",
+          "value": 1872,
+          "unitText": "px"
+        },
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#guide"
+        },
+        "about": {
+          "@id": "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor#application"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://alexanderkyriakou.eu/#person",
+        "name": "Alexander Kyriakou",
+        "url": "https://alexanderkyriakou.eu/"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://alexanderkyriakou.eu/#website",
+        "url": "https://alexanderkyriakou.eu/",
+        "name": "Alexander Kyriakou",
+        "publisher": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        }
+      }
+    ]
+  }
+  </script>
+
+</head>
+<body>
+  <a class="skip-link" href="#page-title">Skip to editor</a>
+  <header class="site-header" style="background: #f4f8fb;">
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+        <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+        <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="editor-page">
+    <noscript><p class="notice">Enable JavaScript to crop and optimize images locally in your browser.</p></noscript>
+    <div class="editor-app" id="editor-app" data-state="idle">
+      <input id="file-input" type="file" accept="image/jpeg,image/png,image/webp,image/avif" hidden>
+      <section id="idle-screen" aria-label="Choose an image">
+        <div id="drop-field" class="drop-field">
+          <div class="idle-scene" aria-hidden="true"><svg class="idle-waves" viewBox="0 0 1440 180" preserveAspectRatio="none"><path d="M0 135Q180 65 360 135T720 135T1080 135T1440 135V0H0Z"/><path d="M0 125Q180 55 360 125T720 125T1080 125T1440 125V0H0Z"/><path d="M0 95Q180 5 360 95T720 95T1080 95T1440 95V0H0Z"/></svg></div>
+          <h1 id="page-title" tabindex="-1">Image optimizer and aspect ratio editor</h1>
+          <button id="upload-image" class="upload-zone" type="button"><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/hero-image.svg" width="100" height="100" alt=""><span>Drop an image, or <span class="upload-link">choose one</span></span><span class="formats">JPEG, PNG, WebP or AVIF · up to 32 MiB / 40 MP</span></button>
+          <p class="privacy">Processed in your browser. Your images are not uploaded.</p>
+        </div>
+        <div class="examples"><button class="example-card" type="button" data-example="optimization"><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/examples/seagulls-thumb.webp" width="480" height="300" alt="" decoding="async"><span class="example-text"><strong>Optimization</strong><span>A lighter image. Same frame.</span></span><span class="icon icon-arrow-up-right example-arrow" aria-hidden="true"></span></button>
+<button class="example-card" type="button" data-example="cropping"><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/examples/fish-thumb.webp" width="480" height="300" alt="" decoding="async"><span class="example-text"><strong>Cropping</strong><span>Find a new point of view.</span></span><span class="icon icon-arrow-up-right example-arrow" aria-hidden="true"></span></button>
+<button class="example-card" type="button" data-example="both"><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/examples/cat-thumb.webp" width="480" height="300" alt="" decoding="async"><span class="example-text"><strong>Doing both</strong><span>A new frame. Fewer bytes.</span></span><span class="icon icon-arrow-up-right example-arrow" aria-hidden="true"></span></button></div>
+      </section>
+      <div class="workspace" id="workspace" data-theme="light" hidden>
+        <aside class="tool-sidebar" aria-label="Image controls">
+          <details id="aspect-tools" class="panel aspect-tools">
+            <summary aria-label="Aspect ratio" title="Show aspect ratio tools"><span class="icon icon-crop" aria-hidden="true"></span><span id="aspect-summary" class="sr-only">Original · —</span></summary>
+            <div class="aspect-body"><h2 class="sr-only">Aspect ratio controls</h2><p id="crop-instructions" class="sr-only">Arrow keys move the crop frame. Plus and minus resize it.</p><button id="adjust-on-image" class="full-width" type="button" disabled>Adjust on image</button><button id="use-original" class="full-width" type="button">Keep original framing</button>
+          <div class="quick-ratios" aria-label="Common aspect ratios">
+            <button class="ratio-card" data-ratio="16:9" aria-pressed="false"><span class="ratio-shape landscape" aria-hidden="true"></span><strong>16:9</strong><span>Landscape</span></button>
+            <button class="ratio-card" data-ratio="1:1" aria-pressed="false"><span class="ratio-shape square" aria-hidden="true"></span><strong>1:1</strong><span>Square</span></button>
+            <button class="ratio-card" data-ratio="3:4" aria-pressed="false"><span class="ratio-shape portrait" aria-hidden="true"></span><strong>3:4</strong><span>Portrait</span></button>
+          </div>
+<details id="platform-picker" class="platform-picker"><summary><span id="platform-label">Browse platforms</span><span class="icon platform-toggle-icon" aria-hidden="true"></span></summary><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/brand-instagram.svg" alt="" width="18" height="18">Instagram</summary><div class="platform-options"><button type="button" data-platform-ratio="3:4" data-platform="Instagram">Photo · 3:4</button><button type="button" data-platform-ratio="4:5" data-platform="Instagram">Portrait feed · 4:5</button><button type="button" data-platform-ratio="1:1" data-platform="Instagram">Square feed · 1:1</button><button type="button" data-platform-ratio="9:16" data-platform="Instagram">Story / Reel · 9:16</button></div></details><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/brand-youtube.svg" alt="" width="18" height="18">YouTube</summary><div class="platform-options"><button type="button" data-platform-ratio="16:9" data-platform="YouTube">Video / thumbnail · 16:9</button><button type="button" data-platform-ratio="9:16" data-platform="YouTube">Short · 9:16</button></div></details><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/brand-facebook.svg" alt="" width="18" height="18">Facebook</summary><div class="platform-options"><button type="button" data-platform-ratio="1.91:1" data-platform="Facebook">Link image · 1.91:1</button><button type="button" data-platform-ratio="1:1" data-platform="Facebook">Square post · 1:1</button><button type="button" data-platform-ratio="9:16" data-platform="Facebook">Story · 9:16</button></div></details><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/brand-linkedin.svg" alt="" width="18" height="18">LinkedIn</summary><div class="platform-options"><button type="button" data-platform-ratio="1.91:1" data-platform="LinkedIn">Landscape post · 1.91:1</button><button type="button" data-platform-ratio="1:1" data-platform="LinkedIn">Square post · 1:1</button><button type="button" data-platform-ratio="4:1" data-platform="LinkedIn">Personal cover · 4:1</button></div></details><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/brand-pinterest.svg" alt="" width="18" height="18">Pinterest</summary><div class="platform-options"><button type="button" data-platform-ratio="2:3" data-platform="Pinterest">Standard Pin · 2:3</button><button type="button" data-platform-ratio="9:16" data-platform="Pinterest">Full-screen Pin · 9:16</button></div></details><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/brand-tiktok.svg" alt="" width="18" height="18">TikTok</summary><div class="platform-options"><button type="button" data-platform-ratio="9:16" data-platform="TikTok">Vertical · 9:16</button></div></details><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/brand-x.svg" alt="" width="18" height="18">X / Twitter</summary><div class="platform-options"><button type="button" data-platform-ratio="16:9" data-platform="X / Twitter">Landscape post · 16:9</button><button type="button" data-platform-ratio="3:1" data-platform="X / Twitter">Profile header · 3:1</button></div></details><details class="platform-group"><summary><img src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/icons/camera.svg" alt="" width="18" height="18">Photography &amp; web</summary><div class="platform-options"><button type="button" data-platform-ratio="3:2" data-platform="Photography &amp; web">Classic photo · 3:2</button><button type="button" data-platform-ratio="4:3" data-platform="Photography &amp; web">Standard photo · 4:3</button><button type="button" data-platform-ratio="21:9" data-platform="Photography &amp; web">Ultrawide · 21:9</button></div></details></details>
+          <p class="small muted preset-note">Framing guides, not platform size requirements.</p>
+          <details class="custom-ratio"><summary>Custom aspect ratio</summary>
+            <form id="custom-form"><div class="custom-fields">
+              <div><label for="ratio-width">Width</label><input id="ratio-width" type="number" min="1" max="1000" step="1" value="16" required></div><span aria-hidden="true">:</span>
+              <div><label for="ratio-height">Height</label><input id="ratio-height" type="number" min="1" max="1000" step="1" value="9" required></div>
+              <button type="submit">Apply</button>
+            </div></form>
+          </details>
+          <fieldset id="image-controls" disabled>
+            <legend class="sr-only">Crop and output settings</legend><fieldset id="crop-adjustments" disabled><legend class="field-label">Fine-tune the crop</legend>
+            <div class="row spread"><label for="crop-scale">Crop size</label><output for="crop-scale" id="crop-scale-value">100%</output></div>
+            <input id="crop-scale" type="range" min="25" max="100" value="100">
+            <div class="button-row"><button id="center-crop" type="button">Center</button><button id="reset-crop" type="button">Reset crop</button></div>
+            <div class="field-gap"><label class="field-label" for="grid-mode">Composition guide</label>
+              <select id="grid-mode"><option value="thirds">Rule of thirds</option><option value="center">Center lines</option><option value="golden">Golden ratio</option><option value="none">Frame only</option></select>
+            </div>
+            </fieldset><div class="field-gap"><label class="field-label" for="output-width">Output width <span class="muted">(px)</span></label>
+              <div class="dimension-row"><input id="output-width" type="number" min="1" step="1" inputmode="numeric"><span aria-hidden="true">×</span><output id="output-height" for="output-width">—</output></div>
+              <p id="output-help" class="small muted">Height follows your ratio. No upscaling.</p>
+            </div>
+            <button id="download-crop" class="full-width labeled-button" type="button" aria-label="Download crop" title="Download crop"><span class="icon icon-crop" aria-hidden="true"></span><span id="download-crop-label">Download crop</span></button><div id="crop-progress" class="crop-progress" hidden><progress aria-label="Preparing crop download"></progress><span>Preparing download…</span><button id="cancel-crop-export" type="button">Cancel</button></div><p id="crop-export-note" class="small muted">Keeps the source image format.</p>
+          </fieldset>
+
+            </div>
+          </details>
+          <section id="optimization" class="panel optimization" aria-label="Image optimization"><button id="toggle-optimization" class="icon-button" type="button" aria-label="Optimize format and quality" title="Optimize format and quality" aria-expanded="true" aria-controls="optimization-body"><span class="icon icon-sparkles" aria-hidden="true"></span></button><div id="optimization-body"><h2 id="optimize-heading">Optimize</h2>
+          <fieldset id="encode-controls" disabled>
+            <legend class="sr-only">Image optimization settings</legend>
+            <label class="field-label" for="format">File type</label><select id="format"><option value="webp">WebP</option><option value="avif">AVIF</option><option value="jpeg">JPEG (MozJPEG)</option><option value="png">PNG (lossless)</option></select>
+            <div class="field-gap"><div class="row spread"><label for="quality">Quality</label><output id="quality-value" for="quality">80</output></div><input id="quality" type="range" min="1" max="100" value="80"></div>
+            <div class="field-gap"><div class="row spread"><label for="effort">Encoding effort</label><output id="effort-value" for="effort">Balanced</output></div><input id="effort" type="range" min="0" max="2" step="1" value="1" aria-describedby="format-note"><div class="effort-endpoints" aria-hidden="true"><span>Fast</span><span>Thorough</span></div><p id="format-note" class="small muted" hidden></p></div>
+            <div id="jpeg-background" class="field-gap" hidden><label for="background">JPEG background</label><input id="background" type="color" value="#ffffff"><p class="small muted">JPEG replaces transparent pixels with this color.</p></div>
+            <div class="optimization-actions"><button id="optimize" class="primary labeled-button" type="button" aria-label="Optimize image" title="Optimize image"><span class="icon icon-sparkles" aria-hidden="true"></span>Optimize</button><button id="download-optimized" class="primary labeled-button" type="button" aria-label="Download optimized image" title="Download optimized image" disabled><span class="icon icon-download" aria-hidden="true"></span>Download</button></div>
+          </fieldset>
+            <p id="encode-result" class="encode-result small muted"></p>
+            <div id="encode-progress" class="encode-progress" hidden><progress aria-label="Encoding image"></progress><span id="encode-progress-text">Encoding locally…</span><button id="cancel-encode" type="button">Cancel</button></div>
+          </div></section>
+        </aside>
+        <section class="panel canvas-panel" aria-labelledby="editor-heading">
+          <div class="canvas-toolbar"><h1 id="editor-heading" tabindex="-1">Image editor <span id="selected-ratio" class="pill">Original</span></h1><div class="button-row"><button id="finish-crop" type="button" class="text-button" hidden>Done cropping</button><div class="theme-controls" role="group" aria-label="Editor theme"><button type="button" id="theme-light" class="icon-button" aria-label="Light editor theme" aria-pressed="true" title="Light editor theme"><span class="icon icon-sun" aria-hidden="true"></span></button><button type="button" id="theme-dark" class="icon-button" aria-label="Dark editor theme" aria-pressed="false" title="Dark editor theme"><span class="icon icon-moon" aria-hidden="true"></span></button></div><button id="replace-image" class="text-button" type="button">Replace</button><button id="remove-image" class="text-button" type="button">Close</button></div></div>
+          <div id="stage" class="stage">
+            <div id="image-space" hidden>
+              <img id="source-image" alt="Your selected image">
+            </div>
+              <div id="crop-box" role="group" tabindex="0" aria-label="Crop frame" aria-describedby="crop-instructions">
+                <div id="crop-grid" class="crop-grid" data-guide="thirds" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+                <span class="frame-move" data-move aria-hidden="true"><span class="icon icon-move" aria-hidden="true"></span></span><span class="frame-edge edge-top" data-move aria-hidden="true"></span><span class="frame-edge edge-right" data-move aria-hidden="true"></span><span class="frame-edge edge-bottom" data-move aria-hidden="true"></span><span class="frame-edge edge-left" data-move aria-hidden="true"></span><span id="frame-ratio" class="frame-ratio" aria-hidden="true">16:9</span>
+                <span class="crop-handle nw" data-corner="nw" aria-hidden="true"></span><span class="crop-handle ne" data-corner="ne" aria-hidden="true"></span><span class="crop-handle sw" data-corner="sw" aria-hidden="true"></span><span class="crop-handle se" data-corner="se" aria-hidden="true"></span>
+              </div>
+
+            <div id="comparison-mount" hidden><div id="comparison-widget">
+              <div id="comparison-viewport" class="comparison-viewport"><p id="comparison-empty" class="small muted">Your crop, with fewer bytes. A preview will appear here.</p>
+                <div id="comparison-images" class="comparison-images" hidden><img id="before-image" alt="Image before optimization"><img id="after-image" alt="Image after optimization"></div><div id="comparison-controls" class="comparison-controls"><span class="comparison-line" aria-hidden="true"></span><label class="sr-only" for="comparison-slider">Before and after comparison position</label><input id="comparison-slider" class="comparison-range" type="range" min="0" max="100" step="0.1" value="50" disabled></div>
+              </div>
+
+            </div></div>
+
+          </div>
+          <div class="canvas-footer"><div><p id="image-name" class="image-name">No image selected</p><p id="image-meta" class="small muted">Original dimensions and aspect ratio will appear here.</p></div><div class="zoom-controls" aria-label="Preview zoom"><button id="zoom-out" type="button" aria-label="Zoom out"><span class="icon icon-minus" aria-hidden="true"></span></button><label for="view-zoom" class="sr-only">Zoom percentage</label><input id="view-zoom" type="text" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" maxlength="12" value="100%" title="Set zoom percentage (1-1600%)"><button id="zoom-in" type="button" aria-label="Zoom in"><span class="icon icon-plus" aria-hidden="true"></span></button><button id="reset-view" type="button">Fit</button></div><span id="crop-meta" class="small muted"></span></div>
+
+        </section>
+      </div>
+      <div id="toast" class="toast" hidden><p id="status" role="status"></p><button id="dismiss-toast" type="button" aria-label="Dismiss notification"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="close-icon" focusable="false" data-sketch="" aria-hidden="true"><path d="M5.63 5.62Q11.53 12.22 18.06 18.19" stroke-width="1.696"/><path d="M18.05 5.63Q11.34 11.6 5.59 18.53" stroke-width="1.696"/></svg></button></div><p id="error" class="error" role="alert" hidden></p>
+    </div>
+
+  <!-- #idle-guide is called by js, don't remove -->
+  <div id="idle-guide" class="container">
+    <article class="guide image-guide">
+      <section>
+        <h2>Crop, optimize and publish.</h2>
+        <p>I like well-optimized images online, and Squoosh is my go-to tool. But I usually had another program open just to crop an image before optimizing it. Getting a specific aspect ratio through an online cropper or a heavier image editor felt like more work than it needed to be. I'd been thinking about building on Squoosh's open-source code for a while. Here we are.</p>
+        <p>This free tool lets you crop, resize and optimize an image in one place. Keep the whole image, or choose a crop and <strong>resize and optimize that selected part directly</strong>. Useful for SEOs, copywriters, social media managers and anyone preparing images to publish.</p>
+        <p class="image-guide-note"><strong>Your images are not uploaded.</strong> Processing happens locally in your browser. The page and its tools still need to load, but your selected image stays on your device.</p>
+      </section>
+
+      <section>
+        <h2>Try it with an example</h2>
+        <p>The thumbnails above open three different starting points: seagulls for optimization, fish for cropping, and a cat for doing both. Feel free to play around with one before loading your own image.</p>
+
+        <div class="image-guide-result">
+          <p><strong>PNG 5.35 MiB → WebP 346.4 KiB</strong></p>
+          <p>My seagull example, using WebP quality 80 and Balanced effort. A useful starting point, though every image compresses differently. Compare the details before keeping the result.</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>From image to download</h2>
+        <ol class="image-guide-steps">
+          <li><strong>Choose an image.</strong> Drop a JPEG, PNG, WebP or AVIF into the tool, or select an example.</li>
+          <li><strong>Choose the frame and dimensions.</strong> Keep the original framing or select an aspect ratio. Move and resize the crop frame, then set <strong>Output width</strong> to resize the selected crop. Height follows its ratio; the tool won't upscale.</li>
+          <li><strong>Optimize, compare, download.</strong> Choose a format, quality and effort, then run Optimize. Move the comparison handle to inspect the result before downloading.</li>
+        </ol>
+        <p>Only need the crop? Use <strong>Download crop</strong> to export it in its source format. That export uses separate encoding settings, rather than the optimization panel's settings.</p>
+
+        <figure class="image-process">
+          <video width="2512" height="1872" controls autoplay loop muted playsinline disablepictureinpicture controlslist="nodownload" loading="lazy" preload="metadata" poster="/assets/images/thoughts/image-optimization-aspect-ratio-editor/cropping-optimizing-at-once-demo.webp">
+            <source src="/assets/images/thoughts/image-optimization-aspect-ratio-editor/cropping-optimizing-at-once-demo.mp4" type="video/mp4">Your browser doesn't support embedded video.</video>
+          <figcaption>Cropping and optimizing an image at once. Recorded in Firefox. Not sped up.</figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h3>Cropping presets by platform</h3>
+        <p>Start with the 16:9, 1:1 or 3:4 shortcuts, or select a platform preset.</p>
+
+        <dl class="crop-options">
+          <div>
+            <dt>Instagram</dt>
+            <dd>
+              <span>3:4</span>
+              <span>4:5</span>
+              <span>1:1</span>
+              <span>9:16</span>
+            </dd>
+          </div>
+
+          <div>
+            <dt>YouTube</dt>
+            <dd>
+              <span>16:9</span>
+              <span>9:16</span>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Facebook</dt>
+            <dd>
+              <span>1.91:1</span>
+              <span>1:1</span>
+              <span>9:16</span>
+            </dd>
+          </div>
+
+          <div>
+            <dt>LinkedIn</dt>
+            <dd>
+              <span>1.91:1</span>
+              <span>1:1</span>
+              <span>4:1</span>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Pinterest</dt>
+            <dd>
+              <span>2:3</span>
+              <span>9:16</span>
+            </dd>
+          </div>
+
+          <div>
+            <dt>TikTok</dt>
+            <dd>
+              <span>9:16</span>
+            </dd>
+          </div>
+
+          <div>
+            <dt>X / Twitter</dt>
+            <dd>
+              <span>16:9</span>
+              <span>3:1</span>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Photography & web</dt>
+            <dd>
+              <span>3:2</span>
+              <span>4:3</span>
+              <span>21:9</span>
+            </dd>
+          </div>
+        </dl>
+
+        <p>You can also enter a custom ratio. For composition, choose rule-of-thirds, centre-line or golden-ratio guides, or keep just the frame. Output width then sets the exported size of your selected crop.</p>
+        <p>Keep in mind that these presets provide the shape. Platforms use different placements and can change their requirements, so check the intended placement's dimensions, safe areas and accepted formats before publishing.</p>
+      </section>
+
+      <section>
+        <h2>Which image format should you choose?</h2>
+        <p>I've kept the selection to the four formats I mainly use. They cover quite a bit of everyday web publishing.</p>
+        <div class="image-guide-grid">
+          <section class="image-guide-box">
+            <h3>WebP · a practical starting point</h3>
+            <p>Useful for website images, including those needing transparency. My defaults are <strong>quality 80 and Balanced effort</strong>. Inspect text, edges and fine textures before deciding they suit your image.</p>
+          </section>
+          <section class="image-guide-box">
+            <h3>AVIF · worth a comparison</h3>
+            <p>Can produce smaller files at comparable visual quality, although results vary and encoding can take longer. It also supports transparency. Try it alongside WebP and judge both the image and the bytes.</p>
+          </section>
+          <section class="image-guide-box">
+            <h3>JPEG · familiar and widely accepted</h3>
+            <p>Useful for photographs and destinations expecting JPEG. Optimization uses <a href="https://github.com/mozilla/mozjpeg" target="_blank" rel="noopener external">MozJPEG</a>, an encoder that works harder to reduce file size while retaining useful visual quality. The result is a standard JPEG. Transparency becomes a chosen background colour.</p>
+          </section>
+          <section class="image-guide-box">
+            <h3>PNG · sharp detail and transparency</h3>
+            <p>Useful for screenshots and graphics where lossless output matters. PNG preserves transparency. This tool provides lossless PNG export, but doesn't include a dedicated PNG optimizer.</p>
+          </section>
+        </div>
+        <p>All four work in current major browsers. Older browsers and individual publishing platforms may differ, so check the destination. WebP and AVIF exports here use lossy compression; a quality setting of 100 doesn't make them lossless. See <a href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types" target="_blank" rel="noopener external">MDN's format guide</a> for compatibility details.</p>
+      </section>
+
+      <section>
+        <h2>Preparing images for websites, search and social</h2>
+        <h3>Images on the page, page speed and Core Web Vitals</h3>
+        <p>Hero images, article illustrations and product photos should keep enough detail for their displayed size without making visitors download unnecessary pixels. Smaller files can help <a href="https://web.dev/articles/optimize-lcp" target="_blank" rel="noopener external">Largest Contentful Paint (LCP)</a> when an image is the largest visible element. Loading priority and rendering still matter. On the published page, reserve image space with dimensions to help prevent layout shifts (CLS).</p>
+
+        <h3>SERP thumbnails and Open Graph previews</h3>
+        <p>A clear subject helps an image remain useful as a small thumbnail beside a search result. Use relevant images on the page, descriptive filenames, useful alt text and nearby context. Google chooses thumbnails automatically; <a href="https://developers.google.com/search/docs/appearance/google-images#preferred-image" target="_blank" rel="noopener external">image metadata</a>, including <code>og:image</code> and appropriate structured data, can influence its choice without guaranteeing it.</p>
+        <p><a href="https://ogp.me/" target="_blank" rel="noopener external">Open Graph</a> images also represent pages when links are shared. Prepare a crop for the intended placement, then set its URL in the page's metadata. The platform presets are framing shortcuts; check the destination's dimensions and accepted formats separately.</p>
+
+        <h3>Google Discover</h3>
+        <p><a href="https://developers.google.com/search/docs/appearance/google-discover" target="_blank" rel="noopener external">Google recommends</a> relevant, high-quality images at least 1200 pixels wide, with more than 300,000 pixels and a 16:9 ratio. A <strong>1280 x 720</strong> crop is a practical option if the source is large enough. Keep the important details in frame and enable large previews with <code>max-image-preview:large</code>. This prepares the image; it doesn't guarantee a Discover appearance.</p>
+
+        <h3>Images in the agentic web</h3>
+        <p>Some <a href="https://www.anthropic.com/news/developing-computer-use" target="_blank" rel="noopener external">AI agents already navigate through screenshots</a>, so visual information can matter to software using a page as well as to people reading it. As this develops, clear images, readable details and supporting text may become even more useful. Keep meaningful information intact when cropping or compressing; there's no established image setting that guarantees an agent will understand or recommend your page.</p>
+      </section>
+
+      <section class="image-guide-questions">
+        <h2>Some practical questions</h2>
+
+        <h3>Can I optimize without cropping?</h3>
+        <p>Yes. Keep the original framing and run Optimize. Opening the aspect ratio panel alone doesn't crop anything; choosing a ratio starts the crop.</p>
+
+        <h3>Can I resize just the crop?</h3>
+        <p>Yes. Resize the frame to choose how much of the scene to include, then use Output width to set the crop's exported resolution. For example, a sufficiently large 16:9 crop can be reduced to 1280 x 720. Aspect ratio is its shape, dimensions are its resolution, and preview zoom is how closely you inspect it.</p>
+
+        <h3>What do quality and effort change?</h3>
+        <p>Quality controls the lossy compression trade-off. Effort controls how much processing the encoder spends: Fast, Balanced or Thorough. More effort takes longer and may save bytes, but doesn't guarantee a smaller file. Quality numbers aren't equivalent across formats. PNG uses neither control.</p>
+
+        <h3>How are the savings calculated?</h3>
+        <p>With unchanged framing and dimensions, the reference is your original file. After cropping or resizing, it's a newly encoded source-format version at the same frame and dimensions. That comparison separates optimization savings from the pixels you removed.</p>
+
+        <h3>Why is the result larger or softer?</h3>
+        <p>An already compressed image may not shrink further. Try another format, lower quality or smaller output dimensions. If detail suffers, increase quality or retain more pixels. Source-format downloads are also re-encoded, so keeping the extension doesn't preserve the original bytes.</p>
+
+        <h3>Why won't my image open?</h3>
+        <p>Use JPEG, PNG, WebP or AVIF that your browser can decode. Inputs must be at least 100 pixels on each edge, at most 32 MiB and 40 million pixels, with no edge over 16,384 pixels. HEIC, SVG, GIF and RAW aren't supported.</p>
+
+        <h3>Why is processing slow, or the export smaller than requested?</h3>
+        <p>Large images, AVIF and Thorough effort can take longer, especially on mobile. Try Balanced or Fast, or reduce Output width. Exports are limited to 16 million pixels and 8,192 pixels per edge, never intentionally upscale, and may round dimensions down to preserve the ratio.</p>
+
+        <h3>What happens to my original, metadata and animation?</h3>
+        <p>Downloading saves a new file. The original isn't overwritten, and reloading clears the editor. Exports don't retain source EXIF/GPS metadata or animation; animated inputs produce a single decoded frame. This isn't a workflow for preserving print colour profiles or HDR.</p>
+      </section>
+
+      <section>
+        <h2 id="credits">Thank you, Squoosh</h2>
+        <p>This tool uses <a href="https://github.com/jamsinclair/jSquash" target="_blank" rel="noopener external">jSquash</a> encoders derived from <a href="https://github.com/GoogleChromeLabs/squoosh" target="_blank" rel="noopener external">Squoosh</a>, the open-source project from GoogleChromeLabs. Thank you to the people who made that work available to build on. Squoosh has saved me plenty of bytes; this adds the cropping step I kept needing.</p>
+
+        <p>The images used in the examples were downloaded from <a href="https://wallhaven.cc/" target="_blank" rel="noopener external">Wallhaven</a> quite a while ago.</p>
+      </section>
+
+      <p>If there's an aspect ratio preset or output format you'd find useful, or something isn't working as it should, <a href="https://alexanderkyriakou.eu/contact" target="_blank">send me a note</a>. Other suggestions and corrections are welcome, too.</p>
+
+      <p style="font-style: italic;">For reuse and attribution, see the <a href="https://alexanderkyriakou.eu/licensing" target="_blank">licensing page</a>.</p>
+    </article>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/tools">tools</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants">Code assistant, GPT-6.1 Sol</p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-11-10">Nov 10, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-heart" data-sketch="" aria-hidden="true"><path d="M5.9 12.16C5.7 11.96 4.99 11.46 4.69 11C4.39 10.54 4.17 9.94 4.1 9.39C4.04 8.83 4.08 8.17 4.29 7.66C4.49 7.15 4.93 6.69 5.33 6.3C5.73 5.92 6.19 5.57 6.69 5.35C7.19 5.12 7.79 4.92 8.33 4.93C8.87 4.95 9.44 5.21 9.93 5.46C10.42 5.72 10.95 6.03 11.28 6.45C11.61 6.87 11.79 7.46 11.91 7.98C12.04 8.51 12.03 9.34 12.05 9.61" stroke-width="1.68"/><path d="M11.7 9.5C11.75 9.22 11.78 8.34 11.98 7.83C12.17 7.33 12.5 6.85 12.86 6.46C13.22 6.06 13.66 5.69 14.13 5.47C14.61 5.25 15.18 5.13 15.71 5.13C16.23 5.12 16.79 5.25 17.27 5.45C17.75 5.65 18.2 5.98 18.59 6.34C18.98 6.71 19.43 7.14 19.61 7.63C19.79 8.12 19.71 8.73 19.68 9.28C19.65 9.83 19.65 10.44 19.42 10.93C19.19 11.41 18.49 11.98 18.3 12.19" stroke-width="1.536"/><path d="M5.25 11.68Q8.32 15.78 11.98 19.36Q15.21 15.38 18.68 11.6" stroke-width="1.424"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M12 9.55C12.917 8.613 14.111 8 15.5 8a5.5 5.5 0 0 1 5.5 5.5V21h-2v-7.5a3.5 3.5 0 0 0-7 0V21h-2V8.5h2v1.05zM5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-1 2h2V21H4V8.5z"/> </g> </svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M13 9h4.5l-.5 2h-4v9h-2v-9H7V9h4V7.128c0-1.783.186-2.43.534-3.082a3.635 3.635 0 0 1 1.512-1.512C13.698 2.186 14.345 2 16.128 2c.522 0 .98.05 1.372.15V4h-1.372c-1.324 0-1.727.078-2.138.298-.304.162-.53.388-.692.692-.22.411-.298.814-.298 2.138V9z"/> </g> </svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M5.455 15L1 18.5V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v12H5.455zm-.692-2H16V4H3v10.385L4.763 13zM8 17h10.237L20 18.385V8h1a1 1 0 0 1 1 1v13.5L17.545 19H9a1 1 0 0 1-1-1v-1z"/> </g> </svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
+      </div>
+</footer>
+
+<script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+
+<!--
+The contents of this file are subject to the Common Public Attribution License Version 1.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at https://alexanderkyriakou.eu/assets/licenses/CPAL-1-0.txt. The License is based on the Mozilla Public License Version 1.1 but Sections 14 and 15 have been added to cover use of software over a computer network and provide for limited attribution for the Original Developer. In addition, Exhibit A has been modified to be consistent with Exhibit B.
+
+Software distributed under the License is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the specific language governing rights and limitations under the License.
+
+The Original Code is the Image Optimizer and Aspect Ratio Editor, including its original input validation, crop geometry, aspect-ratio selection, resizing, encoder-worker integration, before/after comparison, download logic, and dedicated HTML, CSS and JavaScript interface code identified as part of this project, originally published at https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor.
+
+The Original Developer is not the Initial Developer and is __________. If left blank, the Original Developer is the Initial Developer.
+
+The Initial Developer of the Original Code is Alexander Kyriakou. All portions of the code written by Alexander Kyriakou are Copyright (c) 2026 Alexander Kyriakou. All Rights Reserved.
+
+Contributor ______________________.
+
+No alternative license is offered by the Initial Developer for the Original Code under this source notice.
+
+Third-party software and assets retain their own rights and applicable licenses. Original creative material is separately licensed as specified in the project notice; example photographs and other third-party material are excluded from those grants.
+
+Project scope and attribution: https://alexanderkyriakou.eu/assets/licenses/image-optimization-aspect-ratio-editor-LICENSE.md
+SPDX-License-Identifier: CPAL-1.0
+-->
+</body>
+</html>
