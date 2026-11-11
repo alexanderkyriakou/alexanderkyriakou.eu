@@ -193,10 +193,6 @@
   margin-top: 0;
 }
 
-.article-hero-portrait .article-credit {
-  display: block;
-}
-
 @supports not (grid-template-rows: subgrid) {
   .article-hero-portrait .article-figure { display: block; }
   .article-hero-portrait .article-caption { margin-top: 8px; }

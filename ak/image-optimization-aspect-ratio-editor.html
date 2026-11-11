@@ -278,7 +278,7 @@
               <select id="grid-mode"><option value="thirds">Rule of thirds</option><option value="center">Center lines</option><option value="golden">Golden ratio</option><option value="none">Frame only</option></select>
             </div>
             </fieldset><div class="field-gap"><label class="field-label" for="output-width">Output width <span class="muted">(px)</span></label>
-              <div class="dimension-row"><input id="output-width" type="number" min="1" step="1" inputmode="numeric"><span aria-hidden="true">×</span><output id="output-height" for="output-width">—</output></div>
+              <div class="dimension-row"><input id="output-width" type="number" min="1" step="1" inputmode="numeric"><span aria-hidden="true">x</span><output id="output-height" for="output-width">—</output></div>
               <p id="output-help" class="small muted">Height follows your ratio. No upscaling.</p>
             </div>
             <button id="download-crop" class="full-width labeled-button" type="button" aria-label="Download crop" title="Download crop"><span class="icon icon-crop" aria-hidden="true"></span><span id="download-crop-label">Download crop</span></button><div id="crop-progress" class="crop-progress" hidden><progress aria-label="Preparing crop download"></progress><span>Preparing download…</span><button id="cancel-crop-export" type="button">Cancel</button></div><p id="crop-export-note" class="small muted">Keeps the source image format.</p>
@@ -330,7 +330,7 @@
   <div id="idle-guide" class="container">
     <article class="guide image-guide">
       <section>
-        <h2>Crop, optimize and publish.</h2>
+        <h2>Crop, optimize and publish</h2>
         <p>I like well-optimized images online, and Squoosh is my go-to tool. But I usually had another program open just to crop an image before optimizing it. Getting a specific aspect ratio through an online cropper or a heavier image editor felt like more work than it needed to be. I'd been thinking about building on Squoosh's open-source code for a while. Here we are.</p>
         <p>This free tool lets you crop, resize and optimize an image in one place. Keep the whole image, or choose a crop and <strong>resize and optimize that selected part directly</strong>. Useful for SEOs, copywriters, social media managers and anyone preparing images to publish.</p>
         <p class="image-guide-note"><strong>Your images are not uploaded.</strong> Processing happens locally in your browser. The page and its tools still need to load, but your selected image stays on your device.</p>
