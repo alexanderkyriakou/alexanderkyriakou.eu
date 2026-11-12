@@ -3,7 +3,8 @@
 A page can show up in an answer through a search index, a direct user request, or a feed you set up yourself. What exactly did you mean to control?
 
 **Author:** [Alexander Kyriakou](https://alexanderkyriakou.eu/)  
-**Published:** November 11, 2026  
+**Published:** November 11, 2026
+**Modified:** November 11, 2026
 **Article:** https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt  
 **Topics:** [SEO](https://alexanderkyriakou.eu/thoughts/seo)
 
@@ -52,17 +53,17 @@ It's tempting to count the bot names in a log and assign one purpose to each vis
 
 ## Which crawler made the request?
 
-OpenAI and Anthropic both publish separate bots for training, search and user-requested fetches. Their documentation differs on the third.
+OpenAI, Anthropic and Mistral each publish separate names for training, search indexing and visits requested by a user. Their documentation differs on the third.
 
 **What happens when you disallow each bot in robots.txt?**
 
-| Purpose | OpenAI | Anthropic |
-| --- | --- | --- |
-| Model training | `GPTBot`<br>Tells OpenAI to exclude your site's content from training its generative foundation models. | `ClaudeBot`<br>Tells Anthropic to exclude future content from your site from its training datasets. |
-| Search indexing | `OAI-SearchBot`<br>Your pages won't appear in ChatGPT search answers, though ChatGPT may still show a navigational link to your site. | `Claude-SearchBot`<br>Your pages won't be indexed for Claude's search results. |
-| On-demand retrieval | `ChatGPT-User`<br>ChatGPT may still fetch the page. OpenAI says [robots.txt rules may not apply when a user requests it](https://developers.openai.com/api/docs/bots). | `Claude-User`<br>[Anthropic documents](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) that it honours the rule. |
+| Purpose | OpenAI | Anthropic | Mistral |
+| --- | --- | --- | --- |
+| Model training | `GPTBot`<br>Tells OpenAI to exclude your site's content from training its generative foundation models. | `ClaudeBot`<br>Tells Anthropic to exclude future content from your site from its training datasets. | `MistralAI-Training`<br>Tells Mistral's training crawler to skip the page when collecting material for its generative AI datasets. |
+| Search indexing | `OAI-SearchBot`<br>Your pages won't appear in ChatGPT search answers, though ChatGPT may still show a navigational link to your site. | `Claude-SearchBot`<br>Your pages won't be indexed for Claude's search results. | `MistralAI-Index`<br>Stops this crawler from fetching the page for Mistral's search index, which Vibe uses to answer questions. |
+| On-demand retrieval | `ChatGPT-User`<br>ChatGPT may still fetch the page. OpenAI says [robots.txt rules may not apply when a user requests it](https://developers.openai.com/api/docs/bots). | `Claude-User`<br>[Anthropic documents](https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler) that it honours the rule. | `MistralAI-User`<br>[Vibe honours the rule](https://docs.mistral.ai/robots) for user-requested visits. |
 
-If a colleague asks whether “user bots respect robots.txt”, I'd ask which one they've seen. A rule for `Claude-User` has a documented effect that you'd have a hard time promising for `ChatGPT-User`. Anthropic also documents its hosted browsers separately, so a statement about its three named robots has a fairly precise boundary.
+If a colleague asks whether “user bots respect robots.txt”, I'd ask which one they've seen. If someone pastes the lamp's URL into Vibe, `MistralAI-User` is the token that governs whether Vibe can open the page for them. Anthropic gives site owners a similar choice for `Claude-User`. I'd be more cautious about promising the same result for `ChatGPT-User`, because OpenAI says robots.txt rules may not apply to those visits. Anthropic also documents its hosted browsers separately, so its guidance for `Claude-User` only answers the question about that particular fetcher.
 
 A third route involves no visit from the AI provider at all; its training data can come from someone else's crawl. Anyone can [download Common Crawl's web archives](https://www.commoncrawl.org/overview). A rule addressed to `GPTBot` means nothing to [Common Crawl's own crawler, `CCBot`](https://www.commoncrawl.org/ccbot).
 

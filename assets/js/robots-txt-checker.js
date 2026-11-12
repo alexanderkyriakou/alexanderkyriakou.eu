@@ -45,13 +45,19 @@
     E('slurp', 'Yahoo! Slurp', 'top-search', { n: 'Legacy Yahoo search crawler; Yahoo Search primarily relies on partner indexes' }),
     E('yeti', 'Naver (Yeti)', 'top-search', { n: 'Web crawler for Naver, a major South Korean search engine' }),
     // AI & LLM Scrapers
+    E('addsearchbot', 'AddSearchBot', 'ai-search', { n: 'AddSearch crawler indexing website content for its hosted site-search services' }),
     E('ai2bot', 'AI2Bot', 'ai-search', { n: 'Allen Institute for AI crawler collecting web data for AI research' }),
+    E('aiwebindex', 'AIWebIndex (Lyrenth)', 'ai-search', { n: 'Lyrenth crawler indexing public web pages for AI retrieval with source attribution; not used for foundation-model training' }),
+    E('amazon-kendra', 'Amazon Kendra Web Crawler', 'ai-search', { n: 'AWS customer-configured crawler indexing authorized websites for Amazon Kendra enterprise search' }),
     E('amazonbot', 'Amazonbot', 'ai-search', { n: 'Amazon web crawler supporting search, AI, and other Amazon services' }),
     E('amzn-searchbot', 'Amzn-SearchBot', 'ai-search', { n: 'Amazon crawler supporting search discovery and retrieval' }),
     E('amzn-user', 'Amzn-User', 'ai-search', { n: 'On-demand webpage fetcher for user-initiated Amazon services' }),
+    E('anomura', 'Anomura (Direqt)', 'ai-search', { n: 'Direqt search crawler discovering and indexing webpages for its search services' }),
     E('anthropic-ai', 'anthropic-ai (legacy)', 'ai-search', { n: 'Legacy Anthropic crawler identifier associated with AI data collection' }),
     E('apifybot', 'ApifyBot', 'ai-search', { n: "Crawler associated with Apify's web scraping infrastructure" }),
     E('applebot-extended', 'Applebot-Extended (control token)', 'ai-search', { w: 2, n: 'Control token for Apple foundation model training; wildcard applicability is not explicitly documented' }),
+    E('atlassian-bot', 'atlassian-bot (Rovo)', 'ai-search', { n: 'Atlassian crawler indexing connected websites for Teamwork Graph search and Rovo AI features' }),
+    E('bedrockbot', 'bedrockbot (Amazon Bedrock)', 'ai-search', { n: 'Amazon Bedrock Knowledge Bases crawler for authorized website data sources; also supports customer-specific bedrockbot-UUID rules' }),
     E('bravebot', 'Bravebot (Brave Search / AI)', 'ai-search', { tags: ['top-search'], n: 'Independent Brave Search crawler supporting web search and AI answers' }),
     E('bytespider', 'Bytespider (ByteDance)', 'ai-search', { n: 'ByteDance crawler associated with web data collection and AI development' }),
     E('ccbot', 'CCBot (Common Crawl)', 'ai-search', { n: 'Common Crawl crawler collecting public web data for open datasets' }),
@@ -60,23 +66,34 @@
     E('claude-user', 'Claude-User (Anthropic On-Demand)', 'ai-search', { n: 'On-demand webpage fetcher for user-initiated Claude interactions' }),
     E('claude-web', 'Claude-Web (legacy)', 'ai-search', { n: 'Legacy web fetching agent associated with Claude' }),
     E('claudebot', 'ClaudeBot (Anthropic Training)', 'ai-search', { n: 'Anthropic crawler collecting web content potentially used for AI model training' }),
+    E('cloudflare-ai-search', 'Cloudflare-AI-Search', 'ai-search', { n: 'Official Cloudflare crawler discovering, fetching and indexing website content for AI Search; replaces the legacy Cloudflare-AutoRAG user-agent' }),
+    E('cloudflare-ai-search-external', 'Cloudflare-AI-Search-External', 'ai-search', { n: 'Cloudflare AI Search crawler fetching external domains and subdomains for customer-configured discovery; respects robots.txt restrictions and Content Signals' }),
+    E('cloudflare-autorag', 'Cloudflare-AutoRAG (legacy)', 'ai-search', { n: 'Legacy Cloudflare AI Search crawler token, renamed Cloudflare-AI-Search in February 2026; previous robots.txt rules remain supported' }),
     E('cohere-ai', 'cohere-ai (Cohere AI)', 'ai-search', { n: 'Cohere-associated web crawler for AI data collection' }),
     E('cohere-training-data-crawler', 'cohere-training-data-crawler', 'ai-search', { n: 'Crawler associated with collecting training data for Cohere AI models' }),
     E('crawl4ai', 'Crawl4AI', 'ai-search', { n: 'Open-source web crawling framework used by AI applications and agents; not a centrally operated crawler' }),
     E('deepseekbot', 'DeepSeekBot', 'ai-search', { n: 'Web crawler associated with DeepSeek AI services' }),
     E('diffbot', 'Diffbot', 'ai-search', { n: "AI-powered crawler extracting structured web data for Diffbot's Knowledge Graph" }),
     E('duckassistbot', 'DuckAssistBot', 'ai-search', { tags: ['top-search'], n: 'DuckDuckGo crawler associated with AI-assisted answer retrieval' }),
+    E('elevenlabsbot', 'ElevenlabsBot (Knowledge Base)', 'ai-search', { n: 'ElevenLabs crawler importing specified URLs and websites into conversational-agent knowledge bases' }),
+    E('exasearchbot', 'ExaSearchBot (Exa Search)', 'ai-search', { n: 'Exa crawler discovering and indexing public webpages for search, retrieval and citations' }),
+    E('exauser', 'ExaUser', 'ai-search', { n: 'Exa on-demand webpage fetcher for user-requested content retrieval rather than automated indexing' }),
     E('facebookbot', 'FacebookBot', 'ai-search', { tags: ['social-bots'], n: 'Meta crawler associated with web content indexing and AI-related data collection' }),
     E('gemini-deep-research', 'Gemini-Deep-Research', 'ai-search', { n: 'Community-listed identifier associated with Gemini Deep Research; official crawler behavior unverified' }),
-    E('google-extended', 'Google-Extended (Gemini control token)', 'ai-search', { w: 2, n: 'Control token governing certain Gemini model training and grounding uses; does not control Google Search indexing' }),
-    E('google-notebooklm', 'Google-NotebookLM (legacy)', 'ai-search', { n: 'Former official Google fetcher for NotebookLM sources; replaced by Google-GeminiNotebook in 2026' }),
-    E('google-gemininotebook', 'Google-GeminiNotebook', 'ai-search', { w: 2, n: 'User-triggered source fetcher for Gemini Notebook; generally ignores robots.txt restrictions' }),
     E('google-agent', 'Google-Agent', 'ai-search', { ir: true, n: 'Google-hosted AI agent fetching webpages and performing user-requested actions; generally ignores robots.txt restrictions' }),
+    E('google-extended', 'Google-Extended (Gemini control token)', 'ai-search', { w: 2, n: 'Control token governing certain Gemini model training and grounding uses; does not control Google Search indexing' }),
+    E('google-gemininotebook', 'Google-GeminiNotebook', 'ai-search', { w: 2, n: 'User-triggered source fetcher for Gemini Notebook; generally ignores robots.txt restrictions' }),
+    E('google-notebooklm', 'Google-NotebookLM (legacy)', 'ai-search', { n: 'Former official Google fetcher for NotebookLM sources; replaced by Google-GeminiNotebook in 2026' }),
+    E('gptbot', 'GPTBot (OpenAI Training)', 'ai-search', { n: 'OpenAI crawler collecting web content that may be used to train AI models' }),
     E('grok-agent', 'Grok-Agent (xAI)', 'ai-search', { n: 'Reported user-agent associated with xAI/Grok; official behavior unverified' }),
     E('grokbot', 'GrokBot (xAI)', 'ai-search', { n: 'Reported crawler associated with xAI/Grok; exact robots.txt behavior unverified' }),
-    E('gptbot', 'GPTBot (OpenAI Training)', 'ai-search', { n: 'OpenAI crawler collecting web content that may be used to train AI models' }),
     E('kangaroo bot', 'Kangaroo Bot', 'ai-search', { n: 'Unverified crawler identifier; operator and purpose not established' }),
+    E('keenablebot', 'KeenableBot', 'ai-search', { n: 'Keenable crawler indexing publicly available webpages for AI-agent search and retrieval' }),
+    E('kimi-searchbot', 'Kimi-SearchBot', 'ai-search', { n: 'Moonshot AI crawler indexing websites to support Kimi Search results' }),
     E('kimi-user', 'Kimi-User', 'ai-search', { n: "Reported on-demand webpage fetcher associated with Moonshot AI's Kimi" }),
+    E('kimibot', 'KimiBot', 'ai-search', { n: 'Moonshot AI crawler collecting web content potentially used to train Kimi foundation models' }),
+    E('klaviyoaibot', 'KlaviyoAIBot', 'ai-search', { n: 'Klaviyo crawler indexing account-connected storefronts and content sources for Customer Agent and other AI features' }),
+    E('linkupbot', 'LinkupBot', 'ai-search', { n: 'Linkup crawler indexing public webpages for AI-oriented web search and grounding services' }),
     E('manus-user', 'Manus-User', 'ai-search', { n: 'Reported webpage fetcher associated with Manus AI workflows' }),
     E('meta-externalagent', 'Meta-ExternalAgent', 'ai-search', { n: 'Meta crawler collecting public web content for AI-related uses' }),
     E('meta-externalfetcher', 'Meta-ExternalFetcher', 'ai-search', { n: 'Meta fetcher retrieving webpages in response to user or product requests' }),
@@ -90,6 +107,8 @@
     E('pangubot', 'PanguBot', 'ai-search', { n: 'Reported AI-related crawler; operator and exact purpose are unknown' }),
     E('perplexity-user', 'Perplexity-User', 'ai-search', { mi: true, n: 'User-triggered Perplexity fetcher; generally ignores robots.txt, so directives may not restrict access. Not used for web indexing or AI foundation model training' }),
     E('perplexitybot', 'PerplexityBot', 'ai-search', { n: 'Perplexity crawler discovering and indexing content for AI-powered search' }),
+    E('shap-user', 'Shap-User (Parallel)', 'ai-search', { n: 'Parallel Web Systems fetcher retrieving webpages on behalf of users; not used for automated indexing' }),
+    E('shapbot', 'ShapBot (Parallel)', 'ai-search', { n: 'Parallel Web Systems crawler building and maintaining a search index for AI-powered retrieval services' }),
     E('tiktokspider', 'TikTokSpider', 'ai-search', { n: 'ByteDance/TikTok-associated web crawler; specific usage not established' }),
     E('timpibot', 'Timpibot', 'ai-search', { n: 'Timpi crawler supporting decentralized web search and indexing' }),
     E('webzio-extended', 'Webzio-Extended', 'ai-search', { w: 2, n: 'Webzio-associated token for controlling AI-related data collection or reuse' }),
@@ -103,6 +122,7 @@
     // Image Search Bots
     E('googlebot-image', 'Googlebot-Image', 'image-bots', { fb: G, tags: ['top-search'], n: 'Dedicated Google crawler for image content used in Google Images and related Search features' }),
     E('googleother-image', 'GoogleOther-Image', 'image-bots', { fb: ['googleother'], tags: ['misc'], n: 'GoogleOther variant fetching public image URLs; does not affect Google Search indexing' }),
+    E('imagesiftbot', 'ImagesiftBot', 'image-bots', { tags: ['ai-search', 'scrapers'], n: 'ImageSift crawler indexing publicly available images and related webpage text for visual search and intelligence services' }),
     E('msnbot-media', 'MSNBot-Media', 'image-bots', { tags: ['top-search'], n: 'Legacy Microsoft crawler associated with media and image content discovery' }),
     // News Bots
     E('applebot-news', 'Applebot-News (unverified)', 'news-bots', { tags: ['top-search'], n: 'Reported Apple news-related crawler identifier; separate robots.txt token and behavior unverified' }),
@@ -114,6 +134,7 @@
     E('qwantbot-news', 'Qwantbot-news (Qwant News)', 'news-bots', { fb: ['qwantbot'], tags: ['eu-search'], n: 'Dedicated news crawler for Qwant, the French search engine' }),
     // Social Media Preview
     E('discordbot', 'Discordbot (Discord Previews)', 'social-bots', { n: 'Generates link cards and rich embeds on Discord' }),
+    E('echoboxbot', 'EchoboxBot', 'social-bots', { tags: ['ai-search'], n: 'Echobox crawler retrieving publisher content and metadata for social publishing, AI-assisted messaging and content optimization' }),
     E('facebookexternalhit', 'FacebookExternalHit (Meta)', 'social-bots', { n: 'Meta scraper retrieving Open Graph metadata for shared-link previews on Facebook and related platforms' }),
     E('linkedinbot', 'LinkedInBot', 'social-bots', { t: 'LinkedInBot', n: "Open Graph preview scraper for LinkedIn, it's case-sensitive - personally verified" }),
     E('pinterestbot', 'Pinterestbot', 'social-bots', { tags: ['image-bots'], n: 'Pinterest crawler discovering content and images for Pins and search' }),
@@ -133,6 +154,7 @@
     E('screaming frog SEO spider', 'Screaming Frog SEO Spider', 'seo-bots', { n: 'Desktop SEO crawler used for technical website audits' }),
     E('semrushbot', 'SemrushBot', 'seo-bots', { n: 'Semrush crawler collecting website data for SEO and competitive analysis' }),
     E('semrushbot-ocob', 'SemrushBot-OCOB', 'seo-bots', { n: 'Specialized Semrush crawler associated with online content optimization' }),
+    E('semrushbot-swa', 'SemrushBot-SWA', 'seo-bots', { tags: ['ai-search'], n: 'Semrush crawler checking webpage accessibility for SEO Writing Assistant, which includes AI-assisted content optimization features' }),
     E('serankingbot', 'SE Ranking Bot', 'seo-bots', { n: 'SE Ranking crawler supporting website analysis and SEO research' }),
     E('serpstatbot', 'SerpstatBot', 'seo-bots', { n: 'Serpstat SEO platform crawler' }),
     E('sitebulb', 'Sitebulb', 'seo-bots', { n: 'Technical SEO auditing crawler available for desktop and cloud; user-agent and robots.txt behavior are configurable' }),
@@ -141,7 +163,10 @@
     E('008', '008', 'scrapers', { n: 'Unverified numeric scraper identifier; operator and robots.txt matching behavior unknown' }),
     E('adstxtcrawler', 'AdsTxtCrawler', 'scrapers', { n: 'Crawler for collecting and analyzing ads.txt files used in digital advertising' }),
     E('brightbot', 'Brightbot (Bright Data)', 'scrapers', { tags: ['ai-search'], n: 'Bright Data crawler collecting public web content for data products, analytics, and AI applications' }),
+    E('cloudflarebrowserrenderingcrawler', 'CloudflareBrowserRenderingCrawler', 'scrapers', { tags: ['ai-search'], n: 'Cloudflare Browser Run crawler fetching and rendering webpages through its customer-invoked crawl endpoint' }),
+    E('cotoyogi', 'Cotoyogi (ROIS)', 'scrapers', { tags: ['ai-search'], n: 'ROIS-DS research crawler collecting Japanese-language web resources for research datasets' }),
     E('dcrawl', 'dcrawl', 'scrapers', { n: 'Web crawler for collecting links and discovering domains; distinct from Lumar Deepcrawl' }),
+    E('wget', 'GNU Wget', 'scrapers', { n: 'Command-line web downloader used for automated retrieval and website mirroring' }),
     E('helloworkjobpostingbot', 'HelloworkJobPostingBot', 'scrapers', { n: 'French HelloWork job aggregation crawler collecting publicly available job listings' }),
     E('httrack', 'HTTrack', 'scrapers', { n: 'Website copying and offline browsing tool that downloads pages and linked resources' }),
     E('indeedjobbot', 'IndeedJobBot', 'scrapers', { n: 'Indeed-associated crawler for discovering and processing job listings' }),
@@ -153,16 +178,19 @@
     E('nyt_scraping', 'nyt_scraping', 'scrapers', { n: 'Reported scraping identifier associated with news content; operator and purpose unverified' }),
     E('offline explorer', 'Offline Explorer', 'scrapers', { n: 'Website downloading software for saving web pages and resources for offline browsing' }),
     E('openindexspider', 'OpenindexSpider', 'scrapers', { fb: ['openindex'], tags: ['top-search'], n: 'Openindex crawler collecting web data for research and development of search engines' }),
+    E('panscient.com', 'panscient.com (Panscient)', 'scrapers', { tags: ['ai-search'], n: 'Panscient crawler collecting public business and professional information for machine-learning and structured data products' }),
     E('potions', 'Potions', 'scrapers', { n: 'Reported web data extraction identifier; operator and purpose unverified' }),
+    E('python-requests', 'Python Requests', 'scrapers', { n: 'Python HTTP library frequently used in automation and web scraping scripts' }),
     E('scrapy', 'Scrapy', 'scrapers', { n: 'Open-source Python framework for web crawling, scraping and data extraction' }),
     E('serverhunterspider', 'ServerHunterSpider', 'scrapers', { n: 'Reported web reconnaissance crawler; operator and robots.txt behavior unverified' }),
     E('statsdronebot', 'StatsDroneBot', 'scrapers', { n: 'Reported automated web data collection identifier; exact purpose unverified' }),
     E('thinkbot', 'Thinkbot', 'scrapers', { n: 'Reported automated crawler identifier; operator and purpose unverified' }),
+    E('velenpublicwebcrawler', 'VelenPublicWebCrawler', 'scrapers', { tags: ['ai-search'], n: 'Velen crawler operated for Hunter, collecting public business web data for datasets and machine-learning analysis' }),
     E('web-image-collection-research', 'Web Image Collection Research', 'scrapers', { tags: ['image-bots'], n: 'Reported crawler collecting images for research datasets; operator unverified' }),
-    E('wget', 'GNU Wget', 'scrapers', { n: 'Command-line web downloader used for automated retrieval and website mirroring' }),
-    E('python-requests', 'Python Requests', 'scrapers', { n: 'Python HTTP library frequently used in automation and web scraping scripts' }),
     // Miscellaneous
     E('*', '* (Wildcard / Default)', 'misc', { n: 'Default robots.txt group for crawlers without a matching specific user-agent group' }),
+    E('__usage_ai-training', '__usage_ai-training (AI Training Preference)', 'misc', { tags: ['ai-search'], w: 1, n: 'Proposed IETF cross-vendor robots.txt policy token expressing preferences about generative AI training; not a crawler, wildcard groups do not apply' }),
+
     E('adidxbot', 'AdIdxBot (Bing Ads)', 'misc', { n: 'Microsoft Advertising crawler verifying ad destinations and landing pages' }),
     E('adsbot-google', 'AdsBot-Google', 'misc', { w: 1, n: 'Google Ads crawler verifying landing page quality; ignores wildcard robots.txt groups' }),
     E('adsbot-google-mobile', 'AdsBot-Google-Mobile', 'misc', { w: 1, n: 'Mobile Google Ads crawler verifying landing page quality; ignores wildcard robots.txt groups' }),
@@ -180,12 +208,128 @@
     E('ia_archiver', 'ia_archiver', 'misc', { n: 'Legacy web crawler associated with Alexa Internet; not the current primary Internet Archive crawler' }),
     E('known agent', 'Known Agent', 'misc', { n: 'Known Agents platform bot used for development, monitoring and testing; not expected to honor robots.txt' }),
     E('mediapartners-google', 'Mediapartners-Google', 'misc', { w: 1, n: 'Google crawler analyzing webpage content for contextual advertising across AdSense, Ad Manager, and related ad products' }),
+    E('oai-adsbot', 'OAI-AdsBot (OpenAI Ads)', 'misc', { tags: ['ai-search'], n: 'OpenAI crawler checking ChatGPT ad landing pages for policy compliance and ad relevance; not used for foundation-model training' }),
     E('petalbot', 'PetalBot', 'misc', { tags: ['top-search'], n: 'Primary web crawling bot for Petal Search, operated by Huawei' }),
     E('storebot-google', 'Storebot-Google', 'misc', { n: 'Google Shopping crawler for desktop and mobile product and merchant-related pages' }),
     E('yak', 'Yak (unverified)', 'misc', { tags: ['scrapers'], n: 'Reported Yak crawler identifier; operator, purpose, and robots.txt behavior not independently verified' }),
     E('yandex', 'Yandex (Shared Rules)', 'misc', { tags: ['top-search'], n: 'Shared robots.txt control token for Yandex crawlers; applies to compatible Yandex bots when no more specific bot rules exist' }),
+    E('yandexadditional', 'YandexAdditional', 'misc', { tags: ['top-search', 'ai-search'], n: 'Yandex robots.txt control token determining whether indexed page content can appear in Yandex AI answers; does not independently index pages' }),
+    E('yandexadditionalbot', 'YandexAdditionalBot', 'misc', { tags: ['top-search', 'ai-search'], n: 'Yandex robots.txt control token for use of indexed content in Yandex AI answers; does not independently index pages' }),
+    E('yandexdirect', 'YandexDirect (Advertising)', 'misc', { w: 1, n: 'Yandex Advertising Network crawler analyzing partner-site content to determine topics and match relevant advertisements; does not follow general wildcard robots.txt restrictions' }),
     E('yandexmobilebot', 'YandexMobileBot', 'misc', { tags: ['top-search'], w: 1, n: 'Yandex crawler checking whether pages have mobile-friendly layouts; does not follow general wildcard robots.txt restrictions' }),
-    E('yandexdirect', 'YandexDirect (Advertising)', 'misc', { w: 1, n: 'Yandex Advertising Network crawler analyzing partner-site content to determine topics and match relevant advertisements; does not follow general wildcard robots.txt restrictions' })
+    // Community-reported / unofficial user-agents
+    E('agentdatabot', 'AgentDataBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported company-intelligence crawler collecting public business and technology information' }),
+    E('agenttimes', 'AgentTimes', 'misc', { tags: ['ai-search', 'news-bots'], n: 'Reported The Agent Times feed retrieval identifier for AI-news aggregation and republication' }),
+    E('agi agent', 'AGI Agent', 'misc', { tags: ['ai-search'], n: 'Reported AGI Inc. browser agent performing user-directed online tasks; token contains spaces' }),
+    E('ai2bot-deepresearcheval', 'AI2Bot-DeepResearchEval', 'misc', { tags: ['ai-search'], n: 'Reported Ai2 fetcher gathering pages for deep-research evaluation' }),
+    E('ai2bot-dolma', 'Ai2Bot-Dolma', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Ai2 crawler collecting documents for open language-model datasets' }),
+    E('aihitbot', 'aiHitBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported aiHit automated extraction of public business information' }),
+    E('amazon-qbusiness', 'amazon-QBusiness', 'misc', { tags: ['ai-search'], n: 'Reported Amazon Q Business website-content indexing identifier' }),
+    E('amazonbuyforme', 'AmazonBuyForMe', 'misc', { tags: ['ai-search'], n: 'Reported Amazon shopping agent retrieving merchant pages for Buy for Me workflows' }),
+    E('andibot', 'Andibot (Andi Search)', 'misc', { tags: ['ai-search'], n: 'Reported Andi crawler retrieving web content for AI-assisted search responses' }),
+    E('apifywebsitecontentcrawler', 'ApifyWebsiteContentCrawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Apify website-content extraction client used in scraping and AI workflows' }),
+    E('aranet-searchbot', 'Aranet-SearchBot', 'misc', { tags: ['ai-search'], n: 'Community-listed AI search crawler; operator and exact purpose unconfirmed' }),
+    E('awario', 'Awario', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Awario online-mention monitoring identifier; classification as an AI crawler unsubstantiated' }),
+    E('azureai-searchbot', 'AzureAI-SearchBot', 'misc', { tags: ['ai-search'], n: 'Community-listed identifier associated with Azure AI Search; distinct crawler token unconfirmed' }),
+    E('bigsur.ai', 'bigsur.ai', 'misc', { tags: ['ai-search'], n: 'Reported Big Sur AI page fetcher supporting AI shopping and sales experiences' }),
+    E('bixelbot', 'BixelBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Bixel crawler gathering public company and market information' }),
+    E('buddybot', 'BuddyBot', 'misc', { tags: ['ai-search'], n: 'Community-listed token linked to BuddyBot educational AI; independent web crawling unconfirmed' }),
+    E('cartai agentic commerce', 'CartAI Agentic Commerce', 'misc', { tags: ['ai-search'], n: 'Reported CartAI browser agent performing user-directed shopping tasks; token contains spaces' }),
+    E('channel3bot', 'Channel3Bot', 'misc', { tags: ['ai-search'], n: 'Community-listed search crawler with an unconfirmed operator and purpose' }),
+    E('chatglm-spider', 'ChatGLM-Spider', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported crawler associated with ChatGLM web-data collection' }),
+    E('chatgpt agent', 'ChatGPT Agent', 'misc', { tags: ['ai-search'], n: 'Community-listed name for ChatGPT agentic browsing; not an officially documented OpenAI crawler token' }),
+    E('claude-agent', 'Claude-Agent', 'misc', { tags: ['ai-search'], n: 'Community-listed name for Claude browser-agent activity; distinct crawler token unconfirmed' }),
+    E('claude-code', 'Claude-Code', 'misc', { tags: ['ai-search'], n: 'Community-listed name associated with Anthropic coding workflows; web crawler token unconfirmed' }),
+    E('cledarabot', 'CledaraBot', 'misc', { tags: ['ai-search'], n: 'Reported Cledara browser automation for authorized SaaS-account administration' }),
+    E('cloudvertexbot', 'CloudVertexBot (unverified variant)', 'misc', { tags: ['ai-search'], n: 'Community-listed variant attributed to Google Cloud Vertex AI; separate token not officially documented' }),
+    E('code', 'Code', 'misc', { tags: ['ai-search'], n: 'Generic identifier attributed to coding agents; operator and use as a crawler token unconfirmed' }),
+    E('codex', 'Codex', 'misc', { tags: ['ai-search'], n: 'Community-listed name associated with OpenAI coding agents; distinct crawler token unconfirmed' }),
+    E('cragcrawler', 'CragCrawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported CragSoftware bot collecting structured web data for client projects' }),
+    E('crawlspace', 'Crawlspace', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Crawlspace content extraction for RAG and AI data pipelines' }),
+    E('cursor', 'Cursor', 'misc', { tags: ['ai-search'], n: 'Community-listed name for Cursor coding-assistant requests; distinct crawler token unconfirmed' }),
+    E('datenbank crawler', 'Datenbank Crawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Community-listed data crawler; relation to AI and robots.txt behavior unconfirmed' }),
+    E('devin', 'Devin', 'misc', { tags: ['ai-search'], n: 'Community-listed identifier for the Devin software-engineering agent; crawler token unconfirmed' }),
+    E('diffbot-user', 'Diffbot-User', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported on-demand Diffbot fetcher for webpages requested through its services' }),
+    E('dot', 'Dot (OpenAI)', 'misc', { tags: ['ai-search'], n: 'Community-listed identifier for OpenAI Dot agent activity; separate crawler token unconfirmed' }),
+    E('doubaobot', 'DoubaoBot', 'misc', { tags: ['ai-search'], n: 'Reported ByteDance crawler collecting web information for Doubao AI services' }),
+    E('echobot bot', 'Echobot Bot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Community-listed Echobot-related data collector; distinct identity and AI-specific purpose unconfirmed' }),
+    E('elevenlabscrawler', 'ElevenlabsCrawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported ElevenLabs automated content-collection identifier; exact token and training use unconfirmed' }),
+    E('erniebot', 'ERNIEBot', 'misc', { tags: ['ai-search'], n: 'Reported Baidu crawler linked to ERNIE AI models; exact token and purpose unconfirmed' }),
+    E('exabot', 'ExaBot', 'misc', { tags: ['ai-search'], n: 'Community-listed Exa-related indexing identifier; distinct from officially documented ExaSearchBot' }),
+    E('factset_spyderbot', 'Factset_spyderbot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported FactSet-related data crawler; AI-training use not independently documented' }),
+    E('firecrawlagent', 'FirecrawlAgent', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Firecrawl web fetcher extracting and structuring content for developer applications' }),
+    E('friendlycrawler', 'FriendlyCrawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported crawler collecting public datasets for machine-learning experiments; operator unknown' }),
+    E('geisthaus-pagefetcher', 'GeistHaus-PageFetcher', 'misc', { tags: ['ai-search'], n: 'Reported GeistHaus webpage fetcher for AI-assisted workflows' }),
+    E('google-firebase', 'Google-Firebase', 'misc', { tags: ['ai-search'], n: 'Community-listed Google Firebase AI-related identifier; distinct crawler token unconfirmed' }),
+    E('google-gemini-cli', 'Google-Gemini-CLI', 'misc', { tags: ['ai-search'], n: 'Community-listed identifier for Gemini CLI web access; separate official crawler token unconfirmed' }),
+    E('googleagent-mariner', 'GoogleAgent-Mariner', 'misc', { tags: ['ai-search'], n: 'Reported Google Project Mariner browser-agent identifier; official token unconfirmed' }),
+    E('googleagent-urlcontext', 'GoogleAgent-URLContext', 'misc', { tags: ['ai-search'], n: 'Reported Google Gemini API URL-context fetcher; distinct robots.txt token unconfirmed' }),
+    E('grokappandroid', 'GrokAppAndroid', 'misc', { tags: ['ai-search'], n: 'Reported Grok Android application identifier; operation as a web crawler unconfirmed' }),
+    E('haiku-searchbot', 'Haiku-SearchBot', 'misc', { tags: ['ai-search'], n: 'Reported webpage fetcher for Haiku legal-AI search and user queries' }),
+    E('harkbot', 'HarkBot', 'misc', { tags: ['ai-search'], n: 'Reported Hark browser agent accessing webpages during user-requested tasks' }),
+    E('henkbot', 'HenkBot', 'misc', { tags: ['ai-search'], n: 'Reported Valyu search-infrastructure crawler for AI retrieval' }),
+    E('hunyuan', 'Hunyuan (Tencent)', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Tencent crawler collecting public data for Hunyuan AI systems' }),
+    E('iaskbot', 'iAskBot', 'misc', { tags: ['ai-search'], n: 'Community-listed iAsk search crawler; exact token and behavior unconfirmed' }),
+    E('iaskspider', 'iaskspider', 'misc', { tags: ['ai-search'], n: 'Reported iAsk search spider retrieving web material for AI answers' }),
+    E('icc-crawler', 'ICC-Crawler (NICT)', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported NICT research crawler collecting web information potentially used in AI datasets' }),
+    E('imagespider', 'imageSpider', 'misc', { tags: ['ai-search', 'image-bots'], n: 'Community-listed image crawler with unknown operator and specific purpose' }),
+    E('img2dataset', 'img2dataset', 'misc', { tags: ['ai-search', 'image-bots', 'scrapers'], n: 'Open-source image dataset downloader used by independent operators; not a centrally operated crawler' }),
+    E('instinct', 'Instinct', 'misc', { tags: ['ai-search'], n: 'Community-listed name associated with personal browser automation; crawler token unconfirmed' }),
+    E('isscyberriskcrawler', 'ISSCyberRiskCrawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported ISS Cyber Risk data crawler supporting risk-analysis models' }),
+    E('kagi-fetcher', 'kagi-fetcher', 'misc', { tags: ['ai-search'], n: 'Reported Kagi fetcher for user-initiated AI Assistant and search actions' }),
+    E('kimi-agent', 'Kimi-Agent', 'misc', { tags: ['ai-search'], n: 'Community-listed Kimi browser-agent token; not among Moonshot officially documented crawler identifiers' }),
+    E('kunatocrawler', 'KunatoCrawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Community-listed crawler; operator and purpose not independently established' }),
+    E('laion-huggingface-processor', 'laion-huggingface-processor', 'misc', { tags: ['ai-search', 'image-bots', 'scrapers'], n: 'Community-listed dataset-processing identifier associated with LAION or Hugging Face; crawler role unconfirmed' }),
+    E('laiondownloader', 'LAIONDownloader', 'misc', { tags: ['ai-search', 'image-bots', 'scrapers'], n: 'Reported LAION research-dataset downloader; exact crawler identity unconfirmed' }),
+    E('lcc', 'LCC', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Generic community-listed AI data scraper; operator and purpose unknown' }),
+    E('lightpanda', 'Lightpanda', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Open-source headless browser used for automation and AI workflows; not a centrally operated crawler' }),
+    E('liner-user', 'Liner-User', 'misc', { tags: ['ai-search'], n: 'Reported on-demand fetcher retrieving web sources for Liner AI answers' }),
+    E('linerbot', 'LinerBot', 'misc', { tags: ['ai-search'], n: 'Reported Liner crawler gathering sources for answer retrieval' }),
+    E('linguee bot', 'Linguee Bot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Linguee crawler collecting material for dictionary and translation services' }),
+    E('minimaxagent', 'MiniMaxAgent', 'misc', { tags: ['ai-search'], n: 'Reported MiniMax browser agent fetching webpages during user-directed research' }),
+    E('moonshotbot', 'MoonshotBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Moonshot AI training crawler; not among Kimi officially documented crawler tokens' }),
+    E('mozilla-tabstack', 'Mozilla-Tabstack', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Mozilla Tabstack-related fetcher for programmatic website extraction' }),
+    E('muse', 'Muse', 'misc', { tags: ['ai-search'], n: 'Community-listed Meta browser-agent identifier; distinct crawler token unconfirmed' }),
+    E('mycentralaiscraperbot', 'MyCentralAIScraperBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Community-listed AI scraper with unconfirmed operator and data use' }),
+    E('nagetbot', 'NagetBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Naget crawler associated with AI content-discovery services' }),
+    E('nbot', 'nbot', 'misc', { tags: ['ai-search', 'news-bots'], n: 'Reported NBot crawler gathering public news and industry information' }),
+    E('netestate imprint crawler', 'netEstate Imprint Crawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported netEstate site-information collector; AI-specific use unconfirmed' }),
+    E('newsai', 'newsai', 'misc', { tags: ['ai-search', 'news-bots'], n: 'Ambiguous news-related scraper identifier with no verified operator' }),
+    E('notebooklm', 'NotebookLM', 'misc', { tags: ['ai-search'], n: 'Community-listed NotebookLM product name; not an officially documented Google crawler token' }),
+    E('novaact', 'NovaAct', 'misc', { tags: ['ai-search'], n: 'Community-listed name associated with Amazon Nova Act browser automation; token unconfirmed' }),
+    E('openai', 'OpenAI (generic identifier)', 'misc', { tags: ['ai-search'], n: 'Generic OpenAI-attributed identifier; no separate crawler documented under this name' }),
+    E('opencode', 'opencode', 'misc', { tags: ['ai-search'], n: 'Open-source coding-agent client; no single centrally controlled web crawler confirmed' }),
+    E('operator', 'Operator (OpenAI, legacy)', 'misc', { tags: ['ai-search'], n: 'Community-listed name for OpenAI browser-agent functionality; distinct crawler token unconfirmed' }),
+    E('panscient', 'Panscient (unconfirmed variant)', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Panscient crawler identifier; operator officially documents panscient.com instead' }),
+    E('payhawk invoice fetching agent', 'Payhawk Invoice Fetching Agent', 'misc', { tags: ['ai-search'], n: 'Reported Payhawk browser agent retrieving invoices from supplier accounts at user request' }),
+    E('phindbot', 'PhindBot', 'misc', { tags: ['ai-search'], n: 'Reported Phind fetcher retrieving technical webpages for developer-focused AI answers' }),
+    E('poggio-citations', 'Poggio-Citations', 'misc', { tags: ['ai-search'], n: 'Reported Poggio webpage fetcher supporting cited AI sales-research output' }),
+    E('poseidon research crawler', 'Poseidon Research Crawler', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Poseidon Research data collector associated with AI-interpretability studies' }),
+    E('qodercli', 'qodercli', 'misc', { tags: ['ai-search'], n: 'Community-listed Qoder coding-agent client identifier; crawler token unconfirmed' }),
+    E('qualifiedbot', 'QualifiedBot', 'misc', { tags: ['ai-search'], n: 'Reported Qualified crawler gathering customer-site content for AI sales assistants' }),
+    E('querit-searchbot', 'Querit-SearchBot', 'misc', { tags: ['ai-search'], n: 'Reported Querit indexing bot for LLM-focused web search APIs' }),
+    E('queritbot', 'QueritBot', 'misc', { tags: ['ai-search'], n: 'Reported Querit crawler indexing webpages for search and retrieval APIs' }),
+    E('quillbot', 'QuillBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Community-listed identifier associated with QuillBot language tools; crawler use unconfirmed' }),
+    E('quillbot.com', 'quillbot.com', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Community-listed dotted QuillBot identifier; no independently documented crawler token' }),
+    E('qwenbot', 'QwenBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Alibaba crawler collecting web content associated with Qwen AI models' }),
+    E('reflectionbot', 'Reflectionbot', 'misc', { tags: ['ai-search'], n: 'Community-listed crawler attributed to Reflection AI; exact purpose unconfirmed' }),
+    E('sbintuitionsbot', 'SBIntuitionsBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported SB Intuitions crawler gathering material for AI development' }),
+    E('scrybot', 'ScryBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Scry retrieval companion scraping webpages for AI-agent queries' }),
+    E('sidetrade indexer bot', 'Sidetrade indexer bot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported Sidetrade content collector potentially supporting AI-powered products' }),
+    E('spider', 'Spider', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Generic community-listed scraper identifier without reliable operator attribution' }),
+    E('tavilybot', 'TavilyBot', 'misc', { tags: ['ai-search'], n: 'Reported Tavily indexing or extraction crawler for AI search and research APIs' }),
+    E('terracotta', 'TerraCotta (Ceramic)', 'misc', { tags: ['ai-search'], n: 'Reported Ceramic crawler indexing webpages for AI-oriented search APIs' }),
+    E('tongyibot', 'TongyiBot', 'misc', { tags: ['ai-search'], n: 'Reported Alibaba bot retrieving sources for Tongyi Qianwen AI answers' }),
+    E('trae', 'Trae', 'misc', { tags: ['ai-search'], n: 'Community-listed ByteDance coding-agent client; distinct crawler token unconfirmed' }),
+    E('twinagent', 'TwinAgent', 'misc', { tags: ['ai-search'], n: 'Reported Twin automation agent navigating webpages for user-delegated tasks' }),
+    E('useai', 'UseAI', 'misc', { tags: ['ai-search'], n: 'Community-listed AI-assistant webpage retrieval identifier; operator unverified' }),
+    E('wardbot', 'WARDBot', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported WEBSPARK crawler; connection to AI data collection unconfirmed' }),
+    E('wpbot', 'wpbot (WordPress chatbot)', 'misc', { tags: ['ai-search'], n: 'Community-listed token linked to WordPress chatbot software; centrally operated crawler unconfirmed' }),
+    E('wrtnbot', 'WRTNBot', 'misc', { tags: ['ai-search'], n: 'Community-listed Wrtn-related crawler; official token and purpose unconfirmed' }),
+    E('xai-grok', 'xAI-Grok', 'misc', { tags: ['ai-search'], n: 'Reported xAI web-content crawler identifier; exact token and training purpose unconfirmed' }),
+    E('yibot', 'YiBot (01.AI)', 'misc', { tags: ['ai-search', 'scrapers'], n: 'Reported 01.AI crawler collecting public web content for indexing or AI development' }),
+    E('yiyanbot', 'YiyanBot', 'misc', { tags: ['ai-search'], n: 'Reported Baidu AI-answer fetcher associated with ERNIE or Yiyan' }),
+    E('zanistabot', 'ZanistaBot', 'misc', { tags: ['ai-search'], n: 'Community-listed AI search crawler without independently established operator details' })
   ];
   const CATS = [
     ['top-search', 'Top Search Engines'], ['ai-search', 'AI & LLM Scrapers'],
@@ -347,6 +491,16 @@
       'robots.txt compliance not assured',
       'Perplexity-User generally ignores robots.txt for user-requested fetches; Allow/Disallow cannot reliably predict access'
     );
+    const isTrainingPreference = ua.id === '__usage_ai-training';
+    // The proposed cross-vendor token is a content-use preference, not a fetcher.
+    // Without a dedicated group, wildcard rules MUST NOT imply a preference.
+    if (isTrainingPreference && !parsed.groups.some(group => group.agents.includes(ua.token.toLowerCase()))) {
+      return {
+        state: 'inconclusive', label: 'No preference',
+        rule: 'No __usage_ai-training group', line: null,
+        note: 'No generative AI training preference expressed; wildcard rules do not apply'
+      };
+    }
     const matched = matchGroups(parsed.groups, ua);
     if (matched.unclear) return inc('No dedicated group; wildcard applicability is undocumented for this token');
     const rules = matched.gs.flatMap(group => group.rules);
@@ -360,8 +514,19 @@
       const length = new TextEncoder().encode(literal).length;
       if (!best || length > best.length || (length === best.length && rule.type === 'allow' && best.rule.type !== 'allow')) best = { length, rule };
     }
-    if (!best) return { state: 'allowed', rule: rules.length ? 'No matching rule (default allow)' : 'No applicable rules (default allow)', line: null, note };
-    return { state: best.rule.type === 'allow' ? 'allowed' : 'blocked', rule: best.rule.type.toUpperCase() + ': ' + best.rule.path, line: best.rule.line, note };
+    const result = !best
+      ? { state: 'allowed', rule: rules.length ? 'No matching rule (default allow)' : 'No applicable rules (default allow)', line: null, note }
+      : { state: best.rule.type === 'allow' ? 'allowed' : 'blocked', rule: best.rule.type.toUpperCase() + ': ' + best.rule.path, line: best.rule.line, note };
+    if (!isTrainingPreference) return result;
+    const favorsTraining = result.state === 'allowed';
+    return {
+      ...result,
+      label: favorsTraining ? 'In favor' : 'Against',
+      note: [result.note, favorsTraining
+        ? 'Preference in favor of generative AI training; does not grant crawler access'
+        : 'Preference against generative AI training; does not itself block crawling'
+      ].filter(Boolean).join('; ')
+    };
   }
   window.RobotsCore = { parseSiteUrl, parseRobots, evaluate, toRegex, USER_AGENTS };
 
@@ -417,6 +582,7 @@
         const row = document.createElement('div'); row.className = 'ua-item';
         const checkbox = document.createElement('input'); checkbox.type = 'checkbox';
         checkbox.id = 'ua_' + ua.id.replace(/\s/g, '_'); checkbox.checked = selectedUAs.has(ua.id);
+        checkbox.disabled = resourceCheck.checked && ua.id === '__usage_ai-training';
         checkbox.addEventListener('change', () => {
           if (resourceCheck.checked) {
             if (checkbox.checked) { selectedUAs.clear(); selectedUAs.add(ua.id); }
@@ -1024,6 +1190,17 @@
   function makeResult(parsed, ua, input) {
     const target = parseSiteUrl(input, false);
     if (!target.url) return inc(input ? 'Invalid absolute URL' : 'Enter a target URL to evaluate');
+    if (ua.id === '__usage_ai-training' && !ed.value.trim() && !S.loaded) {
+      const confirmedMissing = S.missingOrigin === target.origin;
+      return {
+        state: 'inconclusive', label: confirmedMissing ? 'No preference' : 'Not verified',
+        rule: confirmedMissing ? 'No preference expressed (robots.txt absent)' : 'Training preference not verified',
+        line: null,
+        note: confirmedMissing
+          ? 'HTTP 404/410 verified for this origin; no policy group is present'
+          : 'Empty editor; live robots.txt has not been verified'
+      };
+    }
     if (ua.ignoresRobots || ua.mayIgnoreRobots) return evaluate(parsed, ua, target.url);
     if (S.missingOrigin === target.origin && !ed.value.trim() && !S.loaded) {
       return { state: 'allowed', rule: 'robots.txt not found (default allow)', line: null, note: 'HTTP 404/410 was verified for this origin' };
@@ -1074,7 +1251,7 @@
     const badge = document.createElement('span');
     badge.className = 'badge ' + (result.state === 'allowed' ? 'badge-allowed' : result.state === 'blocked' ? 'badge-blocked' : 'badge-na');
     badge.style.display = 'inline-block';
-    badge.textContent = { allowed: 'Allowed', blocked: 'Blocked', inconclusive: 'Inconclusive' }[result.state] || 'N/A';
+    badge.textContent = result.label || { allowed: 'Allowed', blocked: 'Blocked', inconclusive: 'Inconclusive' }[result.state] || 'N/A';
     statusCell.appendChild(badge);
     const directiveCell = row.insertCell();
     directiveCell.style.textAlign = 'left';
@@ -1137,7 +1314,7 @@
       }
       for (const ua of agents) {
         const result = makeResult(parsed, ua, target);
-        if (index === 0 && result.state === 'inconclusive') primaryInconclusive = true;
+        if (index === 0 && result.state === 'inconclusive' && result.label !== 'No preference') primaryInconclusive = true;
         addResultRow(tbody, ua, result);
       }
     });

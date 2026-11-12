@@ -53,6 +53,7 @@
       "description": "Why a page can still appear in ChatGPT search after you block GPTBot, and how to choose which AI crawlers and uses of your content to allow.",
       "inLanguage": "en",
       "datePublished": "2026-11-11",
+      "dateModified": "2026-11-12",
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
       },
@@ -75,6 +76,7 @@
       "description": "A floor lamp's product page illustrates how AI model training, search indexing, grounding and on-demand retrieval differ. The article compares provider-specific robots.txt controls, the proposed __usage_ai-training token and Microsoft's planned grounding settings. Worked examples show how to test a rule and investigate a crawler request when a CDN sits in front of the site.",
       "inLanguage": "en",
       "datePublished": "2026-11-11",
+      "dateModified": "2026-11-12",
       "isAccessibleForFree": true,
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
@@ -261,22 +263,22 @@ User-agent: GPTBot
 Disallow: /
 </pre>
 
-<p>A few days later, a shopper finds the lamp in a ChatGPT answer. Did OpenAI ignore your file? Almost certainly not. OpenAI uses <a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener external">separate crawlers for training and for search</a>. Your rule addresses <code>GPTBot</code>. The crawler that indexes pages for ChatGPT search is <code>OAI-SearchBot</code>, and your file never mentioned it. The lamp appearing is consistent with what you asked for.</p>
+<p>A few days later, a shopper finds the lamp in a ChatGPT answer. Did OpenAI ignore your file? The lamp showing up doesn't tell you that. Your rule names <code>GPTBot</code>, which OpenAI uses for training. ChatGPT search <a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener external">uses a separate crawler</a>, <code>OAI-SearchBot</code>, and your file still allows it.</p>
 
 <h2 id="one-page">One product page, four AI use cases</h2>
-<p>Which price a potential customer might see this afternoon, ff you changed it from €59 to €49 this morning? That depends on how the LLM chat got its information.</p>
+<p>You drop the price from €59 to €49 this morning. A shopper asks about the lamp this afternoon. Which price will they see?</p>
 
 <dl>
 <dt>Model training</dt><dd>Your page could be one item in a vast collection used to adjust a model's learned parameters. Updating the price on your site doesn't affect those parameters. A visit from a training crawler shows that it requested the page. You can't tell from that visit whether the description made it into a training run.</dd>
 <dt>Search indexing</dt><dd>A search service can fetch the product page ahead of time and make it retrievable for a chat discussion. That's useful for discovery, though the index may still have yesterday's price when the user asks.</dd>
-<dt>Grounding</dt><dd>Grounding means using information from a source to answer a question. Say Google crawled your floor lamp page yesterday, when the price was €59. If a user asks about it today, Gemini can use <a href="https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended" target="_blank" rel="noopener external">the price stored in Google's Search index</a>. Looking up that price in the index doesn't send a new request to your server. Only if the chatbot fetches the live page directly to check today's price will that fetch initiate a new request, accompanied by the accurate price in the chat.</dd>
-<dt>On-demand retrieval</dt><dd>A potential customer pastes the page's URL and asks the chatbot, “Is it good VFM?” their chatbot may read the page to find lamp's price, that's on-demand retrieval. If it then uses the retrieved price listed on the page to explain whether the lamp is VFM, it's grounding its answer in the product description, while citing the updated price of the floor lamp.</dd>
+<dt>Grounding</dt><dd>Suppose Google crawled the product page yesterday, when the lamp was €59. Gemini can use <a href="https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended" target="_blank" rel="noopener external">that price from Google's Search index</a> to answer the shopper. That's grounding. The answer draws on your page, even though Google hasn't requested it again since you changed the price.</dd>
+<dt>On-demand retrieval</dt><dd>Now suppose the shopper pastes the product URL into the chat and asks, “Is this lamp good value for money?” The chatbot may fetch the page and see the new €49 price. Fetching it in response to the shopper's question is on-demand retrieval. If the chatbot uses that price to judge whether the lamp is worth buying, it's grounding its answer too.</dd>
 </dl>
 
 <p>It's tempting to count the bot names in a log and assign one purpose to each visit. When a site allows both its training and search crawlers, OpenAI says it may <a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener external">use the results of one crawl for both purposes</a>. A log records what reached your server. The operator's policy tells you what it says it can do with your server response.</p>
 
 <h2 id="who-fetches">Which crawler made the request?</h2>
-<p>OpenAI and Anthropic both publish separate bots for training, search and user-requested fetches. Their documentation differs on the third.</p>
+<p>OpenAI,Anthropic and Mistral all three publish separate bots for training, search and user-requested fetches. They give different answers about whether robots.txt rules apply when someone asks their chatbot to fetch a page.</p>
 
 <div class="ai-table">
   <table>
@@ -286,6 +288,7 @@ Disallow: /
         <th scope="col">Purpose</th>
         <th scope="col">OpenAI</th>
         <th scope="col">Anthropic</th>
+        <th scope="col">Mistral</th>
       </tr>
     </thead>
     <tbody>
@@ -299,6 +302,10 @@ Disallow: /
           <code>ClaudeBot</code><br>
           Tells Anthropic to exclude future content from your site from its training datasets.
         </td>
+        <td>
+          <code>MistralAI-Training</code><br>
+          Tells Mistral's training crawler to skip the page when collecting material for its generative AI datasets.
+        </td>
       </tr>
       <tr>
         <th scope="row">Search indexing</th>
@@ -309,6 +316,10 @@ Disallow: /
         <td>
           <code>Claude-SearchBot</code><br>
           Your pages won't be indexed for Claude's search results.
+        </td>
+        <td>
+          <code>MistralAI-Index</code><br>
+          Stops this crawler from fetching the page for Mistral's search index, which Vibe uses to answer questions.
         </td>
       </tr>
       <tr>
@@ -322,13 +333,17 @@ Disallow: /
           <code>Claude-User</code><br>
           <a href="https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler" target="_blank" rel="noopener external">Anthropic documents</a> that it honours the rule.
         </td>
+        <td>
+          <code>MistralAI-User</code><br>
+          <a href="https://docs.mistral.ai/robots" target="_blank" rel="noopener external">Vibe honours the rule</a> for user-requested visits.
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<p>If a colleague asks whether “user bots respect robots.txt”, I'd ask which one they've seen. A rule for <code>Claude-User</code> has a documented effect that you'd have a hard time promising for <code>ChatGPT-User</code>. Anthropic also documents its hosted browsers separately, so a statement about its three named robots has a fairly precise boundary.</p>
-<p>A third route involves no visit from the AI provider at all; its training data can come from someone else's crawl. Anyone can <a href="https://www.commoncrawl.org/overview" target="_blank" rel="noopener external">download Common Crawl's web archives</a>. A rule addressed to <code>GPTBot</code> means nothing to <a href="https://www.commoncrawl.org/ccbot" target="_blank" rel="noopener external">Common Crawl's own crawler, <code>CCBot</code></a>.</p>
+<p>If a colleague asks whether “user bots respect robots.txt”, I'd ask which one they've seen. If someone pastes the lamp's URL into Vibe, <code>MistralAI-User</code> is the token that governs whether Vibe can open the page for them. Anthropic gives site owners a similar choice for <code>Claude-User</code>. I'd be more cautious about promising the same result for <code>ChatGPT-User</code>, because OpenAI says robots.txt rules may not apply to those visits. Anthropic also documents its hosted browsers separately, so its guidance for <code>Claude-User</code> only answers the question about that particular fetcher.</p>
+<p>A provider can also get training data from someone else's crawl. Anyone can <a href="https://www.commoncrawl.org/overview" target="_blank" rel="noopener external">download Common Crawl's web archives</a>. A rule for <code>GPTBot</code> doesn't cover <a href="https://www.commoncrawl.org/ccbot" target="_blank" rel="noopener external">Common Crawl's crawler, <code>CCBot</code></a>.</p>
 
 <h2 id="extended">The two “Extended” names you won't see making a request</h2>
 <p>If your server logs the <code>User-Agent</code> header, you can see which crawler a request claims to come from, such as <code>Googlebot</code>. You won't see a separate visit from Google when you add a <code>Google-Extended</code> rule. Google <a href="https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended" target="_blank" rel="noopener external">uses its existing crawlers to fetch the page</a>. The <code>Google-Extended</code> rule tells Google whether it may use that content for the Gemini training and grounding uses covered by the rule. The request header alone can't tell you whether either use took place.</p>
@@ -342,18 +357,21 @@ Disallow: /
 <h2 id="shared-preference">Can I express my training preference once?</h2>
 <p>Soon! That's the idea behind <a href="https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/" target="_blank" rel="noopener external">the shared training preference proposed on October 30, 2026</a>: <code>__usage_ai-training</code>. You may see it described as a new robots.txt directive. The distinction matters when you write the file: the new part goes on the <em>value</em> side of an existing <code>User-agent:</code> line. The familiar <code>Allow</code> and <code>Disallow</code> rules still do the path matching. The draft proposes a shared meaning for the result.</p>
 
+<p>That's the idea behind <code>__usage_ai-training</code>, <a href="https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/" target="_blank" rel="noopener external">proposed on October 30, 2026</a>. If you're trying the draft syntax, simply add <code>User-agent: __usage_ai-training</code>. The <code>Allow</code> and <code>Disallow</code> lines below it specify which paths your training preference covers.</p>
+
 <pre>
 User-agent: __usage_ai-training
 Disallow: /
 Allow: /products/
 </pre>
 
-<p>Here a preference against training across the site is stated, with an explicit exception in favour of training under <code>/products/</code>. Remove the last line for a site-wide opt-out. A general <code>User-agent: *</code> group doesn't express this preference under the present draft. And allowing the products directory for training wouldn't give a crawler permission to fetch it if the crawler's own access rules disallow it. The use and the fetch are evaluated separately.</p>
-<p><strong>Rollout checked on 11 November 2026.</strong> The IETF AI Preferences working group is <a href="https://mailarchive.ietf.org/arch/msg/ai-control/60V9tZ56eL0OsnSgO2BsfXlXfCc/" target="_blank" rel="noopener external">discussing how the proposal fits its wider work</a>. For now it's in the Draft phase.</p>
+<p>This example declines training across the site except under <code>/products/</code>. Remove the last line if you want the opt-out to cover the products too. A general <code>User-agent: *</code> group doesn't express this preference under the present draft. And allowing the products directory for training wouldn't give a crawler permission to fetch it if the crawler's own access rules disallow it. The use and the fetch are evaluated separately.</p>
+
+<p>The IETF AI Preferences working group is <a href="https://mailarchive.ietf.org/arch/msg/ai-control/60V9tZ56eL0OsnSgO2BsfXlXfCc/" target="_blank" rel="noopener external">discussing how the proposal fits its wider work</a>. As of publishing of this page, it's in the Draft phase.</p>
 
 <div class="ai-table ai-table-providers">
   <table>
-    <caption>What the participating providers have said</caption>
+    <caption style="margin-bottom: -5px;">What the participating providers have said</caption>
     <thead><tr><th scope="col">Provider</th><th scope="col">What matters for your file</th></tr></thead>
     <tbody>
       <tr style="border-top: 0;"><th scope="row">Google</th><td>Google <a href="https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended" target="_blank" rel="noopener external">aims to support the signal in early 2027</a>. If you opt out through the shared token and leave <code>Google-Extended</code> unspecified, Google plans to <a href="https://developers.google.com/search/blog/2026/10/ai-training-control" target="_blank" rel="noopener external">treat that choice as a Google-Extended disallow</a>. That can cost you Gemini grounding eligibility as well. An explicit Google-Extended choice lets you specify Google's treatment separately.</td></tr>
@@ -396,7 +414,8 @@ Allow: /products/
 <p>That gap between publishing and recrawling is the whole reason for the temporary setting. Without it, a page still relying on the old restriction can default to allowing grounding while it waits for its new instruction to be discovered. Bing also offers an <a href="https://www.bing.com/webmasters/help/ai-performance-9f8e7d6c" target="_blank" rel="noopener external">AI Performance report</a>. A citation there can help you investigate visibility, but it tells you neither how many readers clicked nor whether a page was used in training.</p>
 
 <h3>ChatGPT Business Hub</h3>
-<p>OpenAI <a href="https://openai.com/index/introducing-businesses-chatgpt/" target="_blank" rel="noopener external">introduced Businesses in ChatGPT in beta</a> on 10 November 2026. For the floor lamp shop, Business Hub is relevant for a different reason. An eligible business can <a href="https://openai.com/business/businesses-in-chatgpt/" target="_blank" rel="noopener external">claim and verify its profile</a>, update its details and submit a product feed containing prices and availability. If the shop itself sends OpenAI the €49 price, that provides another route for the figure to reach ChatGPT. Blocking a fetch of the product page wouldn't withdraw a feed the shop chose to supply.</p>
+<p>If the shop submits €49 through its product feed, ChatGPT has another way to get the price. Blocking a fetch of the product page wouldn't withdraw the feed. OpenAI <a href="https://openai.com/index/introducing-businesses-chatgpt/" target="_blank" rel="noopener external">introduced Businesses in ChatGPT in beta</a> on 10 November 2026. An eligible business can <a href="https://openai.com/business/businesses-in-chatgpt/" target="_blank" rel="noopener external">claim and verify its profile</a>, update its details and submit a feed with prices and availability.</p>
+
 <p>The Hub also provides aggregated insights such as mentions and website clicks, subject to reporting thresholds. OpenAI documents controls there for business information, feeds and eligible Business Agents. For the shop's website, <a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener external">OpenAI's crawler guidance</a> still points publishers to <code>GPTBot</code> and <code>OAI-SearchBot</code> in robots.txt. Claiming a business doesn't guarantee preferential placement.</p>
 
 <h2 id="test-rules">Put the floor lamp through the checker</h2>
@@ -425,7 +444,7 @@ Disallow: /checkout/
   </div>
 
 <p>Paste those rules into my <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">Robots.txt Checker</a>, select <code>GPTBot</code> and <code>OAI-SearchBot</code>, and enter <code>https://yourdomain.eu/products/floor-lamp</code>. Add the checkout URL as a second test. The multiple-URLs field accepts both at once. Click a result with a line number to see which rule won, then delete the last line and run it again.</p>
-<p>The <strong>AI & LLM Scrapers</strong> group in the checker contains 54 entries as of November 11, 2026. That count includes fetchers and policy tokens. The copy icon beside a result gives you its <code>User-agent:</code> declaration, which saves you retyping it. Select the whole group if you want to see where the same rule produces different results. If a row comes back <em>Inconclusive</em>. The checker guide lists the <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker#reading-results" target="_blank">reasons a result can be Inconclusive</a>.</p>
+<p>The <strong>AI & LLM Scrapers</strong> group in the checker contains over 200 entries as of November 12, 2026. That count includes fetchers and policy tokens. The copy icon beside a result gives you its <code>User-agent:</code> declaration. Select the whole group if you want to see where the same rule produces different results. If a row comes back <em>Inconclusive</em>, the checker guide <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker#reading-results" target="_blank">explains why</a>.</p>
 
 <h2 id="cdn">The checker says allowed. The CDN returns 403.</h2>
 <p>Both can be right. The checker evaluated a text file. A real request still has to get through the infrastructure serving the page. If the product path is allowed for search but the CDN blocks the request, adding another <code>Allow: /products/</code> line won't get your floor lamp back in front of anyone.</p>
@@ -433,10 +452,20 @@ Disallow: /checkout/
 <p>Next, pull up the edge event for the affected URL. Did a <a href="https://developers.cloudflare.com/ai-crawl-control/configuration/ai-crawl-control-with-waf/" target="_blank" rel="noopener external">web application firewall rule</a> block the request before it reached your server? Check the hostname, the response and the rule that took the action. An edge block may explain why you can't find the request at the origin. The reverse can happen too. A robots.txt disallow can coexist with an HTTP 200 for a visitor who asks for the page.</p>
 
 <h2 id="evidence">What would convince me the rule worked?</h2>
-<p>For the shop, I'd keep three things together: the served robots.txt response, the checker result for each product and checkout URL, and a dated edge or server log entry for any request worth investigating. They answer three useful questions. What did we publish? Which rule applies? What did the server actually do?</p>
+<p>For the shop, I'd keep three things together: the served robots.txt response, the checker result for each product and checkout URL, and a dated edge or server log entry for any request worth investigating. What did we publish? Which rule applies? What did the server actually do?</p>
 <p>If the request calls itself GPTBot, remember how little effort it took to copy that name from the checker. An HTTP client can supply the same text. If your site sits behind a CDN, first <a href="https://alexanderkyriakou.eu/ak/verify-crawler-identity#client-ip">check which address in your logs belongs to the client</a>. Otherwise, you could spend the next few minutes verifying your own proxy. Take that client IP and the claimed user-agent into my <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier">Crawler IP Verifier</a> to see whether the operator's published ranges support the claim. If several crawlers share the range, you may be able to identify the operator and still have an open question about which bot made the request.</p>
 <p>If someone finds the floor lamp next week, I'd want to know <em>how</em> they found it. A link in ChatGPT search, a price supplied through the shop's feed, and a visit to the page after someone pasted its URL each give you a different place to look. And if the original brief was “let customers find the lamp, but decline training”, that first link might just be the part that's working.</p>
 </div>
+
+<section class="changelog">
+  <h2>Updates</h2>
+  <ul>
+    <li>
+      <time datetime="2026-11-12">November 12, 2026</time>
+      <span>Added Mistral to the crawler comparison, covering <code>MistralAI-Training</code>, <code>MistralAI-Index</code> and <code>MistralAI-User</code>. Refined the copy, following the <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Robots.txt Checker update</a>.</span>
+    </li>
+  </ul>
+</section>
 
     <footer class="postfooter">
       <span class="postfooter-mark">ak</span>
@@ -452,7 +481,7 @@ Disallow: /checkout/
       <div class="postfooter-bottom">
         <div class="postfooter-info">
           <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
-          <p class="postfooter-assistants"><span title="The LLM was fed an intitial structure with notes and sources, expanded on it, I manually tweaked the output, and final proofread for syntax and grammatical errors.">Proofreaders</span>, ChatGPT-6.1 Sol · Gemini 3 Flash</p>
+          <p class="postfooter-assistants"><span title="An initial content structure and related resources were given to an LLM, which it expanded upon. I tweaked the draft-output, and at the end a proofread by selected model(s).">Proofreaders</span>, ChatGPT-6.1 Sol · Gemini 3 Flash</p>
           <p class="postfooter-dates">
             <span>
               <span>Published</span>
