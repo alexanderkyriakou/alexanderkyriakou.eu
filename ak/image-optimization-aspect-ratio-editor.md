@@ -5,7 +5,7 @@ author: "Alexander Kyriakou"
 canonical_url: "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor"
 markdown_url: "https://alexanderkyriakou.eu/ak/image-optimization-aspect-ratio-editor.md"
 date_published: "2026-11-10"
-date_modified: "2026-11-10"
+date_modified: "2026-11-12"
 language: "en"
 ---
 
@@ -18,19 +18,21 @@ A free, browser-based tool by [Alexander Kyriakou](https://alexanderkyriakou.eu/
 - [Process demonstration: MP4](https://alexanderkyriakou.eu/assets/images/thoughts/image-optimization-aspect-ratio-editor/cropping-optimizing-at-once-demo.mp4)
 - [Contact the author](https://alexanderkyriakou.eu/contact)
 
-This document describes the tool and accompanying guide as of November 10, 2026. It is a technical alternate of the page. Use the interactive page to edit images; the Markdown document describes the workflows, settings, limits and publishing considerations.
+This document describes the tool and accompanying guide as of November 12, 2026. It is a technical alternate of the page. Use the interactive page to edit images; the Markdown document describes the workflows, settings, limits and publishing considerations.
 
-## Purpose
+## Select aspect ratio, optimize and publish
 
-I like well-optimized images online, and Squoosh is my go-to tool. But I usually had another program open just to crop an image before optimizing it. Getting a specific aspect ratio through an online cropper or a heavier image editor felt like more work than it needed to be. This adds the cropping step I kept needing.
+I like well-optimized images online, and Squoosh is my go-to tool. But I usually had another program open just to crop an image before optimizing it. Getting a specific aspect ratio through an online cropper or a heavier image editor felt like more work than it needed to be. I'd been thinking about building on Squoosh's open-source code for a while. Here we are.
 
-The tool supports three independent workflows:
+This tool brings those steps together. Keep the original framing or choose an aspect ratio, adjust the crop, set the output width and choose a format. You can also skip cropping entirely and just optimize the image you started with.
+
+The tool supports three workflows:
 
 1. Optimize an image without changing its framing.
 2. Crop an image to an aspect ratio and download it in its source format.
 3. Crop an image, optionally reduce the crop's dimensions, then optimize and download it.
 
-It edits one image at a time. Typical uses include website images, article illustrations, social posts, link previews and thumbnails. It is intended for SEOs, copywriters, social media managers and anyone preparing images to publish.
+It edits one image at a time. Typical uses include website images, article illustrations, social posts, link previews and thumbnails. Useful for SEOs, copywriters, social media managers and anyone preparing images to publish.
 
 ## Processing and privacy
 
@@ -66,7 +68,7 @@ The four supported formats work in current major browsers, but older browsers an
 
 ## Examples and demonstration
 
-The idle page provides three example cards. Small WebP thumbnails load initially; the full example image loads when selected.
+The thumbnails on the initial screen open three different starting points: seagulls for optimization, fish for cropping, and a cat for doing both. You can try one before loading your own image. Small WebP thumbnails load initially; the full example image loads when selected.
 
 | Card | Image | Behaviour |
 | --- | --- | --- |
@@ -88,7 +90,7 @@ The [process video](https://alexanderkyriakou.eu/assets/images/thoughts/image-op
 
 1. **Choose an image.** Drop a supported file into the tool, choose one from the device, or select an example.
 2. **Choose the frame and dimensions.** Keep the original framing or choose a preset or custom aspect ratio. Move and resize the crop frame, then set **Output width** to resize the selected crop. Height follows the ratio; the tool does not intentionally upscale.
-3. **Optimize, compare, download.** Choose the target format, quality and effort, then run **Optimize**. Move the comparison handle to inspect the result before using **Download**.
+3. **Optimize, compare, download.** Choose a format and adjust quality and effort if needed. Run **Optimize**, inspect the before-and-after comparison and download the result.
 
 Only need the crop? **Download crop** exports the current crop in the source format. This uses separate encoding settings from the optimization panel; see [Download paths](#download-paths).
 
@@ -108,7 +110,7 @@ These properties describe different things:
 
 ### Built-in presets
 
-The quick shortcuts are **16:9**, **1:1** and **3:4**. The platform menu provides:
+Start with the **16:9**, **1:1** or **3:4** shortcuts, or select a platform preset:
 
 | Platform or use | Available aspect ratios |
 | --- | --- |
@@ -121,9 +123,9 @@ The quick shortcuts are **16:9**, **1:1** and **3:4**. The platform menu provide
 | X / Twitter | 16:9, 3:1 |
 | Photography & web | 3:2, 4:3, 21:9 |
 
-These presets provide framing guides. They do not validate a platform's current upload requirements, recommended resolution, safe areas or placement rules. Check the intended destination before publishing.
+These presets provide the shape, not a platform's upload requirements. Platforms use different placements and may change their requirements, so check the intended destination's dimensions, safe areas and accepted formats before publishing.
 
-Custom ratio components accept whole numbers from **1 to 1,000**, with a resulting ratio between **1:100 and 100:1**.
+You can also enter a custom ratio. Its components accept whole numbers from **1 to 1,000**, with a resulting ratio between **1:100 and 100:1**. For composition, choose rule-of-thirds, centre-line or golden-ratio guides, or keep just the frame.
 
 ### Adjusting the crop
 
@@ -152,13 +154,13 @@ While actively cropping, moving or zooming the image changes which source pixels
 
 ## Output formats and optimization settings
 
-I have kept the selection to the four formats I mainly use. They cover quite a bit of everyday web publishing.
+I've kept the selection to the four formats I mainly use. They cover quite a bit of everyday web publishing.
 
 | Format | Practical use | Encoding and transparency |
 | --- | --- | --- |
 | WebP | A practical starting point for website images. Inspect text, edges and fine textures. | Local WebAssembly encoder; lossy compression with transparency preserved. |
 | AVIF | Worth comparing with WebP when file size matters. Encoding can take longer. | Local WebAssembly encoder; lossy compression with transparency preserved. |
-| JPEG | Photographs and destinations expecting JPEG. | MozJPEG through local WebAssembly; lossy compression. Transparent pixels are replaced by the selected background colour. |
+| JPEG | Photographs and places that specifically require JPEG. | MozJPEG through local WebAssembly; lossy compression. The download is a standard JPEG. Transparent pixels are filled with the selected background colour. |
 | PNG | Screenshots and graphics where lossless output matters. | Browser Canvas lossless encoding with transparency preserved. Quality and effort controls are disabled. |
 
 [MozJPEG](https://github.com/mozilla/mozjpeg) is an encoder that improves compression efficiency while producing standard JPEG files. It is not a separate image format requiring a special viewer.
@@ -246,7 +248,7 @@ Animation is not preserved. If a supported animated input is decoded, the export
 
 No batch processing, rotation or flip controls, AI generation, background removal, account system or persistent edit history is implemented.
 
-## Publishing images for websites, search and social
+## Preparing images for websites, search and social
 
 ### On-page images, page speed and Core Web Vitals
 
@@ -264,15 +266,13 @@ Google chooses thumbnails automatically. [Image metadata](https://developers.goo
 
 ### Google Discover
 
-The accompanying guide follows [Google's Discover recommendations](https://developers.google.com/search/docs/appearance/google-discover): relevant, high-quality images at least **1200 pixels wide**, with **more than 300,000 pixels** and a **16:9 ratio**.
+[Google recommends](https://developers.google.com/search/docs/appearance/google-discover) relevant, high-quality images at least **1200 pixels wide** and over **300,000 pixels**, with **16:9 framing** for Discover.
 
-A **1280 × 720** crop is a practical option if the source is large enough. Keep the important details in frame and enable large previews on the published page with `max-image-preview:large`. These choices prepare the image; they do not guarantee a Discover appearance.
+A **1280 × 720** crop is a practical option when the source allows it, but don't force the ratio if it cuts out something important. Google may crop images automatically. Specify a suitable large image through `og:image` and allow large previews on the published page with `max-image-preview:large`. None of this guarantees a Discover appearance. The tool prepares the image; you set the metadata on the published page.
 
-### Images in the agentic web
+### How AI agents interpret images
 
-Some [AI agents already navigate through screenshots](https://www.anthropic.com/news/developing-computer-use), so visual information can matter to software using a page as well as to people reading it.
-
-As this develops, clear images, readable details and supporting text may become even more useful. Keep meaningful information intact when cropping or compressing. There is no established image setting that guarantees an agent will understand or recommend a page.
+Not every AI agent sees a webpage the same way. Some read its text and structure, including image descriptions and captions. Others can inspect images or navigate through screenshots, interpreting visual content directly. Both approaches benefit from clear images and useful context. When cropping, resizing or compressing an image, keep the details that matter. There's no special image format or setting that guarantees an AI agent will understand or recommend your page.
 
 ## Practical questions and troubleshooting
 
@@ -282,23 +282,35 @@ Yes. Keep the original framing and run Optimize. Opening the aspect ratio panel 
 
 ### Can I resize just the crop?
 
-Yes. Resize the frame to choose how much of the scene to include, then use Output width to set the crop's exported resolution. Height follows the selected ratio. The tool does not intentionally upscale.
+Yes. Resize the frame to choose how much of the scene to include, then use **Output width** to set the crop's exported resolution. For example, a sufficiently large 16:9 crop can be reduced to 1280 × 720. Aspect ratio is its shape, dimensions are its resolution, and preview zoom is how closely you inspect it.
+
+### What do quality and effort change?
+
+Quality controls the lossy compression trade-off. Effort controls how much processing the encoder spends: Fast, Balanced or Thorough. More effort takes longer and may save bytes, but doesn't guarantee a smaller file. Quality numbers aren't equivalent across formats. PNG uses neither control. See [Quality](#quality) and [Effort](#effort) for more detail.
+
+### How are the savings calculated?
+
+If you keep the original framing and dimensions, the result is compared with your uploaded file. If you crop or resize, the tool first creates a newly encoded version in the source format at those same dimensions, then compares the optimized file against it. So the savings figure reflects encoding, not the pixels removed by cropping. See [Before/after comparison and savings](#beforeafter-comparison-and-savings) for the formula and reference settings.
 
 ### Why is the result larger or softer?
 
-An already compressed image may not shrink further. Try another format, lower quality or smaller output dimensions. If detail suffers, increase quality or retain more pixels. Source-format downloads are also re-encoded.
+An already compressed image may not shrink further. Try another format, lower quality or smaller output dimensions. If detail suffers, increase quality or retain more pixels. Source-format downloads are also re-encoded, so keeping the extension doesn't preserve the original bytes.
 
 ### Why won't my image open?
 
-Check that the actual file format is JPEG, PNG, WebP or AVIF and that the browser can decode it. Renaming another format's extension does not convert it. Check the file size, pixel count, minimum dimensions and maximum edge length against the input limits.
+Use JPEG, PNG, WebP or AVIF that your browser can decode. Inputs must be at least **100 pixels** on each edge, at most **32 MiB** and **40 million pixels**, with no edge over **16,384 pixels**. HEIC, SVG, GIF and RAW aren't supported. Renaming another format's extension doesn't convert it.
 
 ### Why is processing slow?
 
-Large images, AVIF and Thorough effort can take longer, especially on mobile. Try Balanced or Fast, or reduce Output width. Device resources affect processing time even when an image is within the accepted limits.
+Large images and AVIF can take longer, especially on mobile. Thorough encoding also spends more time trying to save bytes. Try Balanced or Fast, or reduce **Output width**. Device resources affect processing time even when an image is within the accepted limits.
 
 ### Why is the export smaller than the dimensions I requested?
 
-The source crop may not contain enough pixels, the output limits may require downscaling, or dimensions may be rounded down to preserve the ratio. Preview zoom does not increase the available source resolution.
+The tool doesn't upscale images. Exports are also limited to **16 million pixels** and **8,192 pixels per edge**, and may round dimensions down to keep the selected aspect ratio. Preview zoom does not increase the available source resolution.
+
+### What happens to my original, metadata and animation?
+
+Downloading saves a new file. The original isn't overwritten, and reloading clears the editor. Exports don't retain source EXIF/GPS metadata or animation; animated inputs produce a single decoded frame. This isn't a workflow for preserving print colour profiles or HDR. See [Metadata, colour and animation](#metadata-colour-and-animation) for the technical limitations.
 
 ### Why are the quality and effort controls disabled for PNG?
 
@@ -313,6 +325,8 @@ Downloading saves a new file and does not overwrite the original. The tool does 
 This tool uses [jSquash](https://github.com/jamsinclair/jSquash) encoders derived from [Squoosh](https://github.com/GoogleChromeLabs/squoosh), the open-source project from GoogleChromeLabs. It is a custom local integration, rather than an embedded Squoosh app or a remote Squoosh service, and is not an official Google product.
 
 Thank you to the people who made that work available to build on. Squoosh has saved me plenty of bytes; this adds the cropping step I kept needing.
+
+The images used in the examples were downloaded from [Wallhaven](https://wallhaven.cc/) quite a while ago.
 
 ## Feedback
 

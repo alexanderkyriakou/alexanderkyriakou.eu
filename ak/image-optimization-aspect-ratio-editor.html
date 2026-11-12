@@ -27,7 +27,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
 
   <!--og tags start-->
-  <meta property="og:title" content="Crop, resize and optimize your 🖼️"/>
+  <meta property="og:title" content="Select aspect ratio and optimize your 🖼️"/>
   <meta property="og:description" content="Keep the whole image or choose the part you need. Adjust the format and quality, compare the result, and download. Your images stay on your device."/>
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Alexander Kyriakou"/>
@@ -38,7 +38,7 @@
 
   <!--twitter tags start-->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Crop, resize and optimize your 🖼️">
+  <meta name="twitter:title" content="Select aspect ratio and optimize your 🖼️">
   <meta name="twitter:description" content="Keep the whole image or choose the part you need. Adjust the format and quality, compare the result, and download. Your images stay on your device.">
   <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/image-optimization-aspect-ratio-editor/og/seagulls-family-chicks-blue-ocean.jpg">
   <meta name="twitter:dnt" content="on">
@@ -56,7 +56,7 @@
         "description": "Crop, resize and optimize JPEG, PNG, WebP and AVIF images locally in your browser. Choose an aspect ratio, resize the selected crop, compare the result and download without uploading your images.",
         "inLanguage": "en",
         "datePublished": "2026-11-10",
-        "dateModified": "2026-11-10",
+        "dateModified": "2026-11-12",
         "author": {
           "@id": "https://alexanderkyriakou.eu/#person"
         },
@@ -125,7 +125,7 @@
         "description": "A practical guide to cropping and resizing images, choosing formats and compression settings, interpreting file-size savings, and preparing images for websites, search results, Google Discover and social previews.",
         "inLanguage": "en",
         "datePublished": "2026-11-10",
-        "dateModified": "2026-11-10",
+        "dateModified": "2026-11-12",
         "isAccessibleForFree": true,
         "author": {
           "@id": "https://alexanderkyriakou.eu/#person"
@@ -281,7 +281,7 @@
               <div class="dimension-row"><input id="output-width" type="number" min="1" step="1" inputmode="numeric"><span aria-hidden="true">x</span><output id="output-height" for="output-width">—</output></div>
               <p id="output-help" class="small muted">Height follows your ratio. No upscaling.</p>
             </div>
-            <button id="download-crop" class="full-width labeled-button" type="button" aria-label="Download crop" title="Download crop"><span class="icon icon-crop" aria-hidden="true"></span><span id="download-crop-label">Download crop</span></button><div id="crop-progress" class="crop-progress" hidden><progress aria-label="Preparing crop download"></progress><span>Preparing download…</span><button id="cancel-crop-export" type="button">Cancel</button></div><p id="crop-export-note" class="small muted">Keeps the source image format.</p>
+            <button id="download-crop" class="full-width labeled-button" type="button" aria-label="Download crop" title="Download crop"><span class="icon icon-crop" aria-hidden="true"></span><span id="download-crop-label">Download crop</span></button><div id="crop-progress" class="crop-progress" hidden><progress aria-label="Preparing crop download"></progress><span>Preparing download…</span><button id="cancel-crop-export" type="button">Cancel</button></div><p id="crop-export-note" class="small muted">Same file format, but newly encoded.</p>
           </fieldset>
 
             </div>
@@ -330,9 +330,9 @@
   <div id="idle-guide" class="container">
     <article class="guide image-guide">
       <section>
-        <h2>Crop, optimize and publish</h2>
+        <h2>Select aspect ratio, optimize and publish</h2>
         <p>I like well-optimized images online, and Squoosh is my go-to tool. But I usually had another program open just to crop an image before optimizing it. Getting a specific aspect ratio through an online cropper or a heavier image editor felt like more work than it needed to be. I'd been thinking about building on Squoosh's open-source code for a while. Here we are.</p>
-        <p>This free tool lets you crop, resize and optimize an image in one place. Keep the whole image, or choose a crop and <strong>resize and optimize that selected part directly</strong>. Useful for SEOs, copywriters, social media managers and anyone preparing images to publish.</p>
+        <p>This tool brings those steps together. Keep the original framing or choose an aspect ratio, adjust the crop, set the output width and choose a format. You can also skip cropping entirely and just optimize the image you started with. Useful for SEOs, copywriters, social media managers and anyone preparing images to publish.</p>
         <p class="image-guide-note"><strong>Your images are not uploaded.</strong> Processing happens locally in your browser. The page and its tools still need to load, but your selected image stays on your device.</p>
       </section>
 
@@ -351,7 +351,7 @@
         <ol class="image-guide-steps">
           <li><strong>Choose an image.</strong> Drop a JPEG, PNG, WebP or AVIF into the tool, or select an example.</li>
           <li><strong>Choose the frame and dimensions.</strong> Keep the original framing or select an aspect ratio. Move and resize the crop frame, then set <strong>Output width</strong> to resize the selected crop. Height follows its ratio; the tool won't upscale.</li>
-          <li><strong>Optimize, compare, download.</strong> Choose a format, quality and effort, then run Optimize. Move the comparison handle to inspect the result before downloading.</li>
+          <li><strong>Optimize, compare, download.</strong> Choose a format, quality and adjust quality and effort if needed. Run Optimize, inspect the before-and-after comparison and download the result.</li>
         </ol>
         <p>Only need the crop? Use <strong>Download crop</strong> to export it in its source format. That export uses separate encoding settings, rather than the optimization panel's settings.</p>
 
@@ -454,7 +454,7 @@
           </section>
           <section class="image-guide-box">
             <h3>JPEG · familiar and widely accepted</h3>
-            <p>Useful for photographs and destinations expecting JPEG. Optimization uses <a href="https://github.com/mozilla/mozjpeg" target="_blank" rel="noopener external">MozJPEG</a>, an encoder that works harder to reduce file size while retaining useful visual quality. The result is a standard JPEG. Transparency becomes a chosen background colour.</p>
+            <p>Useful for photographs and places that specifically require JPEG. The tool uses <a href="https://github.com/mozilla/mozjpeg" target="_blank" rel="noopener external">MozJPEG</a> for encoding; the download is still a standard JPEG. JPEG doesn't support transparency, so transparent areas are filled with the background colour of your choice.</p>
           </section>
           <section class="image-guide-box">
             <h3>PNG · sharp detail and transparency</h3>
@@ -474,10 +474,10 @@
         <p><a href="https://ogp.me/" target="_blank" rel="noopener external">Open Graph</a> images also represent pages when links are shared. Prepare a crop for the intended placement, then set its URL in the page's metadata. The platform presets are framing shortcuts; check the destination's dimensions and accepted formats separately.</p>
 
         <h3>Google Discover</h3>
-        <p><a href="https://developers.google.com/search/docs/appearance/google-discover" target="_blank" rel="noopener external">Google recommends</a> relevant, high-quality images at least 1200 pixels wide, with more than 300,000 pixels and a 16:9 ratio. A <strong>1280 x 720</strong> crop is a practical option if the source is large enough. Keep the important details in frame and enable large previews with <code>max-image-preview:large</code>. This prepares the image; it doesn't guarantee a Discover appearance.</p>
+        <p><a href="https://developers.google.com/search/docs/appearance/google-discover" target="_blank" rel="noopener external">Google recommends</a> relevant, high-quality images at least 1200 pixels wide and over 300,000 pixels, with 16:9 framing for Discover. A <strong>1280 x 720</strong> crop is a practical option when the source allows it, but don't force the ratio if it cuts out something important. Google may crop images automatically. Specify a suitable large image through <code>og:image</code> and allow large previews with <code>max-image-preview:large</code>. None of this guarantees a Discover appearance.</p>
 
-        <h3>Images in the agentic web</h3>
-        <p>Some <a href="https://www.anthropic.com/news/developing-computer-use" target="_blank" rel="noopener external">AI agents already navigate through screenshots</a>, so visual information can matter to software using a page as well as to people reading it. As this develops, clear images, readable details and supporting text may become even more useful. Keep meaningful information intact when cropping or compressing; there's no established image setting that guarantees an agent will understand or recommend your page.</p>
+        <h3>How AI agents interpret images</h3>
+        <p>Not every AI agent sees a webpage the same way. Some read its text and structure, including image descriptions and captions. Others can inspect images or navigate through screenshots, interpreting visual content directly. Both approaches benefit from clear images and useful context. When cropping, resizing or compressing an image, keep the details that matter. There's no special image format or setting that guarantees an AI agent will understand or recommend your page.</p>
       </section>
 
       <section class="image-guide-questions">
@@ -493,7 +493,7 @@
         <p>Quality controls the lossy compression trade-off. Effort controls how much processing the encoder spends: Fast, Balanced or Thorough. More effort takes longer and may save bytes, but doesn't guarantee a smaller file. Quality numbers aren't equivalent across formats. PNG uses neither control.</p>
 
         <h3>How are the savings calculated?</h3>
-        <p>With unchanged framing and dimensions, the reference is your original file. After cropping or resizing, it's a newly encoded source-format version at the same frame and dimensions. That comparison separates optimization savings from the pixels you removed.</p>
+        <p>If you keep the original framing and dimensions, the result is compared with your uploaded file. If you crop or resize, the tool first creates a newly encoded version in the source format at those same dimensions, then compares the optimized file against it. So the savings figure reflects encoding, not the pixels removed by cropping.</p>
 
         <h3>Why is the result larger or softer?</h3>
         <p>An already compressed image may not shrink further. Try another format, lower quality or smaller output dimensions. If detail suffers, increase quality or retain more pixels. Source-format downloads are also re-encoded, so keeping the extension doesn't preserve the original bytes.</p>
@@ -501,8 +501,11 @@
         <h3>Why won't my image open?</h3>
         <p>Use JPEG, PNG, WebP or AVIF that your browser can decode. Inputs must be at least 100 pixels on each edge, at most 32 MiB and 40 million pixels, with no edge over 16,384 pixels. HEIC, SVG, GIF and RAW aren't supported.</p>
 
-        <h3>Why is processing slow, or the export smaller than requested?</h3>
-        <p>Large images, AVIF and Thorough effort can take longer, especially on mobile. Try Balanced or Fast, or reduce Output width. Exports are limited to 16 million pixels and 8,192 pixels per edge, never intentionally upscale, and may round dimensions down to preserve the ratio.</p>
+        <h3>Why is processing slow?</h3>
+        <p>Large images and AVIF can take longer, especially on mobile. Thorough encoding also spends more time trying to save bytes. Try Balanced or Fast, or reduce Output width.</p>
+
+        <h3>Why is my export smaller than the size I entered?</h3>
+        <p>The tool doesn't upscale images. Exports are also limited to 16 million pixels and 8,192 pixels per edge, and may round dimensions down to keep the selected aspect ratio.</p>
 
         <h3>What happens to my original, metadata and animation?</h3>
         <p>Downloading saves a new file. The original isn't overwritten, and reloading clears the editor. Exports don't retain source EXIF/GPS metadata or animation; animated inputs produce a single decoded frame. This isn't a workflow for preserving print colour profiles or HDR.</p>
@@ -519,6 +522,16 @@
 
       <p style="font-style: italic;">For reuse and attribution, see the <a href="https://alexanderkyriakou.eu/licensing" target="_blank">licensing page</a>.</p>
     </article>
+
+    <section class="changelog">
+      <h2>Updates</h2>
+      <ul>
+        <li>
+          <time datetime="2026-11-12">November 12, 2026</time>
+          <span>Refined the copy for clarity, consistency and accuracy.</span>
+        </li>
+      </ul>
+    </section>
 
     <footer class="postfooter">
       <span class="postfooter-mark">ak</span>
