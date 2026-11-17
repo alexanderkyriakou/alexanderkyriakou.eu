@@ -7,8 +7,6 @@
 ak/article-landscape.html
 ak/article-portrait.html
 
-
-
 # Tooling
 .wrangler/
 node_modules/

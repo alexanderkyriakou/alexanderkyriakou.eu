@@ -274,16 +274,36 @@ table tbody th { width: 20%; font-weight: 500; }
 
 <div class="aw-copy">
 
-<!-- frame the copy around the bar setup -->
-
 <section class="summary">
-<h2 id="summary">The three jobs in a shot</h2>
-<ul>
-<li><strong>Crawling.</strong> A matching <code>Disallow</code> in robots.txt <a href="#crawl">stops the fetch</a>. Google may still discover the URL through links, but it can't read an indexing instruction in a response it hasn't fetched.</li>
-<li><strong>Indexing.</strong> A <a href="#robots-rules">robots meta tag or an <code>X-Robots-Tag</code> header</a> can tell Google to exclude a URL once it processes the response. An <code>index</code> in the HTML won't cancel a <code>noindex</code> added at the edge.</li>
-<li><strong>Canonicalisation.</strong> A canonical names your preferred URL among duplicates. <a href="#selection">Google groups similar pages and selects a representative</a>, taking your declaration and other signals into account.</li>
-</ul>
-<p>Three different jobs. The distinction sounds straightforward enough. Things get more interesting when we put them together.</p>
+<h2 id="summary" style="text-align: center;">The three jobs in a shot</h2>
+<table>
+  <thead>
+    <tr class="header">
+      <th scope="col">Mechanism</th>
+      <th scope="col">Its job</th>
+      <th scope="col">Where it goes wrong</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="odd">
+      <th scope="row">Crawling: <code>robots.txt</code></th>
+      <td>A matching <code>Disallow</code> <a href="#crawl">stops the fetch</a>.</td>
+      <td>A blocked URL can still be indexed without its content, and nothing on the page (<code>noindex</code>, canonical) can be read, because the response is never fetched.</td>
+    </tr>
+    <tr class="even">
+      <th scope="row">Indexing: <code>noindex</code></th>
+      <td>A <a href="#robots-rules">robots meta tag or an <code>X-Robots-Tag</code> header</a> tells Google to exclude a URL once it processes the response.</td>
+      <td>It only works after a successful fetch. An <code>index</code> in the HTML won't cancel a <code>noindex</code> added at the edge.</td>
+    </tr>
+    <tr class="odd">
+      <th scope="row">Canonicalisation: <code>rel="canonical"</code></th>
+      <td>A canonical names your preferred URL among duplicates. <a href="#selection">Google groups similar pages and selects a representative</a>, taking your declaration and other signals into account.</td>
+      <td>It is a hint, not a directive. Pointing it at a blocked, excluded or missing page weakens it, and a blocked duplicate can't even be read.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Three different jobs. The gatekeeper (robots.txt) decides who gets in. The absolutist (<code>noindex</code>) says “not in my index”, but only after the fetch has happened and the response has been processed. The proposer (canonical) suggests which page should speak for the others, and may be overruled. The distinction sounds straightforward enough. Things get more interesting when we put them together.</p>
 </section>
 
 <h2 id="bicycle">One bicycle, eight ways to buy it</h2>
@@ -298,7 +318,7 @@ Reviewed colour   /bikes/awgravel?colour=forest-green
 Selected bike     /bikes/awgravel?colour=forest-green&amp;size=60
 </pre>
 
-<p>Now, with two colours and four sizes, we have eight possible combinations. That's a good reason to let someone share an exact selection. Whether the shop needs eight landing pages in organic search is a separate decision.</p>
+<p>With two colours and four sizes, we have eight possible combinations. Counting the model page and the two colour-only selections, that URL pattern produces eleven addressable URLs. That's a good reason to let someone share an exact selection. Whether the shop needs eleven landing pages in organic search is a separate decision.</p>
 <p>Open the last URL in a fresh session. The photo, price, stock and add-to-cart SKU should all match the Forest Green bike in 60 cm, even if the visitor has never touched a colour swatch.</p>
 <p>Google's <a href="https://developers.google.com/search/docs/appearance/structured-data/product-variants" target="_blank" rel="noopener external">product variant guidance</a> describes what preselection should deliver. Merchant Center's <a href="https://support.google.com/merchants/answer/4752265" target="_blank" rel="noopener external">landing-page requirements</a> also make that preselection part of the shopping experience.</p>
 <p>An organic canonical pointing to the model page can coexist with that deep link because the shopper still receives the requested page. A redirect to the model that drops the selection would change the buying experience.</p>
@@ -307,11 +327,30 @@ Selected bike     /bikes/awgravel?colour=forest-green&amp;size=60
 <h2 id="crawl">Crawl access comes before the response</h2>
 <p>Suppose the shop decides that it doesn't want all eight size and colour combinations appearing in Google. Someone adds a <code>noindex</code> to the product template for those selections.</p>
 <p>That sounds reasonable. But another developer decides to tidy up the robots.txt file and adds a rule matching the same URLs.</p>
-<p>Now we have two instructions contradicting against each other. The browser can still open the selected bike URL and show the <code>noindex</code> meta tag in its source. Googlebot, however, consults the robots rules and skips the request.</p>
+<p>Now we have two instructions contradicting each other. The browser can still open the selected bike URL and show the <code>noindex</code> meta tag in its source. Googlebot, however, consults the robots rules and skips the request.</p>
 <p>Both sides have done exactly what they were told. The problem is that Googlebot cannot read an indexing instruction in a response it never fetches.</p>
-<p>A crawler can learn a URL from the magazine's link, an internal link or a sitemap before fetching its content. For a particular crawler, check the rule against the actual scheme, host and port, as well as the actual path and query string. A shop on <code>www</code> and a PDF hosted on a separate asset hostname can have different robots files.</p>
 
-<p>My <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank" rel="noopener external">robots.txt checker and multi-crawler rule tester</a> takes you through matching and crawler identity. An "allowed" result answers the rule question. You still need the public response to find out whether the URL serves a product, redirects, or returns an error.</p>
+<h3 id="blocked-not-unindexed">Blocked is not the same as unindexed</h3>
+<p>A <code>Disallow</code> rule stops the fetch, not the indexing. If other pages link to a blocked URL, Google can still index the bare address. Because it never reads the page, the result typically shows little more than the URL. That is why robots.txt is the wrong tool for removing a page from search, as Google's <a href="https://developers.google.com/search/docs/crawling-indexing/block-indexing" target="_blank" rel="noopener external">guidance on blocking indexing</a> points out.</p>
+<p>In the awgravel shop, the magazine's link to the Forest Green selection is enough to put that URL in front of Google. Blocking it in robots.txt doesn't make it disappear. It only guarantees that Google can't see what the page says about itself.</p>
+
+<h3 id="blocked-canonicals">Blocked pages can't nominate a canonical either</h3>
+<p>The same mechanism defeats canonicals, and this is probably the most common way the three tools collide. Suppose every selection URL carries a canonical pointing to <code>/bikes/awgravel</code>, and someone later adds this to robots.txt to “save crawl budget”:</p>
+
+<pre>
+User-agent: *
+Disallow: /bikes/*?size=
+</pre>
+
+<p>Googlebot no longer fetches the size URLs, so it never reads their canonical declarations. The declaration still sits in the HTML, and every audit tool that looks at the source will report it as present. Google can't use it, and the blocked URLs remain candidates for the index.</p>
+<p>If duplicates should consolidate, they have to stay crawlable so that Google can read the canonical.</p>
+
+<h3 id="robots-noindex-unsupported">There is no noindex in robots.txt</h3>
+<p>One more trap is worth knowing. Google stopped supporting <code>noindex</code> rules inside robots.txt in 2019, so a line such as <code>Noindex: /bikes/</code> is ignored. Exclusion belongs in the page response, as a robots meta tag or an <code>X-Robots-Tag</code> header, on a URL that Googlebot is allowed to fetch.</p>
+
+<h3 id="crawl-practicalities">Matching, discovery and what to do instead</h3>
+<p>A crawler can learn a URL from the magazine's link, an internal link or a sitemap before fetching its content. For a particular crawler, check the rule against the actual scheme, host and port, as well as the actual path and query string. A shop on <code>www</code> and a PDF hosted on a separate asset hostname can have different robots files.</p>
+<p>My <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">robots.txt checker and multi-crawler rule tester</a> takes you through matching and crawler identity. An "allowed" result answers the rule question. You still need the public response to find out whether the URL serves a product, redirects, or returns an error.</p>
 
 <figure class="aw-figure">
   <ol class="aw-time">
@@ -373,7 +412,7 @@ X-Robots-Tag: noindex
 
 <pre>Link: &lt;https://bikes.example/manuals/awgravel-2026&gt;; rel="canonical"</pre>
 
-<p>Check that the HTML manual actually contains the chart. A sales page with a photo and a "download geometry" button is a poor substitute for a table of reach, stack and standover height.</p>
+<p>Check that the HTML manual actually contains the chart. A sales page with a photo and a “download geometry” button is a poor substitute for a table of reach, stack and standover height.</p>
 
 <h3>Initial HTML and rendered HTML can disagree</h3>
 <p>There's another detail worth keeping in mind. What you see in the browser's final DOM isn't necessarily what the crawler received initially.</p>
@@ -381,14 +420,14 @@ X-Robots-Tag: noindex
 <p>Inspecting the final DOM in your browser can make this look fixed. For a product intended for search, emit the intended policy in the initial response and keep it consistent through rendering.</p>
 
 <h2 id="selection">How Google selects a canonical URL</h2>
-<p>We've established that a canonical doesn't control whether a page can be crawled or indexed. It has a different job: telling search engines which URL we'd prefer to represent a group of duplicate or near-duplicate pages.</p>
+<p>A canonical doesn't control whether a page can be crawled or indexed. It's a hint with a different job: telling search engines which URL we'd prefer to represent a group of duplicate or near-duplicate pages.</p>
 <p>Google compares the main content of pages, <a href="https://developers.google.com/search/docs/crawling-indexing/canonicalization" target="_blank" rel="noopener external">groups duplicates or near-duplicates</a>, and selects a representative for each group. The site can declare a preference even if Google ultimately selects another URL.</p>
 <p>The first question in an audit is whether the pages belong together at all. A 60 cm preselection on the same bike is a plausible duplicate. Two generations with different frame geometry can answer genuinely different questions.</p>
 <p>Google does not simply take the canonical URL at face value. It considers it alongside other signals to decide which URL should represent a group of duplicate or similar pages. This is also why the canonical you declare and the URL Google ultimately selects are not always the same.</p>
 <p>Google has explained this process in some detail and outside of its docs.</p>
 
 <figure style="margin-bottom: 20px;">
-  <iframe style="border-radius: 15px; width: 100%; height: 478px;" width="560" height="315" src="https://www.youtube-nocookie.com/embed/gEWkYTPSEjs" title="Google Search Central: SEO Myhtbusting on How Google selects a canonical URL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <iframe style="border-radius: 15px; width: 100%; height: 478px;" width="560" height="315" src="https://www.youtube-nocookie.com/embed/gEWkYTPSEjs" title="Google Search Central: SEO Mythbusting on How Google selects a canonical URL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   <figcaption>Canonicalization mythbusting</figcaption>
 </figure>
 
@@ -416,7 +455,7 @@ X-Robots-Tag: noindex
       </tr>
       <tr class="even">
         <th scope="row">Internal links</th>
-        <td>Inspect the actual <code>href</code> on category list, breadcrumbs and copy-links. If every listing opens the default colour parameter, one template quietly makes the variant the most linked version across the website. A swatch taking someone to a particular colour serves a different purpose.</td>
+        <td>Inspect the actual <code>href</code> on category listings, breadcrumbs and copy-links. If every listing opens the default colour parameter, one template quietly makes the variant the most linked version across the website. A swatch taking someone to a particular colour serves a different purpose.</td>
       </tr>
       <tr class="odd">
         <th scope="row">External links</th>
@@ -424,7 +463,6 @@ X-Robots-Tag: noindex
       </tr>
     </tbody>
   </table>
-</div>
 
 <p>Google documents <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">redirects and canonical annotations as strong signals and sitemap inclusion as weak</a>. Consistent signals can reinforce one another.</p>
 <p>It also generally prefers HTTPS and considers membership in relevant <code>hreflang</code> clusters. None of that gives us a numerical formula for predicting a winner.</p>
@@ -464,9 +502,13 @@ X-Robots-Tag: noindex
 <p>In the examples below, <strong>A → B</strong> means A declares B as canonical. You can request A, get a <code>200</code> and buy the bicycle there. A canonical link doesn't send the browser to B. That distinction matters particularly in a loop, where both pages may load just fine.</p>
 
 <h3 id="noindex-on-the-source-or-the-target">Noindex on the source or the target</h3>
-<p>Suppose A carries both <code>noindex</code> and a canonical to B. Once Google fetches A and processes the exclusion, A loses eligibility for in the Index. B does not acquire A's <code>noindex</code> through the link.</p>
+<p>Suppose A carries both <code>noindex</code> and a canonical to B. Once Google fetches A and processes the exclusion, A is no longer eligible to appear in the index. B does not acquire A's <code>noindex</code> through the link.</p>
 <p>Whether A's signals consolidate into B under this combination is a different question, and <a href="https://www.seroundtable.com/no-indexed-canonical-google-signals-33486.html" target="_blank" rel="noopener external">John Mueller expressed uncertainty about signal transfer</a> when asked about this combination.</p>
-<p>Google recommends <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">using a canonical for consolidation</a>. Keep A crawlable so Google can read that preference. If A genuinely needs exclusion, give it a consistent, observable <code>noindex</code>. A self-canonical on a deliberately excluded A likewise won't restore its search eligibility.</p>
+<p><strong>Don't combine the two on the same URL.</strong> A canonical says "treat this as a duplicate and consolidate it". A <code>noindex</code> says "keep this out of the index". Those are different jobs, so give each URL one of them:</p>
+<ul>
+<li>If A should consolidate into B, keep the canonical, remove the <code>noindex</code> from A, and keep A crawlable so Google can read the preference. Google's guidance is to <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">use a canonical for consolidation</a>.</li>
+<li>If A genuinely needs exclusion, serve a consistent, observable <code>noindex</code> and drop the canonical to B. A self-canonical on a deliberately excluded A won't restore its search eligibility either.</li>
+</ul>
 <p>Now move the <code>noindex</code> to B. A is nominating a page you've asked Google to exclude.</p>
 <p><a href="https://developers.google.com/search/docs/crawling-indexing/block-indexing" target="_blank" rel="noopener external">Google can process the exclusion on B once it fetches B.</a> The declaration tells us little about whether Google will select A, find another eligible representative, or surface neither.</p>
 <p>If B is the intended landing page, fix B's response. Editing A's HTML alone leaves the exclusion in place.</p>
@@ -510,7 +552,7 @@ X-Robots-Tag: noindex
 
 <p>A and B can both return valid product pages while giving contradictory preferences. If Google considers them duplicates, it can use other signals to select a representative. If the main content differs enough, they may never end up in the same cluster.</p>
 <p>There's no documented “first page crawled wins” rule. I'd check <a href="https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting" target="_blank" rel="noopener external">the indexed URL Inspection result</a> for both, then fix the template that disagrees with the catalogue strategy.</p>
-<p>In this example, if A should represent both, have A point to itself, keep B pointing to A, and update category list meant to link to the model. The review can keep its Forest Green destination.</p>
+<p>In this example, if A should represent both, have A point to itself, keep B pointing to A, and update category listing meant to link to the model. The review can keep its Forest Green destination.</p>
 
 <h3 id="a-chain-ending-in-noindex">A chain ending in noindex</h3>
 <p>Imagine the size selector nominates the colour URL, the colour template nominates the model, and an old edge rule puts <code>noindex</code> on the model.</p>
@@ -598,8 +640,8 @@ https://staging.bikes.example/*
   X-Robots-Tag: noindex
 </pre>
 
+<p>A header is not protection, though. A staging site that anyone can open is still public, and a crawler that ignores the header, or a leaked link, still reaches it. Put staging behind authentication, for example with Cloudflare Access, and treat the <code>noindex</code> header as a backstop rather than the control.</p>
 <p>Replace the broad rule. Adding a narrow <code>index</code> rule beneath it can leave both values in the response because <a href="https://developers.cloudflare.com/pages/configuration/headers/" target="_blank" rel="noopener external">Pages joins repeated matching header values</a>. Google still has an applicable <code>noindex</code>.</p>
-
 <p>On a hybrid site, check one static category and one dynamically generated product. Pages Functions and <a href="https://developers.cloudflare.com/workers/static-assets/headers/" target="_blank" rel="noopener external">responses generated by Worker code</a> don't automatically inherit static asset <code>_headers</code> rules. Testing only the dynamic product can make an affected catalogue look healthy.</p>
 <h3 id="a-response-header-for-a-specific-set-of-files">A response header for a specific set of files</h3>
 <p>For a shop that wants its downloadable dealer sheets excluded, a Cloudflare <a href="https://developers.cloudflare.com/rules/transform/response-header-modification/" target="_blank" rel="noopener external">Response Header Transform Rule</a> can match the production hostname and a dedicated directory.</p>
@@ -611,63 +653,14 @@ starts_with(http.request.uri.path, "/downloads/dealer-sheets/"))
 </pre>
 
 <p>Fetch one dealer PDF and the public manual at <code>/manuals/awgravel-2026.pdf</code>. Only the dealer sheet should acquire the exclusion from this rule.</p>
+<p>A header rule also covers PDFs and other non-HTML files, which a markup change can't. If the HTML itself needs a robots meta tag, put it in the template at the origin rather than rewriting pages at the edge.</p>
 <p>If those files are confidential, enforce access control as well. A search exclusion leaves the download publicly accessible.</p>
-
-<h3 id="a-robots-meta-element-written-at-the-edge">A robots meta element written at the edge</h3>
-<p>Sometimes the requirement really is to change the HTML sent to the client. This example uses <a href="https://developers.cloudflare.com/workers/runtime-apis/html-rewriter/" target="_blank" rel="noopener external">Cloudflare's HTMLRewriter</a> and assumes an origin-backed staging host and ordinary HTML documents with an explicit closing head tag.</p>
-<p>On successful staging HTML responses it adds <code>noindex</code> to existing generic robots metadata, preserving other restrictions. When the head contains no generic robots element, it inserts one. The state lives inside the fetch handler because each response needs its own decision.</p>
-
-<pre>
-export default {
-  async fetch(request) {
-    const response = await fetch(request);
-    const url = new URL(request.url);
-    const type = response.headers.get("content-type") || "";
-
-    if (url.hostname !== "staging.bikes.example" ||
-        request.method !== "GET" || response.status !== 200 ||
-        type.split(";")[0].trim().toLowerCase() !== "text/html") {
-      return response;
-    }
-
-    let found = false;
-
-    return new HTMLRewriter()
-      .on("head", {
-        element(head) {
-          head.onEndTag(end => {
-            if (!found) {
-              end.before('&lt;meta name="robots" content="noindex"&gt;', { html: true });
-            }
-          });
-        }
-      })
-      .on("head meta[name]", {
-        element(meta) {
-          if (meta.getAttribute("name").trim().toLowerCase() !== "robots") return;
-
-          found = true;
-          const rules = meta.getAttribute("content") || "";
-
-          if (!rules.split(",").some(rule => rule.trim().toLowerCase() === "noindex")) {
-            meta.setAttribute("content", rules ? rules + ", noindex" : "noindex");
-          }
-        }
-      })
-      .transform(response);
-  }
-};
-</pre>
-
-
-<p>This is an alternative for HTML. The response header covers PDFs too and needs no markup rewrite.</p>
-<p>Test the Worker with an existing robots element, a missing one, a non-HTML response and the production hostname. If a cached HTML variant supplies stale metadata, compare the body you receive publicly with the current origin version and inspect the cache status.</p>
-<p><a href="https://developers.cloudflare.com/rules/transform/response-header-modification/">If an active transform rule adds the header</a>, fix that rule too. Purging an asset won't remove an active rule that adds a header to each response.</p>
+<p><a href="https://developers.cloudflare.com/rules/transform/response-header-modification/" target="_blank" rel="noopener external">If an active transform rule adds the header</a>, fix that rule too. Purging an asset won't remove an active rule that adds a header to each response.</p>
 
 <h2 id="ai">AI crawlers, search indexes and direct visits</h2>
 <p>Search engines aren't the only ones fetching and processing pages anymore. AI assistants introduce another layer, and it's tempting to assume that the same rules apply everywhere.</p>
 <p>Does an AI agent respect <code>noindex</code> or use the declared canonical? First establish which product supplied the result and how it obtained the URL. An assistant searching an index, an automated training crawler, and a user asking an assistant to read a particular bike review involve different operations.</p>
-<p>Here's what the providers actually document.</p>
+<p>Here's what the providers document. Where a row says a vendor leaves something open, read that as unknown, not as honoured.</p>
 
 <table>
 <thead>
@@ -679,26 +672,26 @@ export default {
 <tbody>
 <tr class="odd">
 <th scope="row">Google AI Overviews and AI Mode</th>
-<td>To appear as a supporting link, <a href="https://developers.google.com/search/docs/appearance/ai-features">a page must be indexed and eligible for a Google Search snippet</a>. A processed <code>noindex</code> therefore removes that eligibility. Search canonicalisation can affect the representative available from the index.</td>
+<td>To appear as a supporting link, <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener external">a page must be indexed and eligible for a Google Search snippet</a>. A processed <code>noindex</code> therefore removes that eligibility. Search canonicalisation can affect the representative available from the index.</td>
 </tr>
 <tr class="even">
 <th scope="row">Claude web search</th>
-<td>Anthropic describes the robots <strong>meta tag</strong> <code>noindex</code> as a way to exclude content from <a href="https://support.claude.com/en/articles/10684638-report-block-and-remove-content-from-claude">the results its search partners supply</a>. Anthropic also describes direct visits to a supplied link. That guidance leaves header equivalence and canonical selection unspecified.</td>
+<td>Anthropic describes the robots <strong>meta tag</strong> <code>noindex</code> as a way to exclude content from <a href="https://support.claude.com/en/articles/10684638-report-block-and-remove-content-from-claude" target="_blank" rel="noopener external">the results its search partners supply</a>, and notes that the page can still be visited directly through a link. The same page has a separate section on disallowing Anthropic's own bots, which is a different control from the search-partner route. It leaves header equivalence and canonical selection unspecified.</td>
 </tr>
 <tr class="odd">
 <th scope="row">ChatGPT search and user-requested visits</th>
-<td>OpenAI <a href="https://developers.openai.com/api/docs/bots">documents separate crawlers</a> for these jobs. It uses <code>OAI-SearchBot</code> for search, <code>GPTBot</code> for potential training use, and <code>ChatGPT-User</code> for certain user actions. It says robots.txt rules may not apply to user-initiated visits. The crawler reference gives no general promise that every retrieval path honours a page-level <code>noindex</code> or cites the declared canonical.</td>
+<td>OpenAI <a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener external">documents separate crawlers</a> for these jobs. It uses <code>OAI-SearchBot</code> for search, <code>GPTBot</code> for potential training use, and <code>ChatGPT-User</code> for certain user actions. It says robots.txt rules may not apply to user-initiated visits. The crawler reference gives no general promise that every retrieval path honours a page-level <code>noindex</code> or cites the declared canonical.</td>
 </tr>
 <tr class="even">
 <th scope="row">Mistral search and Vibe</th>
-<td>Mistral's <a href="https://docs.mistral.ai/robots">crawler documentation</a> identifies <code>MistralAI-Index</code> for search indexing, <code>MistralAI-User</code> for user-requested visits in Vibe, and <code>MistralAI-Training</code> for training data. It explains how to target those roles in robots.txt. It leaves open how Mistral handles a robots meta <code>noindex</code>, an <code>X-Robots-Tag</code> header, or a canonical when choosing a citation.</td>
+<td>Mistral's <a href="https://docs.mistral.ai/robots" target="_blank" rel="noopener external">crawler documentation</a> identifies <code>MistralAI-Index</code> for search indexing, <code>MistralAI-User</code> for user-requested visits in Vibe, and <code>MistralAI-Training</code> for training data. It explains how to target those roles in robots.txt. It leaves open how Mistral handles a robots meta <code>noindex</code>, an <code>X-Robots-Tag</code> header, or a canonical when choosing a citation.</td>
 </tr>
 </tbody>
 </table>
 
 <p>Suppose a user supplies the Forest Green URL and the answer cites the model page. Did the assistant read the canonical? Possibly. A search partner may have supplied the model, or the assistant may have followed a prominent model link. The citation alone can't distinguish those paths.</p>
 <p>Likewise, seeing a fetch in a log establishes a request, not training use or indexing. The distinction between a crawler requesting a page and a product actually using its content is important.</p>
-<p>I go into the <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt">individual AI crawlers and their robots.txt controls</a> in more detail, including what a log entry can tell you about the request.</p>
+<p>I go into the <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt" target="_blank">individual AI crawlers and their robots.txt controls</a> in more detail, including what a log entry can tell you about the request.</p>
 
 <h2 id="verify">What the public response can tell you</h2>
 <p>We've covered crawl restrictions, indexing directives, canonical selection, product variations, conflicting signals, edge rules and AI retrieval. The remaining question is how to verify what is actually happening on a live site.</p>
@@ -710,13 +703,22 @@ export default {
 <p>If you need to inspect the raw response outside the browser, or repeat the same request for comparison, <code>curl</code> is a useful secondary option. For example:</p>
 
 <pre>
-curl -sS -D variant.headers -o save.html \ 'https://bikes.example/bikes/awgravel?colour=forest-green&size=60'</pre>
+curl -sS -D variant.headers -o save.html \ 'https://bikes.example/bikes/awgravel?colour=forest-green&size=60'
+</pre>
+
+<p>Keep one limit in mind. A plain <code>curl</code> request announces itself as <code>curl</code>, and a CDN, bot-management rule or application can answer it differently from the way it answers Googlebot. You can repeat the request with a Googlebot user agent to look for differences:</p>
+
+<pre>
+curl -sS -D googlebot.headers -o googlebot.html \ -A 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' \ 'https://bikes.example/bikes/awgravel?colour=forest-green&size=60'
+</pre>
+
+<p>A spoofed user agent comes from the wrong network, so bot protection may treat it differently from the real crawler, and a matching result proves less than it seems to. Treat these requests as a way to spot differences. For what Google actually receives, rely on the Search Console live test and verified Googlebot entries in your access logs.</p>
 
 <ol type="1">
 <li><strong>Read the status and every relevant header.</strong> Inspect <code>Location</code>, all <code>X-Robots-Tag</code> fields, and any <code>Link</code> headers. For a redirect, fetch the next hop and keep its response separate. Following only the final response can hide the URL where a redirect was introduced.</li>
 <li><strong>Read the initial head, then fetch the canonical target.</strong> Compare the HTML canonical with the HTTP declaration and resolve the target URL. Fetch the target's status, headers, HTML and own canonical. This is how you catch a valid-looking declaration pointing to a <code>404</code>, another hop, or a model page excluded at the edge.</li>
 <li><strong>Test crawl permission and rendering independently.</strong> Check the actual user agent and URL against robots.txt. If JavaScript changes the metadata, compare the initial HTML with the rendered document. On Cloudflare, sample the production hostname, a preview, and both a matching and a neighbouring path.</li>
-<li><strong>Put dates beside the evidence.</strong> Access logs can show a verified Googlebot fetch after the deployment. Search Console's live test helps check current accessibility. <a href="https://support.google.com/webmasters/answer/9012289">The indexed URL Inspection report</a> shows the last recorded crawl and Google-selected canonical where available. A live test can't predict the canonical Google will select.</li>
+<li><strong>Put dates beside the evidence.</strong> Access logs can show a verified Googlebot fetch after the deployment. Search Console's live test helps check current accessibility. <a href="https://support.google.com/webmasters/answer/9012289" target="_blank" rel="noopener external">The indexed URL Inspection report</a> shows the last recorded crawl and Google-selected canonical where available. A live test can't predict the canonical Google will select.</li>
 </ol>
 <p>For the awgravel, I'd want the magazine's link to keep opening the Forest Green version even if Google shows the model page in search. The reviewer chose that colour, and someone following the review has a good reason to land there.</p>
 <p>A rider coming back two years later to check whether a 50 mm tyre fits has an equally good reason to find the 2026 geometry chart, right down to the year in the URL.</p>
@@ -754,6 +756,7 @@ curl -sS -D variant.headers -o save.html \ 'https://bikes.example/bikes/awgravel
         </div>
       </div>
     </footer>
+  </div>
   </div>
 </article>
 </main>
