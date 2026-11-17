@@ -1,5 +1,61 @@
 [
   {
+    "id": "tt27041231",
+    "title": "Musk",
+    "type": "movie",
+    "releaseDate": "2026-10-09",
+    "year": 2026,
+    "runtime": 232,
+    "genres": [
+     "Documentary"
+    ],
+    "imdbRating": 9.1,
+    "myRating": 10,
+    "url": "https://www.imdb.com/title/tt27041231",
+    "poster": "/kTOeFV92c3QHJ3bEkT660P7BcWN.jpg",
+    "overview": "A thorough and unvarnished analysis of Elon Musk, a technology billionaire who serves as the CEO of Tesla, SpaceX, and Twitter."
+  },
+  {
+    "id": "tt33764258",
+    "title": "The Odyssey",
+    "type": "movie",
+    "releaseDate": "2026-07-16",
+    "year": 2026,
+    "runtime": 152,
+    "genres": [
+     "Action Epic",
+     "Adventure Epic",
+     "Dark Fantasy",
+     "Adventure",
+     "Fantasy",
+     "Action"
+    ],
+    "imdbRating": 8.4,
+    "myRating": 10,
+    "url": "https://www.imdb.com/title/tt33764258",
+    "poster": "/x5JKwcrl7NzaSWfTFh6bIPCsqJd.jpg",
+    "overview": "Before the Trojan War, Odysseus faces a dangerous voyage back to Ithaca, meeting creatures like the Cyclops Polyphemus, Sirens, and Calypso along the way."
+  },
+  {
+    "id": "tt36586020",
+    "title": "Other Mommy",
+    "type": "movie",
+    "releaseDate": "2026-10-08",
+    "year": 2026,
+    "runtime": 93,
+    "genres": [
+     "Body Horror",
+     "Psychological Horror",
+     "Supernatural Horror",
+     "Horrow"
+    ],
+    "imdbRating": 5.3,
+    "myRating": 6,
+    "url": "https://www.imdb.com/title/tt36586020",
+    "poster": "/fGRNCssTRrhYZxNzykGGCoMsAVq.jpg",
+    "overview": "Bela, an 8-year-old girl living in a home with marital problems, confronts a sinister entity which comes out of her closet. The presence, whom she calls 'Other Mommy,' becomes increasingly threatening to her and her family."
+  },
+  {
     "id": "tt0348333",
     "title": "Waiting...",
     "type": "movie",

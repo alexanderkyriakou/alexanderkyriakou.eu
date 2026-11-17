@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Robots.txt, Noindex, and Canonical: Three Different Jobs</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Understand the differences between robots.txt, noindex and canonical tags, how search engines interpret them, and how to avoid common indexing mistakes.">
+  <meta name="author" content="Alexander Kyriakou">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical.md" title="Robots.txt, Noindex, and Canonical: Three Different Jobs - Markdown">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="512x512" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="Robots.txt, Noindex, and Canonical: Three Different Jobs"/>
+  <meta property="og:description" content="Robots.txt, noindex and canonical tags solve three different problems. Explore how search engines process them, what happens when signals conflict, and how to avoid common technical SEO mistakes."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-noindex-canonical/og/self-service-bar-athens-2021.jpg"/>
+  <meta property="og:image:alt" content="A dark charcoal wall inside a pub in central Athens featuring hand-painted off-white lettering that reads, 'Welcome, This is a Self Service BAR enjoy your stay & be nice to eachother, especially to the barman.' A brass beer tap stands in the lower right foreground, while wooden shelves on the left hold small framed pictures and memorabilia against an adjacent dark green wall.">
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Robots.txt, Noindex, and Canonical: Three Different Jobs">
+  <meta name="twitter:description" content="Robots.txt, noindex and canonical tags solve three different problems. Explore how search engines process them, what happens when signals conflict, and how to avoid common technical SEO mistakes.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-noindex-canonical/og/self-service-bar-athens-2021.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical",
+        "name": "Robots.txt, Noindex, and Canonical: Three Different Jobs",
+        "description": "Understand the different roles of robots.txt, noindex and canonical directives. Learn how crawling, indexing and canonicalisation interact, where conflicting instructions arise, and how to diagnose them.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-17",
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#article"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#image-hero"
+        }
+      },
+      {
+        "@type": "Article",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#article",
+        "url": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical",
+        "headline": "Robots.txt, Noindex, and Canonical: Three Different Jobs",
+        "alternativeHeadline": "A practical explanation of crawl access, indexing directives and canonical selection, and what happens when they conflict.",
+        "description": "An explanation of how robots.txt, robots meta tags, X-Robots-Tag and canonical annotations influence search engine crawling and indexing. Covers crawl blocking, conflicting directives, product variants, URL parameters, duplicate pages and the importance of checking the actual HTTP response.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-17",
+        "dateModified": "2026-11-17",
+        "isAccessibleForFree": true,
+        "author": {
+          "@type": "Person",
+          "@id": "https://alexanderkyriakou.eu/#person",
+          "name": "Alexander Kyriakou",
+          "url": "https://alexanderkyriakou.eu/"
+        },
+        "publisher": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#webpage"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#webpage"
+        },
+        "articleSection": [
+          "SEO",
+          "Technical SEO"
+        ],
+        "keywords": [
+          "robots.txt",
+          "noindex",
+          "canonical URL",
+          "canonicalisation",
+          "crawl access",
+          "crawl blocking",
+          "robots meta tag",
+          "X-Robots-Tag",
+          "indexing directives",
+          "Googlebot",
+          "URL parameters",
+          "product variants",
+          "duplicate content",
+          "HTTP response headers",
+          "crawlability"
+        ],
+        "mentions": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#application",
+            "name": "Robots.txt Checker",
+            "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker"
+          }
+        ],
+        "image": [
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#image-hero"
+          }
+        ],
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#image-hero",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-noindex-canonical/self-service-bar-athens-2021.webp",
+        "name": "Self-service bar in central Athens",
+        "caption": "A dark charcoal wall inside a pub in central Athens featuring hand-painted lettering welcoming visitors to a self-service bar.",
+        "encodingFormat": "image/webp",
+        "width": 1500,
+        "height": 2664,
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2021,
+        "copyrightNotice": "© Alexander Kyriakou · Athens · 2021",
+        "creditText": "Alexander Kyriakou",
+        "license": "https://alexanderkyriakou.eu/licensing",
+        "acquireLicensePage": "https://alexanderkyriakou.eu/licensing",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#article"
+        }
+      }
+    ]
+  }
+  </script>
+
+<style>
+.subh { display: block; }
+.summary { padding: 15px; border: 0; margin-bottom: 20px; border-radius: 15px; background: linear-gradient(125deg, #140b02, #50411a 65%, #2c2101); color: #f8f2b7; }
+.summary a { color: #fff; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.summary code { color: #fff; background: #2d583c}
+pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+.container ul, .container ol { font-size: 1.2rem; padding-left: 20px; line-height: 1.5; }
+table { font-family: 'Commissioner', system-ui, sans-serif; width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 1rem; line-height: 1.5; }
+table { display: block; width: 100%; min-width: 0; }
+table caption { caption-side: top; text-align: center; font-size: 1.3rem; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
+table thead { border-bottom: 1px solid #aaa; }
+table thead th { text-align: left; padding: 12px 8px; font-weight: 500; }
+table tbody tr { text-align: left; border-bottom: 1px solid #e5e5e5; }
+table tbody tr:last-child { border-bottom: none; }
+table tbody th, table tbody td { padding: 8px; vertical-align: middle; }
+table tbody th { width: 20%; font-weight: 500; }
+.aw-figure { font-family: 'Commissioner', system-ui, sans-serif; background: #f4f6f2; border: 1px solid #d2dcd2; border-radius: 15px; padding: 15px; margin: 20px 0; }
+.aw-copy .aw-time { list-style:none; margin:0; padding:0; display:grid; gap:0; }
+.aw-time li:first-child { border-top: 0; }
+.aw-time li { display:grid; grid-template-columns:minmax(7.1rem,.75fr) 1.5fr 1.5fr; gap:.75rem; border-top:1px solid #cbd5ca; padding:.7rem 0; margin:0; font-size:1rem; align-items: center; }
+.aw-time li b { font-size: 0.9rem; }
+.aw-time small { display:block; color:#45614e; font:600 .77rem/1.5 system-ui,sans-serif; }
+.aw-pair { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%, 250px),1fr)); gap: 1.2rem; }
+.aw-panel { min-width: 0; }
+.aw-panel h4 { text-align: center; }
+.aw-figure svg { width: 100%; height: auto; display:block; margin-inline:auto; max-width: 430px; }
+.aw-figure svg text { font-family: "Commissioner",system-ui,sans-serif; fill: #203a2c; }
+.aw-figure svg .label { font-size: 14px; font-weight: 600; }
+.aw-figure svg .detail { font-size: 12px; }
+.aw-figure svg .edge { font-size: 12px; fill: #424c49; }
+.aw-figure svg .node { fill:#fff; stroke: #869e90; }
+.aw-figure svg .error { fill:#fff1e6; stroke:#93603f; }
+.aw-figure svg .ok { fill:#e4f0e7; stroke:#417251; }
+.aw-figure svg .line { fill:none; stroke:#344e40; stroke-width:1.4; }
+.aw-figure svg .ref { stroke-dasharray:5 3; }
+.aw-figure svg .arrowhead { fill:#344e40; }
+.aw-figure .aw-link-key { font-size: .9rem; margin-bottom: 15px; color:#555; text-align: center; }
+.aw-figure figcaption { margin-top: 15px; }
+
+@media (max-width: 768px) {
+  .subh { display: inline-block; }
+  .aw-time li { grid-template-columns: 1fr 1fr; gap: .4rem .7rem; }
+  .aw-time li > b { grid-column: 1 / -1; }
+  .aw-copy table :is(th,td) { padding: .6rem .4rem; }
+}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+        <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+        <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<main>
+<article class="article-page">
+    <header class="article-hero article-hero-portrait" style="--article-image-aspect: 4 / 5; --article-image-position: 65% 50%">
+    <div class="article-heading">
+      <h1 class="article-title">Robots.txt, Noindex, and Canonical: Three different jobs</h1>
+      <p class="article-subheading">A gatekeeper, an absolutist, and a proposer walk into a pub. <spna class="subh">What do they have to say?</spna></p>
+    </div>
+    <figure class="article-figure">
+      <div class="article-media">
+        <img class="article-image" src="/assets/images/thoughts/robots-txt-noindex-canonical/self-service-bar-athens-2021.webp" width="1500" height="2664" fetchpriority="high" alt="A dark charcoal wall inside a pub in central Athens featuring hand-painted off-white lettering that reads, 'Welcome, This is a Self Service BAR enjoy your stay & be nice to eachother, especially to the barman.' A brass beer tap stands in the lower right foreground, while wooden shelves on the left hold small framed pictures and memorabilia against an adjacent dark green wall.">
+        <span class="article-halo" aria-hidden="true">
+          <span class="article-halo-fade">
+            <img class="article-halo-image" src="/assets/images/thoughts/robots-txt-noindex-canonical/self-service-bar-athens-2021.webp" width="1500" height="2664" alt="" decoding="async">
+          </span>
+        </span>
+      </div>
+      <figcaption class="article-caption">Treat responsibly.
+        <span class="article-credit">© Alexander Kyriakou · Athens · 2021</span>
+      </figcaption>
+    </figure>
+  </header>
+
+  <div class="container toc">
+  <!-- floating toc -->
+  <aside id="no-print" class="page-index">
+    <details class="page-index-mobile">
+      <summary title="Table of contents" aria-label="Table of contents">☰</summary>
+      <nav aria-label="Page contents">
+        <a href="#summary">Quick shot</a>
+        <a href="#bicycle">One bike, eight options</a>
+        <a href="#crawl">Crawl access</a>
+        <a href="#robots-rules">Meta tags and headers</a>
+        <a href="#selection">Canonical selection</a>
+        <a href="#variants">Colours, sizes and years</a>
+        <a href="#conflicts">Loops and chains</a>
+        <a href="#edge">Cloudflare at the edge</a>
+        <a href="#ai">AI search and retrieval</a>
+        <a href="#verify">The public response</a>
+      </nav>
+    </details>
+    <nav class="page-index-desktop" aria-label="Page contents">
+        <a href="#summary">Quick shot</a>
+        <a href="#bicycle">One bike, eight options</a>
+        <a href="#crawl">Crawl access</a>
+        <a href="#robots-rules">Meta tags and headers</a>
+        <a href="#selection">Canonical selection</a>
+        <a href="#variants">Colours, sizes and years</a>
+        <a href="#conflicts">Loops and chains</a>
+        <a href="#edge">Cloudflare at the edge</a>
+        <a href="#ai">AI search and retrieval</a>
+        <a href="#verify">The public response</a>
+      </nav>
+  </aside>
+  <!-- end of floating toc -->
+
+<div class="aw-copy">
+
+<!-- frame the copy around the bar setup -->
+
+<section class="summary">
+<h2 id="summary">The three jobs in a shot</h2>
+<ul>
+<li><strong>Crawling.</strong> A matching <code>Disallow</code> in robots.txt <a href="#crawl">stops the fetch</a>. Google may still discover the URL through links, but it can't read an indexing instruction in a response it hasn't fetched.</li>
+<li><strong>Indexing.</strong> A <a href="#robots-rules">robots meta tag or an <code>X-Robots-Tag</code> header</a> can tell Google to exclude a URL once it processes the response. An <code>index</code> in the HTML won't cancel a <code>noindex</code> added at the edge.</li>
+<li><strong>Canonicalisation.</strong> A canonical names your preferred URL among duplicates. <a href="#selection">Google groups similar pages and selects a representative</a>, taking your declaration and other signals into account.</li>
+</ul>
+<p>Three different jobs. The distinction sounds straightforward enough. Things get more interesting when we put them together.</p>
+</section>
+
+<h2 id="bicycle">One bicycle, eight ways to buy it</h2>
+<p>Let's use a fictional gravel bike called the <strong>awgravel</strong>. A cycling magazine has reviewed it, and the reviewer rode the Forest Green version. Naturally, the review links directly to that colour.</p>
+<p>By the time someone reads the review, however, the shop's default colour is Ocean Blue. The visitor lands on the product page and sees a different bicycle from the one they were reading about.</p>
+<p>That's not particularly helpful. Ideally, the link should remember the selection. Now let's add another dimension: frame size.</p>
+<p>There are two colours and four frame sizes. A customer wants the Forest Green version in 60 cm, of which there's only one left. Ocean Blue is on backorder. The warehouse consequently has eight stock records, each representing a different combination.</p>
+<p>The shop could make those selections addressable using URLs like these:</p>
+<pre>
+Model             /bikes/awgravel
+Reviewed colour   /bikes/awgravel?colour=forest-green
+Selected bike     /bikes/awgravel?colour=forest-green&amp;size=60
+</pre>
+
+<p>Now, with two colours and four sizes, we have eight possible combinations. That's a good reason to let someone share an exact selection. Whether the shop needs eight landing pages in organic search is a separate decision.</p>
+<p>Open the last URL in a fresh session. The photo, price, stock and add-to-cart SKU should all match the Forest Green bike in 60 cm, even if the visitor has never touched a colour swatch.</p>
+<p>Google's <a href="https://developers.google.com/search/docs/appearance/structured-data/product-variants" target="_blank" rel="noopener external">product variant guidance</a> describes what preselection should deliver. Merchant Center's <a href="https://support.google.com/merchants/answer/4752265" target="_blank" rel="noopener external">landing-page requirements</a> also make that preselection part of the shopping experience.</p>
+<p>An organic canonical pointing to the model page can coexist with that deep link because the shopper still receives the requested page. A redirect to the model that drops the selection would change the buying experience.</p>
+<p>Keep that distinction in mind. A URL can be perfectly useful to a visitor without necessarily deserving to be indexed as an independent search result.</p>
+
+<h2 id="crawl">Crawl access comes before the response</h2>
+<p>Suppose the shop decides that it doesn't want all eight size and colour combinations appearing in Google. Someone adds a <code>noindex</code> to the product template for those selections.</p>
+<p>That sounds reasonable. But another developer decides to tidy up the robots.txt file and adds a rule matching the same URLs.</p>
+<p>Now we have two instructions contradicting against each other. The browser can still open the selected bike URL and show the <code>noindex</code> meta tag in its source. Googlebot, however, consults the robots rules and skips the request.</p>
+<p>Both sides have done exactly what they were told. The problem is that Googlebot cannot read an indexing instruction in a response it never fetches.</p>
+<p>A crawler can learn a URL from the magazine's link, an internal link or a sitemap before fetching its content. For a particular crawler, check the rule against the actual scheme, host and port, as well as the actual path and query string. A shop on <code>www</code> and a PDF hosted on a separate asset hostname can have different robots files.</p>
+
+<p>My <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank" rel="noopener external">robots.txt checker and multi-crawler rule tester</a> takes you through matching and crawler identity. An "allowed" result answers the rule question. You still need the public response to find out whether the URL serves a product, redirects, or returns an error.</p>
+
+<figure class="aw-figure">
+  <ol class="aw-time">
+    <li>
+      <b>1 · Before the release</b>
+      <span><small>Public site</small>The size URL returns an indexable product.</span>
+      <span><small>Google Search</small>Google has previously indexed this selection.</span>
+    </li>
+    <li>
+      <b>2 · Deployment</b>
+      <span><small>Public site</small>The shop adds noindex and blocks the URL.</span>
+      <span><small>Google Search</small>The earlier indexed state can persist.</span>
+    </li>
+    <li>
+      <b>3 · Next crawl attempt</b>
+      <span><small>Public site</small>A browser can fetch the new header.</span>
+      <span><small>Google Search</small>Googlebot sees the disallow and skips the product fetch.</span>
+    </li>
+    <li>
+      <b>4 · After unblocking</b>
+      <span><small>Public site</small>The shop keeps noindex on the accessible URL.</span>
+      <span><small>Google Search</small>On a later successful fetch, Google can process the exclusion.</span>
+    </li>
+  </ol>
+  <figcaption>A deployment and an indexing change run on different clocks. The decisive event here is a successful fetch after the URL becomes crawlable again.</figcaption>
+</figure>
+
+<p>If exclusion is the aim, let Googlebot fetch the URL and serve <code>noindex</code> consistently. Keep it crawlable so the engine can continue to observe that policy.</p>
+<p>For a product permanently removed without a replacement, expose its real <a href="https://developers.google.com/crawling/docs/troubleshooting/http-status-codes" target="_blank" rel="noopener external"><code>404</code> or <code>410</code></a> instead. Blocking the retired path can hide the status just as effectively as it hides a meta tag.</p>
+<p>For a private catalogue, use authentication. Anyone with the address can request a publicly accessible page carrying <code>noindex</code>. An indexing directive isn't access control.</p>
+
+<h2 id="robots-rules">Robots meta tags and X-Robots-Tag</h2>
+<p>Now, let's move from crawl access to what happens once a crawler actually retrieves a page.</p>
+<p>The headers arrive before the HTML body. That delivery order doesn't give an HTTP header higher authority. Google considers the rules applicable to its crawler, combines compatible restrictions, and uses the more restrictive rule where they conflict.</p>
+<p>Here's what that means in a response that looks perfectly fine in a browser.</p>
+
+<pre>
+HTTP/2 200
+Content-Type: text/html; charset=utf-8
+X-Robots-Tag: noindex
+</pre>
+
+<p>And here's the initial HTML returned for the same URL:</p>
+
+<pre>
+&lt;meta name="robots" content="index, follow"&gt;
+&lt;link rel="canonical" href="https://bikes.example/bikes/awgravel"&gt;
+</pre>
+
+<p>Google applies the <a href="https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag" target="_blank" rel="noopener external">more restrictive robots rule</a> here, so the header's <code>noindex</code> excludes the page once Google processes it.</p>
+<p>Changing the HTML to <code>index, follow</code> again won't repair the page. Check the CDN, origin and application for the layer adding the header. The self-canonical doesn't make this response eligible for search either.</p>
+<p><strong>Scope matters before precedence.</strong> Take a generic <code>X-Robots-Tag: noindex</code> and an HTML <code>googlebot</code> tag that says <code>index</code>. Both apply to Googlebot, so the generic exclusion still stands.</p>
+<p>Reverse the targeting and a generic <code>max-image-preview:large</code> can coexist with <code>X-Robots-Tag: googlebot: noindex</code>. <a href="https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag" target="_blank" rel="noopener external">The crawler name in that header limits the exclusion to Googlebot.</a> Check each relevant engine's support before assuming it interprets another crawler's name or directives the same way.</p>
+
+<h3>PDFs give the header a job the HTML can't do</h3>
+<p>Suppose the awgravel geometry chart lives at <code>/manuals/awgravel-2026.pdf</code>. The shop wants people to download the chart but doesn't want the PDF appearing in Google Search.</p>
+<p>There's no HTML head in a PDF where we can put a robots meta tag. This is where the HTTP header comes in. Send <code>X-Robots-Tag: noindex</code> on the PDF response.</p>
+<p>If an HTML manual carries the same chart and the shop wants to consolidate the two formats, <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">the PDF can name its canonical in an HTTP header</a>:</p>
+
+<pre>Link: &lt;https://bikes.example/manuals/awgravel-2026&gt;; rel="canonical"</pre>
+
+<p>Check that the HTML manual actually contains the chart. A sales page with a photo and a "download geometry" button is a poor substitute for a table of reach, stack and standover height.</p>
+
+<h3>Initial HTML and rendered HTML can disagree</h3>
+<p>There's another detail worth keeping in mind. What you see in the browser's final DOM isn't necessarily what the crawler received initially.</p>
+<p>If the initial response says <code>noindex</code> and JavaScript removes it after stock data loads, <a href="https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics" target="_blank" rel="noopener external">Google may skip rendering</a> once it sees the initial rule.</p>
+<p>Inspecting the final DOM in your browser can make this look fixed. For a product intended for search, emit the intended policy in the initial response and keep it consistent through rendering.</p>
+
+<h2 id="selection">How Google selects a canonical URL</h2>
+<p>We've established that a canonical doesn't control whether a page can be crawled or indexed. It has a different job: telling search engines which URL we'd prefer to represent a group of duplicate or near-duplicate pages.</p>
+<p>Google compares the main content of pages, <a href="https://developers.google.com/search/docs/crawling-indexing/canonicalization" target="_blank" rel="noopener external">groups duplicates or near-duplicates</a>, and selects a representative for each group. The site can declare a preference even if Google ultimately selects another URL.</p>
+<p>The first question in an audit is whether the pages belong together at all. A 60 cm preselection on the same bike is a plausible duplicate. Two generations with different frame geometry can answer genuinely different questions.</p>
+<p>Google does not simply take the canonical URL at face value. It considers it alongside other signals to decide which URL should represent a group of duplicate or similar pages. This is also why the canonical you declare and the URL Google ultimately selects are not always the same.</p>
+<p>Google has explained this process in some detail and outside of its docs.</p>
+
+<figure style="margin-bottom: 20px;">
+  <iframe style="border-radius: 15px; width: 100%; height: 478px;" width="560" height="315" src="https://www.youtube-nocookie.com/embed/gEWkYTPSEjs" title="Google Search Central: SEO Myhtbusting on How Google selects a canonical URL" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <figcaption>Canonicalization mythbusting</figcaption>
+</figure>
+
+<p>Some of the signals Google can consider when deciding which URL should represent a group of similar pages.</p>
+
+  <table>
+    <thead>
+      <tr class="header">
+        <th scope="col">Signal</th>
+        <th scope="col">What I'd look for on the shop</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="odd">
+        <th scope="row">Permanent redirect</th>
+        <td>A <code>301</code> or <code>308</code> from a retired product address to its equivalent gives Google a strong signal for the destination. A customer also lands there. Use it when the source no longer needs to serve its own page.</td>
+      </tr>
+      <tr class="even">
+        <th scope="row">Canonical link</th>
+        <td>A strong preference expressed in the HTML head or an HTTP <code>Link</code> header. Check the final public response. A CMS and a CDN can each emit a different target. Point duplicates directly to the intended representative and give that page a self-canonical.</td>
+      </tr>
+      <tr class="odd">
+        <th scope="row">XML sitemap</th>
+        <td>Google describes inclusion as a weak signal. A sitemap listing the base model expresses a clear preference. Listing the base and all eight buying states adds very little clarity. Leaving a URL out still allows discovery through links.</td>
+      </tr>
+      <tr class="even">
+        <th scope="row">Internal links</th>
+        <td>Inspect the actual <code>href</code> on category list, breadcrumbs and copy-links. If every listing opens the default colour parameter, one template quietly makes the variant the most linked version across the website. A swatch taking someone to a particular colour serves a different purpose.</td>
+      </tr>
+      <tr class="odd">
+        <th scope="row">External links</th>
+        <td>The magazine may link to the Forest Green selection. Google has discussed <a href="https://www.youtube.com/watch?v=MlLVBz9xntk&amp;t=361s" target="_blank" rel="noopener external">internal and external links</a> among the signals it considers, and link signals to duplicate URLs can consolidate once a representative is selected. Google publishes no backlink count that settles a conflict. One good review is hardly a reason to break a working deep link.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Google documents <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">redirects and canonical annotations as strong signals and sitemap inclusion as weak</a>. Consistent signals can reinforce one another.</p>
+<p>It also generally prefers HTTPS and considers membership in relevant <code>hreflang</code> clusters. None of that gives us a numerical formula for predicting a winner.</p>
+<p>For the awgravel, this means the shop can keep the green URL working for people following the magazine review, while Google may choose the model page as the representative in search. Those two outcomes aren't mutually exclusive.</p>
+
+<h2 id="variants">Colours, frame sizes and model years</h2>
+<p>The canonical decision isn't necessarily the same for every type of product variation. Colours, sizes and model years can represent quite different things, even when they're all managed by the same product catalogue.</p>
+
+<h3>Colour variations</h3>
+
+<p><strong><a href="https://developers.google.com/search/docs/specialty/ecommerce/designing-a-url-structure-for-ecommerce-sites" target="_blank" rel="noopener external">For a single product page with optional selectors</a>, I'd canonicalise to the stable model URL.</strong></p>
+<p>In this shop, that's <code>/bikes/awgravel</code>. The default can change from Forest Green to Ocean Blue next spring while the model URL still means the same thing.</p>
+<p>Make each useful selection directly addressable and include the model URL in the organic sitemap. <a href="https://support.google.com/merchants/answer/6324416" target="_blank" rel="noopener external">The link in Merchant Center</a> for the green 60 cm bike should still open that exact offer.</p>
+<p>A shop can instead maintain distinct colour landing pages, say <code>/bikes/awgravel/forest-green</code> and <code>/bikes/awgravel/ocean-blue</code>.</p>
+<p>I'd consider self-canonicals when the shop actually supports those pages as independent destinations, with useful photography, accurate colour-specific offers and stable links. Google recognises <a href="https://developers.google.com/search/docs/appearance/structured-data/product-variants" target="_blank" rel="noopener external">a multi-page variant design</a> where the pages have equal standing.</p>
+<p>Merely turning a query parameter into a pretty path changes nothing about what the shopper finds there. A different paint swatch on otherwise identical pages may still leave Google choosing one representative.</p>
+
+<h3>Frame sizes</h3>
+<p><strong>Frame sizes usually belong under whichever model or colour page represents them.</strong></p>
+<p>Keep the 60 cm URL shareable, with its own availability. A distinct SKU is good inventory management. For an independent search landing page, I'd want a reason someone would seek out that build, such as a smaller-frame version with different wheels and handling, backed by geometry and component information the main page doesn't cover.</p>
+<p>Having a separate stock record for every size doesn't automatically mean every size needs an independent search landing page.</p>
+
+<h3>Model years</h3>
+<p><strong>Model years are a product identity decision.</strong></p>
+<p>Keep the same URL while it can still accurately answer what buyers and people following older reviews came for.</p>
+<p>Say the 2026 awgravel takes 45 mm tyres and its redesigned 2027 frame clears 50 mm. Silently rewriting the old specification puts the wrong answer in front of someone choosing tyres for the bike in their shed.</p>
+<p>Separate generation pages earn their place here. A stable model-family page can link to both where it has a job of its own.</p>
+
+<h3>Out of stock and discontinued products</h3>
+<p>Temporary stock loss calls for an availability update on the affected size or colour. A discontinued bike can still justify a useful, indexable <code>200</code> archive with geometry, manuals, compatible parts and a link to the successor.</p>
+<p>If the page has a genuine equivalent elsewhere, permanently redirect to it. If it's gone and has no replacement, return <code>404</code> or <code>410</code>.</p>
+<p>Google can <a href="https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors" target="_blank" rel="noopener external">treat an irrelevant redirect as a soft 404</a>. Send every retired bike to the category and someone looking for tyre clearance lands on a grid of fifty bikes.</p>
+<p>The important distinction is between a product that's temporarily unavailable, one that's been discontinued but still has useful information, and one that's genuinely gone with no equivalent replacement.</p>
+
+<h2 id="conflicts">Canonical conflicts, loops and chains</h2>
+<p>So far, we've looked at fairly straightforward implementations. In practice, different templates, plugins, CMS configurations and edge rules can produce conflicting instructions.</p>
+<p>In the examples below, <strong>A → B</strong> means A declares B as canonical. You can request A, get a <code>200</code> and buy the bicycle there. A canonical link doesn't send the browser to B. That distinction matters particularly in a loop, where both pages may load just fine.</p>
+
+<h3 id="noindex-on-the-source-or-the-target">Noindex on the source or the target</h3>
+<p>Suppose A carries both <code>noindex</code> and a canonical to B. Once Google fetches A and processes the exclusion, A loses eligibility for in the Index. B does not acquire A's <code>noindex</code> through the link.</p>
+<p>Whether A's signals consolidate into B under this combination is a different question, and <a href="https://www.seroundtable.com/no-indexed-canonical-google-signals-33486.html" target="_blank" rel="noopener external">John Mueller expressed uncertainty about signal transfer</a> when asked about this combination.</p>
+<p>Google recommends <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">using a canonical for consolidation</a>. Keep A crawlable so Google can read that preference. If A genuinely needs exclusion, give it a consistent, observable <code>noindex</code>. A self-canonical on a deliberately excluded A likewise won't restore its search eligibility.</p>
+<p>Now move the <code>noindex</code> to B. A is nominating a page you've asked Google to exclude.</p>
+<p><a href="https://developers.google.com/search/docs/crawling-indexing/block-indexing" target="_blank" rel="noopener external">Google can process the exclusion on B once it fetches B.</a> The declaration tells us little about whether Google will select A, find another eligible representative, or surface neither.</p>
+<p>If B is the intended landing page, fix B's response. Editing A's HTML alone leaves the exclusion in place.</p>
+
+<h3 id="two-pages-nominating-each-other">Two pages nominating each other</h3>
+<p>Imagine the model page points to the Forest Green variant, while the Forest Green variant points back to the model.</p>
+
+<figure class="aw-figure">
+  <p class="aw-link-key">Solid arrows show declared canonicals.</p>
+  <svg role="img" viewBox="0 0 400 260">
+    <title id="aw-loop-title">A canonical loop with conflicting signals</title>
+    <desc id="aw-loop-desc">Model A points to colour B and B points back to A. The sitemap lists A. Category items and the cycling review link to B.</desc>
+    <defs>
+      <marker id="aw-loop-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path class="arrowhead" d="M0 0 L10 5 L0 10z"/>
+      </marker>
+    </defs>
+    <rect class="node" x="12" y="6" width="160" height="35" rx="6"/>
+    <text x="92.0" y="27.5" text-anchor="middle" class="label">XML sitemap</text>
+    <rect class="node" x="228" y="6" width="160" height="35" rx="6"/>
+    <text x="308.0" y="27.5" text-anchor="middle" class="label">Category items</text>
+    <path class="line ref" d="M92 41 V99" marker-end="url(#aw-loop-tip)"/>
+    <text class="edge" x="118" y="72" text-anchor="middle">lists A</text>
+    <path class="line ref" d="M308 41 V99" marker-end="url(#aw-loop-tip)"/>
+    <text class="edge" x="340" y="72" text-anchor="middle">link to B</text>
+    <rect class="node" x="8" y="102" width="160" height="53" rx="6"/>
+    <text x="88.0" y="126.5" text-anchor="middle" class="label">A · Model</text>
+    <text class="detail" x="88.0" y="143.5" text-anchor="middle">/bikes/awgravel</text>
+    <rect class="node" x="232" y="102" width="160" height="53" rx="6"/>
+    <text x="312.0" y="126.5" text-anchor="middle" class="label">B · Forest Green</text>
+    <text class="detail" x="312.0" y="143.5" text-anchor="middle">?colour=forest-green</text>
+    <path class="line" d="M168 115 H231" marker-end="url(#aw-loop-tip)"/>
+    <path class="line" d="M232 142 H169" marker-end="url(#aw-loop-tip)"/>
+    <path class="line ref" d="M308 216 V157" marker-end="url(#aw-loop-tip)"/>
+    <text class="edge" x="263" y="191" text-anchor="middle">links to B</text>
+    <rect class="node" x="226" y="218" width="168" height="35" rx="6"/>
+    <text x="310.0" y="239.5" text-anchor="middle" class="label">Magazine review</text>
+  </svg>
+  <figcaption>The sitemap lists the model, while shop lists and the review favour the green variant. Inspect the indexed report to see which representative Google recorded.</figcaption>
+</figure>
+
+<p>A and B can both return valid product pages while giving contradictory preferences. If Google considers them duplicates, it can use other signals to select a representative. If the main content differs enough, they may never end up in the same cluster.</p>
+<p>There's no documented “first page crawled wins” rule. I'd check <a href="https://developers.google.com/search/docs/crawling-indexing/canonicalization-troubleshooting" target="_blank" rel="noopener external">the indexed URL Inspection result</a> for both, then fix the template that disagrees with the catalogue strategy.</p>
+<p>In this example, if A should represent both, have A point to itself, keep B pointing to A, and update category list meant to link to the model. The review can keep its Forest Green destination.</p>
+
+<h3 id="a-chain-ending-in-noindex">A chain ending in noindex</h3>
+<p>Imagine the size selector nominates the colour URL, the colour template nominates the model, and an old edge rule puts <code>noindex</code> on the model.</p>
+<figure class="aw-figure">
+  <div class="aw-pair">
+    <div class="aw-panel">
+      <h4>Three templates, one chain</h4>
+      <svg role="img" viewBox="0 0 268 240">
+        <title id="aw-broken-title">Chain ending at an excluded model</title>
+        <desc id="aw-broken-desc">A names B. B names C. C sends a noindex header.</desc>
+        <defs>
+          <marker id="aw-broken-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path class="arrowhead" d="M0 0 L10 5 L0 10z"/>
+          </marker>
+        </defs>
+        <path class="line" d="M134 48 V83" marker-end="url(#aw-broken-tip)"/>
+        <path class="line" d="M134 133 V169" marker-end="url(#aw-broken-tip)"/>
+        <rect class="node" x="34" y="3" width="200" height="45" rx="6"/>
+        <text x="134.0" y="29.5" text-anchor="middle" class="label">A · Forest Green, 60 cm</text>
+        <rect class="node" x="34" y="86" width="200" height="47" rx="6"/>
+        <text x="134.0" y="113.5" text-anchor="middle" class="label">B · Forest Green</text>
+        <rect class="error" x="34" y="172" width="200" height="55" rx="6"/>
+        <text x="134.0" y="197.5" text-anchor="middle" class="label">C · Base model</text>
+        <text class="detail" x="134.0" y="214.5" text-anchor="middle">X-Robots-Tag: noindex</text>
+        <text class="edge" x="179" y="72" text-anchor="middle">canonical</text>
+        <text class="edge" x="179" y="158" text-anchor="middle">canonical</text>
+      </svg>
+    </div>
+    <div class="aw-panel">
+      <h4>After choosing the model</h4>
+      <svg role="img" viewBox="0 0 268 240">
+        <title id="aw-repair-title">Direct declarations after the repair</title>
+        <desc id="aw-repair-desc">A and B both point directly to C. C is indexable and names itself.</desc>
+        <defs>
+          <marker id="aw-repair-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path class="arrowhead" d="M0 0 L10 5 L0 10z"/>
+          </marker>
+        </defs>
+        <path class="line" d="M65 68 V108 L115 144" marker-end="url(#aw-repair-tip)"/>
+        <path class="line" d="M197 68 V108 L153 144" marker-end="url(#aw-repair-tip)"/>
+        <rect class="node" x="0" y="12" width="130" height="56" rx="6"/>
+        <text x="65.0" y="38.0" text-anchor="middle" class="label">A · 60 cm</text>
+        <text class="detail" x="65.0" y="55.0" text-anchor="middle">Forest Green</text>
+        <rect class="node" x="142" y="12" width="125" height="56" rx="6"/>
+        <text x="204.5" y="38.0" text-anchor="middle" class="label">B · Colour</text>
+        <text class="detail" x="204.5" y="55.0" text-anchor="middle">Forest Green</text>
+        <rect class="ok" x="47" y="146" width="173" height="55" rx="6"/>
+        <text x="133.5" y="171.5" text-anchor="middle" class="label">C · Base model</text>
+        <text class="detail" x="133.5" y="188.5" text-anchor="middle">200 · indexable</text>
+        <path class="line" d="M220 165 C260 165 260 220 193 218 Q182 218 182 202" marker-end="url(#aw-repair-tip)"/>
+        <text class="edge" x="105" y="232" text-anchor="middle">C also names itself</text>
+      </svg>
+    </div>
+  </div>
+  <figcaption>Repairing C and pointing both variants directly to it expresses one consistent preference.</figcaption>
+</figure>
+
+<p>The chain doesn't transmit C's exclusion back to A and B. Nor does it promise that B becomes the fallback. Canonical consumers can <a href="https://www.rfc-editor.org/rfc/rfc6596" target="_blank" rel="noopener external">use their own heuristics</a> when declarations are improper.</p>
+<p>If C should represent all three, remove C's exclusion, point both duplicates directly to C, and <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">give C a self-canonical</a>. If C genuinely belongs outside search, choose an eligible representative for the pages that are actually equivalent.</p>
+<h3 id="a-live-product-pointing-to-a-404">A live product pointing to a 404</h3>
+<p>The Forest Green page returns <code>200</code>. Its canonical points to the model URL, which returns <code>404</code>.</p>
+<p>The error belongs to the model URL. Once Google processes it, that URL is ineligible and <a href="https://developers.google.com/crawling/docs/troubleshooting/http-status-codes" target="_blank" rel="noopener external">an already-indexed copy is removed over time</a>. The Forest Green page can still be indexed.</p>
+<p>The canonical standard explicitly <a href="https://www.rfc-editor.org/rfc/rfc6596#section-3" target="_blank" rel="noopener external">allows consumers to ignore an invalid declaration</a> pointing at a 4xx. Google may select the colour page or another duplicate, and the colour page can also remain unindexed.</p>
+<p>Restore the model as an indexable product page if it was accidentally deleted. If the model page was intentionally retired and Forest Green now deserves its own landing page, self-canonicalise that page and update the catalogue links and sitemap.</p>
+<p>An audit that only checks whether each source contains a canonical will pass all eight variants while missing the same broken target eight times.</p>
+
+<h2 id="edge">Serving robots directives at the Cloudflare edge</h2>
+<p>So far, most of the examples have involved instructions in the page itself or in its HTTP response. But where those instructions are added matters too. Sometimes the CMS isn't responsible at all.</p>
+<h3 id="two-lines-in-a-production-build">Two lines in a production build</h3>
+<p>On Cloudflare Pages, <a href="https://developers.cloudflare.com/pages/configuration/headers/" target="_blank" rel="noopener external">a plain-text <code>_headers</code> file</a> in the static build output can apply rules to responses on the public hostname.</p>
+<p>Suppose the shop adds the following to keep a preview out of search, then ships the same file to production:</p>
+
+<pre>
+/*
+  X-Robots-Tag: noindex
+</pre>
+
+<p>That path pattern has no hostname restriction. On a fully static shop, it can put an exclusion on the homepage, every product, and the geometry PDFs.</p>
+<p>The pages still render, customers can still order their bikes, and a source inspection can still show a lovely self-canonical. The exclusion travels in the HTTP headers.</p>
+<p>As soon as production serves that build, the header is there. How quickly the pages disappear from Search depends on <a href="https://developers.google.com/search/docs/crawling-indexing/block-indexing" target="_blank" rel="noopener external">when Googlebot next visits each URL</a>, which could be a different day for the homepage and the geometry chart.</p>
+<p>Pages already sets <code>X-Robots-Tag: noindex</code> on its <a href="https://developers.cloudflare.com/pages/configuration/preview-deployments/" target="_blank" rel="noopener external">standard preview deployments</a>. If you operate a separate staging hostname, scope a custom rule to that host, for example:</p>
+
+<pre>
+https://staging.bikes.example/*
+  X-Robots-Tag: noindex
+</pre>
+
+<p>Replace the broad rule. Adding a narrow <code>index</code> rule beneath it can leave both values in the response because <a href="https://developers.cloudflare.com/pages/configuration/headers/" target="_blank" rel="noopener external">Pages joins repeated matching header values</a>. Google still has an applicable <code>noindex</code>.</p>
+
+<p>On a hybrid site, check one static category and one dynamically generated product. Pages Functions and <a href="https://developers.cloudflare.com/workers/static-assets/headers/" target="_blank" rel="noopener external">responses generated by Worker code</a> don't automatically inherit static asset <code>_headers</code> rules. Testing only the dynamic product can make an affected catalogue look healthy.</p>
+<h3 id="a-response-header-for-a-specific-set-of-files">A response header for a specific set of files</h3>
+<p>For a shop that wants its downloadable dealer sheets excluded, a Cloudflare <a href="https://developers.cloudflare.com/rules/transform/response-header-modification/" target="_blank" rel="noopener external">Response Header Transform Rule</a> can match the production hostname and a dedicated directory.</p>
+<p>For example, use the expression below, then choose <strong>Set static</strong> for the header <code>X-Robots-Tag</code> with the value <code>noindex</code>. Set replaces existing values of that header at this step, so first check whether those responses carry another restriction you intend to keep.</p>
+
+<pre>
+(http.host eq "bikes.example" and
+starts_with(http.request.uri.path, "/downloads/dealer-sheets/"))
+</pre>
+
+<p>Fetch one dealer PDF and the public manual at <code>/manuals/awgravel-2026.pdf</code>. Only the dealer sheet should acquire the exclusion from this rule.</p>
+<p>If those files are confidential, enforce access control as well. A search exclusion leaves the download publicly accessible.</p>
+
+<h3 id="a-robots-meta-element-written-at-the-edge">A robots meta element written at the edge</h3>
+<p>Sometimes the requirement really is to change the HTML sent to the client. This example uses <a href="https://developers.cloudflare.com/workers/runtime-apis/html-rewriter/" target="_blank" rel="noopener external">Cloudflare's HTMLRewriter</a> and assumes an origin-backed staging host and ordinary HTML documents with an explicit closing head tag.</p>
+<p>On successful staging HTML responses it adds <code>noindex</code> to existing generic robots metadata, preserving other restrictions. When the head contains no generic robots element, it inserts one. The state lives inside the fetch handler because each response needs its own decision.</p>
+
+<pre>
+export default {
+  async fetch(request) {
+    const response = await fetch(request);
+    const url = new URL(request.url);
+    const type = response.headers.get("content-type") || "";
+
+    if (url.hostname !== "staging.bikes.example" ||
+        request.method !== "GET" || response.status !== 200 ||
+        type.split(";")[0].trim().toLowerCase() !== "text/html") {
+      return response;
+    }
+
+    let found = false;
+
+    return new HTMLRewriter()
+      .on("head", {
+        element(head) {
+          head.onEndTag(end => {
+            if (!found) {
+              end.before('&lt;meta name="robots" content="noindex"&gt;', { html: true });
+            }
+          });
+        }
+      })
+      .on("head meta[name]", {
+        element(meta) {
+          if (meta.getAttribute("name").trim().toLowerCase() !== "robots") return;
+
+          found = true;
+          const rules = meta.getAttribute("content") || "";
+
+          if (!rules.split(",").some(rule => rule.trim().toLowerCase() === "noindex")) {
+            meta.setAttribute("content", rules ? rules + ", noindex" : "noindex");
+          }
+        }
+      })
+      .transform(response);
+  }
+};
+</pre>
+
+
+<p>This is an alternative for HTML. The response header covers PDFs too and needs no markup rewrite.</p>
+<p>Test the Worker with an existing robots element, a missing one, a non-HTML response and the production hostname. If a cached HTML variant supplies stale metadata, compare the body you receive publicly with the current origin version and inspect the cache status.</p>
+<p><a href="https://developers.cloudflare.com/rules/transform/response-header-modification/">If an active transform rule adds the header</a>, fix that rule too. Purging an asset won't remove an active rule that adds a header to each response.</p>
+
+<h2 id="ai">AI crawlers, search indexes and direct visits</h2>
+<p>Search engines aren't the only ones fetching and processing pages anymore. AI assistants introduce another layer, and it's tempting to assume that the same rules apply everywhere.</p>
+<p>Does an AI agent respect <code>noindex</code> or use the declared canonical? First establish which product supplied the result and how it obtained the URL. An assistant searching an index, an automated training crawler, and a user asking an assistant to read a particular bike review involve different operations.</p>
+<p>Here's what the providers actually document.</p>
+
+<table>
+<thead>
+<tr class="header">
+<th scope="col">Product or path</th>
+<th scope="col">What a publisher can infer</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th scope="row">Google AI Overviews and AI Mode</th>
+<td>To appear as a supporting link, <a href="https://developers.google.com/search/docs/appearance/ai-features">a page must be indexed and eligible for a Google Search snippet</a>. A processed <code>noindex</code> therefore removes that eligibility. Search canonicalisation can affect the representative available from the index.</td>
+</tr>
+<tr class="even">
+<th scope="row">Claude web search</th>
+<td>Anthropic describes the robots <strong>meta tag</strong> <code>noindex</code> as a way to exclude content from <a href="https://support.claude.com/en/articles/10684638-report-block-and-remove-content-from-claude">the results its search partners supply</a>. Anthropic also describes direct visits to a supplied link. That guidance leaves header equivalence and canonical selection unspecified.</td>
+</tr>
+<tr class="odd">
+<th scope="row">ChatGPT search and user-requested visits</th>
+<td>OpenAI <a href="https://developers.openai.com/api/docs/bots">documents separate crawlers</a> for these jobs. It uses <code>OAI-SearchBot</code> for search, <code>GPTBot</code> for potential training use, and <code>ChatGPT-User</code> for certain user actions. It says robots.txt rules may not apply to user-initiated visits. The crawler reference gives no general promise that every retrieval path honours a page-level <code>noindex</code> or cites the declared canonical.</td>
+</tr>
+<tr class="even">
+<th scope="row">Mistral search and Vibe</th>
+<td>Mistral's <a href="https://docs.mistral.ai/robots">crawler documentation</a> identifies <code>MistralAI-Index</code> for search indexing, <code>MistralAI-User</code> for user-requested visits in Vibe, and <code>MistralAI-Training</code> for training data. It explains how to target those roles in robots.txt. It leaves open how Mistral handles a robots meta <code>noindex</code>, an <code>X-Robots-Tag</code> header, or a canonical when choosing a citation.</td>
+</tr>
+</tbody>
+</table>
+
+<p>Suppose a user supplies the Forest Green URL and the answer cites the model page. Did the assistant read the canonical? Possibly. A search partner may have supplied the model, or the assistant may have followed a prominent model link. The citation alone can't distinguish those paths.</p>
+<p>Likewise, seeing a fetch in a log establishes a request, not training use or indexing. The distinction between a crawler requesting a page and a product actually using its content is important.</p>
+<p>I go into the <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt">individual AI crawlers and their robots.txt controls</a> in more detail, including what a log entry can tell you about the request.</p>
+
+<h2 id="verify">What the public response can tell you</h2>
+<p>We've covered crawl restrictions, indexing directives, canonical selection, product variations, conflicting signals, edge rules and AI retrieval. The remaining question is how to verify what is actually happening on a live site.</p>
+
+<p>Start in your browser. Open the exact URL you want to investigate, including any query parameters used to select a product variation. Then open DevTools and inspect the document request in the Network panel. Check its status code and response headers, particularly any <code>X-Robots-Tag</code> or <code>Link</code> headers. The Response tab shows the HTML returned by the server, while the Elements panel shows the DOM after the browser has processed the page and run its JavaScript.</p>
+
+<p>These are not necessarily identical. A canonical or robots directive might be present in the initial HTML, added or changed by JavaScript, or delivered through an HTTP response header. Checking both the response and the rendered DOM helps you identify where a directive comes from and whether client-side code changes it.</p>
+
+<p>If you need to inspect the raw response outside the browser, or repeat the same request for comparison, <code>curl</code> is a useful secondary option. For example:</p>
+
+<pre>
+curl -sS -D variant.headers -o save.html \ 'https://bikes.example/bikes/awgravel?colour=forest-green&size=60'</pre>
+
+<ol type="1">
+<li><strong>Read the status and every relevant header.</strong> Inspect <code>Location</code>, all <code>X-Robots-Tag</code> fields, and any <code>Link</code> headers. For a redirect, fetch the next hop and keep its response separate. Following only the final response can hide the URL where a redirect was introduced.</li>
+<li><strong>Read the initial head, then fetch the canonical target.</strong> Compare the HTML canonical with the HTTP declaration and resolve the target URL. Fetch the target's status, headers, HTML and own canonical. This is how you catch a valid-looking declaration pointing to a <code>404</code>, another hop, or a model page excluded at the edge.</li>
+<li><strong>Test crawl permission and rendering independently.</strong> Check the actual user agent and URL against robots.txt. If JavaScript changes the metadata, compare the initial HTML with the rendered document. On Cloudflare, sample the production hostname, a preview, and both a matching and a neighbouring path.</li>
+<li><strong>Put dates beside the evidence.</strong> Access logs can show a verified Googlebot fetch after the deployment. Search Console's live test helps check current accessibility. <a href="https://support.google.com/webmasters/answer/9012289">The indexed URL Inspection report</a> shows the last recorded crawl and Google-selected canonical where available. A live test can't predict the canonical Google will select.</li>
+</ol>
+<p>For the awgravel, I'd want the magazine's link to keep opening the Forest Green version even if Google shows the model page in search. The reviewer chose that colour, and someone following the review has a good reason to land there.</p>
+<p>A rider coming back two years later to check whether a 50 mm tyre fits has an equally good reason to find the 2026 geometry chart, right down to the year in the URL.</p>
+<p>That's where I'd start with a real catalogue. Which details would someone reasonably expect this address to remember? For the reviewed bike, it's the colour. For its owner, it's the frame they actually bought.</p>
+<p>Once that's clear, it's much easier to decide which URLs belong together in search and which ones deserve a page of their own.</p>
+<p>And perhaps that's a good point to finish our beer. The gatekeeper, the absolutist and the proposer can go back to arguing about something else.</p>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/seo">seo</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants"><span title="An initial content structure and related resources were given to an LLM, which it expanded upon. I tweaked the draft-output, and at the end a proofread by selected model(s).">Proofreader</span>, GPT-6.1 Sol</p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-11-17">Nov 17, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-heart" data-sketch="" aria-hidden="true"><path d="M5.9 12.16C5.7 11.96 4.99 11.46 4.69 11C4.39 10.54 4.17 9.94 4.1 9.39C4.04 8.83 4.08 8.17 4.29 7.66C4.49 7.15 4.93 6.69 5.33 6.3C5.73 5.92 6.19 5.57 6.69 5.35C7.19 5.12 7.79 4.92 8.33 4.93C8.87 4.95 9.44 5.21 9.93 5.46C10.42 5.72 10.95 6.03 11.28 6.45C11.61 6.87 11.79 7.46 11.91 7.98C12.04 8.51 12.03 9.34 12.05 9.61" stroke-width="1.68"/><path d="M11.7 9.5C11.75 9.22 11.78 8.34 11.98 7.83C12.17 7.33 12.5 6.85 12.86 6.46C13.22 6.06 13.66 5.69 14.13 5.47C14.61 5.25 15.18 5.13 15.71 5.13C16.23 5.12 16.79 5.25 17.27 5.45C17.75 5.65 18.2 5.98 18.59 6.34C18.98 6.71 19.43 7.14 19.61 7.63C19.79 8.12 19.71 8.73 19.68 9.28C19.65 9.83 19.65 10.44 19.42 10.93C19.19 11.41 18.49 11.98 18.3 12.19" stroke-width="1.536"/><path d="M5.25 11.68Q8.32 15.78 11.98 19.36Q15.21 15.38 18.68 11.6" stroke-width="1.424"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</article>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M12 9.55C12.917 8.613 14.111 8 15.5 8a5.5 5.5 0 0 1 5.5 5.5V21h-2v-7.5a3.5 3.5 0 0 0-7 0V21h-2V8.5h2v1.05zM5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-1 2h2V21H4V8.5z"/> </g> </svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M13 9h4.5l-.5 2h-4v9h-2v-9H7V9h4V7.128c0-1.783.186-2.43.534-3.082a3.635 3.635 0 0 1 1.512-1.512C13.698 2.186 14.345 2 16.128 2c.522 0 .98.05 1.372.15V4h-1.372c-1.324 0-1.727.078-2.138.298-.304.162-.53.388-.692.692-.22.411-.298.814-.298 2.138V9z"/> </g> </svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M5.455 15L1 18.5V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v12H5.455zm-.692-2H16V4H3v10.385L4.763 13zM8 17h10.237L20 18.385V8h1a1 1 0 0 1 1 1v13.5L17.545 19H9a1 1 0 0 1-1-1v-1z"/> </g> </svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
+      </div>
+</footer>
+
+<script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+
+</body>
+</html>
