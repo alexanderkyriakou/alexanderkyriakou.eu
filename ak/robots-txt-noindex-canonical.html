@@ -175,6 +175,12 @@ table tbody tr { text-align: left; border-bottom: 1px solid #e5e5e5; }
 table tbody tr:last-child { border-bottom: none; }
 table tbody th, table tbody td { padding: 8px; vertical-align: middle; }
 table tbody th { width: 20%; font-weight: 500; }
+.summary .summary-table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.summary .summary-table-scroll table { display: table; width: 100%; min-width: 640px; table-layout: fixed; margin: 0; margin-bottom: 20px; }
+.summary .summary-table-scroll .col-mechanism { width: 22%; }
+.summary .summary-table-scroll .col-job { width: 34%; }
+.summary .summary-table-scroll .col-problem { width: 44%; }
+.summary .summary-table-scroll th, .summary .summary-table-scroll td { padding: 8px; vertical-align: top; overflow-wrap: break-word; }
 .aw-figure { font-family: 'Commissioner', system-ui, sans-serif; background: #f4f6f2; border: 1px solid #d2dcd2; border-radius: 15px; padding: 15px; margin: 20px 0; }
 .aw-copy .aw-time { list-style:none; margin:0; padding:0; display:grid; gap:0; }
 .aw-time li:first-child { border-top: 0; }
@@ -199,7 +205,8 @@ table tbody th { width: 20%; font-weight: 500; }
 .aw-figure figcaption { margin-top: 15px; }
 
 @media (max-width: 768px) {
-  .subh { display: inline-block; }
+  .subh { display: inline-block; } .summary .summary-table-scroll table { font-size: .9rem; }
+  .summary .summary-table-scroll th, .summary .summary-table-scroll td { padding: .6rem .5rem; }
   .aw-time li { grid-template-columns: 1fr 1fr; gap: .4rem .7rem; }
   .aw-time li > b { grid-column: 1 / -1; }
   .aw-copy table :is(th,td) { padding: .6rem .4rem; }
@@ -274,9 +281,16 @@ table tbody th { width: 20%; font-weight: 500; }
 
 <div class="aw-copy">
 
+  <!-- TODO fix the table on mobile -->
 <section class="summary">
 <h2 id="summary" style="text-align: center;">The three jobs in a shot</h2>
+<div class="summary-table-scroll">
 <table>
+  <colgroup>
+    <col class="col-mechanism">
+    <col class="col-job">
+    <col class="col-problem">
+  </colgroup>
   <thead>
     <tr class="header">
       <th scope="col">Mechanism</th>
@@ -302,8 +316,9 @@ table tbody th { width: 20%; font-weight: 500; }
     </tr>
   </tbody>
 </table>
+</div>
 
-<p>Three different jobs. The gatekeeper (robots.txt) decides who gets in. The absolutist (<code>noindex</code>) says “not in my index”, but only after the fetch has happened and the response has been processed. The proposer (canonical) suggests which page should speak for the others, and may be overruled. The distinction sounds straightforward enough. Things get more interesting when we put them together.</p>
+<p style="margin: 0;">Three different jobs. The gatekeeper (robots.txt) decides who gets in. The absolutist (<code>noindex</code>) says “not in my index”, but only after the fetch has happened and the response has been processed. The proposer (canonical) suggests which page should speak for the others, and may be overruled. The distinction sounds straightforward enough. Things get more interesting when we put them together.</p>
 </section>
 
 <h2 id="bicycle">One bicycle, eight ways to buy it</h2>

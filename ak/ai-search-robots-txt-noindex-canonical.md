@@ -28,6 +28,8 @@ Say you sell a gravel bike called the AWGravel. Someone asks an AI search produc
 
 Did the AI product ignore the canonical? Not necessarily. The two URLs may serve different purposes, and we don't yet know how the product discovered the variant URL or whether it even considered the canonical declaration.
 
+The short answer is that a canonical is a hint, not a command, even for Google. Google weighs it against other signals when it picks a representative URL, and a product that doesn't use Google's index owes your declaration nothing. Whether a given AI product reads it at all is a question for that product's documentation, not for your markup.
+
 An answer can draw on a search index, a page fetched in response to a user's request, or information supplied through a merchant feed. These routes don't necessarily follow the same rules. And while Google documents how it handles canonical selection and indexing directives, other AI search products don't always tell us what they do with those same signals.
 
 I'd start by establishing what the URLs represent, then work backwards to how the product obtained the information. There's little point changing a perfectly useful product URL because an AI answer happens to cite it.
@@ -79,6 +81,8 @@ This distinction is worth keeping in mind when reading server logs. A crawler vi
 ## What do robots.txt, noindex and canonical mean to AI search products?
 
 The underlying mechanisms haven't changed. A matching `Disallow` in robots.txt can prevent a crawler from fetching a URL. A `noindex` instruction asks an indexing system to exclude a page after it has retrieved and processed the response. A canonical declaration expresses a preference for the representative URL among duplicate or similar pages.
+
+Order matters here. A crawler has to be allowed to fetch a URL before it can read that URL's `noindex` or canonical. If robots.txt blocks the fetch, the page-level signals on that URL are never seen.
 
 The catch is that these mechanisms don't have a universal interpretation across every AI product. Some providers document specific behaviours, while others leave important details open.
 
@@ -142,6 +146,10 @@ Gemini Apps can show sources and related links, including public websites and fi
 
 If someone supplies the green variant URL, or uploads the dealer's PDF, I'd record that input before comparing the resulting citation with URL Inspection.
 
+### Bing and Microsoft Copilot
+
+Some AI products have drawn on Bing's index alongside other sources, so Bing's own handling matters. [Bing documents `noindex` and canonical handling](https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a) for its search index, and Bingbot follows robots.txt. Whether a particular AI product applies those same signals to the pages it cites is a separate question that each provider has to answer.
+
 <a id="feed"></a>
 
 ## Could ChatGPT find the bike through a product feed?
@@ -154,11 +162,9 @@ ChatGPT now has those product details directly from the merchant. A `noindex` on
 
 Equally, the feed doesn't tell ChatGPT the bike's frame geometry unless the shop has supplied those details too or made another accessible source available.
 
-There is a catch, though. Under [section 3 of the Businesses in ChatGPT Terms](https://openai.com/policies/businesses-in-chatgpt-terms/), a merchant providing a product feed agrees to permit OpenAI and its affiliates' crawlers and agents to access and interact with its websites in accordance with their documentation.
+A feed also comes with contractual terms. Section 3 of the [Businesses in ChatGPT Terms](https://openai.com/policies/businesses-in-chatgpt-terms/) covers crawler access and text-and-data-mining rights for merchants who supply a feed. My reading is that it limits how far a merchant can reserve those rights against OpenAI while using the feed. I'm not a lawyer, so read the clause yourself and ask counsel before combining a feed with a blanket block.
 
-The same section addresses text-and-data-mining rights and opt-outs. A merchant providing a feed agrees not to exercise or reserve those rights with respect to OpenAI and its affiliates in relation to its websites or Customer Data. If it does, the terms state that those rights have no effect with respect to OpenAI and its affiliates.
-
-So I wouldn't treat a product feed and a blanket website block as an uncomplicated supported combination. The feed can supply product records independently of a particular page fetch, but the contractual requirements still matter.
+So I wouldn't treat a product feed and a blanket website block as an uncomplicated supported combination. The feed can supply product records independently of a page fetch, but the terms still matter.
 
 Product images can introduce another point of failure. OpenAI's [guidance for product feeds](https://help.openai.com/en/articles/20001243-advertiser-guidance-for-allowing-openai-web-crawlers) specifically asks publishers to allow `OAI-SearchBot` to retrieve product image URLs. A 403 from the image host can interrupt feed processing even when the CSV itself is accessible.
 
@@ -180,7 +186,7 @@ Unlike HTML, a PDF has no document head in which to put a robots meta tag or a c
 
 ```http
 Content-Type: application/pdf
-Link: <https://shop.example/bikes/awgravel/geometry> rel="canonical"
+Link: <https://shop.example/bikes/awgravel/geometry>; rel="canonical"
 ```
 
 If the aim is to exclude the PDF from Google's index while keeping it downloadable, the relevant header is `X-Robots-Tag: noindex`, served on the PDF itself.
@@ -248,11 +254,14 @@ If removal is the aim, allow the fetch and keep serving the header. If the aim i
 
 Yes. A Markdown file can be a citable source when a product discovers or retrieves it. For example, [OpenAI publishes its own crawler documentation in Markdown](https://developers.openai.com/api/docs/bots.md).
 
-Try asking for the size-60 stack height twice. In one fresh conversation, supply the Markdown URL. In the other, give only the model name, year and size.
+A single pair of prompts proves little. Answers vary between runs, and a link can come from an index, a live fetch, a feed or the model's memory. Treat each prompt as a trial instead:
 
-A correct answer linking to the file in the first conversation shows that the product can work with a supplied source. A link in the second shows that the address surfaced without your prompt supplying it.
+1. Record the question, the product, the date, and whether you supplied the URL.
+2. Repeat it at least ten times in fresh sessions, varying the phrasing. Run one set with the URL supplied and one set without.
+3. Count how often each run cites the HTML, the Markdown or the PDF.
+4. Compare with your server logs for the same window, verifying source IPs, and note which crawler requested which URL.
 
-Neither result tells you by itself which crawler fetched the document. And if HTML and Markdown share one negotiated URL, even a perfectly accurate citation to that address won't tell you which representation the client received.
+A citation rate with matching log entries is evidence. A single link is an anecdote. Even then, if HTML and Markdown share one negotiated URL, the citation can't show which representation the client received.
 
 ### Which format gives the clearest answer?
 
@@ -264,13 +273,11 @@ I'd start here for the public product page. A table with a caption naming the fr
 
 #### Markdown
 
-A short file with headings, labelled values and links can be easier for a text-oriented client to process. But test the hardest table. If the conversion drops the shared millimetre heading or mixes two model years, the smaller file has cost you the answer.
+A short file with headings, labelled values and links can be easier for a text-oriented client to process, but only when the conversion is lossless. Test the hardest table. If the conversion drops the shared millimetre heading or mixes two model years, the smaller file has cost you the answer. Simpler markup isn't automatically a better representation. What matters is whether the format keeps the context needed to interpret each value.
 
-It's also worth challenging the assumption that HTML is inherently harder for AI agents to process. In [The unreasonable effectiveness of HTML](https://claude.dev/blog/using-claude-code-the-unreasonable-effectiveness-of-html/), a member of the Claude Code team explains why they increasingly prefer HTML over Markdown for producing and reviewing agent-generated outputs. HTML can preserve richer structures, tables, visual relationships and navigation that a Markdown conversion might flatten or discard. While the article focuses on working with Claude Code rather than web search crawling, it makes a useful point: simpler markup isn't necessarily a better representation of the underlying information. What matters is whether the format preserves the context an agent needs to interpret it correctly.
+#### Structured data (JSON-LD)
 
-#### JSON Schema
-
-JSON is another useful option when the information is inherently structured. Product specifications, prices, availability, dimensions and other attributes can be represented as explicit key-value pairs, reducing the ambiguity that can arise when an agent has to extract them from prose. A JSON Schema can go a step further by defining the expected fields, data types and validation rules. However, JSON is not a replacement for an explanatory article: it works best for well-defined data, while HTML remains more suitable for content that relies on context, narrative and relationships between sections.
+For prices, availability and identifiers, Product and Offer markup is the documented route for Google, and it has to match the visible page. I wouldn't publish a separate JSON file with a JSON Schema for AI search. I'm not aware of provider documentation saying any AI search product discovers or uses one. A data feed or API for developers is a different, legitimate purpose, and I'd label it as that.
 
 #### Plain text
 
@@ -320,7 +327,7 @@ Yes, where the provider offers separate controls. A citation concerns what a pro
 
 A `noindex` on the Markdown file, a canonical pointing to HTML, and an alternate pointing back to Markdown express no general preference about training. A robots.txt restriction for a particular training crawler addresses a different purpose from one written for a search crawler.
 
-There is also a shared training preference being developed through the IETF. The latest version of the Internet-Draft, published on 16 November 2026, defines the policy token `__usage_ai-training`.
+There is also a shared training preference being developed through the IETF. The latest version of the Internet-Draft, [published on November 16 of 2026](https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/), defines the policy token `__usage_ai-training`.
 
 For a shop declining training use of its bike catalogue, the proposed syntax looks like this:
 

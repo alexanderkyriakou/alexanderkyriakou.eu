@@ -171,6 +171,7 @@
 } 
 
 pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+.container ul, .container ol { font-size: 1.2rem; padding-left: 20px; line-height: 1.5; }
 
 </style>
 </head>
@@ -236,6 +237,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
 
 <p>Say you sell a gravel bike called the AWGravel. Someone asks an AI search product where to buy it in forest green. The answer links straight to <code>/bikes/awgravel?colour=forest-green</code>. The shop, however, has declared <code>/bikes/awgravel</code> as the canonical URL.</p>
 <p>Did the AI product ignore the canonical? Not necessarily. The two URLs may serve different purposes, and we don't yet know how the product discovered the variant URL or whether it even considered the canonical declaration.</p>
+<p>The short answer is that a canonical is a hint, not a command, even for Google. Google weighs it against other signals when it picks a representative URL, and a product that doesn't use Google's index owes your declaration nothing. Whether a given AI product reads it at all is a question for that product's documentation, not for your markup.</p>
 <p>An answer can draw on a search index, a page fetched in response to a user's request, or information supplied through a merchant feed. These routes don't necessarily follow the same rules. And while Google documents how it handles canonical selection and indexing directives, other AI search products don't always tell us what they do with those same signals.</p>
 <p>I'd start by establishing what the URLs represent, then work backwards to how the product obtained the information. There's little point changing a perfectly useful product URL because an AI answer happens to cite it.</p>
 
@@ -266,6 +268,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
 
 <h2 id="signals">What do robots.txt, noindex and canonical mean to AI search products?</h2>
 <p>The underlying mechanisms haven't changed. A matching <code>Disallow</code> in robots.txt can prevent a crawler from fetching a URL. A <code>noindex</code> instruction asks an indexing system to exclude a page after it has retrieved and processed the response. A canonical declaration expresses a preference for the representative URL among duplicate or similar pages.</p>
+<p>Order matters here. A crawler has to be allowed to fetch a URL before it can read that URL's <code>noindex</code> or canonical. If robots.txt blocks the fetch, the page-level signals on that URL are never seen.</p>
 <p>The catch is that these mechanisms don't have a universal interpretation across every AI product. Some providers document specific behaviours, while others leave important details open.</p>
 <p>If you need a refresher on how the three mechanisms interact, particularly when a blocked page contains a canonical or a noindex directive, see <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#crawl-access" target="_blank">Crawl access comes before the response</a> in my existing article.</p>
 
@@ -303,14 +306,16 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
 <p>Gemini Apps can show sources and related links, including public websites and files supplied by users. The <a href="https://support.google.com/gemini/answer/14143489" target="_blank" rel="noopener external">consumer app's source documentation</a> doesn't establish that every citation must match Google's selected canonical.</p>
 <p>If someone supplies the green variant URL, or uploads the dealer's PDF, I'd record that input before comparing the resulting citation with URL Inspection.</p>
 
+<h3 id="bing">Bing and Microsoft Copilot</h3>
+<p>Some AI products have drawn on Bing's index alongside other sources, so Bing's own handling matters. <a href="https://www.bing.com/webmasters/help/webmaster-guidelines-30fba23a" target="_blank" rel="noopener external">Bing documents <code>noindex</code> and canonical handling</a> for its search index, and Bingbot follows robots.txt. Whether a particular AI product applies those same signals to the pages it cites is a separate question that each provider has to answer.</p>
+
 <h2 id="feed">Could ChatGPT find the bike through a product feed?</h2>
 <p>Yes. A merchant doesn't have to rely exclusively on its product pages to provide information to ChatGPT.</p>
 <p>For example, the shop could connect a product feed through <a href="https://help.openai.com/en/articles/20001635-setting-up-your-business-on-chatgpt" target="_blank" rel="noopener external">ChatGPT Business Hub</a>. One record describes the forest green AWGravel in size 60, priced at €1,899 and currently in stock.</p>
 <p>ChatGPT now has those product details directly from the merchant. A <code>noindex</code> on the product page doesn't withdraw the record from the feed. If the bike appears in a shopping result, that alone doesn't tell us whether ChatGPT also retrieved its HTML page.</p>
 <p>Equally, the feed doesn't tell ChatGPT the bike's frame geometry unless the shop has supplied those details too or made another accessible source available.</p>
-<p>There is a catch, though. Under <a href="https://openai.com/policies/businesses-in-chatgpt-terms/" target="_blank" rel="noopener external">section 3 of the Businesses in ChatGPT Terms</a>, a merchant providing a product feed agrees to permit OpenAI and its affiliates' crawlers and agents to access and interact with its websites in accordance with their documentation.</p>
-<p>The same section addresses text-and-data-mining rights and opt-outs. A merchant providing a feed agrees not to exercise or reserve those rights with respect to OpenAI and its affiliates in relation to its websites or Customer Data. If it does, the terms state that those rights have no effect with respect to OpenAI and its affiliates.</p>
-<p>So I wouldn't treat a product feed and a blanket website block as an uncomplicated supported combination. The feed can supply product records independently of a particular page fetch, but the contractual requirements still matter.</p>
+<p>A feed also comes with contractual terms. Section 3 of the <a href="https://openai.com/policies/businesses-in-chatgpt-terms/" target="_blank" rel="noopener external">Businesses in ChatGPT Terms</a> covers crawler access and text-and-data-mining rights for merchants who supply a feed. My reading is that it limits how far a merchant can reserve those rights against OpenAI while using the feed. I'm not a lawyer, so read the clause yourself and ask counsel before combining a feed with a blanket block.</p>
+<p>So I wouldn't treat a product feed and a blanket website block as an uncomplicated supported combination. The feed can supply product records independently of a page fetch, but the terms still matter.</p>
 <p>Product images can introduce another point of failure. OpenAI's <a href="https://help.openai.com/en/articles/20001243-advertiser-guidance-for-allowing-openai-web-crawlers" target="_blank" rel="noopener external">guidance for product feeds</a> specifically asks publishers to allow <code>OAI-SearchBot</code> to retrieve product image URLs. A 403 from the image host can interrupt feed processing even when the CSV itself is accessible.</p>
 <p>For this example, I'd check three things separately: whether the latest feed contains the green size 60, whether its image can be retrieved, and whether the supplied product URL opens on the correct variant at €1,899.</p>
 <p>A valid feed makes the offer available for consideration in ChatGPT shopping. It doesn't guarantee a recommendation or establish that the product will be selected over competing offers. ChatGPT can also consider the shopper's question and other available sources.</p>
@@ -324,7 +329,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
 
 <pre>
 Content-Type: application/pdf
-Link: &lt;https://shop.example/bikes/awgravel/geometry&gt; rel="canonical"
+Link: &lt;https://shop.example/bikes/awgravel/geometry&gt;; rel="canonical"
 </pre>
 
 <p>If the aim is to exclude the PDF from Google's index while keeping it downloadable, the relevant header is <code>X-Robots-Tag: noindex</code>, served on the PDF itself.</p>
@@ -374,31 +379,33 @@ Disallow: /bikes/awgravel/geometry.md
 
 <h3>Can an AI answer cite the Markdown URL?</h3>
 <p>Yes. A Markdown file can be a citable source when a product discovers or retrieves it. For example, <a href="https://developers.openai.com/api/docs/bots.md" target="_blank" rel="noopener external">OpenAI publishes its own crawler documentation in Markdown</a>.</p>
-<p>Try asking for the size-60 stack height twice. In one fresh conversation, supply the Markdown URL. In the other, give only the model name, year and size.</p>
-<p>A correct answer linking to the file in the first conversation shows that the product can work with a supplied source. A link in the second shows that the address surfaced without your prompt supplying it.</p>
-<p>Neither result tells you by itself which crawler fetched the document. And if HTML and Markdown share one negotiated URL, even a perfectly accurate citation to that address won't tell you which representation the client received.</p>
+<p>A single pair of prompts proves little. Answers vary between runs, and a link can come from an index, a live fetch, a feed or the model's memory. Treat each prompt as a trial instead:</p>
+
+<ol>
+  <li>Record the question, the product, the date, and whether you supplied the URL.</li>
+  <li>Repeat it at least ten times in fresh sessions, varying the phrasing. Run one set with the URL supplied and one set without.</li>
+  <li>Count how often each run cites the HTML, the Markdown or the PDF.</li>
+  <li>Compare with your server logs for the same window, verifying source IPs, and note which crawler requested which URL.</li>
+</ol>
+<p>A citation rate with matching log entries is evidence. A single link is an anecdote. Even then, if HTML and Markdown share one negotiated URL, the citation can't show which representation the client received.</p>
 
 <h3>Which format gives the clearest answer?</h3>
 <p>It depends on the information and the way the client extracts it. For the stack height of a size-60 frame, the important thing is keeping the number attached to the right model year, frame size and unit.</p>
 
-<dl>
-  <dt><strong>HTML</strong></dt>
-  <dd><p>I'd start here for the public product page. A table with a caption naming the frame year, size headings and a row labelled Stack (mm) makes the relationships explicit. Check that the content is present in the HTML returned to an ordinary fetch, rather than appearing only after a click or in a canvas.</p></dd>
+<p><strong>HTML</strong><br>
+I'd start here for the public product page. A table with a caption naming the frame year, size headings and a row labelled Stack (mm) makes the relationships explicit. Check that the content is present in the HTML returned to an ordinary fetch, rather than appearing only after a click or in a canvas.</p>
 
-  <dt><strong>Markdown</strong></dt>
-  <dd><p>A short file with headings, labelled values and links can be easier for a text-oriented client to process. But test the hardest table. If the conversion drops the shared millimetre heading or mixes two model years, the smaller file has cost you the answer.</p></dd>
+<p><strong>Markdown</strong><br>
+A short file with headings, labelled values and links can be easier for a text-oriented client to process, but only when the conversion is lossless. Test the hardest table. If the conversion drops the shared millimetre heading or mixes two model years, the smaller file has cost you the answer. Simpler markup isn't automatically a better representation. What matters is whether the format keeps the context needed to interpret each value.</p>
 
-  <p>It's also worth challenging the assumption that HTML is inherently harder for AI agents to process. In <a href="https://claude.dev/blog/using-claude-code-the-unreasonable-effectiveness-of-html/" target="_blank" rel="noopener external">The unreasonable effectiveness of HTML</a>, a member of the Claude Code team explains why they increasingly prefer HTML over Markdown for producing and reviewing agent-generated outputs. HTML can preserve richer structures, tables, visual relationships and navigation that a Markdown conversion might flatten or discard. While the article focuses on working with Claude Code rather than web search crawling, it makes a useful point: simpler markup isn't necessarily a better representation of the underlying information. What matters is whether the format preserves the context an agent needs to interpret it correctly.</p>
+<p><strong>Structured data (JSON-LD)</strong><br>
+For prices, availability and identifiers, Product and Offer markup is the documented route for Google, and it has to match the visible page. I wouldn't publish a separate JSON file with a JSON Schema for AI search. I'm not aware of provider documentation saying any AI search product discovers or uses one. A data feed or API for developers is a different, legitimate purpose, and I'd label it as that.</p>
 
-  <dt><strong>JSON Schema</strong></dt>
-  <dd><p>JSON is another useful option when the information is inherently structured. Product specifications, prices, availability, dimensions and other attributes can be represented as explicit key-value pairs, reducing the ambiguity that can arise when an agent has to extract them from prose. A JSON Schema can go a step further by defining the expected fields, data types and validation rules. However, JSON is not a replacement for an explanatory article: it works best for well-defined data, while HTML remains more suitable for content that relies on context, narrative and relationships between sections.</p></dd>
+<p><strong>Plain text</strong><br>
+For a single fact, <code>2026 AWGravel, size 60: stack 626 mm</code> works perfectly well. A long run of numbers aligned with spaces is another matter. Once the columns wrap, the relationship between values becomes ambiguous.</p>
 
-  <dt><strong>Plain text</strong></dt>
-  <dd><p>For a single fact, <code>2026 AWGravel, size 60: stack 626 mm</code> works perfectly well. A long run of numbers aligned with spaces is another matter. Once the columns wrap, the relationship between values becomes ambiguous.</p></dd>
-
-  <dt><strong>PDF</strong></dt>
-  <dd><p>A dimensioned frame drawing can show exactly where a measurement starts and ends. A client receiving the page image can use that detail. A text-only extractor may lose it, mix the columns or get nothing usable from a scanned document without OCR. <a href="https://developers.openai.com/api/docs/guides/file-inputs" target="_blank" rel="noopener external">OpenAI's file-input documentation</a> describes how one upload workflow supplies extracted PDF text and page images to vision-capable models. It doesn't establish how a search crawler processes a PDF found on the web.</p></dd>
-</dl>
+<p><strong>PDF</strong><br>
+A dimensioned frame drawing can show exactly where a measurement starts and ends. A client receiving the page image can use that detail. A text-only extractor may lose it, mix the columns or get nothing usable from a scanned document without OCR. <a href="https://developers.openai.com/api/docs/guides/file-inputs" target="_blank" rel="noopener external">OpenAI's file-input documentation</a> describes how one upload workflow supplies extracted PDF text and page images to vision-capable models. It doesn't establish how a search crawler processes a PDF found on the web.</p>
 
 <p>For this shop, I'd publish the accessible HTML table as the primary reference, offer Markdown where it provides a useful alternative, and make the product specifications available as structured JSON, with a JSON Schema defining their expected structure. I'd keep the PDF for the dimensioned drawing, where the visual representation matters. Then I'd test the same size-60 question against each representation before claiming one is easier for AI products to understand.</p>
 <p>Google explicitly says <a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener external">its generative search features don't require a Markdown version</a>. I wouldn't introduce another format just to satisfy an assumed requirement.</p>
@@ -422,7 +429,7 @@ Disallow: /bikes/awgravel/geometry.md
 <h2 id="training">Can the shop allow retrieval but decline training?</h2>
 <p>Yes, where the provider offers separate controls. A citation concerns what a product could use to answer a question. Training concerns the use of content to modify a model's learned parameters.</p>
 <p>A <code>noindex</code> on the Markdown file, a canonical pointing to HTML, and an alternate pointing back to Markdown express no general preference about training. A robots.txt restriction for a particular training crawler addresses a different purpose from one written for a search crawler.</p>
-<p>There is also a shared training preference being developed through the IETF. The latest version of the Internet-Draft, published on 16 November 2026, defines the policy token <code>__usage_ai-training</code>.</p>
+<p>There is also a shared training preference being developed through the IETF. The latest version of the Internet-Draft, <a href="https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/" target="_blank" rel="noopener external">published on November 16 of 2026</a>, defines the policy token <code>__usage_ai-training</code>.</p>
 <p>For a shop declining training use of its bike catalogue, the proposed syntax looks like this:</p>
 
 <pre>
@@ -444,7 +451,7 @@ Disallow: /bikes/
 <p>Remember what the result represents, though. It's a rules-based evaluation, not proof that a crawler visited the URL, could retrieve its contents or included it in an index. For an actual request, <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier" target="_blank">look at the server logs</a>.</p>
 <p>And if the log says <code>Googlebot</code> or <code>OAI-SearchBot</code>, don't stop at the user-agent string. Verify the source IP using the operator's published information and documented checks. A user-agent can be copied. I've covered the process in <a href="https://alexanderkyriakou.eu/ak/verify-crawler-identity#dns-verification">the crawler identity and DNS verification article</a>.</p>
 <p>For Google, my existing article's <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#verify">section on inspecting the public response</a> walks through the browser checks in more detail.</p>
-<p>Back to the shopper looking for forest green. If the answer sends them to ocean blue, where the bike appears sold out, I'd investigate the URL choice. If it sends them to the correct size, in stock and in the colour they asked for, I thinks that's perfectly fine.</p>
+<p>Back to the shopper looking for forest green. If the answer sends them to ocean blue, where the bike appears sold out, I'd investigate the URL choice. If it sends them to the correct size, in stock and in the colour they asked for, I think that's perfectly fine.</p>
 <p>The shop's preference for one URL and the shopper's preference for one particular bike can both make sense. The important thing is to understand what each URL represents, what the AI product could access, and what evidence we actually have before changing anything.</p>
 
     <footer class="postfooter">
