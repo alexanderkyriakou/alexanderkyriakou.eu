@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AI search, robots.txt, noindex, and canonical URLs • The Triad of Signals</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Why can an AI answer link to a blocked page, a colour variant, or a PDF? Follow the URL through crawl rules, indexing directives, and canonical selection.">
+  <meta name="author" content="Alexander Kyriakou">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical.md" title="AI search, robots.txt, noindex, and canonical URLs - Markdown">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="512x512" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="How AI search products handle robots.txt, noindex, and canonical URLs"/>
+  <meta property="og:description" content="Why can an AI answer link to a blocked page, a colour variant, or a PDF? Follow the URL through crawl rules, indexing directives, and canonical selection."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/ai-search-robots-txt-noindex-canonical/og/autumn-cycling-mountain-road-vytina-greece-2024.jpg"/>
+  <meta property="og:image:alt" content="A group of cyclists rides along a winding mountain road near Vytina, Greece, flanked by dense evergreen trees and rocky hillsides on the left and autumn foliage on the right. In the lower right foreground, a rustic wooden picnic table and benches sit covered in fallen orange leaves beside the sunlit asphalt.">
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How AI search products handle robots.txt, noindex, and canonical URLs">
+  <meta name="twitter:description" content="Why can an AI answer link to a blocked page, a colour variant, or a PDF? Follow the URL through crawl rules, indexing directives, and canonical selection.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/ai-search-robots-txt-noindex-canonical/og/autumn-cycling-mountain-road-vytina-greece-2024.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#webpage",
+      "url": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical",
+      "name": "How AI search products handle robots.txt, noindex, and canonical URLs",
+      "description": "Understand how AI search products discover, retrieve and cite web content, and how robots.txt, noindex directives and canonical URLs influence which pages they can access and reference.",
+      "inLanguage": "en",
+      "datePublished": "2026-11-18",
+      "author": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      },
+      "isPartOf": {
+        "@id": "https://alexanderkyriakou.eu/#website"
+      },
+      "mainEntity": {
+        "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#article"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#image-hero"
+      }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#article",
+      "url": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical",
+      "headline": "How AI search products handle robots.txt, noindex, and canonical URLs",
+      "alternativeHeadline": "An AI answer links to the green bike. Your canonical points to the model page. That isn't necessarily a contradiction.",
+      "description": "An examination of how AI search products handle crawl access, indexing directives, canonical URLs and alternative content sources. Covers product variants, search and retrieval systems, merchant feeds, HTML, Markdown, JSON, JSON Schema, PDFs, structured data, conflicting information and AI training preferences.",
+      "inLanguage": "en",
+      "datePublished": "2026-11-18",
+      "dateModified": "2026-11-18",
+      "isAccessibleForFree": true,
+      "author": {
+        "@type": "Person",
+        "@id": "https://alexanderkyriakou.eu/#person",
+        "name": "Alexander Kyriakou",
+        "url": "https://alexanderkyriakou.eu/"
+      },
+      "publisher": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#webpage"
+      },
+      "isPartOf": {
+        "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#webpage"
+      },
+      "articleSection": [
+        "SEO",
+        "Technical SEO",
+        "AI Search"
+      ],
+      "keywords": [
+        "AI search",
+        "AI search crawlers",
+        "AI search visibility",
+        "robots.txt",
+        "noindex",
+        "canonical URL",
+        "canonicalisation",
+        "crawl access",
+        "AI crawlers",
+        "AI retrieval",
+        "search indexing",
+        "product variants",
+        "product feeds",
+        "ChatGPT Search",
+        "Google AI Overviews",
+        "Google AI Mode",
+        "Claude",
+        "Perplexity",
+        "structured data",
+        "JSON",
+        "JSON Schema",
+        "Markdown",
+        "HTML",
+        "PDF",
+        "AI training"
+      ],
+      "image": [
+        {
+          "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#image-hero"
+        }
+      ],
+      "copyrightHolder": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      },
+      "copyrightYear": 2026
+    },
+    {
+      "@type": "ImageObject",
+      "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#image-hero",
+      "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/ai-search-robots-txt-noindex-canonical/autumn-cycling-mountain-road-vytina-greece-2024.webp",
+      "name": "Cyclists on a mountain road near Vytina, Greece",
+      "caption": "Cycling mountains.",
+      "description": "A group of cyclists rides along a winding mountain road near Vytina, Greece, flanked by dense evergreen trees and rocky hillsides on the left and autumn foliage on the right. In the lower right foreground, a rustic wooden picnic table and benches sit covered in fallen orange leaves beside the sunlit asphalt.",
+      "encodingFormat": "image/webp",
+      "width": 2300,
+      "height": 1295,
+      "creator": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      },
+      "copyrightHolder": {
+        "@id": "https://alexanderkyriakou.eu/#person"
+      },
+      "copyrightYear": 2024,
+      "copyrightNotice": "© Alexander Kyriakou · Vytina · 2024",
+      "creditText": "Alexander Kyriakou",
+      "license": "https://alexanderkyriakou.eu/licensing",
+      "acquireLicensePage": "https://alexanderkyriakou.eu/licensing",
+      "isPartOf": {
+        "@id": "https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical#article"
+      }
+    }
+  ]
+}
+</script>
+
+<style>
+ @media (max-width: 768px) {
+  .article-hero:not(.article-hero-portrait) {
+    --article-image-position: 60% 0%; /* width and height */
+  }
+} 
+
+pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+        <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+        <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<main>
+<article class="article-page">
+  <header class="article-hero">
+    <div class="article-heading">
+      <h1 class="article-title">How AI search products handle robots.txt, noindex, and canonical URLs</h1>
+      <p class="article-subheading">An AI answer links to the green bike. Your canonical points to the model page. That isn't necessarily a contradiction.</p>
+    </div>
+    <figure class="article-figure">
+      <div class="article-media">
+        <img class="article-image" src="/assets/images/thoughts/ai-search-robots-txt-noindex-canonical/autumn-cycling-mountain-road-vytina-greece-2024.webp" width="2300" height="1295" fetchpriority="high" alt="A group of cyclists rides along a winding mountain road near Vytina, Greece, flanked by dense evergreen trees and rocky hillsides on the left and autumn foliage on the right. In the lower right foreground, a rustic wooden picnic table and benches sit covered in fallen orange leaves beside the sunlit asphalt.">
+        <span class="article-halo">
+          <span class="article-halo-fade">
+            <img class="article-halo-image" src="/assets/images/thoughts/ai-search-robots-txt-noindex-canonical/autumn-cycling-mountain-road-vytina-greece-2024.webp" width="2300" height="1295" alt="" decoding="async">
+          </span>
+        </span>
+      </div>
+      <figcaption class="article-caption">Cycling mountains.
+        <span class="article-credit">© Alexander Kyriakou · Vytina · 2024</span>
+      </figcaption>
+    </figure>
+  </header>
+
+  <div class="container toc">
+    <aside id="no-print" class="page-index">
+      <details class="page-index-mobile">
+        <summary title="Table of contents" aria-label="Table of contents">☰</summary>
+        <nav aria-label="Page contents">
+          <a href="#variants">The right product URL</a>
+          <a href="#routes">How the URL was discovered</a>
+          <a href="#signals">The triad of signals</a>
+          <a href="#feed">Merchant product feeds</a>
+          <a href="#documents">PDFs and Markdown</a>
+          <a href="#claims">Conflicting information</a>
+          <a href="#training">Retrieval and training</a>
+          <a href="#evidence">Investigating a citation</a>
+        </nav>
+      </details>
+      <nav class="page-index-desktop" aria-label="Page contents">
+        <a href="#variants">The right product URL</a>
+        <a href="#routes">How the URL was discovered</a>
+        <a href="#signals">The triad of signals</a>
+        <a href="#feed">Merchant product feeds</a>
+        <a href="#documents">PDFs and Markdown</a>
+        <a href="#claims">Conflicting information</a>
+        <a href="#training">Retrieval and training</a>
+        <a href="#evidence">Investigating a citation</a>
+      </nav>
+    </aside>
+
+<p>Say you sell a gravel bike called the AWGravel. Someone asks an AI search product where to buy it in forest green. The answer links straight to <code>/bikes/awgravel?colour=forest-green</code>. The shop, however, has declared <code>/bikes/awgravel</code> as the canonical URL.</p>
+<p>Did the AI product ignore the canonical? Not necessarily. The two URLs may serve different purposes, and we don't yet know how the product discovered the variant URL or whether it even considered the canonical declaration.</p>
+<p>An answer can draw on a search index, a page fetched in response to a user's request, or information supplied through a merchant feed. These routes don't necessarily follow the same rules. And while Google documents how it handles canonical selection and indexing directives, other AI search products don't always tell us what they do with those same signals.</p>
+<p>I'd start by establishing what the URLs represent, then work backwards to how the product obtained the information. There's little point changing a perfectly useful product URL because an AI answer happens to cite it.</p>
+
+<h2 id="variants">Is the green URL actually the wrong destination?</h2>
+<p>Start with <code>/bikes/awgravel?colour=forest-green</code>. If the parameter only changes the selected colour, and the main product page already presents both colours, their prices and availability, I'd be comfortable pointing both variants to <code>/bikes/awgravel</code>.</p>
+<p>The green URL should still work as a destination. Someone following a link to it should see the forest green bike selected, without having to interact with the colour selector first.</p>
+<p>Now imagine that forest green ships today while ocean blue is on back order. The main product page opens on blue, and a shopper following the citation wants the green bike in size 60. The distinction matters.</p>
+<p>If the green URL consistently displays the correct product, SKU, price and stock availability, it may deserve to be an independently indexable landing page with its own canonical. I'd first open it in a fresh browser session. If it needs a previously stored cookie to remember the colour selection, it's a rather poor destination regardless of how neatly its canonical is configured.</p>
+<p>The important thing is not to confuse a URL that deserves an independent search result with one that is useful to a visitor. Those are two different decisions. I've covered the distinction between colour variations, frame sizes and model years in <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#colours-sizes-and-years" target="_blank">the product variation section of my robots.txt, noindex and canonical article</a>.</p>
+
+<h2 id="routes">How did the AI product discover the URL?</h2>
+<p>Before looking at individual AI products, I'd establish how the URL reached the answer in the first place. There are a few possibilities.</p>
+
+<h3>Search indexing</h3>
+<p>A search service can crawl a product page, process its contents and make it available in an index. An AI product can then use that information when answering a question. The page might have been fetched hours or days earlier, so the price and availability in the answer aren't necessarily current.</p>
+
+<h3>On-demand retrieval</h3>
+<p>Someone pastes the green variant URL into a conversation and asks the assistant to check its specifications. The product may fetch the supplied address and retrieve the page in response to that request.</p>
+<p>This is a different route from discovering the page through a search index. The fact that a search crawler couldn't access the URL doesn't automatically tell us whether a user-requested fetcher can access it too.</p>
+
+<h3>Grounding</h3>
+<p>Grounding describes the use of external information to support a generated answer. A product might use information from its search index, retrieve a page directly, or combine several sources. Grounding isn't necessarily a separate way of discovering a URL; it describes how retrieved information is used to answer the question.</p>
+
+<h3>Merchant-provided information</h3>
+<p>A retailer can also supply product information directly through a merchant feed. In that case, the assistant may know about the forest green AWGravel without having retrieved its product page at all.</p>
+<p>These routes can overlap. A product can be discovered through search, fetched again when someone asks about it, and compared with information supplied by the merchant.</p>
+<p>This distinction is worth keeping in mind when reading server logs. A crawler visit establishes that a request was made. It doesn't establish that the content was indexed, used in an answer or included in a model's training data. I've covered the different uses and crawler identities in <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#one-page-four-uses" target="_blank">one product page, four AI use cases</a> and <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#which-crawler" target="_blank">the crawler comparison</a>.</p>
+
+<h2 id="signals">What do robots.txt, noindex and canonical mean to AI search products?</h2>
+<p>The underlying mechanisms haven't changed. A matching <code>Disallow</code> in robots.txt can prevent a crawler from fetching a URL. A <code>noindex</code> instruction asks an indexing system to exclude a page after it has retrieved and processed the response. A canonical declaration expresses a preference for the representative URL among duplicate or similar pages.</p>
+<p>The catch is that these mechanisms don't have a universal interpretation across every AI product. Some providers document specific behaviours, while others leave important details open.</p>
+<p>If you need a refresher on how the three mechanisms interact, particularly when a blocked page contains a canonical or a noindex directive, see <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#crawl-access" target="_blank">Crawl access comes before the response</a> in my existing article.</p>
+
+<h3>Google AI Overviews and AI Mode</h3>
+<p>Google's <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noopener external">guidance for AI Overviews and AI Mode</a> gives us a fairly clear starting point. To qualify as a supporting link, a page must be indexed and eligible to appear with a search snippet.</p>
+<p>That means Google's normal indexing and canonicalisation decisions matter. If the forest green variant is considered a duplicate and Google selects the main AWGravel page as its canonical representative, I'd investigate whether the variant still offers anything independently useful before trying to force it into the index.</p>
+<p>There are also more granular controls. Suppose the shop wants to keep the bike's specifications available in Search but doesn't want a particular dealer-only passage appearing in text previews. A page-wide <code>noindex</code> would be excessive. Google supports the <code>data-nosnippet</code> attribute on selected HTML elements, while <code>nosnippet</code> and <code>max-snippet</code> offer page-level controls.</p>
+<p>These controls have different consequences. In particular, <code>nosnippet</code> prevents a text snippet and also prevents the page content from being used as a direct input for AI Overviews and AI Mode. Don't confuse it with excluding one passage from a preview.</p>
+<p>There's another detail worth remembering. Suppose the shop wraps the green bike's €1,899 price in a <code>span</code> with <code>data-nosnippet</code>, but also publishes the same price in its <code>Offer</code> structured data.</p>
+<p>That price can still be available for a Google product rich result. Google explicitly states that structured data remains usable for search results even when declared within a <code>data-nosnippet</code> element. If the price appears in a rich result, I'd check where it came from before changing the page.</p>
+<p>See Google's <a href="https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag" target="_blank" rel="noopener external">robots meta tag and X-Robots-Tag documentation</a> for the full set of controls.</p>
+
+<h3>ChatGPT search</h3>
+<p>OpenAI distinguishes between <code>OAI-SearchBot</code>, <code>GPTBot</code> and <code>ChatGPT-User</code>. The first is used for search, the second for potential training use, and the third for certain user-initiated actions.</p>
+<p>If the shop disallows <code>OAI-SearchBot</code>, OpenAI says its pages won't be shown in ChatGPT search answers. They can, however, still appear as navigational links. That distinction is important: seeing the bike's name linked in an answer doesn't necessarily mean OpenAI used the product page's contents.</p>
+<p>For a user-requested fetch, OpenAI says robots.txt rules may not apply to <code>ChatGPT-User</code>. A shopper supplying the green variant URL is therefore a different test from waiting for the automatic search crawler to discover it.</p>
+<p>OpenAI's crawler documentation doesn't establish a general rule that ChatGPT search must honour every page-level <code>noindex</code> or follow a site's declared canonical when choosing a citation. I'd avoid assuming either behaviour without evidence from the particular retrieval route.</p>
+<p>See <a href="https://developers.openai.com/api/docs/bots" target="_blank" rel="noopener external">OpenAI's crawler documentation</a> for the current distinctions.</p>
+
+<h3>Claude web search</h3>
+<p>Anthropic documents a specific <code>noindex</code> behaviour for Claude web search. Its search partners are instructed not to index pages carrying the robots meta tag, so they should no longer supply that content in response to web search queries once the directive has been processed.</p>
+<p>That doesn't mean the URL becomes inaccessible. Anthropic notes that someone can still follow a direct link to the page.</p>
+<p>There are also separate crawlers for Anthropic's own search and user-requested retrieval. <code>Claude-SearchBot</code> handles search indexing, while <code>Claude-User</code> is used when someone asks Claude to visit a page. Anthropic documents robots.txt controls for both.</p>
+<p>I'd be careful not to extend the documented meta-tag behaviour to every possible HTTP header or canonical implementation. Anthropic's guidance doesn't establish a universal canonical-selection rule for Claude citations.</p>
+<p>References: <a href="https://support.claude.com/en/articles/10684638-report-block-and-remove-content-from-claude" target="_blank" rel="noopener external">Anthropic's noindex guidance</a> and <a href="https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler" target="_blank" rel="noopener external">its crawler documentation</a>.</p>
+
+<h3>Perplexity and Mistral</h3>
+<p><a href="https://docs.perplexity.ai/docs/resources/perplexity-crawlers" target="_blank" rel="noopener external">Perplexity distinguishes <code>PerplexityBot</code> from <code>Perplexity-User</code></a>. The first handles automated search indexing. The second handles user-requested visits and, according to its documentation, generally ignores robots.txt rules for those requests.</p>
+<p>So asking Perplexity to open the green variant is a poor test of a rule written specifically for its search crawler.</p>
+<p><a href="https://docs.mistral.ai/robots" target="_blank" rel="noopener external">Mistral makes a similar distinction</a>. <code>MistralAI-Index</code> handles automated search indexing, while <code>MistralAI-User</code> handles user-requested visits in Vibe. Its crawler documentation describes how to control those activities through robots.txt.</p>
+<p>Neither provider's published crawler guidance establishes how its search product selects a canonical URL or consistently interprets page-level <code>noindex</code> directives when choosing citations.</p>
+
+<h3>And what about Gemini?</h3>
+<p>I'd keep Google's AI search features separate from the Gemini app. Google documents how developers can use <a href="https://ai.google.dev/gemini-api/docs/google-search" target="_blank" rel="noopener external">Google Search grounding in the Gemini API</a>. That establishes a connection between Google's search results and a particular API workflow, not a promise that every Gemini app response uses the canonical URL selected in Search Console.</p>
+<p>Gemini Apps can show sources and related links, including public websites and files supplied by users. The <a href="https://support.google.com/gemini/answer/14143489" target="_blank" rel="noopener external">consumer app's source documentation</a> doesn't establish that every citation must match Google's selected canonical.</p>
+<p>If someone supplies the green variant URL, or uploads the dealer's PDF, I'd record that input before comparing the resulting citation with URL Inspection.</p>
+
+<h2 id="feed">Could ChatGPT find the bike through a product feed?</h2>
+<p>Yes. A merchant doesn't have to rely exclusively on its product pages to provide information to ChatGPT.</p>
+<p>For example, the shop could connect a product feed through <a href="https://help.openai.com/en/articles/20001635-setting-up-your-business-on-chatgpt" target="_blank" rel="noopener external">ChatGPT Business Hub</a>. One record describes the forest green AWGravel in size 60, priced at €1,899 and currently in stock.</p>
+<p>ChatGPT now has those product details directly from the merchant. A <code>noindex</code> on the product page doesn't withdraw the record from the feed. If the bike appears in a shopping result, that alone doesn't tell us whether ChatGPT also retrieved its HTML page.</p>
+<p>Equally, the feed doesn't tell ChatGPT the bike's frame geometry unless the shop has supplied those details too or made another accessible source available.</p>
+<p>There is a catch, though. Under <a href="https://openai.com/policies/businesses-in-chatgpt-terms/" target="_blank" rel="noopener external">section 3 of the Businesses in ChatGPT Terms</a>, a merchant providing a product feed agrees to permit OpenAI and its affiliates' crawlers and agents to access and interact with its websites in accordance with their documentation.</p>
+<p>The same section addresses text-and-data-mining rights and opt-outs. A merchant providing a feed agrees not to exercise or reserve those rights with respect to OpenAI and its affiliates in relation to its websites or Customer Data. If it does, the terms state that those rights have no effect with respect to OpenAI and its affiliates.</p>
+<p>So I wouldn't treat a product feed and a blanket website block as an uncomplicated supported combination. The feed can supply product records independently of a particular page fetch, but the contractual requirements still matter.</p>
+<p>Product images can introduce another point of failure. OpenAI's <a href="https://help.openai.com/en/articles/20001243-advertiser-guidance-for-allowing-openai-web-crawlers" target="_blank" rel="noopener external">guidance for product feeds</a> specifically asks publishers to allow <code>OAI-SearchBot</code> to retrieve product image URLs. A 403 from the image host can interrupt feed processing even when the CSV itself is accessible.</p>
+<p>For this example, I'd check three things separately: whether the latest feed contains the green size 60, whether its image can be retrieved, and whether the supplied product URL opens on the correct variant at €1,899.</p>
+<p>A valid feed makes the offer available for consideration in ChatGPT shopping. It doesn't guarantee a recommendation or establish that the product will be selected over competing offers. ChatGPT can also consider the shopper's question and other available sources.</p>
+
+<h2 id="documents">What if the citation points to a PDF or Markdown file?</h2>
+<p>The shop publishes a frame geometry chart in HTML and as a printable PDF. Both contain the same measurements. The HTML page is easier to use on a phone, so the developer gives it a self-canonical.</p>
+<p>Someone asks about the stack height of a size 60 and receives a link to the PDF. Where would the crawler have seen the shop's preference when it fetched the file?</p>
+
+<h3>PDFs have their own response headers</h3>
+<p>Unlike HTML, a PDF has no document head in which to put a robots meta tag or a canonical link. For Google, the server can express the relationship through an HTTP <code>Link</code> header in the PDF response.</p>
+
+<pre>
+Content-Type: application/pdf
+Link: &lt;https://shop.example/bikes/awgravel/geometry&gt; rel="canonical"
+</pre>
+
+<p>If the aim is to exclude the PDF from Google's index while keeping it downloadable, the relevant header is <code>X-Robots-Tag: noindex</code>, served on the PDF itself.</p>
+<p>These are Google-supported mechanisms. They don't establish that every AI product will follow the same canonical or indexing instructions when retrieving a PDF.</p>
+<p>Also check that the HTML destination really contains the same measurements. A sales page with a photograph and a download button isn't a suitable canonical replacement for a geometry chart containing reach, stack and standover measurements.</p>
+<p>I've covered the implementation in more detail in <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#meta-tags-and-headers" target="_blank">the section on robots meta tags and HTTP headers</a>.</p>
+
+<h3>When the Markdown file says more than the page</h3>
+<p>Now suppose the HTML geometry guide lists the dimensions for each AWGravel frame. Its Markdown companion also says that the measurements for size 60 apply to the 2026 frame only.</p>
+<p>An agent given the Markdown can use that qualification. Someone following a citation to the HTML, however, has no way to check it. And someone buying a used 2025 frame could reasonably read the measurements as applying to their bike.</p>
+<p>I'd put the model year next to the measurements in both versions. The two representations should agree on the facts and the qualifications that make those facts meaningful.</p>
+<p>There's a good case for publishing additional material in Markdown, too. Say the shop maintains a guide for developers importing its geometry data. It explains that <code>stack_mm</code> is measured in millimetres and that a missing value means unmeasured, rather than zero.</p>
+<p>Give that guide its own URL and link to it from the HTML table as something like <em>Geometry data and field definitions</em>. An agent can discover it, and so can the developer wondering why their importer turned a blank into zero. A separate reference with useful information of its own deserves a link people can follow.</p>
+
+<h3>How should the HTML and Markdown versions relate?</h3>
+<p>If both documents contain the same measurements and qualifications, I'd keep the HTML as the main public URL and advertise the Markdown representation alongside it.</p>
+
+<pre>
+&lt;link rel="canonical" href="https://shop.example/bikes/awgravel/geometry"&gt;
+&lt;link rel="alternate" type="text/markdown" href="https://shop.example/bikes/awgravel/geometry.md" title="Frame geometry in Markdown"&gt;
+</pre>
+
+<p>The <a href="https://html.spec.whatwg.org/multipage/links.html#link-type-alternate" target="_blank" rel="noopener external">HTML alternate relationship</a> identifies another representation for clients that understand it. It doesn't instruct every AI agent to fetch the file or promise that the HTML URL will receive the citation.</p>
+<p>If the two URLs are equivalent, the Markdown response can also declare the HTML URL as canonical using an HTTP <code>Link</code> header, where the relevant consumer supports that mechanism. I'd skip the cross-canonical for the separate field-definition guide. The HTML table would be a poor substitute for its additional information.</p>
+<p>There's also a way to serve both representations from one URL. A client sends <code>Accept: text/markdown</code>, and the server returns Markdown for that request while serving HTML to a browser. <a href="https://developers.cloudflare.com/fundamentals/reference/markdown-for-agents/" target="_blank" rel="noopener external">Cloudflare's Markdown for Agents</a> is one implementation.</p>
+<p>Make sure the cache distinguishes the two responses, typically with <code>Vary: Accept</code> and matching CDN configuration. Test both requests against the public URL. A format choice that exists only in a request header doesn't create a separate Markdown path for robots.txt to match.</p>
+
+<h3>What if the Markdown URL has noindex or is blocked?</h3>
+<p>Take the two-URL setup again. The shop wants people and their tools to be able to read <code>geometry.md</code> on demand, but doesn't want the file appearing in Google's results.</p>
+<p>Leave the file crawlable and serve these headers.</p>
+
+<pre>
+Content-Type: text/markdown; charset=utf-8
+X-Robots-Tag: noindex
+</pre>
+
+<p>Google can process the indexing instruction when it next fetches the file. Writing <code>noindex: true</code> in Markdown front matter doesn't achieve this unless the publishing system translates it into a supported HTTP or HTML signal.</p>
+<p>Now change the requirement to Googlebot shouldn't fetch the Markdown at all. The shop could use a robots.txt rule matching the path that actually serves the file.</p>
+
+<pre>
+User-agent: Googlebot
+Disallow: /bikes/awgravel/geometry.md
+</pre>
+
+<p>Googlebot may still discover the address through the HTML alternate link, but it can't retrieve the Markdown response or its headers. Adding <code>noindex</code> to a blocked file won't reliably remove an already known URL.</p>
+<p>If removal is the aim, allow the fetch and keep serving the header. If the aim is to prevent access, remember that robots.txt is a crawl preference rather than access control. And neither rule covers a copy on another hostname or tells another provider's crawler what to do.</p>
+
+<h3>Can an AI answer cite the Markdown URL?</h3>
+<p>Yes. A Markdown file can be a citable source when a product discovers or retrieves it. For example, <a href="https://developers.openai.com/api/docs/bots.md" target="_blank" rel="noopener external">OpenAI publishes its own crawler documentation in Markdown</a>.</p>
+<p>Try asking for the size-60 stack height twice. In one fresh conversation, supply the Markdown URL. In the other, give only the model name, year and size.</p>
+<p>A correct answer linking to the file in the first conversation shows that the product can work with a supplied source. A link in the second shows that the address surfaced without your prompt supplying it.</p>
+<p>Neither result tells you by itself which crawler fetched the document. And if HTML and Markdown share one negotiated URL, even a perfectly accurate citation to that address won't tell you which representation the client received.</p>
+
+<h3>Which format gives the clearest answer?</h3>
+<p>It depends on the information and the way the client extracts it. For the stack height of a size-60 frame, the important thing is keeping the number attached to the right model year, frame size and unit.</p>
+
+<dl>
+  <dt><strong>HTML</strong></dt>
+  <dd><p>I'd start here for the public product page. A table with a caption naming the frame year, size headings and a row labelled Stack (mm) makes the relationships explicit. Check that the content is present in the HTML returned to an ordinary fetch, rather than appearing only after a click or in a canvas.</p></dd>
+
+  <dt><strong>Markdown</strong></dt>
+  <dd><p>A short file with headings, labelled values and links can be easier for a text-oriented client to process. But test the hardest table. If the conversion drops the shared millimetre heading or mixes two model years, the smaller file has cost you the answer.</p></dd>
+
+  <p>It's also worth challenging the assumption that HTML is inherently harder for AI agents to process. In <a href="https://claude.dev/blog/using-claude-code-the-unreasonable-effectiveness-of-html/" target="_blank" rel="noopener external">The unreasonable effectiveness of HTML</a>, a member of the Claude Code team explains why they increasingly prefer HTML over Markdown for producing and reviewing agent-generated outputs. HTML can preserve richer structures, tables, visual relationships and navigation that a Markdown conversion might flatten or discard. While the article focuses on working with Claude Code rather than web search crawling, it makes a useful point: simpler markup isn't necessarily a better representation of the underlying information. What matters is whether the format preserves the context an agent needs to interpret it correctly.</p>
+
+  <dt><strong>JSON Schema</strong></dt>
+  <dd><p>JSON is another useful option when the information is inherently structured. Product specifications, prices, availability, dimensions and other attributes can be represented as explicit key-value pairs, reducing the ambiguity that can arise when an agent has to extract them from prose. A JSON Schema can go a step further by defining the expected fields, data types and validation rules. However, JSON is not a replacement for an explanatory article: it works best for well-defined data, while HTML remains more suitable for content that relies on context, narrative and relationships between sections.</p></dd>
+
+  <dt><strong>Plain text</strong></dt>
+  <dd><p>For a single fact, <code>2026 AWGravel, size 60: stack 626 mm</code> works perfectly well. A long run of numbers aligned with spaces is another matter. Once the columns wrap, the relationship between values becomes ambiguous.</p></dd>
+
+  <dt><strong>PDF</strong></dt>
+  <dd><p>A dimensioned frame drawing can show exactly where a measurement starts and ends. A client receiving the page image can use that detail. A text-only extractor may lose it, mix the columns or get nothing usable from a scanned document without OCR. <a href="https://developers.openai.com/api/docs/guides/file-inputs" target="_blank" rel="noopener external">OpenAI's file-input documentation</a> describes how one upload workflow supplies extracted PDF text and page images to vision-capable models. It doesn't establish how a search crawler processes a PDF found on the web.</p></dd>
+</dl>
+
+<p>For this shop, I'd publish the accessible HTML table as the primary reference, offer Markdown where it provides a useful alternative, and make the product specifications available as structured JSON, with a JSON Schema defining their expected structure. I'd keep the PDF for the dimensioned drawing, where the visual representation matters. Then I'd test the same size-60 question against each representation before claiming one is easier for AI products to understand.</p>
+<p>Google explicitly says <a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" target="_blank" rel="noopener external">its generative search features don't require a Markdown version</a>. I wouldn't introduce another format just to satisfy an assumed requirement.</p>
+
+<h2 id="claims">What happens when the available sources disagree?</h2>
+
+<h3>Does Schema.org JSON-LD give the shop the deciding vote?</h3>
+<p>On the bike page, <a href="https://developers.google.com/search/docs/appearance/structured-data/merchant-listing" target="_blank" rel="noopener external">Product and Offer structured data</a> can describe a SKU, its price, currency and availability. For example, an offer of €1,899 for the forest green size 60 should describe that specific variant, and the shopper following its link should see the same offer.</p>
+<p>Suppose the visible HTML says €1,999 while the JSON-LD says €1,899. Which price would you use? I'd first establish the actual offer presented to the shopper, then correct the other representations, including the merchant feed if the shop supplies one.</p>
+<p><a href="https://developers.google.com/search/docs/appearance/structured-data/sd-policies" target="_blank" rel="noopener external">Google's structured data policies</a> require the markup to represent the visible page. Its guidance for AI Overviews and AI Mode doesn't introduce a special AI schema.</p>
+<p>JSON-LD is useful for describing the product. Adding a URL or an <code>@id</code> to that description doesn't give the shop a documented way to choose an AI citation or settle a disagreement with another source.</p>
+
+<h3>Which source is right about the bike?</h3>
+<p>Say the manufacturer specifies 45 mm maximum tyre clearance, while a reviewer says they successfully fitted a 50 mm tyre.</p>
+<p>Ask what clearance the manufacturer approves, and the manufacturer's specification for that frame year is the relevant source. Ask whether anyone has fitted a 50 mm tyre, and the reviewer's experience is relevant.</p>
+<p>Both statements can be accurate. The mistake would be to turn one rider's successful fit into a manufacturer-approved specification.</p>
+<p>If two sources genuinely disagree about the same specification, there isn't a published first-party-wins rule in the product guidance discussed here. An AI answer may cite either source, describe the disagreement or miss it altogether.</p>
+<p>I'd check the exact statement each source supports, followed by the model year, frame size and publication date. If the reviewer quoted an old manual, a dated correction on the current specification page gives readers something they can verify.</p>
+<p>A canonical can help group duplicate documents. It can't resolve two different claims about a tyre.</p>
+
+<h2 id="training">Can the shop allow retrieval but decline training?</h2>
+<p>Yes, where the provider offers separate controls. A citation concerns what a product could use to answer a question. Training concerns the use of content to modify a model's learned parameters.</p>
+<p>A <code>noindex</code> on the Markdown file, a canonical pointing to HTML, and an alternate pointing back to Markdown express no general preference about training. A robots.txt restriction for a particular training crawler addresses a different purpose from one written for a search crawler.</p>
+<p>There is also a shared training preference being developed through the IETF. The latest version of the Internet-Draft, published on 16 November 2026, defines the policy token <code>__usage_ai-training</code>.</p>
+<p>For a shop declining training use of its bike catalogue, the proposed syntax looks like this:</p>
+
+<pre>
+User-agent: __usage_ai-training
+Disallow: /bikes/
+</pre>
+
+<p>This is a policy token in the existing <code>User-agent</code> field, not a new robots.txt directive or an actual crawler. It expresses a content-use preference for providers that implement the proposal. It doesn't itself block a request. Actual crawl access remains a separate decision governed by the relevant crawler rules.</p>
+<p>The draft is still an Internet-Draft, not a published standard. The provider-specific implementation details also matter.</p>
+<p>Google, for example, has said it plans to interpret the shared training opt-out as a <code>Google-Extended</code> disallow when no explicit <code>Google-Extended</code> preference exists. That can affect Gemini grounding as well as training. Microsoft has introduced separate training and grounding preferences, with its own page-level controls and transition arrangements.</p>
+<p>There is a reason I wouldn't try to summarise every provider's implementation in one example. The differences matter, and they are changing. I've covered them in more detail in <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#extended" target="_blank">the section on Google-Extended</a>, <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#shared-preference" target="_blank">the shared training preference</a> and <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#microsoft" target="_blank">Microsoft's grounding choices</a>.</p>
+<p>One further complication is the product feed discussed earlier. The Businesses in ChatGPT Terms impose specific conditions on merchants providing one, including their treatment of text-and-data-mining opt-outs with respect to OpenAI and its affiliates. A site-wide training preference alone isn't a complete account of the contractual arrangements.</p>
+
+<h2 id="evidence">What can the citation actually tell us?</h2>
+<p>I'd keep the exact question that produced the answer alongside the citation. Did someone supply the URL? Did the answer quote a stock figure that appears only on the green variant, or did it simply name the bike? Those details help narrow down how the product might have obtained the information.</p>
+<p>Next, I'd open the cited URL and compare it with the clean model URL. Follow the redirects and inspect the final response, including its status code, <code>X-Robots-Tag</code> and <code>Link</code> headers, HTML robots meta tag and canonical declaration.</p>
+<p>I'd also check the initial HTML response against the rendered page in DevTools. Suppose the server sends <code>noindex</code> while the catalogue loads, then JavaScript removes it once the bike becomes available. The browser's final DOM can look perfectly fine even though Google may skip rendering after seeing the initial instruction. For Google, URL Inspection adds the indexed view, the canonical Google selected and the last crawl date.</p>
+<p>For the robots.txt part, put the exact variant URL and the clean model URL into my <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">robots.txt checker</a> and select the crawler in question. It can evaluate the matching rules and show which directive wins.</p>
+<p>Remember what the result represents, though. It's a rules-based evaluation, not proof that a crawler visited the URL, could retrieve its contents or included it in an index. For an actual request, <a href="https://alexanderkyriakou.eu/ak/crawler-ip-verifier" target="_blank">look at the server logs</a>.</p>
+<p>And if the log says <code>Googlebot</code> or <code>OAI-SearchBot</code>, don't stop at the user-agent string. Verify the source IP using the operator's published information and documented checks. A user-agent can be copied. I've covered the process in <a href="https://alexanderkyriakou.eu/ak/verify-crawler-identity#dns-verification">the crawler identity and DNS verification article</a>.</p>
+<p>For Google, my existing article's <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#verify">section on inspecting the public response</a> walks through the browser checks in more detail.</p>
+<p>Back to the shopper looking for forest green. If the answer sends them to ocean blue, where the bike appears sold out, I'd investigate the URL choice. If it sends them to the correct size, in stock and in the colour they asked for, I thinks that's perfectly fine.</p>
+<p>The shop's preference for one URL and the shopper's preference for one particular bike can both make sense. The important thing is to understand what each URL represents, what the AI product could access, and what evidence we actually have before changing anything.</p>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/seo">seo</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants"><span title="An initial content structure and related resources were given to an LLM, which it expanded upon. I tweaked the draft-output, and at the end a proofread by selected model(s).">Proofreader</span>, GPT-6.1 Sol</p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-11-18">Nov 18, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-heart" data-sketch="" aria-hidden="true"><path d="M5.9 12.16C5.7 11.96 4.99 11.46 4.69 11C4.39 10.54 4.17 9.94 4.1 9.39C4.04 8.83 4.08 8.17 4.29 7.66C4.49 7.15 4.93 6.69 5.33 6.3C5.73 5.92 6.19 5.57 6.69 5.35C7.19 5.12 7.79 4.92 8.33 4.93C8.87 4.95 9.44 5.21 9.93 5.46C10.42 5.72 10.95 6.03 11.28 6.45C11.61 6.87 11.79 7.46 11.91 7.98C12.04 8.51 12.03 9.34 12.05 9.61" stroke-width="1.68"/><path d="M11.7 9.5C11.75 9.22 11.78 8.34 11.98 7.83C12.17 7.33 12.5 6.85 12.86 6.46C13.22 6.06 13.66 5.69 14.13 5.47C14.61 5.25 15.18 5.13 15.71 5.13C16.23 5.12 16.79 5.25 17.27 5.45C17.75 5.65 18.2 5.98 18.59 6.34C18.98 6.71 19.43 7.14 19.61 7.63C19.79 8.12 19.71 8.73 19.68 9.28C19.65 9.83 19.65 10.44 19.42 10.93C19.19 11.41 18.49 11.98 18.3 12.19" stroke-width="1.536"/><path d="M5.25 11.68Q8.32 15.78 11.98 19.36Q15.21 15.38 18.68 11.6" stroke-width="1.424"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</article>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M12 9.55C12.917 8.613 14.111 8 15.5 8a5.5 5.5 0 0 1 5.5 5.5V21h-2v-7.5a3.5 3.5 0 0 0-7 0V21h-2V8.5h2v1.05zM5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-1 2h2V21H4V8.5z"/> </g> </svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M13 9h4.5l-.5 2h-4v9h-2v-9H7V9h4V7.128c0-1.783.186-2.43.534-3.082a3.635 3.635 0 0 1 1.512-1.512C13.698 2.186 14.345 2 16.128 2c.522 0 .98.05 1.372.15V4h-1.372c-1.324 0-1.727.078-2.138.298-.304.162-.53.388-.692.692-.22.411-.298.814-.298 2.138V9z"/> </g> </svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M5.455 15L1 18.5V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v12H5.455zm-.692-2H16V4H3v10.385L4.763 13zM8 17h10.237L20 18.385V8h1a1 1 0 0 1 1 1v13.5L17.545 19H9a1 1 0 0 1-1-1v-1z"/> </g> </svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
+      </div>
+</footer>
+
+<script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+
+</body>
+</html>

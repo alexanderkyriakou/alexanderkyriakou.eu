@@ -53,7 +53,7 @@
       "description": "Why a page can still appear in ChatGPT search after you block GPTBot, and how to choose which AI crawlers and uses of your content to allow.",
       "inLanguage": "en",
       "datePublished": "2026-11-11",
-      "dateModified": "2026-11-12",
+      "dateModified": "2026-11-18",
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
       },
@@ -76,7 +76,7 @@
       "description": "A floor lamp's product page illustrates how AI model training, search indexing, grounding and on-demand retrieval differ. The article compares provider-specific robots.txt controls, the proposed __usage_ai-training token and Microsoft's planned grounding settings. Worked examples show how to test a rule and investigate a crawler request when a CDN sits in front of the site.",
       "inLanguage": "en",
       "datePublished": "2026-11-11",
-      "dateModified": "2026-11-12",
+      "dateModified": "2026-11-18",
       "isAccessibleForFree": true,
       "author": {
         "@id": "https://alexanderkyriakou.eu/#person"
@@ -355,9 +355,8 @@ Disallow: /
 <p>If you want the floor lamp to remain discoverable through Apple's search experiences while declining use of the description for Apple's generative foundation models, let <code>Applebot</code> crawl the product page and disallow <code>Applebot-Extended</code>. Apple explains that <a href="https://support.apple.com/en-us/119829" target="_blank" rel="noopener external">the Extended token governs how it uses content Applebot has already crawled</a>. And if your actual concern is subscriber-only text being supplied as context to an answer, Apple documents a separate page-level signal for paywalled content, <code>isAccessibleForFree: false</code>. A shop's public product pages and a publisher's paid articles can call for quite different choices.</p>
 
 <h2 id="shared-preference">Can I express my training preference once?</h2>
-<p>Soon! That's the idea behind <a href="https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/" target="_blank" rel="noopener external">the shared training preference proposed on October 30, 2026</a>: <code>__usage_ai-training</code>. You may see it described as a new robots.txt directive. The distinction matters when you write the file: the new part goes on the <em>value</em> side of an existing <code>User-agent:</code> line. The familiar <code>Allow</code> and <code>Disallow</code> rules still do the path matching. The draft proposes a shared meaning for the result.</p>
-
-<p>That's the idea behind <code>__usage_ai-training</code>, <a href="https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/" target="_blank" rel="noopener external">proposed on October 30, 2026</a>. If you're trying the draft syntax, simply add <code>User-agent: __usage_ai-training</code>. The <code>Allow</code> and <code>Disallow</code> lines below it specify which paths your training preference covers.</p>
+<p>That's the idea behind <a href="https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/" target="_blank" rel="noopener external">the shared training preference proposed on October 30, 2026</a>: <code>__usage_ai-training</code>. You may see it described as a new robots.txt directive. The distinction matters when you write the file: the new part goes on the <em>value</em> side of an existing <code>User-agent:</code> line. The familiar <code>Allow</code> and <code>Disallow</code> rules still do the path matching. The draft proposes a shared meaning for the result.</p>
+<p>The author published <a href="https://datatracker.ietf.org/doc/draft-kelley-aipref-training-preference-signal/01/" target="_blank" rel="noopener external">version 01 of the draft on November 16, 2026</a>, retaining <code>__usage_ai-training</code> as the proposed token. If you're trying the draft syntax, add <code>User-agent: __usage_ai-training</code>. The <code>Allow</code> and <code>Disallow</code> lines below it specify which paths your training preference covers.</p>
 
 <pre>
 User-agent: __usage_ai-training
@@ -366,8 +365,8 @@ Allow: /products/
 </pre>
 
 <p>This example declines training across the site except under <code>/products/</code>. Remove the last line if you want the opt-out to cover the products too. A general <code>User-agent: *</code> group doesn't express this preference under the present draft. And allowing the products directory for training wouldn't give a crawler permission to fetch it if the crawler's own access rules disallow it. The use and the fetch are evaluated separately.</p>
-
-<p>The IETF AI Preferences working group is <a href="https://mailarchive.ietf.org/arch/msg/ai-control/60V9tZ56eL0OsnSgO2BsfXlXfCc/" target="_blank" rel="noopener external">discussing how the proposal fits its wider work</a>. As of publishing of this page, it's in the Draft phase.</p>
+<p>The token remains a proposal, not an agreed IETF standard. It's also worth distinguishing this individual draft from the wider work of the IETF AI Preferences Working Group. During its <a href="https://datatracker.ietf.org/meeting/127/materials/minutes-127-aipref-20261116-00" target="_blank" rel="noopener external">November 16 meeting</a>, the group discussed a more general <code>usage</code> namespace for expressing different content-use preferences. The discussion raised compatibility questions about how these preferences should be represented in robots.txt, and a design team was tasked with examining the options ahead of a planned interim meeting in February 2027.</p>
+<p>In other words, the individual draft still proposes <code>__usage_ai-training</code>, while the working group's broader approach is still under discussion. Neither should be treated as an established, universally supported robots.txt convention. Check whether the AI providers you care about have explicitly confirmed support for this exact syntax before relying on it.</p>
 
 <div class="ai-table ai-table-providers">
   <table>
@@ -461,6 +460,9 @@ Disallow: /checkout/
   <h2>Updates</h2>
   <ul>
     <li>
+      <time datetime="2026-11-18">November 18, 2026</time>
+      <span>Updated the <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#shared-preference">section on shared AI training preferences</a> to reflect version 01 of the individual Internet-Draft and the related discussions in the IETF AI Preferences Working Group.</span></li>
+    <li>
       <time datetime="2026-11-12">November 12, 2026</time>
       <span>Added Mistral to the crawler comparison, covering <code>MistralAI-Training</code>, <code>MistralAI-Index</code> and <code>MistralAI-User</code>. Refined the copy, following the <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker">Robots.txt Checker update</a>.</span>
     </li>
@@ -489,7 +491,7 @@ Disallow: /checkout/
             </span>
             <span>
               <span>Updated</span>
-              <time datetime="2026-11-12">Nov 12, 2026</time>
+              <time datetime="2026-11-18">Nov 18, 2026</time>
             </span>
           </p>
         </div>

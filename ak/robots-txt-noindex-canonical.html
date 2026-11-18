@@ -307,7 +307,7 @@ table tbody th { width: 20%; font-weight: 500; }
 </section>
 
 <h2 id="bicycle">One bicycle, eight ways to buy it</h2>
-<p>Let's use a fictional gravel bike called the <strong>awgravel</strong>. A cycling magazine has reviewed it, and the reviewer rode the Forest Green version. Naturally, the review links directly to that colour.</p>
+<p>Let's use a fictional gravel bike called the <strong>AWGravel</strong>. A cycling magazine has reviewed it, and the reviewer rode the Forest Green version. Naturally, the review links directly to that colour.</p>
 <p>By the time someone reads the review, however, the shop's default colour is Ocean Blue. The visitor lands on the product page and sees a different bicycle from the one they were reading about.</p>
 <p>That's not particularly helpful. Ideally, the link should remember the selection. Now let's add another dimension: frame size.</p>
 <p>There are two colours and four frame sizes. A customer wants the Forest Green version in 60 cm, of which there's only one left. Ocean Blue is on backorder. The warehouse consequently has eight stock records, each representing a different combination.</p>
@@ -383,7 +383,7 @@ Disallow: /bikes/*?size=
 <p>For a private catalogue, use authentication. Anyone with the address can request a publicly accessible page carrying <code>noindex</code>. An indexing directive isn't access control.</p>
 
 <h2 id="robots-rules">Robots meta tags and X-Robots-Tag</h2>
-<p>Now, let's move from crawl access to what happens once a crawler actually retrieves a page.</p>
+<p>Now, let's move from crawl access to what happens once a crawler retrieves a page.</p>
 <p>The headers arrive before the HTML body. That delivery order doesn't give an HTTP header higher authority. Google considers the rules applicable to its crawler, combines compatible restrictions, and uses the more restrictive rule where they conflict.</p>
 <p>Here's what that means in a response that looks perfectly fine in a browser.</p>
 
@@ -406,13 +406,13 @@ X-Robots-Tag: noindex
 <p>Reverse the targeting and a generic <code>max-image-preview:large</code> can coexist with <code>X-Robots-Tag: googlebot: noindex</code>. <a href="https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag" target="_blank" rel="noopener external">The crawler name in that header limits the exclusion to Googlebot.</a> Check each relevant engine's support before assuming it interprets another crawler's name or directives the same way.</p>
 
 <h3>PDFs give the header a job the HTML can't do</h3>
-<p>Suppose the awgravel geometry chart lives at <code>/manuals/awgravel-2026.pdf</code>. The shop wants people to download the chart but doesn't want the PDF appearing in Google Search.</p>
+<p>Suppose the AWGravel geometry chart lives at <code>/manuals/awgravel-2026.pdf</code>. The shop wants people to download the chart but doesn't want the PDF appearing in Google Search.</p>
 <p>There's no HTML head in a PDF where we can put a robots meta tag. This is where the HTTP header comes in. Send <code>X-Robots-Tag: noindex</code> on the PDF response.</p>
 <p>If an HTML manual carries the same chart and the shop wants to consolidate the two formats, <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">the PDF can name its canonical in an HTTP header</a>:</p>
 
 <pre>Link: &lt;https://bikes.example/manuals/awgravel-2026&gt;; rel="canonical"</pre>
 
-<p>Check that the HTML manual actually contains the chart. A sales page with a photo and a “download geometry” button is a poor substitute for a table of reach, stack and standover height.</p>
+<p>Check that the HTML manual contains the chart. A sales page with a photo and a “download geometry” button is a poor substitute for a table of reach, stack and standover height.</p>
 
 <h3>Initial HTML and rendered HTML can disagree</h3>
 <p>There's another detail worth keeping in mind. What you see in the browser's final DOM isn't necessarily what the crawler received initially.</p>
@@ -422,7 +422,7 @@ X-Robots-Tag: noindex
 <h2 id="selection">How Google selects a canonical URL</h2>
 <p>A canonical doesn't control whether a page can be crawled or indexed. It's a hint with a different job: telling search engines which URL we'd prefer to represent a group of duplicate or near-duplicate pages.</p>
 <p>Google compares the main content of pages, <a href="https://developers.google.com/search/docs/crawling-indexing/canonicalization" target="_blank" rel="noopener external">groups duplicates or near-duplicates</a>, and selects a representative for each group. The site can declare a preference even if Google ultimately selects another URL.</p>
-<p>The first question in an audit is whether the pages belong together at all. A 60 cm preselection on the same bike is a plausible duplicate. Two generations with different frame geometry can answer genuinely different questions.</p>
+<p>The first question in an audit is whether the pages belong together at all. A 60 cm preselection on the same bike is a plausible duplicate. Two generations with different frame geometry answer different questions.</p>
 <p>Google does not simply take the canonical URL at face value. It considers it alongside other signals to decide which URL should represent a group of duplicate or similar pages. This is also why the canonical you declare and the URL Google ultimately selects are not always the same.</p>
 <p>Google has explained this process in some detail and outside of its docs.</p>
 
@@ -488,14 +488,14 @@ X-Robots-Tag: noindex
 <h3>Model years</h3>
 <p><strong>Model years are a product identity decision.</strong></p>
 <p>Keep the same URL while it can still accurately answer what buyers and people following older reviews came for.</p>
-<p>Say the 2026 awgravel takes 45 mm tyres and its redesigned 2027 frame clears 50 mm. Silently rewriting the old specification puts the wrong answer in front of someone choosing tyres for the bike in their shed.</p>
+<p>Say the 2026 AWGravel takes 45 mm tyres and its redesigned 2027 frame clears 50 mm. Silently rewriting the old specification puts the wrong answer in front of someone choosing tyres for the bike in their shed.</p>
 <p>Separate generation pages earn their place here. A stable model-family page can link to both where it has a job of its own.</p>
 
 <h3>Out of stock and discontinued products</h3>
 <p>Temporary stock loss calls for an availability update on the affected size or colour. A discontinued bike can still justify a useful, indexable <code>200</code> archive with geometry, manuals, compatible parts and a link to the successor.</p>
-<p>If the page has a genuine equivalent elsewhere, permanently redirect to it. If it's gone and has no replacement, return <code>404</code> or <code>410</code>.</p>
+<p>If the page has an equivalent elsewhere, permanently redirect to it. If it's gone and has no replacement, return <code>404</code> or <code>410</code>.</p>
 <p>Google can <a href="https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors" target="_blank" rel="noopener external">treat an irrelevant redirect as a soft 404</a>. Send every retired bike to the category and someone looking for tyre clearance lands on a grid of fifty bikes.</p>
-<p>The important distinction is between a product that's temporarily unavailable, one that's been discontinued but still has useful information, and one that's genuinely gone with no equivalent replacement.</p>
+<p>The important distinction is between a product that's temporarily unavailable, one that's been discontinued but still has useful information, and one that's certainly gone with no equivalent replacement.</p>
 
 <h2 id="conflicts">Canonical conflicts, loops and chains</h2>
 <p>So far, we've looked at fairly straightforward implementations. In practice, different templates, plugins, CMS configurations and edge rules can produce conflicting instructions.</p>
@@ -507,7 +507,7 @@ X-Robots-Tag: noindex
 <p><strong>Don't combine the two on the same URL.</strong> A canonical says "treat this as a duplicate and consolidate it". A <code>noindex</code> says "keep this out of the index". Those are different jobs, so give each URL one of them:</p>
 <ul>
 <li>If A should consolidate into B, keep the canonical, remove the <code>noindex</code> from A, and keep A crawlable so Google can read the preference. Google's guidance is to <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">use a canonical for consolidation</a>.</li>
-<li>If A genuinely needs exclusion, serve a consistent, observable <code>noindex</code> and drop the canonical to B. A self-canonical on a deliberately excluded A won't restore its search eligibility either.</li>
+<li>If A has to be excluded, serve a consistent, observable <code>noindex</code> and drop the canonical to B. A self-canonical on a deliberately excluded A won't restore its search eligibility either.</li>
 </ul>
 <p>Now move the <code>noindex</code> to B. A is nominating a page you've asked Google to exclude.</p>
 <p><a href="https://developers.google.com/search/docs/crawling-indexing/block-indexing" target="_blank" rel="noopener external">Google can process the exclusion on B once it fetches B.</a> The declaration tells us little about whether Google will select A, find another eligible representative, or surface neither.</p>
@@ -611,7 +611,7 @@ X-Robots-Tag: noindex
 </figure>
 
 <p>The chain doesn't transmit C's exclusion back to A and B. Nor does it promise that B becomes the fallback. Canonical consumers can <a href="https://www.rfc-editor.org/rfc/rfc6596" target="_blank" rel="noopener external">use their own heuristics</a> when declarations are improper.</p>
-<p>If C should represent all three, remove C's exclusion, point both duplicates directly to C, and <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">give C a self-canonical</a>. If C genuinely belongs outside search, choose an eligible representative for the pages that are actually equivalent.</p>
+<p>If C should represent all three, remove C's exclusion, point both duplicates directly to C, and <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls" target="_blank" rel="noopener external">give C a self-canonical</a>. If C should be out if Index, choose an eligible representative for the pages that are equivalent.</p>
 <h3 id="a-live-product-pointing-to-a-404">A live product pointing to a 404</h3>
 <p>The Forest Green page returns <code>200</code>. Its canonical points to the model URL, which returns <code>404</code>.</p>
 <p>The error belongs to the model URL. Once Google processes it, that URL is ineligible and <a href="https://developers.google.com/crawling/docs/troubleshooting/http-status-codes" target="_blank" rel="noopener external">an already-indexed copy is removed over time</a>. The Forest Green page can still be indexed.</p>
@@ -689,6 +689,7 @@ starts_with(http.request.uri.path, "/downloads/dealer-sheets/"))
 </tbody>
 </table>
 
+<p>The distinction becomes more important when an AI answer cites a product URL that differs from the canonical you declared. The URL may have come from a search index, a page fetched in response to a user's request, or a merchant feed. Those routes don't necessarily follow the same rules. I've looked at how <a href="https://alexanderkyriakou.eu/ak/ai-search-robots-txt-noindex-canonical" target="_blank">AI search products handle robots.txt, noindex, and canonical URLs</a>, including how to investigate which source may have supplied a particular product URL.</p>
 <p>Suppose a user supplies the Forest Green URL and the answer cites the model page. Did the assistant read the canonical? Possibly. A search partner may have supplied the model, or the assistant may have followed a prominent model link. The citation alone can't distinguish those paths.</p>
 <p>Likewise, seeing a fetch in a log establishes a request, not training use or indexing. The distinction between a crawler requesting a page and a product actually using its content is important.</p>
 <p>I go into the <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt" target="_blank">individual AI crawlers and their robots.txt controls</a> in more detail, including what a log entry can tell you about the request.</p>
@@ -720,9 +721,9 @@ curl -sS -D googlebot.headers -o googlebot.html \ -A 'Mozilla/5.0 (compatible; G
 <li><strong>Test crawl permission and rendering independently.</strong> Check the actual user agent and URL against robots.txt. If JavaScript changes the metadata, compare the initial HTML with the rendered document. On Cloudflare, sample the production hostname, a preview, and both a matching and a neighbouring path.</li>
 <li><strong>Put dates beside the evidence.</strong> Access logs can show a verified Googlebot fetch after the deployment. Search Console's live test helps check current accessibility. <a href="https://support.google.com/webmasters/answer/9012289" target="_blank" rel="noopener external">The indexed URL Inspection report</a> shows the last recorded crawl and Google-selected canonical where available. A live test can't predict the canonical Google will select.</li>
 </ol>
-<p>For the awgravel, I'd want the magazine's link to keep opening the Forest Green version even if Google shows the model page in search. The reviewer chose that colour, and someone following the review has a good reason to land there.</p>
+<p>For the AWGravel, I'd want the magazine's link to keep opening the Forest Green version even if Google shows the model page in search. The reviewer chose that colour, and someone following the review has a good reason to land there.</p>
 <p>A rider coming back two years later to check whether a 50 mm tyre fits has an equally good reason to find the 2026 geometry chart, right down to the year in the URL.</p>
-<p>That's where I'd start with a real catalogue. Which details would someone reasonably expect this address to remember? For the reviewed bike, it's the colour. For its owner, it's the frame they actually bought.</p>
+<p>That's where I'd start with a real catalogue. Which details would someone reasonably expect this address to remember? For the reviewed bike, it's the colour. For its owner, it's the frame they bought.</p>
 <p>Once that's clear, it's much easier to decide which URLs belong together in search and which ones deserve a page of their own.</p>
 <p>And perhaps that's a good point to finish our beer. The gatekeeper, the absolutist and the proposer can go back to arguing about something else.</p>
 
