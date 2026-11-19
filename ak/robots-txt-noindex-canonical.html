@@ -733,7 +733,7 @@ curl -sS -D googlebot.headers -o googlebot.html \ -A 'Mozilla/5.0 (compatible; G
 <ol type="1">
 <li><strong>Read the status and every relevant header.</strong> Inspect <code>Location</code>, all <code>X-Robots-Tag</code> fields, and any <code>Link</code> headers. For a redirect, fetch the next hop and keep its response separate. Following only the final response can hide the URL where a redirect was introduced.</li>
 <li><strong>Read the initial head, then fetch the canonical target.</strong> Compare the HTML canonical with the HTTP declaration and resolve the target URL. Fetch the target's status, headers, HTML and own canonical. This is how you catch a valid-looking declaration pointing to a <code>404</code>, another hop, or a model page excluded at the edge.</li>
-<li><strong>Test crawl permission and rendering independently.</strong> Check the actual user agent and URL against robots.txt. If JavaScript changes the metadata, compare the initial HTML with the rendered document. On Cloudflare, sample the production hostname, a preview, and both a matching and a neighbouring path.</li>
+<li><strong>Test crawl permission and rendering independently.</strong> Check the actual user agent and URL against robots.txt (and verify <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching" target="_blank">the crawler actually received the current robots.txt</a> rather than a cached copy or server error). If JavaScript changes the metadata, compare the initial HTML with the rendered document. On Cloudflare, sample the production hostname, a preview, and both a matching and a neighbouring path.</li>
 <li><strong>Put dates beside the evidence.</strong> Access logs can show a verified Googlebot fetch after the deployment. Search Console's live test helps check current accessibility. <a href="https://support.google.com/webmasters/answer/9012289" target="_blank" rel="noopener external">The indexed URL Inspection report</a> shows the last recorded crawl and Google-selected canonical where available. A live test can't predict the canonical Google will select.</li>
 </ol>
 <p>For the AWGravel, I'd want the magazine's link to keep opening the Forest Green version even if Google shows the model page in search. The reviewer chose that colour, and someone following the review has a good reason to land there.</p>
@@ -756,7 +756,11 @@ curl -sS -D googlebot.headers -o googlebot.html \ -A 'Mozilla/5.0 (compatible; G
       <div class="postfooter-bottom">
         <div class="postfooter-info">
           <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
-          <p class="postfooter-assistants"><span title="An initial content structure and related resources were given to an LLM, which it expanded upon. I tweaked the draft-output, and at the end a proofread by selected model(s).">Proofreader</span>, GPT-6.1 Sol</p>
+          <p class="postfooter-assistants">
+            <span class="postfooter-proofreader">Proofreader<button type="button" class="postfooter-info-trigger" aria-label="About Proofreader" aria-describedby="proofreader-tooltip">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="8" cy="8" r="6.5" /> <path d="M8 7.5v4" /> <circle cx="8" cy="5" r="0.55" fill="currentColor" stroke="none" /> </svg>
+              </button><span class="postfooter-tooltip" id="proofreader-tooltip" role="tooltip">An initial content structure and related resources were given to an LLM, which it expanded upon. I tweaked the draft-output, and at the end a proofread by selected model(s).</span></span>, GPT-6.1 Sol
+          </p>
           <p class="postfooter-dates">
             <span>
               <span>Published</span>

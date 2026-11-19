@@ -442,6 +442,71 @@
 .postfooter-share button.copied .link-copied {
   opacity: 1;
 }
+
+.postfooter-proofreader {
+  position: relative;
+  display: inline-block;
+}
+
+.postfooter-info-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -0.3px;
+  margin-left: 2px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #777;
+  cursor: pointer;
+  vertical-align: baseline;
+  transition: color 0.6s ease;
+}
+
+.postfooter-info-trigger svg {
+  display: block;
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.postfooter-info-trigger:hover,
+.postfooter-info-trigger:focus-visible {
+  color: #000;
+}
+
+.postfooter-info-trigger:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.postfooter-tooltip {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 8px);
+  z-index: 10;
+  width: max-content;
+  max-width: min(280px, calc(100vw - 40px));
+  padding: 9px 12px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fff;
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.5;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.6s ease, transform 0.6s ease, visibility 0.6s ease;
+}
+
+.postfooter-info-trigger:hover + .postfooter-tooltip,
+.postfooter-info-trigger:focus + .postfooter-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
 /* end of footnotes/endnotes at the end of each thought page */
 
 /* hero section */

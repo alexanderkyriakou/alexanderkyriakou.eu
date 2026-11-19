@@ -53,7 +53,7 @@
         "description": "Fetch, edit and validate robots.txt rules for SEO, AI and other web crawlers. Test multiple URLs across multiple crawler identities, inspect live file redirects, and evaluate referenced page resources for potential crawling restrictions.",
         "inLanguage": "en",
         "datePublished": "2026-10-20",
-        "dateModified": "2026-11-12",
+        "dateModified": "2026-11-19",
         "isPartOf": {
           "@id": "https://alexanderkyriakou.eu/#website"
         },
@@ -131,7 +131,7 @@
         "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker#about-checker",
         "headline": "Robots.txt checker and multi-crawler rule tester",
         "datePublished": "2026-10-20",
-        "dateModified": "2026-11-12",
+        "dateModified": "2026-11-19",
         "description": "An in-depth guide to using the Robots.txt Checker, understanding RFC 9309, fetching robots.txt files and handling redirects, evaluating Allow and Disallow rules, identifying search and AI crawlers, inspecting referenced page resources, and avoiding common SEO mistakes.",
         "inLanguage": "en",
         "articleSection": [
@@ -1034,7 +1034,8 @@ https://blog.yourdomain.eu/robots.txt
   </tbody>
 </table>
 
-<p>One of the more unpleasant situations I've faced was a robots.txt endpoint returning HTTP 500 while the file itself looked perfectly normal when opening in any browser. That's why a simple visual check of 'Does this load?' ain't enough. Google documents an initial halt in crawling when it cannot retrieve robots.txt because of a server error, followed by a longer recovery process that depends partly on its last usable cached copy. A repeated 500 is therefore worth investigating quickly, even if nobody is reporting a broken page. See <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#http-status-codes" target="_blank" rel="noopener external">Google's robots.txt error handling</a> for its current time windows and exceptions.</p>
+<p>One of the more unpleasant situations I've faced was a robots.txt endpoint returning HTTP 500 while the file itself looked perfectly normal when opening in any browser. That's why a simple visual check of 'Does this load?' ain't enough. Google documents an initial halt in crawling when it cannot retrieve robots.txt because of a server error, followed by a longer recovery process that depends partly on its last usable cached copy. A repeated 500 is therefore worth investigating quickly, even if nobody is reporting a broken page. See <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#http-status-codes" target="_blank" rel="noopener external">Google's robots.txt error handling</a> for its current time windows and exceptions, or my guide on <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching" target="_blank">when robots.txt fails through HTTP errors, redirects, and caching</a> for the full diagnostic walkthrough.</p>
+
 <p>For operational clarity, I generally prefer an intentional, valid file returned with HTTP 200, even when it simply allows all crawling. But a genuine 404 for a file that doesn't exist is not automatically wrong. The important part is knowing which response your server actually sends and whether that behaviour matches your intent.</p>
 
 <h3 id="caching">The cached version might be different</h3>
@@ -1281,6 +1282,10 @@ PPS: For any issues you encounter, or suggestions and corrections to the user-ag
   <h2>Updates</h2>
   <ul>
     <li>
+      <time datetime="2026-11-19">November 19, 2026</time>
+      <span>Reference and interlinking with the newly published <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching" target="_blank">When robots.txt fails: HTTP errors, redirects, and caching</a>.</span>
+    </li>
+    <li>
       <time datetime="2026-11-12">November 12, 2026</time>
       <span>Expanded the user-agent catalogue using first-party documentation and a <a href="https://github.com/ai-robots-txt/ai.robots.txt" target="_blank" rel="noopener external">community-maintained GitHub list</a>, with unverified identifiers grouped under Miscellaneous. Added a section on the proposed <a href="#ai-training-preference">__usage_ai-training</a> policy token. Interlinked with <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt">AI Crawlers and robots.txt file</a> and <a href="https://alexanderkyriakou.eu/ak/verify-crawler-identity">How to verify web crawler's identity</a>.</span>
     </li>
@@ -1322,7 +1327,7 @@ PPS: For any issues you encounter, or suggestions and corrections to the user-ag
             </span>
             <span>
               <span>Updated</span>
-              <time datetime="2026-11-12">Nov 12, 2026</time>
+              <time datetime="2026-11-19">Nov 19, 2026</time>
             </span>
           </p>
         </div>
