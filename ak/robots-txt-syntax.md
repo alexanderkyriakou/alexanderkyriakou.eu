@@ -20,13 +20,11 @@ The answer depends on [which lines belong to Googlebot](#where-does-one-user-age
 
 ## Who are we opening the site to?
 
-Someone can read a page, a search engine can index it, a social network can fetch it for a link preview, and an assistant can retrieve it to answer someone who may never visit. From the server's side, all four can look like a successful page request. As a site owner, I might be quite happy with three of those uses and have questions about the fourth.
+Someone reads a page, a search engine indexes it, a social network fetches a link preview, and an assistant retrieves an answer for someone who may never visit. From the server's side, all four look like successful page requests. On a small personal site that traffic barely registers. On an ecommerce store or a large publishing site, it turns into real strain when search crawlers, AI scrapers and preview fetchers all hit sorting parameters, product filters, internal search pages and deep archives at once.
 
-There's some scale behind that distinction. Across its customer base in 2025, [Cloudflare attributed 4.2% of HTML requests to AI bots](https://blog.cloudflare.com/radar-2025-year-in-review/) and another 4.5% to Googlebot, which it counted separately. That only covers requests on one network, so it tells us little about human readership or how much of the web is built for bots. Even so, it shows how often automated clients request a page without sending a visitor back.
+There is some scale behind that traffic. Across its customer base in 2025, [Cloudflare attributed 4.2% of HTML requests to AI bots](https://blog.cloudflare.com/radar-2025-year-in-review/) and another 4.5% to Googlebot, which it counted separately. Almost 9% of HTML requests on that network came from those two buckets alone, before counting Bingbot, social fetchers or unlabelled scrapers. When a big catalogue creates thousands of URL combinations, letting every bot crawl them freely wastes bandwidth.
 
-So is robots.txt a bit decorative? It can feel that way. If I disallow my calendar directory, a cooperating search crawler can read the rule and skip thousands of URLs I never wanted it to spend time on. That's a real change in what reaches my server. But if another client requests one of those URLs anyway, the line I wrote won't stop my server - Cloudflare - from serving it, because skipping the request is entirely up to the crawler.
-
-For a public calendar, I can live with that arrangement. For a private client report, I'd want the server to check who's asking before it sends a single page. And I'd think twice about advertising the report's location in a public file. [RFC 9309 makes exactly this point about listing sensitive paths](https://www.rfc-editor.org/rfc/rfc9309.html#section-3).
+So is robots.txt a bit decorative? It can feel that way, since the decision to skip a URL happens at the crawler's end. Even so, disallowing internal search paths or messy filter combinations keeps cooperating crawlers away from thousands of heavy URLs you never wanted them hitting. That takes real load off the origin. It simply won't stop a scraper that ignores the file, or protect private account pages where only the server itself can refuse access.
 
 ## Where does one user-agent group end?
 
