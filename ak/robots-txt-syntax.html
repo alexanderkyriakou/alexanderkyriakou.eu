@@ -232,7 +232,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
     <details class="page-index-mobile">
       <summary title="Table of contents" aria-label="Table of contents">☰</summary>
       <nav aria-label="Page contents">
-        <a href="#owners">Why crawler choice matters</a>
+        <a href="#owners">Crawler choice matters</a>
         <a href="#groups">Group boundaries</a>
         <a href="#paths">Path matching</a>
         <a href="#yandex">Yandex groups</a>
@@ -245,7 +245,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
       </nav>
     </details>
     <nav class="page-index-desktop" aria-label="Page contents">
-        <a href="#owners">Why crawler choice matters</a>
+        <a href="#owners">Crawler choice matters</a>
         <a href="#groups">Group boundaries</a>
         <a href="#paths">Path matching</a>
         <a href="#yandex">Yandex groups</a>
@@ -265,7 +265,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
 <h2 id="owners">Who are we opening the site to?</h2>
 <p>Someone can read a page, a search engine can index it, a social network can fetch it for a link preview, and an assistant can retrieve it to answer someone who may never visit. From the server's side, all four can look like a successful page request. As a site owner, I might be quite happy with three of those uses and have questions about the fourth.</p>
 <p>There's some scale behind that distinction. Across its customer base in 2025, <a href="https://blog.cloudflare.com/radar-2025-year-in-review/" target="_blank" rel="noopener external">Cloudflare attributed 4.2% of HTML requests to AI bots</a> and another 4.5% to Googlebot, which it counted separately. That only covers requests on one network, so it tells us little about human readership or how much of the web is built for bots. Even so, it shows how often automated clients request a page without sending a visitor back.</p>
-<p>So is robots.txt a bit decorative? It can feel that way. If I disallow my calendar directory, a cooperating search crawler can read the rule and skip thousands of URLs I never wanted it to spend time on. That's a real change in what reaches my server. But if another client requests one of those URLs anyway, the line I wrote won't stop my server - Cloudflare - from serving it, because skipping the request is entirely up to the crawler.</p>
+<p>So is robots.txt a bit decorative? It can feel that way. If I disallow my calendar directory, a cooperating search crawler can read the rule and skip thousands of URLs I never wanted it to spend time on. That's a real change in what reaches my server. But if another client requests one of those URLs anyway, the line I wrote won't stop my server from serving it, because skipping the request is entirely up to the crawler.</p>
 <p>For a public calendar, I can live with that arrangement. For a private client report, I'd want the server to check who's asking before it sends a single page. And I'd think twice about advertising the report's location in a public file. <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-3" target="_blank" rel="noopener external">RFC 9309 makes exactly this point about listing sensitive paths</a>.</p>
 
 <h2 id="groups">Where does one user-agent group end?</h2>
