@@ -428,7 +428,7 @@ Disallow: /products/
 Disallow: /checkout/
 </pre>
 
-<p>Why write <code>/checkout/</code> twice? Because the dedicated GPTBot group supplies that crawler's rules. It doesn't inherit the wildcard group as an extra set of restrictions. Remove the last line and, under the <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-2.2.1" target="_blank" rel="noopener external">robots.txt group-matching rules</a>, you've accidentally allowed GPTBot to fetch the very path you meant to exclude.</p>
+<p>Why write <code>/checkout/</code> twice? Because the dedicated GPTBot group supplies that crawler's rules. It doesn't inherit the wildcard group as an extra set of restrictions. Remove the last line and, under <a href="https://alexanderkyriakou.eu/ak/robots-txt-syntax#does-a-named-group-inherit-the-site-wide-block" target="_blank">the robots.txt group-matching rules</a>, you've accidentally allowed GPTBot to fetch the very path you meant to exclude.</p>
 
 <div class="ai-table">
   <table><caption>What the example file says about two paths</caption>

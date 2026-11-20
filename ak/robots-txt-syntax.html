@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Robots.txt Syntax, RFC 9309, and the Rules Crawlers Actually Follow</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Work through robots.txt group boundaries, longest-match rules, wildcards and percent encoding, with repeatable tests and crawler-specific exceptions.">
+  <meta name="author" content="Alexander Kyriakou">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/robots-txt-syntax">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/robots-txt-syntax.md" title="Robots.txt Syntax, RFC 9309, and the Rules Crawlers Actually Follow - Markdown">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="Robots.txt Syntax, RFC 9309, and the Rules Crawlers Actually Follow">
+  <meta property="og:description" content="Work through robots.txt group boundaries, longest-match rules, wildcards and percent encoding, with repeatable tests and crawler-specific exceptions.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Alexander Kyriakou">
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/robots-txt-syntax">
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-syntax/og/painted-door-kos-2019.jpg"/>
+  <meta property="og:image:alt" content="An arched brown door with a white doorknob painted on a textured cream exterior wall, flanked by a painted blue flowerpot on the left and grey cartoon mice on the right, with tall green grass growing across the foreground. Kos, 2019">
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Robots.txt Syntax, RFC 9309, and the Rules Crawlers Actually Follow">
+  <meta name="twitter:description" content="Work through robots.txt group boundaries, longest-match rules, wildcards and percent encoding, with repeatable tests and crawler-specific exceptions.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-syntax/og/painted-door-kos-2019.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/robots-txt-syntax",
+        "name": "Robots.txt syntax, RFC 9309, and the rules crawlers actually follow",
+        "description": "How robots.txt group boundaries, longest-match specificity, wildcards, UTF-8 percent encoding, non-standard directives, and crawler-specific exceptions govern what search engines and AI crawlers can fetch.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-20",
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#article"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#image-hero"
+        },
+        "relatedLink": [
+          "https://alexanderkyriakou.eu/ak/robots-txt-checker"
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#article",
+        "url": "https://alexanderkyriakou.eu/ak/robots-txt-syntax",
+        "headline": "Robots.txt syntax, RFC 9309, and the rules crawlers actually follow",
+        "alternativeHeadline": "Conflicting Googlebot rules, a sneaky Yandex exception, and a typo only a parser could love.",
+        "description": "A technical guide to robots.txt syntax under RFC 9309: user-agent group boundaries and merging, longest-match path precedence, wildcards and $ anchors, Yandex and Google crawler exceptions, case sensitivity and hyphen pitfalls (Perplexity-User, LinkedInBot), UTF-8 and percent encoding, Sitemap, Crawl-delay, Clean-param, Noindex, the 500 KiB limit, __usage_ai-training, and 19 repeatable parser test cases.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-20",
+        "dateModified": "2026-11-20",
+        "isAccessibleForFree": true,
+        "author": {
+          "@type": "Person",
+          "@id": "https://alexanderkyriakou.eu/#person",
+          "name": "Alexander Kyriakou",
+          "url": "https://alexanderkyriakou.eu/"
+        },
+        "publisher": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#webpage"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#webpage"
+        },
+        "articleSection": [
+          "SEO",
+          "Technical SEO",
+          "Web Crawling"
+        ],
+        "keywords": [
+          "robots.txt",
+          "RFC 9309",
+          "Googlebot",
+          "YandexBot",
+          "YandexCalendar",
+          "AdsBot",
+          "Google-Extended",
+          "PerplexityBot",
+          "Perplexity-User",
+          "LinkedInBot",
+          "user-agent groups",
+          "longest-match",
+          "wildcards",
+          "percent encoding",
+          "UTF-8",
+          "Sitemap",
+          "Crawl-delay",
+          "Clean-param",
+          "Noindex",
+          "__usage_ai-training",
+          "google-robotstxt-parser",
+          "Technical SEO"
+        ],
+        "mentions": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#application",
+            "name": "Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO",
+            "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker"
+          }
+        ],
+        "image": [
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#image-hero"
+          }
+        ],
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#image-hero",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/robots-txt-syntax/painted-door-kos-2019.webp",
+        "name": "Painted door on a textured exterior wall, Kos 2019",
+        "caption": "A door to worlds.",
+        "description": "An arched brown door with a white doorknob painted on a textured cream exterior wall, flanked by a painted blue flowerpot on the left and grey cartoon mice on the right, with tall green grass growing across the foreground. Kos, 2019",
+        "encodingFormat": "image/webp",
+        "width": 2400,
+        "height": 1585,
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2019,
+        "copyrightNotice": "© Alexander Kyriakou · Kos · 2019",
+        "creditText": "Alexander Kyriakou",
+        "license": "https://alexanderkyriakou.eu/licensing",
+        "acquireLicensePage": "https://alexanderkyriakou.eu/licensing",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/robots-txt-syntax#article"
+        }
+      }
+    ]
+  }
+  </script>
+
+<style>
+.test-scroll { width: 100%; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 20px 0; }
+.test-scroll table { display: table; width: max-content; min-width: 100%; margin: 0; }
+.test-scroll th:nth-child(1), .test-scroll td:nth-child(1), .test-scroll th:nth-child(2), .test-scroll td:nth-child(2) { white-space: nowrap; }
+.test-scroll th:nth-child(4), .test-scroll td:nth-child(4) { min-width: 200px; }
+table { font-family: 'Commissioner', system-ui, sans-serif; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 20px 0; font-size: 1rem; line-height: 1.5; }
+table { display: block; width: 100%; min-width: 0; }
+table caption { caption-side: top; text-align: left; font-size: 1.3rem; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
+table thead { border-bottom: 1px solid #aaa; }
+table thead th { text-align: left; padding: 12px 8px; font-weight: 500; }
+table tbody tr { text-align: left; border-bottom: 1px solid #e5e5e5; }
+table tbody tr:last-child { border-bottom: none; }
+table tbody th, table tbody td { padding: 8px; vertical-align: middle; }
+pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+.container ul, .container ol { font-size: 1.2rem; padding-left: 20px; line-height: 1.5; }
+
+@media (max-width: 768px) {
+  .article-hero:not(.article-hero-portrait) {
+    --article-image-position: 40% 0%; /* width and height */
+  }
+} 
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+        <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+        <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<main>
+<article class="article-page">
+  <header class="article-hero">
+    <div class="article-heading">
+      <h1 class="article-title">Robots.txt syntax, RFC 9309, and the rules crawlers actually follow</h1>
+      <p class="article-subheading">Conflicting Googlebot rules, a sneaky Yandex exception, and a typo only a parser could love.</p>
+    </div>
+    <figure class="article-figure">
+      <div class="article-media">
+        <img class="article-image" src="/assets/images/thoughts/robots-txt-syntax/painted-door-kos-2019.webp" width="2400" height="1585" fetchpriority="high" alt="An arched brown door with a white doorknob painted on a textured cream exterior wall, flanked by a painted blue flowerpot on the left and grey cartoon mice on the right, with tall green grass growing across the foreground. Kos, 2019">
+        <span class="article-halo" aria-hidden="true">
+          <span class="article-halo-fade">
+            <img class="article-halo-image" src="/assets/images/thoughts/robots-txt-syntax/painted-door-kos-2019.webp" width="2400" height="1585" alt="" decoding="async">
+          </span>
+        </span>
+      </div>
+      <figcaption class="article-caption">A door to worlds.
+        <span class="article-credit">© Alexander Kyriakou · Kos · 2019</span>
+      </figcaption>
+    </figure>
+    </header>
+  <div class="container toc">
+  <!-- floating toc -->
+  <aside id="no-print" class="page-index">
+    <details class="page-index-mobile">
+      <summary title="Table of contents" aria-label="Table of contents">☰</summary>
+      <nav aria-label="Page contents">
+        <a href="#owners">Why crawler choice matters</a>
+        <a href="#groups">Group boundaries</a>
+        <a href="#paths">Path matching</a>
+        <a href="#yandex">Yandex groups</a>
+        <a href="#names">Case and crawler names</a>
+        <a href="#encoding">UTF-8 and encoding</a>
+        <a href="#extensions">Empty rules and extensions</a>
+        <a href="#training">AI training preferences</a>
+        <a href="#tests">Rule-matching tests</a>
+        <a href="#indexing">Blocked URLs in search</a>
+      </nav>
+    </details>
+    <nav class="page-index-desktop" aria-label="Page contents">
+        <a href="#owners">Why crawler choice matters</a>
+        <a href="#groups">Group boundaries</a>
+        <a href="#paths">Path matching</a>
+        <a href="#yandex">Yandex groups</a>
+        <a href="#names">Case and crawler names</a>
+        <a href="#encoding">UTF-8 and encoding</a>
+        <a href="#extensions">Empty rules and extensions</a>
+        <a href="#training">AI training preferences</a>
+        <a href="#tests">Rule-matching tests</a>
+        <a href="#indexing">Blocked URLs in search</a>
+    </nav>
+  </aside>
+  <!-- end of floating toc -->
+
+<p>Googlebot appears twice in the same file. The first group allows the whole site. The last one blocks it. In between, there's a wildcard group that blocks it too. <strong>Googlebot can crawl the site.</strong> Now change the last slash to <code>/drafts/</code> and Googlebot can still crawl the site, except for a directory you care about.</p>
+<p>The answer depends on <a href="#groups">which lines belong to Googlebot</a>, then on <a href="#paths">which rule matches the requested URL</a>. If you already have a file open and a crawler doing something odd, start with the <a href="#names">crawler name</a> or try the <a href="#tests">rule-matching tests</a>. There's a particularly easy mistake to miss if you copied Perplexity's name from a table. I did.</p>
+
+<h2 id="owners">Who are we opening the site to?</h2>
+<p>Someone can read a page, a search engine can index it, a social network can fetch it for a link preview, and an assistant can retrieve it to answer someone who may never visit. From the server's side, all four can look like a successful page request. As a site owner, I might be quite happy with three of those uses and have questions about the fourth.</p>
+<p>There's some scale behind that distinction. Across its customer base in 2025, <a href="https://blog.cloudflare.com/radar-2025-year-in-review/" target="_blank" rel="noopener external">Cloudflare attributed 4.2% of HTML requests to AI bots</a> and another 4.5% to Googlebot, which it counted separately. That only covers requests on one network, so it tells us little about human readership or how much of the web is built for bots. Even so, it shows how often automated clients request a page without sending a visitor back.</p>
+<p>So is robots.txt a bit decorative? It can feel that way. If I disallow my calendar directory, a cooperating search crawler can read the rule and skip thousands of URLs I never wanted it to spend time on. That's a real change in what reaches my server. But if another client requests one of those URLs anyway, the line I wrote won't stop my server - Cloudflare - from serving it, because skipping the request is entirely up to the crawler.</p>
+<p>For a public calendar, I can live with that arrangement. For a private client report, I'd want the server to check who's asking before it sends a single page. And I'd think twice about advertising the report's location in a public file. <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-3" target="_blank" rel="noopener external">RFC 9309 makes exactly this point about listing sensitive paths</a>.</p>
+
+<h2 id="groups">Where does one user-agent group end?</h2>
+<p>Here's the Googlebot puzzle in a smaller file. You can add Bingbot, ClaudeBot and another twenty consecutive user-agent lines above the first rule. They all share it. Even the blank line between Googlebot and Qwantbot changes nothing for Google.</p>
+
+<pre>
+User-agent: Googlebot
+
+User-agent: Qwantbot
+Allow: /
+
+User-agent: *
+Disallow: /
+
+User-agent: Googlebot
+Disallow: /
+</pre>
+
+<p>Read down until you reach the first access rule. Every user-agent collected above it belongs to that group. Once a group has a rule, the next user-agent starts a new group. Blank lines and comments help people read the file. They don't close a group under <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-2.2" target="_blank" rel="noopener external">the RFC 9309 grammar</a>. A rule above the first user-agent should be ignored. A final group can have no rules at all.</p>
+<p>For Googlebot, the first and third groups have the same specific token. <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#grouping-of-lines-and-rules" target="_blank" rel="noopener external">Google combines those groups</a>, leaving two applicable rules, <code>Allow: /</code> and <code>Disallow: /</code>. The wildcard group supplies neither. Both paths match every ordinary page equally well, so Google gives the tie to <code>Allow</code>. A compliant crawler with no matching named group gets the wildcard block. With neither a named match nor a wildcard group, it can crawl.</p>
+<p><strong>Line order matters when it changes who owns a rule.</strong> Move Qwantbot below the first <code>Allow</code> and it no longer shares that allowance. Reversing two access rules <em>within</em> a group is a different edit. Google still compares their specificity. This is where the "read it from top to bottom" habit from an ordered ruleset can land you in trouble.</p>
+
+<h3 id="can-a-sitemap-accidentally-join-two-groups">Can a sitemap accidentally join two groups?</h3>
+<pre>
+User-agent: Googlebot
+Sitemap: https://yourdomain.eu/sitemap.xml
+User-agent: Bingbot
+Disallow: /proofs/
+</pre>
+
+<p>Googlebot is blocked from <code>/proofs/</code> here. Google recognises <code>Sitemap</code> for discovery, but skips it when constructing access-rule groups. Both names therefore sit above the same first access rule. <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-2.2.4" target="_blank" rel="noopener external">The RFC permits additional records</a> on the condition that they don't interfere with parsing the standard ones. A blank line around the sitemap won't rescue this layout.</p>
+
+<h3 id="does-a-named-group-inherit-the-site-wide-block">Does a named group inherit the site-wide block?</h3>
+<p>Say the wildcard group disallows <code>/proofs/</code>. You add a specific Googlebot group with just <code>Disallow: /search/</code>. Googlebot can now fetch <code>/proofs/</code>. Its new group replaced the wildcard fallback for that crawler. If both restrictions matter to you, both paths need to appear in the applicable rules. This is the edit I'd pay closest attention to when adding a new crawler to an established file.</p>
+
+<h2 id="paths">Which rule wins for this URL?</h2>
+<p><a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-2.2.2" target="_blank" rel="noopener external">Section 2.2.2 of RFC 9309</a> starts the comparison at the first byte of the path and requires the most specific match, measured in octets (bytes). If nothing matches, access is allowed. For equivalent conflicting rules, the RFC says the crawler <strong>should</strong> prefer <code>Allow</code>. <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#order-of-precedence-for-rules" target="_blank" rel="noopener external">Google documents its tie-break</a> as the least restrictive rule, including when wildcard patterns conflict.</p>
+
+<pre>
+User-agent: *
+Disallow: /rides
+Allow: /rides/public/
+Disallow: /rides/public/drafts/
+</pre>
+
+<p>For <code>/rides/public/athens</code>, the first two patterns match and the longer allowance wins. Add <code>drafts/</code> before <code>athens</code> and the third pattern wins. Less obviously, <code>/rideshare</code> is blocked too. A prefix has no idea where you intended a word to end. If you mean the directory and its slashless landing page, write two rules, <code>Disallow: /rides/</code> and <code>Disallow: /rides$</code>. The second one is exact, so remember to test query variants of that landing page.</p>
+
+<h3 id="what-does-the-dollar-sign-buy-you">What does the dollar sign buy you?</h3>
+<pre>
+User-agent: *
+Disallow: /
+Allow: /$
+</pre>
+
+<p>Only the bare root wins the exception. A request for <code>https://yourdomain.eu</code> has a root path of <code>/</code>. Request <code>/?ref=home</code>, though, and the query follows the slash. Google compares the path <strong>including the query</strong>, so the dollar sign can no longer match there. A browser fragment such as <code>/#map</code> stays on the client. The server still receives a request for <code>/</code>.</p>
+<p>Remove <code>Disallow: /</code> and the whole site becomes crawlable. <code>Allow: /$</code> expresses permission for one URL. It has no effect on the default for everything else. And with the block in place, the homepage's own stylesheet, script and image requests can all be disallowed. Fetching the HTML and rendering the page as a visitor sees it are two different tests.</p>
+
+<h3 id="how-much-does-a-wildcard-consume">How much does a wildcard consume?</h3>
+<p>An asterisk in a <strong>path</strong> matches zero or more characters, including slashes. So <code>/maps/*.gpx$</code> matches both <code>/maps/.gpx</code> and <code>/maps/attica/coast.gpx</code>. It misses <code>/maps/coast.gpx?v=2</code>. A trailing asterisk on a simple prefix buys you nothing. <code>/maps/</code> already covers descendants. A question mark is a literal query delimiter here. Parentheses, brackets and pipes won't give you regular-expression alternatives.</p>
+<p>The asterisk can even match its way into a query. <code>Disallow: /*.gpx$</code> catches <code>/download?file=coast.gpx</code>, although the path itself has no extension. Similarly, <code>Disallow: /*?sort=</code> catches a first parameter named sort but misses <code>/shop?colour=green&sort=price</code>. If you need both positions, add <code>Disallow: /*&amp;sort=</code> and test an actual URL from each case.</p>
+
+<h3 id="is-disallow-secret-pages-valid">Is <code>Disallow: *secret-pages*</code> valid?</h3>
+<p>The missing slash matters more than the extra asterisk at the end. <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-2.2" target="_blank" rel="noopener external">RFC 9309's grammar for a nonempty path</a> requires it to begin with <code>/</code>. To match the text anywhere, write <code>Disallow: /*secret-pages</code>. Once the parser reaches the end of that prefix, anything can follow it.</p>
+<p>That rule also catches <code>/not-secret-pages-after-all</code> and <code>/search?q=secret-pages</code>. If the intention was to keep a crawler out of one directory at the root, <code>Disallow: /secret-pages/</code> is a closer fit. Try both spellings in the <a href="#tests">test cases below</a>. The parser used there accepts even the missing-slash version. Seeing a green tick in a tester tells you something about that parser, but it can still leave you with a rule another crawler reads differently.</p>
+
+<h2 id="yandex">What does this Yandex example allow?</h2>
+<pre>
+User-agent: yandex
+User-agent: yandexbot
+Disallow: /
+
+User-agent: yandex
+Allow: /$
+</pre>
+
+<p>The question here is whether the main indexing bot gets the root allowance at all. <a href="https://www.yandex.com/support/webmaster/en/robot-workings/user-agent" target="_blank" rel="noopener external">Yandex's user-agent documentation</a> gives a worked example where the specific YandexBot group takes priority over the broader Yandex group. Following that model, I'd expect the main indexing bot to pick the first group and be blocked even at the root. The second group only names the family. I'm inferring that from Yandex's documented example, as I haven't tested this mixed file against a live YandexBot crawl.</p>
+<p>If the intention is to allow just the root for the main indexing bot, put <code>User-agent: YandexBot</code>, <code>Disallow: /</code> and <code>Allow: /$</code> together. <a href="https://www.yandex.com/support/webmaster/en/robot-workings/allow-disallow" target="_blank" rel="noopener external">Yandex gives the same root exception</a> in its path-matching examples. Keeping the two rules together also makes the intention clear to the next person editing the file.</p>
+
+<h3 id="which-yandex-robots-need-an-explicit-name">Which Yandex robots need an explicit name?</h3>
+<p>The main Yandex indexing bot can follow the wildcard group. <a href="https://yandex.com/support/webmaster/en/robot-workings/check-yandex-robots.html" target="_blank" rel="noopener external">YandexCalendar is an interesting exception</a>. It downloads calendar files when a user asks, and those files often live in directories owners have excluded from search. Yandex documents that this client can skip the general rules. To tell the calendar fetcher itself to stay away, name it:</p>
+
+<pre>
+User-agent: YandexCalendar
+Disallow: /
+</pre>
+
+<p>There's a similar exception closer to home for many SEOs. <a href="https://developers.google.com/crawling/docs/robots-txt/useful-robots-txt-rules" target="_blank" rel="noopener external">Google says its AdsBot crawlers must be named explicitly</a>. Finding a request after publishing a wildcard block is a reason to check which service made it before concluding that the operator ignored the file.</p>
+
+<h2 id="names">Which parts are case-sensitive?</h2>
+<p>In <code>dIsAlLoW: /Images/</code>, the odd capitalisation on the left is harmless. On the right, it matters. Google will block <code>/Images/logo.svg</code> and allow <code>/images/logo.svg</code> if this is the only matching group's only rule. Even if your server serves the same file at both addresses, the crawler evaluates the address it wants to fetch.</p>
+<p>For user-agent group selection the RFC <strong>requires</strong> case-insensitive matching. For path matching it <strong>recommends</strong> case sensitivity. <code>Googlebot</code> and <code>googlebot</code> therefore name the same product token under the standard. A full HTTP User-agent header can include a browser, a version and a contact URL. Use the operator's published robots.txt token. <a href="https://developers.google.com/search/docs/crawling-indexing/googlebot" target="_blank" rel="noopener external">Googlebot Smartphone and Desktop</a> send different headers but share the same token. In the other direction, <a href="https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers#google-extended" target="_blank" rel="noopener external">Google-Extended has a robots.txt token</a> without a separate HTTP user agent of its own.</p>
+
+<h3 id="can-an-asterisk-stand-in-for-part-of-a-crawler-name">Can an asterisk stand in for part of a crawler name?</h3>
+<p><code>User-agent: *</code> is the fallback. The RFC gives the asterisk that meaning only when it occupies the whole field. There's no standard <code>User-agent: *Bot</code> selector for names ending in "Bot". To give several crawlers the same rules, put their published tokens on consecutive user-agent lines.</p>
+<p><a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#order-of-precedence-for-user-agents" target="_blank" rel="noopener external">Google even accepts the spelling <code>Googlebot*</code></a>, which makes this easy to misread. Google ignores the trailing text and treats it as <code>Googlebot</code>. The star adds no coverage. Likewise, <code>Yandex</code> works as a family token because Yandex recognises that name. Adding an asterisk won't turn it into a portable way to address an operator's entire fleet.</p>
+
+<h3 id="the-perplexity-hyphen-i-could-barely-see">The Perplexity hyphen I could barely see</h3>
+<pre>
+Perplexity‑User
+Perplexity-User
+</pre>
+
+<p><a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">My checker</a> flagged the first spelling. The difference is the middle character. The first line contains a non-breaking hyphen (U+2011), the second an ASCII hyphen-minus (U+002D). You can see both spellings in <a href="https://docs.perplexity.ai/docs/resources/perplexity-crawlers" target="_blank" rel="noopener external">Perplexity's crawler table</a>, including the ASCII one in the example HTTP header, as of publishing this page. Lowercasing either string won't turn one dash into the other. The RFC's product-token grammar allows ASCII letters, underscores and hyphens, plus the standalone wildcard. A typographic hyphen falls outside it. So does the period in a token like <code>archive.org_bot</code>. An operator's historical name can fall outside that grammar too, which is worth checking before "fixing" someone else's token.</p>
+<p>Correcting the hyphen fixes the declaration. It still leaves the question of purpose. Perplexity says <code>PerplexityBot</code> discovers content for search, while <code>Perplexity-User</code> makes user-requested fetches and generally ignores robots.txt. Getting the spelling exactly right can leave you with a request in the logs all the same.</p>
+
+<h3 id="why-i-keep-the-capitals-in-linkedinbot">Why I keep the capitals in LinkedInBot</h3>
+<p>I observed case-sensitive behaviour with <code>LinkedInBot</code> while working on the checker, so I keep that exact capitalisation for LinkedIn previews. That's a narrower claim than saying every robots.txt parser needs a case-sensitive token comparison. For a repeat test, I'd change only the token casing, use fresh preview URLs to avoid a cached card, and inspect the actual requests. A missing preview image on its own can't tell you which rule LinkedIn read.</p>
+<p>I'm after such cases, so if you've encountered any of them, please <a href="https://alexanderkyriakou.eu/contact" target="_blank">let me know</a>.</p>
+
+<h2 id="encoding">Which bytes does the crawler compare?</h2>
+<p>Save the file as UTF-8 and serve it as plain text at the origin's lowercase ASCII <code>/robots.txt</code>. The filename matters even before a parser reaches line one. A Greek omicron looks quite at home in <code>/rοbots.txt</code>. It still sends the crawler to a different address if you use it in a link. Crawlers look up the ASCII spelling themselves.</p>
+<p>In a rule value, <code>/café/</code> and <code>/caf%C3%A9/</code> represent the same UTF-8 bytes. That doesn't make every URL that <em>looks</em> like café equal. A precomposed é is <code>C3 A9</code>. An e followed by a combining acute accent is <code>65 CC 81</code>. If your CMS or CDN emits both forms, compare the actual encoded URLs before assuming one rule covers both.</p>
+<p>Even where raw UTF-8 works for Google, writing the percent-encoded path directly in <code>robots.txt</code>, for instance <code>/%CE%B3%CE%AC%CF%84%CE%B1/</code> instead of <code>/γάτα/</code>, makes every crawler's life easier. In <a href="https://www.youtube.com/watch?v=-jHONLQgE-s" target="_blank" rel="noopener external">Google Search Central's Non-Canonical Cabinet episode on robots.txt</a>, Gary Illyes and Cherry Prommawin note that while Google accepts non-ASCII characters in paths, other parsers can skip or mishandle them unless they are percent-encoded.</p>
+<p><a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-2.2.2" target="_blank" rel="noopener external">The RFC's percent-encoding examples</a> draw another important boundary. In a requested URI, an encoded unreserved ASCII character such as <code>%72</code> can be compared as <code>r</code>, so <code>/%72ides/</code> matches a rule for <code>/rides/</code> under the RFC. An encoded reserved slash, <code>%2F</code>, keeps its identity. <code>/rides%2Fprivate</code> and <code>/rides/private</code> can therefore give different results. Decoding the entire URL before testing loses exactly the distinction you're trying to inspect.</p>
+<p>A literal hash in a rule starts a comment. Write <code>Disallow: /#draft</code> and you've effectively written <code>Disallow: /</code>. Use <code>%23</code> for a literal hash carried as path data. Likewise, <a href="https://www.rfc-editor.org/rfc/rfc9309.html#section-2.2.3" target="_blank" rel="noopener external">the RFC shows how to encode special characters</a> such as <code>%2A</code> for an actual asterisk and <code>%24</code> for a dollar sign. If your paths contain nested URLs in parameters, keep a copy of what went over the wire. <a href="https://github.com/google/robotstxt/issues/64" target="_blank" rel="noopener external">A discussion in Google's parser repository</a> shows how even a worked example involving an encoded URL inside a URL can lead implementers to different readings.</p>
+
+<h2 id="extensions">Empty rules, extensions and unusually musical files</h2>
+<p><code>Disallow:</code> on its own has no path to block. Google ignores that empty value, just as it ignores an empty <code>Allow:</code>. Add <code>Disallow: /drafts/</code> to the same group and the drafts are still blocked. An empty line can't undo a populated rule. One slash is the entire difference between an empty disallow and a site-wide block.</p>
+<p>A few familiar-looking fields have quite different jobs.</p>
+
+<ul>
+<li><strong>Sitemap</strong> gives supporting consumers an absolute sitemap URL. Listing a disallowed page there helps advertise its address without granting permission to fetch it.</li>
+<li><strong>Crawl-delay</strong> sits outside RFC 9309. <a href="https://blogs.bing.com/webmaster/2012/5/To-crawl-or-not-to-crawl%2C-that-is-BingBot-s-questi/" target="_blank" rel="noopener external">Bing describes a crawl window</a> for its implementation. Google ignores the field. Copying the same value into both groups won't give you equal crawl rates.</li>
+<li><strong>Clean-param</strong> lets you <a href="https://www.yandex.com/support/webmaster/en/robot-workings/clean-param" target="_blank" rel="noopener external">tell Yandex which parameters leave the content unchanged</a>. For example, a campaign tag may be disposable while a page number changes the list completely. It's a Yandex-specific signal about URL variants.</li>
+<li><strong>Noindex</strong> inside robots.txt supplies no supported Google indexing instruction. Google reads a <a href="https://developers.google.com/search/docs/crawling-indexing/block-indexing" target="_blank" rel="noopener external">noindex meta tag or HTTP header</a> when it fetches the resource. A matching disallow can prevent that fetch.</li>
+</ul>
+
+<p>My favourite consequence of line-by-line recovery is <a href="https://johnmu.com/2025-side-effects/" target="_blank" rel="noopener external">John Mueller's experiment putting robots.txt inside a WAV file</a>. He arranged the bytes so a parser could pick out the directive lines while an audio player could play the file. It's a lovely demonstration of how much unrelated material a tolerant reader can skip. The format the RFC asks publishers to serve is still UTF-8 plain text. A less entertaining version of the same problem is <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching#body" target="_blank">an HTML error page returned with a 200 status</a>. Inspect the body before assuming the crawler received your rules.</p>
+<p>File size can change an apparently obvious result too. <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#file-format" target="_blank" rel="noopener external">Google reads up to 500 KiB</a>. The RFC sets 500 KiB as a <strong>minimum</strong> if a crawler imposes a parsing limit. A long generated list can put the one exception you need past Google's cutoff. Moving the exception above the cutoff can look like fixing rule order, even though it only moved the line back inside the readable 500 KiB.</p>
+
+<h2 id="training">What does <code>__usage_ai-training</code> say about a page?</h2>
+<p>Suppose I'm happy for search engines to crawl the articles here, but the only material I want used for generative AI training is in <code>/ak/</code>. The proposed <a href="https://datatracker.ietf.org/doc/html/draft-kelley-aipref-training-preference-signal-01" target="_blank" rel="noopener external">machine-readable training preference signal</a> lets me express that choice in familiar syntax. Those are two underscores at the start.</p>
+
+<pre>
+User-agent: __usage_ai-training
+Disallow: /
+Allow: /ak/
+</pre>
+
+<p>The group names a use of the content. A participating provider reads a preference against training for an article, and a preference in favour for <code>/ak/cool-article</code>. Its crawler still evaluates its own product token to decide whether it may fetch either URL. I wouldn't expect to find a visitor called <code>__usage_ai-training</code> in my logs.</p>
+<p>Two edits that look cautious have quite different consequences under <a href="https://datatracker.ietf.org/doc/html/draft-kelley-aipref-training-preference-signal-01#section-4.2" target="_blank" rel="noopener external">the draft's lookup rules</a>. Change the user-agent to <code>*</code> and there's no shared training preference anywhere in the file, assuming this was the only policy group. The draft deliberately excludes the wildcard fallback from this lookup. Conversely, keep the policy token but give it just one line, <code>Disallow: /drafts/</code>. A lookup for <code>/articles/one</code> then returns allowed by default. The draft reads that as a preference <strong>in favour</strong> of training on that article. Leaving out the policy group altogether would have left the preference unspecified.</p>
+<p>As of November 20 this is an individual Internet-Draft, and <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#shared-preference" target="_blank">provider rollout timelines vary</a> across Anthropic, OpenAI, Google and Microsoft. I'd keep existing provider-specific rules in place wherever their documented behaviour is something I'm relying on.</p>
+
+<h2 id="tests">Rule-matching tests you can repeat</h2>
+<p>Use each row as a fresh file starting with <code>User-agent: Googlebot</code>. Put the listed rules on separate lines, then request the path shown on <code>https://yourdomain.eu</code>. You can paste the file and absolute URL into my <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">multi-crawler robots.txt checker</a> and select Googlebot to inspect the winning directive.</p>
+
+<div class="test-scroll" role="region" tabindex="0" aria-labelledby="test-caption">
+<table><caption id="test-caption">Google-style matching, one fresh group per row</caption>
+<thead><tr><th scope="col">Rules</th><th scope="col">Requested URL suffix</th><th scope="col">Expected result</th><th scope="col">Reason</th></tr></thead>
+<tbody>
+<tr><td><code>Disallow: /</code><br/><code>Allow: /</code></td><td><code>/proofs/</code></td><td>Allowed</td><td>Equal paths, Allow wins.</td></tr>
+<tr><td><code>Disallow: /</code><br/><code>Allow: /$</code></td><td><code>/</code></td><td>Allowed</td><td>The slash ends the URL.</td></tr>
+<tr><td><code>Disallow: /</code><br/><code>Allow: /$</code></td><td><code>/?ref=home</code></td><td>Blocked</td><td>The query defeats the anchor.</td></tr>
+<tr><td><code>Allow: /$</code></td><td><code>/contact</code></td><td>Allowed</td><td>No rule matches.</td></tr>
+<tr><td><code>Disallow: /rides/</code></td><td><code>/rides</code></td><td>Allowed</td><td>The trailing slash is absent.</td></tr>
+<tr><td><code>Disallow: /rides</code></td><td><code>/rideshare</code></td><td>Blocked</td><td>The prefix is enough.</td></tr>
+<tr><td><code>Disallow: /maps/*.gpx$</code></td><td><code>/maps/.gpx</code></td><td>Blocked</td><td>The wildcard can be empty.</td></tr>
+<tr><td><code>Disallow: /maps/*.gpx$</code></td><td><code>/maps/attica/loop.gpx?v=1</code></td><td>Allowed</td><td>The extension is followed by a query.</td></tr>
+<tr><td><code>Disallow: /Images/</code></td><td><code>/images/a.svg</code></td><td>Allowed</td><td>The capital I matters.</td></tr>
+<tr><td><code>Disallow: /#draft</code></td><td><code>/coast</code></td><td>Blocked</td><td>The comment leaves a bare slash.</td></tr>
+<tr><td><code>Disallow:</code><br/><code>Disallow: /drafts/</code></td><td><code>/drafts/a</code></td><td>Blocked</td><td>The populated rule still matches.</td></tr>
+<tr><td><code>Disallow: /café/</code></td><td><code>/caf%C3%A9/menu</code></td><td>Blocked</td><td>The UTF-8 bytes agree.</td></tr>
+<tr><td><code>Disallow: /rides/</code></td><td><code>/rides%2Fprivate</code></td><td>Allowed</td><td>An encoded slash is distinct.</td></tr>
+<tr><td><code>Disallow: *secret-pages*</code></td><td><code>/archive/secret-pages/a</code></td><td>Blocked</td><td>This parser accepts a missing leading slash. Outside the RFC grammar.</td></tr>
+<tr><td><code>Disallow: /*secret-pages</code></td><td><code>/archive/secret-pages/a</code></td><td>Blocked</td><td>The slash-prefixed pattern matches the same URL.</td></tr>
+<tr><td><code>Disallow: /*secret-pages</code></td><td><code>/search?q=secret-pages</code></td><td>Blocked</td><td>The wildcard reaches into the query.</td></tr>
+<tr><td><code>Disallow: /secret-pages/</code></td><td><code>/search?q=secret-pages</code></td><td>Allowed</td><td>The root-directory prefix misses the query.</td></tr>
+<tr><td><code>Disallow: /maps/</code><br/><code>Allow: /maps/index.html</code></td><td><code>/maps/</code></td><td>Allowed</td><td>Index-document allowance.</td></tr>
+<tr><td><code>Disallow: /maps/</code><br/><code>Allow: /maps/index.html</code></td><td><code>/maps/key</code></td><td>Blocked</td><td>The directory exception stops at the slash.</td></tr>
+</tbody></table>
+</div>
+
+<p>All 19 rows were checked with <a href="https://www.npmjs.com/package/google-robotstxt-parser/v/1.2.0" target="_blank" rel="noopener external">google-robotstxt-parser 1.2.0</a>, an independent JavaScript port of Google's matcher, alongside my own checker. These results describe runs on both parsers. A live fetch also depends on the operator and the server.</p>
+<p>The last two rows are a curiosity from <a href="https://github.com/google/robotstxt/blob/master/robots.cc" target="_blank" rel="noopener external">Google's open-source matcher</a>. An allowance for an index document can also open the directory URL itself. The sibling page remains blocked. I'd write an explicit allowance for the directory URL if that's the policy I wanted another crawler to understand.</p>
+
+<h2 id="indexing">Why can a blocked URL still show up in Google?</h2>
+<p>The puzzle at the start asks whether Googlebot may fetch a URL now. A search result tells you Google knows an address. Someone can link to a page Google has never fetched, or the page may already have been indexed when you added the block. In either case the URL can still appear. There's no backlink threshold or dependable expiry date you can infer from the file.</p>
+<p>If Google explicitly reports a robots.txt block, inspect that URL and the applicable Googlebot group. A missing snippet by itself is weaker evidence. A publisher can also <a href="https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag#nosnippet" target="_blank" rel="noopener external">suppress the snippet with nosnippet</a>. If the goal is removal through <code>noindex</code>, <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical" target="_blank">Google needs access to read it</a>.</p>
+<p>In the end, a robots.txt file only answers one narrow question: may this specific client ask for this specific URL? Pick three addresses you care about, test them against the exact token you meant to spell, and check the parser's answer before touching another rule. And maybe double-check your hyphens.</p>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/seo">seo</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants">
+            <span class="postfooter-proofreader">Proofreader<button type="button" class="postfooter-info-trigger" aria-label="About Proofreader" aria-describedby="proofreader-tooltip">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="8" cy="8" r="6.5" /> <path d="M8 7.5v4" /> <circle cx="8" cy="5" r="0.55" fill="currentColor" stroke="none" /> </svg>
+              </button><span class="postfooter-tooltip" id="proofreader-tooltip" role="tooltip">An initial content structure and related resources were given to an LLM, which it expanded upon. I tweaked the draft-output, and at the end a proofread by selected model(s).</span></span>, Gemini Hydrogen
+          </p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-11-20">Nov 20, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-heart" data-sketch="" aria-hidden="true"><path d="M5.9 12.16C5.7 11.96 4.99 11.46 4.69 11C4.39 10.54 4.17 9.94 4.1 9.39C4.04 8.83 4.08 8.17 4.29 7.66C4.49 7.15 4.93 6.69 5.33 6.3C5.73 5.92 6.19 5.57 6.69 5.35C7.19 5.12 7.79 4.92 8.33 4.93C8.87 4.95 9.44 5.21 9.93 5.46C10.42 5.72 10.95 6.03 11.28 6.45C11.61 6.87 11.79 7.46 11.91 7.98C12.04 8.51 12.03 9.34 12.05 9.61" stroke-width="1.68"/><path d="M11.7 9.5C11.75 9.22 11.78 8.34 11.98 7.83C12.17 7.33 12.5 6.85 12.86 6.46C13.22 6.06 13.66 5.69 14.13 5.47C14.61 5.25 15.18 5.13 15.71 5.13C16.23 5.12 16.79 5.25 17.27 5.45C17.75 5.65 18.2 5.98 18.59 6.34C18.98 6.71 19.43 7.14 19.61 7.63C19.79 8.12 19.71 8.73 19.68 9.28C19.65 9.83 19.65 10.44 19.42 10.93C19.19 11.41 18.49 11.98 18.3 12.19" stroke-width="1.536"/><path d="M5.25 11.68Q8.32 15.78 11.98 19.36Q15.21 15.38 18.68 11.6" stroke-width="1.424"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</article>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M12 9.55C12.917 8.613 14.111 8 15.5 8a5.5 5.5 0 0 1 5.5 5.5V21h-2v-7.5a3.5 3.5 0 0 0-7 0V21h-2V8.5h2v1.05zM5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-1 2h2V21H4V8.5z"></path> </g> </svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path fill-rule="nonzero" d="M13 9h4.5l-.5 2h-4v9h-2v-9H7V9h4V7.128c0-1.783.186-2.43.534-3.082a3.635 3.635 0 0 1 1.512-1.512C13.698 2.186 14.345 2 16.128 2c.522 0 .98.05 1.372.15V4h-1.372c-1.324 0-1.727.078-2.138.298-.304.162-.53.388-.692.692-.22.411-.298.814-.298 2.138V9z"></path> </g> </svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg width="80px" height="80px" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"></path> <path d="M5.455 15L1 18.5V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v12H5.455zm-.692-2H16V4H3v10.385L4.763 13zM8 17h10.237L20 18.385V8h1a1 1 0 0 1 1 1v13.5L17.545 19H9a1 1 0 0 1-1-1v-1z"></path> </g> </svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width &lt; 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png"></source>
+          <source media="(width &gt;= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp"></source>
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
+      </div>
+</footer>
+
+<script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+
+</body>
+</html>

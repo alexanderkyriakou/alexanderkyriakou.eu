@@ -182,7 +182,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
 } 
 </style>
 </head>
-<body id="top">
+<body>
   <header class="site-header">
     <nav class="site-nav" aria-label="Main navigation">
       <ul>
@@ -286,7 +286,7 @@ pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; pad
 <p>The <a href="https://www.rfc-editor.org/rfc/rfc6596.html#section-3" target="_blank" rel="noopener external">canonical link relation identifies a preferred version of duplicate content</a>, and the robots protocol defines no step that fetches rules from that link. Because the crawler has already received a successful response with a parseable archive rule, that rule applies regardless of what the canonical target says, and if the 200 response were empty, the header would still leave the crawler with no rules. Centralising a file requires an HTTP redirect with a <code>Location</code> header or serving its contents directly at the root path.</p>
 
 <h3 id="filename">What if the o in robots.txt is Greek?</h3>
-<p>Look closely at <code>/rοbοts.txt</code>. Both round letters are Greek omicrons (<code>ο</code>, U+03BF). The standard lookup path has two Latin letters (<code>o</code>, U+006F). The difference is easier to see in a request log: the Greek spelling can appear as <code>/r%CE%BFb%CE%BFts.txt</code>. Those bytes identify a different path. By comparison, <code>%6F</code> encodes the Latin o itself, which <a href="https://www.rfc-editor.org/rfc/rfc3986.html#section-6.2.2.2" target="_blank" rel="noopener external">URI normalization treats as equivalent</a> to the literal letter.</p>
+<p>Look closely at <code>/rοbοts.txt</code>. Both round letters are Greek omicrons (<code>ο</code>, U+03BF). The standard lookup path has two Latin letters (<code>o</code>, U+006F). The difference is easier to see in a request log: the Greek spelling can appear as <code>/r%CE%BFb%CE%BFts.txt</code>. Those bytes identify a different path. By comparison, <code>%6F</code> encodes the Latin o itself, which <a href="https://alexanderkyriakou.eu/ak/robots-txt-syntax#encoding" target="_blank">URI normalization treats as equivalent</a> to the literal letter.</p>
 <p>If only the Greek spelling returns 200 and the ordinary <code>/robots.txt</code> returns 404, Google sees a missing file. It has no reason to try visually similar names. If the ordinary path redirects to the Greek spelling, the crawler can follow it and use the resulting rules for the original site. An internal rewrite can also work: the server can read a file with any name on disk, provided a GET for the ordinary public path returns the intended rules.</p>
 
 <h2 id="body">When 200 OK delivers the wrong rules</h2>
