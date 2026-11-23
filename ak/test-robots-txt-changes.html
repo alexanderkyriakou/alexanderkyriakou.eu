@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>How to Test Robots.txt Changes Before Publishing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Compare live and proposed robots.txt rules, test URLs across crawlers on staging, and verify what your CDN serves and search engines fetch after deployment.">
+  <meta name="author" content="Alexander Kyriakou">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://alexanderkyriakou.eu/ak/test-robots-txt-changes">
+  <link rel="alternate" type="text/markdown" href="https://alexanderkyriakou.eu/ak/test-robots-txt-changes.md" title="How to Test Robots.txt Changes Before Publishing - Markdown">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/thoughts.css">
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/stix-two-text-v12-greek_latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="me" href="https://www.linkedin.com/in/alexanderkyriakou">
+  <link rel="me" href="https://www.facebook.com/kyriakoualexander/">
+  <link rel="me" href="https://bsky.app/profile/alexanderkyriakou.eu">
+  <link rel="me" href="https://x.com/alkyriakou">
+
+  <link rel="icon" href="https://alexanderkyriakou.eu/assets/images/favicon/favicon.svg">
+  <link rel="icon" href="https://alexanderkyriakou.eu/favicon.ico">
+  <link rel="apple-touch-icon" sizes="512x512" href="https://alexanderkyriakou.eu/assets/images/favicon/apple-touch-icon.png">
+
+  <!--og tags start-->
+  <meta property="og:title" content="How to Test Robots.txt Changes Before Publishing"/>
+  <meta property="og:description" content="Compare live and proposed robots.txt rules, test URLs across crawlers on staging, and verify what your CDN serves and search engines fetch after deployment."/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="Alexander Kyriakou"/>
+  <meta property="og:url" content="https://alexanderkyriakou.eu/ak/test-robots-txt-changes"/>
+  <meta property="og:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/test-robots-txt-changes/og/brighton-toy-and-model-museum-sir-alexander-great-central-railway-model-trains.jpg"/>
+  <meta property="og:image:alt" content="Display case at the Brighton Toy and Model Museum featuring a green Gauge 1 clockwork locomotive named Sir Alexander with tender and Great Central Railway coach on the top shelf, alongside L.S.W.R. passenger coaches, Colman's Mustard Traffic and Bassett-Lowke wagons, station figures, and historical signage below.">
+
+  <!--og tags end-->
+
+  <!--twitter tags start-->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="How to Test Robots.txt Changes Before Publishing">
+  <meta name="twitter:description" content="Compare live and proposed robots.txt rules, test URLs across crawlers on staging, and verify what your CDN serves and search engines fetch after deployment.">
+  <meta name="twitter:image" content="https://alexanderkyriakou.eu/assets/images/thoughts/test-robots-txt-changes/og/brighton-toy-and-model-museum-sir-alexander-great-central-railway-model-trains.jpg">
+  <meta name="twitter:dnt" content="on">
+  <!--twitter tags end-->
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#webpage",
+        "url": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes",
+        "name": "How to test robots.txt changes before publishing",
+        "description": "How to test robots.txt changes before and after publishing: saving live baselines, designing test URLs, comparing current and proposed rules, staging rehearsals, site moves, edge cases, AI crawlers, ETag conditional checks, and crawler monitoring.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-23",
+        "author": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/#website"
+        },
+        "mainEntity": {
+          "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#article"
+        },
+        "primaryImageOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#image-hero"
+        },
+        "relatedLink": [
+          "https://alexanderkyriakou.eu/ak/robots-txt-checker",
+          "https://alexanderkyriakou.eu/ak/robots-txt-syntax",
+          "https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching",
+          "https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical",
+          "https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt",
+          "https://alexanderkyriakou.eu/ak/verify-crawler-identity"
+        ]
+      },
+      {
+        "@type": "Article",
+        "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#article",
+        "url": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes",
+        "headline": "How to test robots.txt changes before publishing",
+        "alternativeHeadline": "Test a toy shop's proposed rules against five outcomes, from blocking internal search to keeping a railway set's assembly guide crawlable.",
+        "description": "A step-by-step workflow for testing robots.txt updates without breaking crawlable pages: capturing live origin baselines and Google Search Console history, pairing blocked URLs with adjacent allow cases, comparing current vs. proposed rules side by side (plus Google's open-source parser and Bing's tester), rehearsing production policies on private staging in Screaming Frog, handling cross-host redirects during domain moves, catching edge cases (query parameters, percent-encoded slashes, the 500 KiB limit, CDN-prepended rules), testing AI search vs. training crawlers, verifying live delivery with curl and If-None-Match ETag checks, monitoring crawlers, and knowing when to roll back.",
+        "inLanguage": "en",
+        "datePublished": "2026-11-23",
+        "dateModified": "2026-11-23",
+        "isAccessibleForFree": true,
+        "author": {
+          "@type": "Person",
+          "@id": "https://alexanderkyriakou.eu/#person",
+          "name": "Alexander Kyriakou",
+          "url": "https://alexanderkyriakou.eu/"
+        },
+        "publisher": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "mainEntityOfPage": {
+          "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#webpage"
+        },
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#webpage"
+        },
+        "articleSection": [
+          "SEO",
+          "Technical SEO",
+          "Web Crawling"
+        ],
+        "keywords": [
+          "robots.txt",
+          "robots.txt testing",
+          "RFC 9309",
+          "Googlebot",
+          "Googlebot-Image",
+          "Bingbot",
+          "Google Search Console",
+          "Bing Webmaster Tools",
+          "Screaming Frog",
+          "google/robotstxt",
+          "Bazelisk",
+          "OAI-SearchBot",
+          "GPTBot",
+          "Claude-User",
+          "Google-Extended",
+          "__usage_ai-training",
+          "Cloudflare managed robots.txt",
+          "ETag",
+          "If-None-Match",
+          "304 Not Modified",
+          "X-Robots-Tag",
+          "site migration",
+          "500 KiB limit",
+          "Technical SEO"
+        ],
+        "mentions": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://alexanderkyriakou.eu/ak/robots-txt-checker#application",
+            "name": "Robots.txt Checker and Multi-Crawler Rule Tester for AI & SEO",
+            "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker"
+          }
+        ],
+        "image": [
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#image-hero"
+          },
+          {
+            "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#image-cli-parser"
+          }
+        ],
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#image-hero",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/test-robots-txt-changes/brighton-toy-and-model-museum-sir-alexander-great-central-railway-model-trains.webp",
+        "name": "Model trains display at the Brighton Toy and Model Museum, Brighton 2023",
+        "caption": "Playing, before driving.",
+        "description": "Display case at the Brighton Toy and Model Museum featuring a green Gauge 1 clockwork locomotive named Sir Alexander with tender and Great Central Railway coach on the top shelf, alongside L.S.W.R. passenger coaches, Colman's Mustard Traffic and Bassett-Lowke wagons, station figures, and historical signage below.",
+        "encodingFormat": "image/webp",
+        "width": 2600,
+        "height": 1251,
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2023,
+        "copyrightNotice": "© Alexander Kyriakou · Brighton · 2023",
+        "creditText": "Alexander Kyriakou",
+        "license": "https://alexanderkyriakou.eu/licensing",
+        "acquireLicensePage": "https://alexanderkyriakou.eu/licensing",
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#article"
+        }
+      },
+      {
+        "@type": "ImageObject",
+        "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#image-cli-parser",
+        "contentUrl": "https://alexanderkyriakou.eu/assets/images/thoughts/test-robots-txt-changes/command-line-google-robots-txt-parser.webp",
+        "name": "Google robots.txt parser command-line output",
+        "caption": "Google's parser in action.",
+        "description": "Windows command line mock results for Google's robots.txt parser.",
+        "encodingFormat": "image/webp",
+        "width": 1413,
+        "height": 217,
+        "creator": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://alexanderkyriakou.eu/#person"
+        },
+        "copyrightYear": 2026,
+        "isPartOf": {
+          "@id": "https://alexanderkyriakou.eu/ak/test-robots-txt-changes#article"
+        }
+      }
+    ]
+  }
+  </script>
+
+<style>
+.summary { padding: 15px; border: 0; margin-bottom: 20px; border-radius: 15px; background: linear-gradient(125deg, #efeee4, #efeee4 20%, #efeee4); color: #48301e; }
+.summary a { color: #35382e; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.summary code { background: #d8c8b1; }
+table { font-family: 'Commissioner', system-ui, sans-serif; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 20px 0; font-size: 1rem; line-height: 1.5; }
+table { display: block; width: 100%; min-width: 0; }
+table caption { caption-side: top; text-align: left; font-size: 1.3rem; font-weight: 500; line-height: 1.4; margin-bottom: 10px; }
+table thead { border-bottom: 1px solid #aaa; }
+table thead th { text-align: left; padding: 12px 8px; font-weight: 500; }
+table tbody tr { text-align: left; border-bottom: 1px solid #e5e5e5; }
+table tbody tr:last-child { border-bottom: none; }
+table tbody th, table tbody td { padding: 8px; vertical-align: middle; }
+.test-scroll { width: 100%; min-width: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 20px 0; }
+.test-scroll table { display: table; width: max-content; min-width: 100%; margin: 0; }
+pre { font-size: 1rem; line-height: 1.5; overflow-x: auto; margin: 0 0 20px; padding: 16px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+.container ul, .container ol { font-size: 1.2rem; padding-left: 20px; line-height: 1.5; }
+kbd { display: inline-block; min-width: 1.7em; box-sizing: border-box; padding: 0.1em 0.4em; border: 1px solid #ccc; border-bottom-width: 2px; border-radius: 4px; background: #fafafa; color: #292929; font-family: ui-monospace, monospace; font-size: 0.8em; line-height: 1.4; text-align: center; }
+figure { margin-bottom: 20px; text-align: center;}
+figure img { display: block; width: 100%; height: auto; border-radius: 15px;}
+figcaption { color: #555; }
+
+ @media (max-width: 768px) {
+  .article-hero:not(.article-hero-portrait) {
+    --article-image-position: 10% 20%; /* width and height */
+  }
+} 
+</style>
+
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="https://alexanderkyriakou.eu/" title="The starting point">ak</a></li>
+        <li><a href="https://alexanderkyriakou.eu/about" title="Who am I and what this digital space is about">about</a></li>
+        <li><a href="https://alexanderkyriakou.eu/thoughts" title="Pixelated thoughts of mine">thoughts</a></li>
+      </ul>
+    </nav>
+  </header>
+
+<main>
+<article class="article-page">
+  <header class="article-hero">
+    <div class="article-heading">
+      <h1 class="article-title">How to test robots.txt changes before publishing</h1>
+      <p class="article-subheading">Test a toy shop's proposed rules against five outcomes, from blocking internal search to keeping a railway set's assembly guide crawlable.</p>
+    </div>
+    <figure class="article-figure">
+      <div class="article-media">
+        <img class="article-image" src="/assets/images/thoughts/test-robots-txt-changes/brighton-toy-and-model-museum-sir-alexander-great-central-railway-model-trains.webp" width="2600" height="1251" fetchpriority="high" alt="Display case at the Brighton Toy and Model Museum featuring a green Gauge 1 clockwork locomotive named Sir Alexander with tender and Great Central Railway coach on the top shelf, alongside L.S.W.R. passenger coaches, Colman's Mustard Traffic and Bassett-Lowke wagons, station figures, and historical signage below.">
+        <span class="article-halo">
+          <span class="article-halo-fade">
+            <img class="article-halo-image" src="/assets/images/thoughts/test-robots-txt-changes/brighton-toy-and-model-museum-sir-alexander-great-central-railway-model-trains.webp" width="2600" height="1251" alt="" decoding="async">
+          </span>
+        </span>
+      </div>
+      <figcaption class="article-caption">Playing, before driving.
+        <span class="article-credit">© Alexander Kyriakou · Brighton · 2023</span>
+      </figcaption>
+    </figure>
+  </header>
+  <div class="container toc">
+  <!-- floating toc -->
+  <aside id="no-print" class="page-index">
+    <details class="page-index-mobile">
+      <summary title="Table of contents" aria-label="Table of contents">☰</summary>
+      <nav aria-label="Page contents">
+        <a href="#summary-heading">Summing up</a>
+        <a href="#baseline">Save the live file</a>
+        <a href="#test-urls">Choose test URLs</a>
+        <a href="#compare">Compare the rules</a>
+        <a href="#staging">Rehearse on staging</a>
+        <a href="#migration">Test a site move</a>
+        <a href="#edge-cases">Edge cases</a>
+        <a href="#crawlers">Search and AI bots</a>
+        <a href="#delivery">Verify the release</a>
+        <a href="#monitor">Monitor and roll back</a>
+        <a href="#myths">Three shortcuts</a>
+      </nav>
+    </details>
+    <nav class="page-index-desktop" aria-label="Page contents">
+        <a href="#summary-heading">Summing up</a>
+        <a href="#baseline">Save the live file</a>
+        <a href="#test-urls">Choose test URLs</a>
+        <a href="#compare">Compare the rules</a>
+        <a href="#staging">Rehearse on staging</a>
+        <a href="#migration">Test a site move</a>
+        <a href="#edge-cases">Edge cases</a>
+        <a href="#crawlers">Search and AI bots</a>
+        <a href="#delivery">Verify the release</a>
+        <a href="#monitor">Monitor and roll back</a>
+        <a href="#myths">Three shortcuts</a>
+      </nav>
+  </aside>
+  <!-- end of floating toc -->
+
+<section class="summary">
+  <h2 id="summary-heading">TL;DR: how to test robots.txt before and after publishing</h2>
+  <p>To test a <code>robots.txt</code> change safely, grab the live file, test the exact URLs and crawlers that matter against both the old and proposed rules in <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">my robots.txt checker</a>, and verify what the public host and crawlers actually receive after deployment.</p>
+  <ul style="margin-bottom: 0;">
+    <li><strong>Before editing:</strong> <a href="#baseline">Save the live <code>/robots.txt</code></a> from every affected origin (main domain, API, image CDN) using <em>Fetch Live</em> in the checker and check Google Search Console's 30-day version history.</li>
+    <li><strong>What to test:</strong> <a href="#test-urls">Pair every URL you want to block with its closest useful neighbour</a>; clean products, query variants, paginated collections, PDFs, and page assets. Across both named bots (such as <code>Googlebot</code>) and the wildcard/default group.</li>
+    <li><strong>How to compare files:</strong> <a href="#compare">Run the same URL list in two tabs of the checker</a> (current vs. proposed) and enable <em>Check resources</em> on key templates. Watch for named groups dropping <code>User-agent: *</code> rules, prefix matches catching unintended folders, and broad <code>/*?</code> wildcards blocking variants or CSS/PDFs.</li>
+    <li><strong>Staging and domain moves:</strong> <a href="#staging">Rehearse production rules locally or via Screaming Frog's custom override</a> while keeping staging behind authentication. On a <a href="#migration">site migration</a>, keep old-URL redirects crawlable instead of blindly redirecting the old <code>/robots.txt</code>.</li>
+    <li><strong>AI and edge-cases:</strong> <a href="#crawlers">Test search, training, and user-fetch bots separately</a>, watch for CDN-prepended rules and Google's 500 KiB limit, and preserve percent-encoded reserved slashes (<code>%2F</code>) in test URLs.</li>
+    <li><strong>After publishing:</strong> <a href="#delivery">Re-fetch the live URL in the checker and with <code>curl</code></a> (including a conditional <code>If-None-Match</code> check with the old ETag), confirm the revision in Search Console, and <a href="#monitor">watch verified crawler logs</a> rather than trusting spoofable <code>User-agent</code> strings.</li>
+  </ul>
+</section>
+
+<p>Suppose a wooden toy shop wants crawlers to skip internal searches for train sets. Someone adds <code>Disallow: /search</code> and checks <code>/search?q=wooden+train</code>. Blocked, as intended. Now try <code>/search-by-age/ages-3-to-5</code>. That's a collection the shop has taken some care to put together, and the very same rule just blocked it.</p>
+<p>Before publishing, I'd <a href="#baseline">save the file the site serves</a>, <a href="#test-urls">write down which URLs should change</a>, then <a href="#compare">run the same URLs and crawlers against both files</a>. After publishing, check <a href="#delivery">what reached the public host</a> and <a href="#monitor">which version the crawler has picked up</a>.</p>
+
+<h2 id="baseline">Save the robots.txt that crawlers can fetch today</h2>
+<p>Open the shop's public <code>/robots.txt</code> in your browser. If you can see the rules, press <kbd>Ctrl</kbd> + <kbd>S</kbd> (<kbd>⌘</kbd> + <kbd>S</kbd> on a Mac) and save the text as <code>robots.before.txt</code>. Note the URL and date. That's enough for a before-and-after comparison.</p>
+<p>If you're ready to test a rule, you can <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">fetch the shop's robots.txt and try your URLs against it</a> in the same place. Enter the shop's URL and choose <em>Fetch Live</em>. The rules appear in the editor. The tool is free and always will be, and currently supports more than 280 user agents. For this change I'd start with Googlebot and the default group.</p>
+<p>For Google's copy, open the <a href="https://support.google.com/webmasters/answer/6062598?hl=en" target="_blank" rel="noopener external">robots.txt report in Search Console</a>, select the exact host and protocol, and copy the displayed rules. Open <em>Versions</em> to view the last 30 days of history. Google adds an entry when the contents or the fetch result changes. That history is particularly handy when someone remembers changing a rule last Tuesday and nobody kept a copy. Label it with Google's fetch date, since the public site may already serve a newer file.</p>
+<p>Repeat this for each affected origin. The product page on <code>https://woodentoys.example</code>, its stock data on <code>https://api.woodentoys.example</code> and its photos on <code>https://img.woodentoys.example</code> can each have different rules. On a <a href="#migration">domain move, test the old hostname too</a>. A crawler may still need it to reach the new product page.</p>
+
+<h2 id="test-urls">Choose URLs that could prove the change wrong</h2>
+<p>Write the expectation before opening a tester. For this wooden toy shop, I'd ask the teams handling search, merchandising and checkout to agree on five outcomes for cooperating search crawlers.</p>
+
+<ol id="five-outcomes">
+  <li><strong>Block internal search results.</strong> The bare endpoint, query results and search subpaths should all be excluded, including for a crawler using the default group.</li>
+  <li><strong>Keep the shop-by-age collection crawlable.</strong> The merchandiser's <code>/search-by-age/ages-3-to-5</code> page has a stable selection and links to products. Its unfortunate name is a good reason to test it.</li>
+  <li><strong>Keep basket sessions blocked.</strong> The existing crawl restriction on <code>/basket/</code> should survive the release. Access controls separately protect any customer data.</li>
+  <li><strong>Keep product pages crawlable.</strong> A crawler should still be allowed to fetch the wooden railway set, and the natural-finish variant linked from the collection.</li>
+  <li><strong>Keep the assembly guide crawlable.</strong> The railway set links to a PDF with a revision number in its query string. Check the exact link a parent would follow to put the bridge together.</li>
+</ol>
+
+<p>I'd build the list from three places. Sitemaps give you the pages the business wants found. Raw request paths from CDN or server logs give you the parameter orders, old routes and odd capitalisation that visitors and bots request. A browser's Network panel gives you the stock request, script or image that makes an apparently crawlable page useful. Add a newly launched toy that has never been crawled. By definition, last month's logs won't volunteer it.</p>
+
+<ul>
+  <li>For each proposed restriction, take one URL inside it and the closest useful neighbour outside it. For the toy shop, take the age collection and one product linked from it, then include their nearest search equivalents. If the collection paginates, take page two as well.</li>
+  <li>Include something that must <em>stay blocked</em>. An accidentally reopened search or basket path can generate enough requests to make the crawl chart look rather healthy.</li>
+  <li>Keep the requested scheme, host, path and query intact. Use invented session values and strip personal information before sharing examples. Sorting every query alphabetically while preparing the list can erase the very variation you meant to test.</li>
+</ul>
+
+<p>A useful row in the release review has the origin, exact URL, crawler token, expected decision and reason. Add the old decision and winning rule, then the proposed decision and winning rule. "Inconclusive" is worth recording too. Someone looking at the row later should be able to distinguish a deliberate exception from an accidentally missing rule.</p>
+
+<h2 id="compare">Run the same cases against the current and proposed files</h2>
+<p>Here's the complete current file for our example.</p>
+<pre>
+User-agent: *
+Disallow: /basket/
+</pre>
+<p>And here's a plausible first draft. The author kept the original lines, targeted Googlebot explicitly and tried to catch every search parameter with one extra rule.</p>
+
+<pre>
+User-agent: *
+Disallow: /basket/
+
+User-agent: Googlebot
+Disallow: /search
+Disallow: /*?
+</pre>
+
+<p>Keep the fetched file open in one tab and paste your proposal into a second copy of <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">my robots.txt checker</a>. Select the same crawlers in both. Enter the full product URL for a single check, or paste the rest under <em>Check multiple URLs</em>, one absolute URL per line. Run <em>Check URL</em> in both tabs and compare the <em>Winning Directive</em> column. Click a result with a line number to highlight the rule. The tick beside the URL tells you the input was valid and the evaluation conclusive. A blocked URL can earn that tick too.</p>
+<p>To inspect the railway-set page's dependencies, enable <em>Check resources</em>, select one crawler and run <em>Check URL</em> for that page. You can see which rules apply to the images, stylesheets and scripts referenced in its HTML. A photo on a separate CDN is marked inconclusive, so fetch that host's robots.txt and test the photo URL separately. For assets added by JavaScript, take the request URLs from the browser's Network panel. Test the linked assembly PDF as an ordinary URL in the shop's list.</p>
+
+<div class="test-scroll" role="region" tabindex="0" aria-labelledby="decision-caption">
+  <table id="decision-table">
+    <caption id="decision-caption">Five outcomes on https://woodentoys.example. Allow and Block are crawl decisions.</caption>
+    <thead><tr><th scope="col">Outcome</th><th scope="col">Requested path and query</th><th scope="col">Crawler</th><th scope="col">Wanted</th><th scope="col">Current</th><th scope="col">First draft</th><th scope="col">Revised</th></tr></thead>
+    <tbody>
+    <tr><th scope="row">1 · Search</th><td><code>/search?q=wooden+train</code></td><td>Googlebot</td><td>Block</td><td>Allow</td><td>Block</td><td>Block</td></tr>
+    <tr><th scope="row">1 · Search</th><td><code>/search/trains</code></td><td>ToyBot</td><td>Block</td><td>Allow</td><td>Allow</td><td>Block</td></tr>
+    <tr><th scope="row">2 · Age collection</th><td><code>/search-by-age/ages-3-to-5</code></td><td>Googlebot</td><td>Allow</td><td>Allow</td><td>Block</td><td>Allow</td></tr>
+    <tr><th scope="row">3 · Basket</th><td><code>/basket/session/demo</code></td><td>Googlebot</td><td>Block</td><td>Block</td><td>Allow</td><td>Block</td></tr>
+    <tr><th scope="row">4 · Product</th><td><code>/toys/wooden-railway-set</code></td><td>Googlebot</td><td>Allow</td><td>Allow</td><td>Allow</td><td>Allow</td></tr>
+    <tr><th scope="row">4 · Product</th><td><code>/toys/wooden-railway-set?finish=natural</code></td><td>Googlebot</td><td>Allow</td><td>Allow</td><td>Block</td><td>Allow</td></tr>
+    <tr><th scope="row">5 · Assembly guide</th><td><code>/guides/railway-bridge.pdf?rev=2</code></td><td>Googlebot</td><td>Allow</td><td>Allow</td><td>Block</td><td>Allow</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<p><code>ToyBot</code> is an invented, protocol-following crawler with no named group. Select the checker's wildcard/default entry for that row. Googlebot's <code>/search</code> prefix catches the age collection, and because Googlebot now has its own named group, it ignores the <code>/basket/</code> rule in the wildcard group under <a href="https://alexanderkyriakou.eu/ak/robots-txt-syntax#does-a-named-group-inherit-the-site-wide-block" target="_blank">Google's group-selection rules</a>. Meanwhile, <code>/*?</code> catches the product variant and assembly guide because both URLs contain a question mark. The clean product URL still passes. It would have been an entirely reasonable URL to spot-check, too.</p>
+<p>Now look at the default crawler. Its search URL stays allowed in both files when the shop wanted it blocked. A report showing only URLs whose decisions changed would hide that failure. Compare every proposed decision with the intended one, including the rows where nothing moved.</p>
+<p>How much would each mistake affect the shop? Group the failing rows by template, then compare the number of distinct URLs in your inventory with verified crawler requests in a recent log window. A basket can have few stable URLs and generate many requests. One age collection can receive little traffic itself and still be the only way to discover dozens of toys. Keep those two measures separate, and record the length of the log window so the next reviewer can reproduce the comparison.</p>
+<p>Given <em>this</em> brief, I'd remove the special group. The application has a bare search endpoint, query variants and a directory of search results, so give each form a boundary.</p>
+
+<pre>
+User-agent: *
+Disallow: /basket/
+Disallow: /search$
+Disallow: /search?
+Disallow: /search/
+</pre>
+
+<p>Rerun the whole table. Add <code>/search</code> itself, <code>/search?q=trains</code>, <code>/research</code> and <code>/search-by-age</code>. The first two should be blocked and the last two allowed. If the application also serves <code>/el/search</code> or <code>/Search</code>, decide explicitly whether those belong in the policy. Translating the page title doesn't translate the directive.</p>
+<p>Once you've confirmed the rules in <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">my robots.txt checker</a>, you can also use Google's and Bing's own tools to double-verify the outcome and remove any lingering doubt. For a large inventory, put the same cases in version control and run them against each candidate build. <a href="https://github.com/google/robotstxt" target="_blank" rel="noopener external">Google's open-source matcher</a> requires cloning the repository and building the <code>:robots_main</code> target with Bazel (and a C++14 compiler) or CMake; once built, the binary takes a local file, crawler token and absolute URL, so you can test the age collection in one command.</p>
+
+<pre>
+git clone https://github.com/google/robotstxt.git && cd robotstxt && bazelisk build :robots_main
+bazel-bin\robots_main C:\path\to\robots.proposed.txt Googlebot "https://woodentoys.example/search-by-age/ages-3-to-5"
+</pre>
+
+<figure>
+  <img src="/assets/images/thoughts/test-robots-txt-changes/command-line-google-robots-txt-parser.webp" width="1413" height="217" loading="lazy" alt="Windows command line mock results for Google's robots.txt parser.">
+  <figcaption>Google's parser in action.</figcaption>
+</figure>
+
+<p>Compare the result to the expected decision. A correctly blocked URL is a <em>passing</em> test. Treat a missing fixture, unreadable file or failed invocation as a test error. Keep the parser version with the results. Pass correctly formatted URLs to the matcher. Google also documents a limit that matters if you test images: the standalone library omits crawler-specific behaviour such as the Googlebot-Image fallback to Googlebot rules. My parser takes the Googlebot-Image fallback into consideration, so running image URLs through my checker catches rules the standalone binary misses.</p>
+<p>For Bing, open the shop's <a href="https://www.bing.com/webmasters/help/robots-txt-tester-623520ca" target="_blank" rel="noopener external">robots.txt Tester in Bing Webmaster Tools</a> as a second check against Bingbot's own evaluator. Choose the host and protocol you're changing, fetch the latest file and test the full age-collection URL as Bingbot. Then paste the proposed rules into the editor and test that same URL again. Bing evaluates the contents of the editor, so you can see whether its decision changes before publishing. If two testers disagree, keep the exact URL, crawler token and smallest set of rules that reproduces the difference.</p>
+
+<h2 id="staging">Test the production policy while staging stays private</h2>
+<p>Staging has two jobs that pull in different directions. You want to stop the public from reaching an unfinished site, and you want to rehearse a file that will allow crawlers into production. Keep staging behind authentication or a network restriction. Generate the candidate with the production host mapping, then evaluate its bytes locally against <em>production</em> URLs. A parser can decide whether Googlebot is allowed to request a future product while the product preview is still private.</p>
+<p>For a site-wide rehearsal in Screaming Frog, authenticate to staging, set your target bot under <em>Configuration → HTTP Header → User-Agent</em> (for example, <code>Googlebot (Smartphone)</code>) and open <em>Configuration → robots.txt: Custom</em>. Use the <a href="https://www.screamingfrog.co.uk/seo-spider/user-guide/configuration/#:~:text=Custom%20Robots" target="_blank" rel="noopener external">custom robots.txt override</a> for the staging host. This lets the Spider evaluate the rules you supply against the selected user-agent while staging continues to serve its usual file. (If your file also contains named groups alongside <code>User-agent: *</code>, run a check with a default/wildcard-matching agent too, and check that staging's firewall doesn't reject a spoofed <code>Googlebot</code> header from your IP with a <code>403</code>.)</p>
+<p>Run the first crawl with the current production rules as the override. Swap in the proposed rules for the second. Keep <em>Respect robots.txt</em> enabled and use the same seed URLs, user-agent and rendering settings both times. In <em>Response Codes → Blocked by Robots.txt</em>, compare the URLs and their matched directives. If the age collection appears only in the second run, you've caught the regression while the change is still on staging.</p>
+<p>If you use a script, give it the same production URL list and crawler token for both runs, evaluate each URL with the matcher, and record the old and proposed decisions. To test discovery too, start from the same navigation links in each run and have the script check the applicable rules before following each link. The fixed list might show that every individual toy is allowed. A crawl starting at the homepage might lose the toys for ages three to five because their only incoming links were on the age collection. Compare the collection's outlinks and the first point at which the two crawls diverge. Otherwise you may spend an afternoon examining product pages whose own directives were fine.</p>
+<p>Before promoting the build, inspect the generated production robots file and its sitemap targets, plus the headers and HTML of a representative public page. A <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#edge" target="_blank">staging <code>X-Robots-Tag: noindex</code></a>, an internal sitemap hostname or a login redirect can survive a release in which every robots.txt rule is correct.</p>
+
+<h2 id="migration">What should the old domain serve at /robots.txt?</h2>
+<p>If the wooden toy shop only changes its domain name and both hosts need the same rules, I'd send a direct <code>301</code> from the old <code>/robots.txt</code> to the new one. Under <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching#redirects" target="_blank">RFC 9309's rules for cross-host redirects</a>, a crawler that starts at the old host applies the file it retrieves to paths on the <em>old host</em>. So before sharing the file, try the new rules against a few URLs from the old catalogue.</p>
+<p>Suppose the railway set used to live at <code>old.woodentoys.example/catalog/wooden-railway-set</code>. On the new platform, <code>/catalog/</code> generates internal listings, so the new file includes <code>Disallow: /catalog/</code>. The new product at <code>woodentoys.example/toys/wooden-railway-set</code> passes its crawl test. But if the old robots.txt redirects to the new one, Googlebot is also blocked from requesting the old product URL. The shop has a perfectly good product redirect that Googlebot can't fetch.</p>
+<p>In that case, I'd exempt <code>/robots.txt</code> from the old host's blanket redirect and serve a separate file there with a <code>200</code>. Keep the old product paths crawlable and retain any restrictions the old host still needs. Then test the whole journey once the move is live. Does the old host's policy allow the railway-set URL? Does a GET to that URL return the intended permanent redirect? Does the destination host allow the new URL, and does it serve the product page? Repeat for the assembly PDF if it moved to a media host. <a href="https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes" target="_blank" rel="noopener external">Google's site-move guidance</a> includes downloads and images alongside pages when mapping old URLs to new ones.</p>
+<p>There's another way for a migration test to pass long after it has stopped telling you anything. Run a fresh search for wooden trains on the new shop. If it now generates <code>/catalogsearch/result/?q=trains</code>, yesterday's successful block on <code>/search?q=trains</code> tells you nothing about today's results. Repeat the <a href="#five-outcomes">five shop outcomes</a> with links generated by the new storefront after cutover. Keep the old product and guide URLs in the test set for as long as you rely on their redirects, particularly if both domains share a robots file that someone may edit again.</p>
+
+<h2 id="edge-cases">Small changes worth trying to break</h2>
+<h3 id="versioned-stylesheet">When is a versioned stylesheet a search result?</h3>
+<p>A <a href="https://webmasters.stackexchange.com/questions/132055/robots-txt-disallow-url-only-if-it-has-parameters" target="_blank" rel="noopener external">Webmasters Stack Exchange question about keeping clean URLs crawlable</a> led to a suggestion to block URLs containing a question mark. Try that rule against <code>/assets/toys.css?v=4</code>, <code>/toys?page=2</code> and <code>/img/train.webp?width=960</code>. All three carry queries, yet all three need to stay crawlable. Conversely, a narrow <code>/*?sort=</code> catches <code>/toys?sort=price</code> and misses <code>/toys?lang=el&amp;sort=price</code>. Put both orders through the test with the same expected outcome if the application treats them alike.</p>
+
+<h3 id="url-decoder-slash">What does your URL decoder do to a slash?</h3>
+<p>For a path containing <code>/ξύλο/</code>, take the UTF-8 percent-encoded request from the network trace and test it against the intended rule. Then try <code>/toys%2Ftrains</code> alongside <code>/toys/trains</code>. The latter pair contains an encoded reserved slash versus a real path separator. <a href="https://alexanderkyriakou.eu/ak/robots-txt-syntax#encoding" target="_blank">RFC 9309's octet-matching rules</a> preserve that distinction. A spreadsheet or test helper that decodes both into the same path has removed a test case. And if the only difference is <code>#assembly</code>, the server receives the same request either way. Keep one row for the HTTP request.</p>
+
+<h3 id="comment-size-limit">Can a comment change crawl permission?</h3>
+<p>In a short file, a properly commented toy train drawn in ASCII is harmless. Near <a href="https://developers.google.com/crawling/docs/robots-txt/robots-txt-spec#file-format" target="_blank" rel="noopener external">Google's 500 KiB parsing limit</a>, enough comment bytes above a final <code>Allow</code> can push the exception out of view. Parsers ignore comment text while still counting those bytes toward the file-size cap. Compare the uncompressed byte sizes of the live and proposed files, <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">my robots.txt tester</a> checks the file size and warns once it exceeds 500 KiB.</p>
+<p>There's a less whimsical version in <a href="https://www.gsqi.com/marketing-blog/robots-txt-seo-5k-lines/" target="_blank" rel="noopener external">Glenn Gabe's account of a site with over 5,000 lines of directives</a>. The site had managed to block its own content. Any file that large is prone to conflicting rules, and testing one ordinary public page would have caught the self-block immediately.</p>
+
+<h3 id="edge-prepended-rules">The file you reviewed can gain another author at the edge</h3>
+<p>Vinayak Kulkarni <a href="https://vinayakkulkarni.dev/articles/til-cloudflare-prepends-managed-robots-txt" target="_blank" rel="noopener external">compared his checked-in rules with the rules his site served</a> and found a managed block above his own. <a href="https://developers.cloudflare.com/bots/additional-configurations/managed-robots-txt/" target="_blank" rel="noopener external">Cloudflare documents when it prepends rules</a>. A repeated group can <a href="https://alexanderkyriakou.eu/ak/robots-txt-syntax#groups">combine with an earlier matching group</a>, so reading the bottom line as the final override is a poor test. Run the complete public body, including both groups. A third-party checker shows how that tool evaluates the text, while your server logs confirm what a bot actually fetched.</p>
+
+<h2 id="crawlers">Which bots are you writing this rule for?</h2>
+<p>A wooden railway set's product page can be fetched to update a search index, collect training material or answer a parent who just asked whether the bridge fits the wooden tracks they already own. Those are three quite different reasons to request the very same page. In <a href="https://blog.cloudflare.com/radar-2025-year-in-review/" target="_blank" rel="noopener external">Cloudflare's 2025 analysis of HTML requests across its customers</a>, Googlebot alone averaged 4.5% of requests and AI bots averaged 4.2%. Those figures reflect traffic on one network, and they show why testing only a desktop browser and Googlebot leaves plenty of crawlers unaccounted for.</p>
+<p>If the owner wants to allow AI search and decline training, put the same public URL through two explicit expectations. In OpenAI's crawler documentation, those tokens are <code>OAI-SearchBot</code> for search and <code>GPTBot</code> for training. A fetch triggered by a ChatGPT user is a third case where OpenAI says robots.txt rules may not apply. Anthropic describes a different policy for Claude-User, alongside its separate search and training bots. Record what the operator commits to before deciding what counts as a pass for a user-triggered fetch.</p>
+<p>Also keep a row for a new, unnamed cooperative crawler. It exercises the wildcard policy you'll give tomorrow's bot before anyone adds it to a list. At the other extreme, Google-Extended is a control token without its own HTTP user-agent string. You can test that the policy expresses the intended preference. Looking for a <code>Google-Extended</code> request in the access log won't confirm it. I cover the distinctions in more detail in <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#who-fetches" target="_blank">AI crawlers and robots.txt controls</a>.</p>
+<p>One more case is worth dating. Google says it intends to support <code>__usage_ai-training</code> in early 2027. In its <a href="https://alexanderkyriakou.eu/ak/ai-crawlers-robots-txt#shared-preference">announcement of the shared training control</a>, Google describes how the proposed opt-out would apply when a site hasn't specified Google-Extended explicitly. As of November 2026, I'd keep that as a future policy test with a review date. A parser recognising the spelling today checks the syntax, while provider adoption determines whether it takes effect.</p>
+
+<h2 id="delivery">Check what went live, including a request with the old ETag</h2>
+<p>After deployment, use <em>Fetch Live</em> again in a fresh tab of <a href="https://alexanderkyriakou.eu/ak/robots-txt-checker" target="_blank">my robots.txt checker</a>. Compare what comes back with the approved file, then rerun the same shop URLs. If anything differs, open the browser's Network panel and reload the exact <code>/robots.txt</code> URL to <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching#body" target="_blank">inspect the status, redirect chain and cache headers</a>. Adding <code>?nocache=1</code> may select a different cache entry from the one crawlers request.</p>
+<p>If the browser and checker show different rules, I'd use <code>curl</code> to keep the response headers alongside the file. Replace the example host with yours.</p>
+<pre>
+curl -sS -L --compressed -D robots.headers -o robots.after.txt https://woodentoys.example/robots.txt
+</pre>
+<p>Open <code>robots.headers</code> to see each HTTP status and any redirect destinations, then open <code>robots.after.txt</code> to see what the final host served. A redirect to a login screen can end in a perfectly cheerful <code>200</code>.</p>
+<p>If the old response had an ETag, repeat the GET with its <em>old</em> value in <code>If-None-Match</code>, using the same request headers and representation. After a meaningful rules change you expect the new body. A <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching#conditional-304" target="_blank">304 response to that conditional GET</a> tells a client to reuse the copy it already holds. If an unconditional GET shows the new rules while the old validator still gets a 304, inspect the validator or cache configuration. A fresh incognito tab won't reproduce that client's history.</p>
+
+<pre>
+curl -sS -L --compressed -i -H 'If-None-Match: "OLD_ETAG"' https://woodentoys.example/robots.txt
+</pre>
+
+<p>On a site with geographic redirects or separate edge configurations, sample the affected regions and hosts. Check the live robots response and one public page without staff cookies. A challenge page, consent redirect or an application shell can all reach an external client while the origin looks fine. For the robots URL specifically, <a href="https://alexanderkyriakou.eu/ak/robots-txt-errors-redirects-caching#status" target="_blank">Google treats most 4xx responses, including 403, as an absence of crawl restrictions</a>. A 429 is an exception. A 5xx at that endpoint can pause crawling even while every product page returns 200. Repairing the file contents won't help a crawler that can't retrieve them.</p>
+
+<h2 id="monitor">Watch the crawler pick up the change</h2>
+<p>Note down when you deployed, when an external GET first returned the intended body, and when you first saw a verified crawler refresh the file. Where possible, log the response version or ETag at the CDN. Logging the served version or ETag alongside the timestamp and status confirms both contact and which rules were delivered. Origin logs can also miss requests the edge answered from cache.</p>
+<p>Did Google fetch <em>this</em> release? Open the <a href="https://support.google.com/webmasters/answer/6062598?hl=en" target="_blank" rel="noopener external">robots.txt report</a> for the right host and protocol. Look for <em>Fetched</em> and a <em>Checked on</em> time after deployment. Then open the file and find a distinctive changed directive, such as the shop's new <code>Disallow: /search$</code>. Compare the displayed contents with the approved copy and check for parsing issues. The timestamp alone can't tell you whether the CDN gave Google the old file again. If you've just fixed a critical block, the file's menu lets you request a recrawl. Google fetching fresh rules and Google revisiting the railway-set page are separate events.</p>
+<p>Compare verified requests for the affected URL families with a comparable period before the change. For these five outcomes, check whether internal search requests decline, whether bots still reach the age collection, and whether basket sessions stay quiet. Look separately for the clean product and its finish variant, then the exact PDF revision the product links to. Those last two serve different needs, and if your log filter only tracks HTML pages, you'll miss the fifth check altogether. Compare with an unaffected collection and allow for normal crawl frequency. An uncrawled URL over a quiet afternoon proves very little. If a purported bot keeps hitting blocked URLs, <a href="https://alexanderkyriakou.eu/ak/verify-crawler-identity" target="_blank">verify the crawler identity</a>, then check the host, fetch time and requested path before blaming its parser.</p>
+<p>If you can't get server or CDN logs, use <a href="https://support.google.com/webmasters/answer/9679690?hl=en" target="_blank" rel="noopener external">Crawl Stats in Google Search Console</a> to look for changes in request volume, response codes and host availability around the release. Check the example URLs where available. In <a href="https://www.bing.com/webmasters/help/site-explorer-c680da37" target="_blank" rel="noopener external">Bing Webmaster Tools' Site Explorer</a>, open the affected folder and inspect crawl warnings, robots.txt exclusions and the last crawl date on individual URLs. These reports can help you investigate a change in either engine's activity, even though their examples alone can't confirm that no crawler requested a particular basket URL.</p>
+<p><strong>When would I roll back?</strong> As soon as the public response blocks a critical directory that should be allowed, reopens a high-volume path that should stay blocked, or repeatedly fails to serve the expected file. Restore the known-good file or edge setting, invalidate the affected cache entry if needed, and run the same external GET and cases again. If the bytes and decisions are correct while search impressions move, investigate discovery, rendering and indexing separately. A rankings chart alone is a poor reason to put the broken rule back.</p>
+
+<h2 id="myths">Three tempting shortcuts</h2>
+<p><strong>"It's in the sitemap, so the crawler can still fetch it."</strong> A sitemap helps a crawler discover where a product lives, and a matching <code>Disallow</code> rule still blocks the fetch. Test the listed URL and, if the sitemap moved as part of the release, fetch the advertised sitemap itself.</p>
+<p><strong>"The old page now redirects, so I can block it."</strong> Test <a href="#migration">the old URL as well as its destination</a>. If the old URL is disallowed, a cooperating crawler can't request it to see the 301. The same reasoning applies to a page carrying a new <code>noindex</code> directive. <a href="https://alexanderkyriakou.eu/ak/robots-txt-noindex-canonical#crawl" target="_blank">Google needs access to see the directive</a>, and a <a href="https://alexanderkyriakou.eu/ak/robots-txt-syntax#indexing" target="_blank">blocked URL can still appear in results</a> if Google discovers it elsewhere.</p>
+<p><strong>"I got a 200 using Googlebot's user-agent, so Googlebot is allowed."</strong> An ordinary curl request goes straight to your server without evaluating robots.txt, and a spoofed <code>User-agent</code> header skips both <a href="https://alexanderkyriakou.eu/ak/verify-crawler-identity">Google's network identity verification</a> and Google's cached rules.</p>
+<p>For this shop, I'd keep the railway guide in the test set even if it gets very little organic traffic. A parent with half a wooden bridge on the kitchen table has a perfectly good reason to want that PDF, and the person editing a search rule has very little reason to think of it. That's the sort of URL worth writing down.</p>
+
+    <footer class="postfooter">
+      <span class="postfooter-mark">ak</span>
+      <div class="postfooter-top">
+        <div class="postfooter-topics">
+          <span class="postfooter-topics-label">Follow the 🐰 <span>›</span></span>
+          <nav class="postfooter-tags">
+            <a href="https://alexanderkyriakou.eu/thoughts/seo">seo</a>
+          </nav>
+        </div>
+      </div>
+
+      <div class="postfooter-bottom">
+        <div class="postfooter-info">
+          <p>Author is I, <a href="https://alexanderkyriakou.eu/">Alexander Kyriakou</a></p>
+          <p class="postfooter-assistants">
+            <span class="postfooter-proofreader">Proofreader<button type="button" class="postfooter-info-trigger" aria-label="About Proofreader" aria-describedby="proofreader-tooltip">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"> <circle cx="8" cy="8" r="6.5" /> <path d="M8 7.5v4" /> <circle cx="8" cy="5" r="0.55" fill="currentColor" stroke="none" /> </svg>
+              </button><span class="postfooter-tooltip" id="proofreader-tooltip" role="tooltip">An initial content structure and related resources were given to an LLM, which it expanded upon. I tweaked the draft-output, and at the end a proofread by selected model(s).</span></span>, Gemini Hydrogen
+          </p>
+          <p class="postfooter-dates">
+            <span>
+              <span>Published</span>
+              <time datetime="2026-11-23">Nov 23, 2026</time>
+            </span>
+          </p>
+        </div>
+        <div class="postfooter-share">
+          <button type="button" title="Copy page URL">
+            <span class="postfooter-share-label">Share me</span>
+            <span class="link-copied">Link copied <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" overflow="visible" class="sketch-icon sketch-icon-heart" data-sketch="" aria-hidden="true"><path d="M5.9 12.16C5.7 11.96 4.99 11.46 4.69 11C4.39 10.54 4.17 9.94 4.1 9.39C4.04 8.83 4.08 8.17 4.29 7.66C4.49 7.15 4.93 6.69 5.33 6.3C5.73 5.92 6.19 5.57 6.69 5.35C7.19 5.12 7.79 4.92 8.33 4.93C8.87 4.95 9.44 5.21 9.93 5.46C10.42 5.72 10.95 6.03 11.28 6.45C11.61 6.87 11.79 7.46 11.91 7.98C12.04 8.51 12.03 9.34 12.05 9.61" stroke-width="1.68"/><path d="M11.7 9.5C11.75 9.22 11.78 8.34 11.98 7.83C12.17 7.33 12.5 6.85 12.86 6.46C13.22 6.06 13.66 5.69 14.13 5.47C14.61 5.25 15.18 5.13 15.71 5.13C16.23 5.12 16.79 5.25 17.27 5.45C17.75 5.65 18.2 5.98 18.59 6.34C18.98 6.71 19.43 7.14 19.61 7.63C19.79 8.12 19.71 8.73 19.68 9.28C19.65 9.83 19.65 10.44 19.42 10.93C19.19 11.41 18.49 11.98 18.3 12.19" stroke-width="1.536"/><path d="M5.25 11.68Q8.32 15.78 11.98 19.36Q15.21 15.38 18.68 11.6" stroke-width="1.424"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</article>
+</main>
+
+<!-- work on footer only from /index -->
+<footer>
+  <div class="footer">
+      <div class="f-container">
+          <div class="f-groups">
+                  <div class="wcities">
+                    <p>Walkable cities prioritize people's communities and quality of life over cars. Let's embrace them.</p>
+                  </div>
+                  <div class="f-group-2">
+                      <ul class="f-socials"> 
+                        <li><a href="https://www.linkedin.com/in/alexanderkyriakou/" title="Alexander Kyriakou on Linkedin" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M12 9.55C12.917 8.613 14.111 8 15.5 8a5.5 5.5 0 0 1 5.5 5.5V21h-2v-7.5a3.5 3.5 0 0 0-7 0V21h-2V8.5h2v1.05zM5 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm-1 2h2V21H4V8.5z"/> </g> </svg></a></li>
+                        <li><a href="https://www.facebook.com/kyriakoualexander/" title="Alexander Kyriakou on Facebook" target="_blank" rel="me noopener noreferrer"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path fill-rule="nonzero" d="M13 9h4.5l-.5 2h-4v9h-2v-9H7V9h4V7.128c0-1.783.186-2.43.534-3.082a3.635 3.635 0 0 1 1.512-1.512C13.698 2.186 14.345 2 16.128 2c.522 0 .98.05 1.372.15V4h-1.372c-1.324 0-1.727.078-2.138.298-.304.162-.53.388-.692.692-.22.411-.298.814-.298 2.138V9z"/> </g> </svg></a></li>
+                        <li><a href="https://alexanderkyriakou.eu/contact" title="Contact Alexander Kyriakou"><svg width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M5.455 15L1 18.5V3a1 1 0 0 1 1-1h15a1 1 0 0 1 1 1v12H5.455zm-.692-2H16V4H3v10.385L4.763 13zM8 17h10.237L20 18.385V8h1a1 1 0 0 1 1 1v13.5L17.545 19H9a1 1 0 0 1-1-1v-1z"/> </g> </svg></a></li>
+                      </ul>
+                  </div>
+          </div>
+      </div>
+      <div class="footer-scene">
+        <picture>
+          <source media="(width < 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg-mobile.png" />
+          <source media="(width >= 768px)" srcset="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" />
+          <img draggable="false" class="footer-bg" src="https://alexanderkyriakou.eu/assets/images/footer_bg.webp" loading="lazy" width="1348" height="266" alt="Illustration of a city outline, transparent">
+        </picture>
+        <img draggable="false" class="footer-bg-three" src="https://alexanderkyriakou.eu/assets/images/calvin-hobbes-transparent.webp" width="366" height="206" loading="lazy" alt="Calvin and Hobbes dancing together, transparent">
+
+        <a class="footer-bg-four" href="#top">
+        <img src="https://alexanderkyriakou.eu/assets/images/calvin-baloon.webp" width="68" height="119" alt="Going up?" draggable="false" loading="lazy"><span class="bubble"><span  class="bubble-text">Going up? Tickle me</span></span></a>
+      </div>
+
+        <img draggable="false" class="footer-bg-one" src="https://alexanderkyriakou.eu/assets/images/mf-bicycle.webp" width="500" height="500" loading="lazy" alt="Woman and a man riding a bicycle, animated, transparent">
+        <img draggable="false" class="footer-bg-two" src="https://alexanderkyriakou.eu/assets/images/city-cyclist.gif" width="300" height="330" loading="lazy" alt="Cyclist riding a city bike with book attached, animated, transparent">
+      </div>
+
+      <div class="copyright">
+         Handcrafted by Alexander Kyriakou <span class="copyright-symbol">©</span> <span id="copy-year"></span><br/><a href="https://github.com/alexanderkyriakou/alexanderkyriakou.eu" title="Snoop around on GitHub" target="_blank" rel="noopener">Source code on GitHub</a> · <a href="https://alexanderkyriakou.eu/licensing" title="Licensing and copyright for alexanderkyriakou.eu" target="_blank">Licensing</a>
+      </div>
+</footer>
+
+<script defer src="https://alexanderkyriakou.eu/assets/js/main.js"></script>
+<script defer src="https://alexanderkyriakou.eu/assets/js/balloon-pop.js"></script>
+
+</body>
+</html>

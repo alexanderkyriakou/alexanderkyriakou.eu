@@ -53,7 +53,7 @@
         "description": "Fetch, edit and validate robots.txt rules for SEO, AI and other web crawlers. Test multiple URLs across multiple crawler identities, inspect live file redirects, and evaluate referenced page resources for potential crawling restrictions.",
         "inLanguage": "en",
         "datePublished": "2026-10-20",
-        "dateModified": "2026-11-20",
+        "dateModified": "2026-11-23",
         "isPartOf": {
           "@id": "https://alexanderkyriakou.eu/#website"
         },
@@ -134,7 +134,7 @@
         "url": "https://alexanderkyriakou.eu/ak/robots-txt-checker#about-checker",
         "headline": "Robots.txt checker and multi-crawler rule tester",
         "datePublished": "2026-10-20",
-        "dateModified": "2026-11-20",
+        "dateModified": "2026-11-23",
         "description": "An in-depth guide to using the Robots.txt Checker, understanding RFC 9309, fetching robots.txt files and handling redirects, evaluating Allow and Disallow rules, identifying search and AI crawlers, inspecting referenced page resources, and avoiding common SEO mistakes.",
         "inLanguage": "en",
         "articleSection": [
@@ -962,7 +962,7 @@ figcaption small { display: block; font-size: 0.8em; color: #777; margin-top: 4p
      
 <article class="robots-guide">
 <h2 id="about-checker">A personally refined robots.txt tool</h2>
-<p>I made this checker/validator/editor, or whatever you're more comfortable calling it, to evaluate robots.txt rules without having to deploy a new file for every experiment and wait to see what happens in the <abbr title="Server Log Files">logs</abbr>. Its function must be familiar to you, it compares one or more URLs with the directives in a robots.txt file, across a collection of personally found and selected web crawlers. It can also inspect a page's referenced resources to determine whether those same rules would allow a particular crawler to fetch its stylesheets, scripts, images, and other assets. Quite useful when a seemingly innocent <code>Disallow</code> rule has rather unintended consequences. It also doubles as a playground: fetch or paste a file, change a rule, invent a scenario, and see which directive wins. And hey! Nothing you change or save here gets published to your domain obviously.</p>
+<p>I made this checker/validator/editor, or whatever you're more comfortable calling it, to evaluate robots.txt rules without having to deploy a new file for every experiment and wait to see what happens in the <abbr title="Server Log Files">logs</abbr>. Its function must be familiar to you, it compares one or more URLs with the directives in a robots.txt file, across a collection of personally found and selected web crawlers. It can also inspect a page's referenced resources to determine whether those same rules would allow a particular crawler to fetch its stylesheets, scripts, images, and other assets. Quite useful when a seemingly innocent <code>Disallow</code> rule has rather unintended consequences. It also doubles as a playground: fetch or paste a file, change a rule, invent a scenario, and see which directive wins. And hey! Nothing you change or save here gets published to your domain obviously. If you're preparing a live update, see <a href="https://alexanderkyriakou.eu/ak/test-robots-txt-changes" target="_blank">how to test robots.txt changes before publishing</a>.</p>
 <p>The result is a <em>rules-based evaluation</em> to the best of my knowledge and available documentation, not a live conversation with Googlebot, Bingbot, or any other crawler. An <strong>Allowed</strong> result doesn't guarantee that a crawler will visit or index the URL. A <strong>Blocked</strong> result doesn't prove that every client on the internet will respect the restriction. Neither result tells you what happened during an actual crawler request. For that, inspect your server logs. Google's Search Console Crawl Stats and the crawling reports in Bing Webmaster Tools can also provide useful, though less granular, operational context.</p>
 
 <h2 id="using-checker">How to use the checker</h2>
@@ -1040,7 +1040,7 @@ https://blog.yourdomain.eu/robots.txt
     <tr><th scope="row">404 / 410</th><td>File unavailable; compliant crawlers may proceed without robots.txt restrictions. A missing file is not inherently an SEO error.</td></tr>
     <tr><th scope="row">401 / 403</th><td>RFC 9309 treats these as unavailable. Google likewise treats 4xx responses other than 429 as no restrictions; they are not a reliable way to block Googlebot.</td></tr>
     <tr><th scope="row">429</th><td>Rate limiting; Google treats this as a server-error condition rather than its usual 4xx behaviour.</td></tr>
-    <tr><th scope="row">500–599</th><td>Unreachable under the RFC: initially assume a complete disallow. Google's documented recovery process involves retries and, where available, previously cached rules.</td></tr>
+    <tr><th scope="row">500-599</th><td>Unreachable under the RFC: initially assume a complete disallow. Google's documented recovery process involves retries and, where available, previously cached rules.</td></tr>
     <tr><th scope="row">DNS, TLS, timeout or connection failure</th><td>Potentially unreachable, not proof of a missing file. Client-specific recovery behaviour can differ.</td></tr>
   </tbody>
 </table>
@@ -1121,7 +1121,7 @@ Disallow: /assets/
 Disallow: /*? # With you serving your core pages with parameters~
 </pre>
 
-<p>Are images, style files, scripts, or other useful resources under <code>/assets/</code>? Then the proposed restriction deserves a closer look. I'd use an LLM to explore possibilities, not to make the final crawling decision. Check every directive against the intended crawler's documentation, test representative URLs and exceptions, use the resource checker to catch any referenced assets that your rules might unintentionally block, and inspect the actual published response afterward. If the result is difficult to explain line by line, it probably isn't ready to deploy.</p>
+<p>Are images, style files, scripts, or other useful resources under <code>/assets/</code>? Then the proposed restriction deserves a closer look. I'd use an LLM to explore possibilities, not to make the final crawling decision. Check every directive against the intended crawler's documentation, <a href="https://alexanderkyriakou.eu/ak/test-robots-txt-changes" target="_blank">test representative URLs and exceptions</a>, use the resource checker to catch any referenced assets that your rules might unintentionally block, and inspect the actual published response afterward. If the result is difficult to explain line by line, it probably isn't ready to deploy.</p>
 
 <h4><i>But Alex, my website is completely vibe-coded, not even then?</i></h4>
 <p>If you've entrusted your whole website to some trust-me-bro app, agent, or LLM chat, it might have enough context to know what's going on and which resources are important for crawlers. Personally, I still wouldn't trust it to make that decision without checking, unless you're happy with an <em>Allow Everyone and Everything</em> approach. But whatever you choose, at least don't serve your robots.txt with an HTTP 500 error.</p>
@@ -1293,6 +1293,10 @@ PPS: For any issues you encounter, or suggestions and corrections to the user-ag
   <h2>Updates</h2>
   <ul>
     <li>
+      <time datetime="2026-11-23">November 23, 2026</time>
+      <span>Interlinking with the newly published <a href="https://alexanderkyriakou.eu/ak/test-robots-txt-changes" target="_blank">How to test robots.txt changes before publishing</a>.</span>
+    </li>
+    <li>
       <time datetime="2026-11-20">November 20, 2026</time>
       <span>Interlinking with the newly published <a href="https://alexanderkyriakou.eu/ak/robots-txt-syntax" target="_blank">robots.txt syntax</a>.</span>
     </li>
@@ -1342,7 +1346,7 @@ PPS: For any issues you encounter, or suggestions and corrections to the user-ag
             </span>
             <span>
               <span>Updated</span>
-              <time datetime="2026-11-20">Nov 20, 2026</time>
+              <time datetime="2026-11-23">Nov 23, 2026</time>
             </span>
           </p>
         </div>
